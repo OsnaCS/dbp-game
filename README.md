@@ -1,6 +1,6 @@
 # Datenbankpraktikum 2015
 
-Dies ist das Repository zum Datenbankenpraktikum 2015 an der Universität Osnabrück. Das Repository gilt hauptsächlich zur Koordination.
+Dies ist das Repository zum Datenbankenpraktikum 2015 an der Universität Osnabrück. Es dient hauptsächlich zur Koordination.
 
 Mehr Informationen zum Praktikum gibt es [hier](http://www-lehre.inf.uos.de/dbp/2015).
 
