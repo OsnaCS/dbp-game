@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<%= link_to("Home", home_index_path) %>
+<% if user_signed_in? %>
+	<p>Hallo, <%= current_user.email %> möchtest du dich  
+	<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
+	<% else %>
+	  <%= link_to('Register', new_user_registration_path) %>
+	  <%= link_to('Sign In', new_user_session_path) %>
+<% end %>
+
   <title>Strategiespiel</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
