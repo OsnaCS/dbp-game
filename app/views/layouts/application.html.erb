@@ -1,24 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<%= link_to("Home", home_index_path) %>
-<% if user_signed_in? %>
-	<p>Hallo, <%= current_user.email %> möchtest du dich  
-	<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
-	<% else %>
-	  <%= link_to('Register', new_user_registration_path) %>
-	  <%= link_to('Sign In', new_user_session_path) %>
-<% end %>
-
-  <title>Strategiespiel</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<title>Strategiespiel</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
+<div id="main">
+<div id="wrapper">
+	<div id="top" >
+		<div id="login">
+			<div class="content">
+				<%= content_for :home %>
+				<p>TEST</p>
+			</div>
+		</div>
+		<div id="banner">
+			<div class="content">
+				<h1>SpielName</h1>
+			</div>
+		</div>
+	</div>
 
-<%= yield %>
+	<div id="mid">
+		<div id="ranking">
+			<div class="content">
+				<p>TEST</p>
+			</div>
+		</div>
+		<div id="resources">
+			<div class="content">
+				<p>TEST</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="botm">
+		<div id="menu">
+			<div class="content">
+				<%= link_to("Home", home_index_path) %>
+				<% if user_signed_in? %>
+				<p>Hallo, <%= current_user.email %> möchtest du dich  
+				<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
+				<% else %>
+				<%= link_to('Register', new_user_registration_path) %>
+				<%= link_to('Log in', new_user_session_path) %>
+				<% end %>
+			</div>
+		</div>
+		<div id="game">
+			<div class="content">
+				<%= yield %>
+			</div>	
+		</div>
+	</div>
+</div>
+</div>
+
+
+
 
 </body>
 </html>
