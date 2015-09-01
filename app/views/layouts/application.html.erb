@@ -8,37 +8,27 @@
 </head>
 <body>
 <div id="main">
-<div id="wrapper">
-	<div id="top" >
-		<div id="login">
-			<div class="content">
-				<%= content_for :home %>
+	<div id="wrapper">
+		<div id="top" >
+			<div id="login" class="content">
 				<p>TEST</p>
 			</div>
-		</div>
-		<div id="banner">
-			<div class="content">
+			<div id="banner" class="content">
 				<h1>SpielName</h1>
 			</div>
 		</div>
-	</div>
 
-	<div id="mid">
-		<div id="ranking">
-			<div class="content">
+		<div id="mid">
+			<div id="ranking" class="content">
 				<p>TEST</p>
 			</div>
-		</div>
-		<div id="resources">
-			<div class="content">
-				<p>TEST</p>
+			<div id="resources" class="content">
+				<%= Time.now %>
 			</div>
 		</div>
-	</div>
 
-	<div id="botm">
-		<div id="menu">
-			<div class="content">
+		<div id="botm">
+			<div id="menu" class="content">
 				<%= link_to("Home", home_index_path) %>
 				<% if user_signed_in? %>
 				<p>Hallo, <%= current_user.email %> möchtest du dich  
@@ -48,18 +38,11 @@
 				<%= link_to('Log in', new_user_session_path) %>
 				<% end %>
 			</div>
-		</div>
-		<div id="game">
-			<div class="content">
+			<div id="game" class="content">
 				<%= yield %>
-			</div>	
+			</div>
 		</div>
 	</div>
 </div>
-</div>
-
-
-
-
 </body>
 </html>
