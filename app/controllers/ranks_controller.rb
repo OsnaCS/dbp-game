@@ -21,47 +21,47 @@ class RanksController < ApplicationController
   def edit
   end
 
-	#GET ksdflsdkflöskfsd
-	def self.rankList(pos, offset)
-		displayed_ranks = Array.new
+	def self.rankList(center, offset)
+		allRanks = Array.new
 
 		currentRank = nil
 		User.all.each do |u|
 			currentRank = Rank.find_by(user_id: u.id)
 
 			if(currentRank)
+				#Already registered
 			else
 				currentRank = Rank.new
 				currentRank.user_id = u.id
 				currentRank.score = 0
 				Rank.create(:user_id => u.id, :score => 0)
 			end
-			displayed_ranks << currentRank
+			allRanks << currentRank
 		end
-		displayed_ranks = displayed_ranks.sort_by{|rank| rank.score}.reverse
+		allRanks = allRanks.sort_by{|rank| rank.score}.reverse
 
-		if(pos < 0)
-			pos = 0
+		if(center < 0)
+			center = 0
 		end
 		
 		if(offset < 0)
 			offset = 0
 		end
 
-		lower = pos - offset
+		lower = center - offset
 		if(lower < 0)
 			lower = 0
     end
-		upper = pos + offset
+		upper = center + offset
     
-		if(upper >= displayed_ranks.length)
-			upper = displayed_ranks.length - 1
+		if(upper >= allRanks.length)
+			upper = allRanks.length - 1
 		end
 
 		rankedNames = Hash.new("Default")
 
 		counter = lower
-		displayed_ranks[lower..upper].each do |a|
+		allRanks[lower..upper].each do |a|
 			counter = counter + 1
 			rankedNames[a] = counter
     end
