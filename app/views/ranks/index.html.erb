@@ -12,22 +12,12 @@
 	</thead>
 
 	<div id="ranking">
-		<% counter = 1%>
-		<% rankedPosition = RanksController.rankList(2, 1)%>
-		<% rankedPosition.keys.each do |rank| %>
-		<% pos = rankedPosition.values_at(rank) %>
+		<% RanksController.rankList(0,10).each do |rank, pos| %>
 		<p>
 			<center>
-				<% if counter <= 5 %>
-						<% if counter <= 3 %>
-							<font color='red'><%= pos %>. <b><%= rank.score %></b> <i><%=User.find_by_id(rank.user_id).email%></i></font>
-						<% else %>
-							<%= pos %>. <b><%= rank.score %></b> <i><%=User.find_by_id(rank.user_id).email%></i>
-						<% end %>
-				<% end %>
+				<%= pos %>. <%= rank.score %><br/> <%=User.find_by_id(rank.user_id).email%>
 			</center>
 		</p>
-		<% counter = counter + 1; %>
 		<% end %>
 	</div>
 
