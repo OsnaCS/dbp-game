@@ -7,40 +7,47 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-<div id="main">
-	<div id="wrapper">
-		<div id="top" >
-			<div id="login" class="content">
-				<p>TEST</p>
-			</div>
-			<div id="banner" class="content">
-				<h1>SpielName</h1>
-			</div>
+<div id="wrapper">
+	<div id="top" >
+		<div id="login" class="content">
+			<% if user_signed_in? %>
+				<p style="font-size: 55%"><%= current_user.email %></p><br>
+				<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+				<p style="font-size: 50%"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+			<% else %>
+				<p><%= link_to('Register', new_user_registration_path) %></p><br>
+				<p><%= link_to('Log in', new_user_session_path) %></p>
+			<% end %>
 		</div>
-
-		<div id="mid">
-			<div id="ranking" class="content">
-				<p>TEST</p>
-			</div>
-			<div id="resources" class="content">
-				<%= Time.now %>
-			</div>
+		<div id="banner" class="content">
+			<p id="game_name">SpielName</p>
 		</div>
+	</div>
 
-		<div id="botm">
-			<div id="menu" class="content">
-				<%= link_to("Home", home_index_path) %>
-				<% if user_signed_in? %>
-					<p>Hallo, <%= current_user.email %> möchtest du dich  
-					<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
-				<% else %>
-					<%= link_to('Register', new_user_registration_path) %>
-					<%= link_to('Log in', new_user_session_path) %>
-				<% end %>
-			</div>
-			<div id="game" class="content">
-				<%= yield %>
-			</div>
+	<div id="mid">
+		<div id="ranking" class="content">
+			<% if user_signed_in? %>
+				<p>Points: 0</p>
+			<% else %>
+				<p>Not logged in</p>
+			<% end %>
+		</div>
+		<div id="resources" class="content">
+			<p><%= Time.now %></p>
+		</div>
+	</div>
+
+	<div id="botm">
+		<div id="menu" class="content">
+			<br>
+			<ul>
+				<li>Test</li>
+				<li>Test2</li>
+				<li>Test1234</li>
+			</ul>
+		</div>
+		<div id="game" class="content">
+			<%= yield %>
 		</div>
 	</div>
 </div>

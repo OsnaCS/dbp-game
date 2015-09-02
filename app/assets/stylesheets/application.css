@@ -13,26 +13,42 @@
  *= require_tree .
  *= require_self
  */
+
+ /** Main - Settings **/
 html,body
 {
 	margin: 0 auto;
+	background: url('background.jpg');
+	color: #FFF;
 }
 
-#main
+a
 {
- 	position: relative;
- 	width: 100%;
- 	height: 100%;
- 	background: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2014/04/space-wallpaper-1.jpg');
+	color: #FFFF00;
 }
 
+ul
+{
+	list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul li {
+    background-image: url('marker.png');
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    background-size: 20px 20px;
+    margin: 10px 0 0 10px;
+}
+
+/** DIV - Settings**/
 #wrapper
 {
-	margin-top: 0px;
-	margin: 0 auto;
 	position: relative;
-	width: 800px;
-	height: 1000px;
+	width: auto;
+	height: 900px;
+	padding: 25px 50px 1px 50px;
 	opacity: 0.85;
 }
 
@@ -50,16 +66,18 @@ html,body
 	width: 10%;
 	height: 100%;
 	float: left;
-	background-color: #00BFFF;
+	background-color: #000066;
 }
 
 #banner
 {
 	position: relative;
 	width: 90%;
-	float: left;
 	height: 100%;
-	background-color: #B2DFEE;
+	float: left;
+	background-color: #000066;
+	background-image: url('banner.jpg');
+	background-size: 100% 100%;
 }
 
 #mid
@@ -68,25 +86,24 @@ html,body
 	width: 100%;
 	height: 10%;
 	top: 15%;
-	
 }
 
 #ranking
 {
 	position: relative;
 	width: 10%;
-	float: left;
 	height: 100%;
-	background-color: #48D1CC;
+	float: left;
+	background-color: #000066;
 }
 
 #resources
 {
 	position: relative;
 	width: 90%;
-	float: left;
 	height: 100%;
-	background-color: #4876FF;
+	float: left;
+	background-color: #000066;
 }
 
 #botm
@@ -101,31 +118,41 @@ html,body
 {
 	position: relative;
 	width: 10%;
-	float: left;
 	height: 100%;
-	background-color: #C6E2FF;
+	float: left;
+	background-color: #000066;
 }
 
 #game
 {
 	position: relative;
 	width: 90%;
-	float: left;
 	height: 100%;
-	background-color: #9AFF9A;
-}
-
-#footer
-{
-	position: static;
-	bottom: 0;
-	left: 50;
-	background-color: #FFF;
+	float: left;
+	background-color: #000066;
 }
 
 .content
 {
 	position: relative;
+	display: table;
 	text-align: center;
 	vertical-align: middle;
+	border: 2px solid white;
+	box-sizing: border-box;
+}
+
+/** Element - Settings **/ 
+#user_icon
+{
+	position: relative;
+	width: 30%;
+	height: 30%;
+}
+
+#game_name
+{
+	position: absolute;
+	bottom: 25px;
+	left: 50px;
 }
