@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :sciences
+
+  resources :ranks
+
   get 'home/index'
 
   devise_for :users

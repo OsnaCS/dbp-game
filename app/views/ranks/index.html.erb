@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ranks</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Email</th>
+			<th>Score</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+
+	<div id="ranking">
+		<% counter = 1; %>
+		<%@ranks.order("score DESC").each do |r| %>
+		<p>
+			<center>
+				<% if counter <= 5 %>
+						<% if counter <= 3 %>
+							<font color='red'><%= counter %>. <b><%= r.score %></b> <i><%=r.email%></i></font>
+						<% else %>
+							<%= counter %>. <b><%= r.score %></b> <i><%=r.email%></i>
+						<% end %>
+				<% end %>
+			</center>
+		</p>
+		<% counter = counter + 1; %>
+		<%end%>
+	</div>
+
+	<tbody>
+	<% @ranks.each do |rank| %>
+		<tr>
+		<td><%= rank.email %></td>
+		<td><%= rank.score %></td>
+		<td><%= link_to 'Show', rank %></td>
+		<td><%= link_to 'Edit', edit_rank_path(rank) %></td>
+		<td><%= link_to 'Destroy', rank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rank', new_rank_path %>
