@@ -12,15 +12,18 @@
 	</thead>
 
 	<div id="ranking">
-		<% counter = 1; %>
-		<%@ranks.order("score DESC").each do |r| %>
+		<% counter = 1%>
+		<% u = nil %>
+		<% rankedHash = RanksController.rankList(2, 1)%>
+		<% rankedHash.keys.each do |r| %>
+		<% u = rankedHash.values_at(r) %>
 		<p>
 			<center>
 				<% if counter <= 5 %>
 						<% if counter <= 3 %>
-							<font color='red'><%= counter %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i></font>
+							<font color='red'><%= u %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i></font>
 						<% else %>
-							<%= counter %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i>
+							<%= u %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i>
 						<% end %>
 				<% end %>
 			</center>
