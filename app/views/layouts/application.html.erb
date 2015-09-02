@@ -20,7 +20,7 @@
 
 		<div id="mid">
 			<div id="ranking" class="content">
-				<%=button_to "Ranks", ranks_path, :class => "button", :method => :get%>
+				<%= button_to "Ranks", ranks_path, :class => "button", :method => :get %>
 			</div>
 			<div id="resources" class="content">
 				<%= Time.now %>
@@ -33,8 +33,8 @@
 				<% if user_signed_in? %>
 					<p>Hallo, <%= current_user.email %> möchtest du dich  
 					<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
-					<%=button_to "Overview", root_path, :class => "button", :method => :get%>
-					<%=button_to "Science", sciences_path, :class => "button", :method => :get%>
+					<%= button_to "Overview", root_path, :class => "button", :method => :get %>
+					<%= button_to "Science", sciences_path, :class => "button", :method => :get %>
 				<% else %>
 					<%= link_to('Register', new_user_registration_path) %>
 					<%= link_to('Log in', new_user_session_path) %>

@@ -49,7 +49,7 @@ class RanksController < ApplicationController
 		lower = center - offset
 		if(lower < 0)
 			lower = 0
-    end
+    	end
 		upper = center + offset
     
 		if(upper >= allRanks.length)
@@ -62,7 +62,7 @@ class RanksController < ApplicationController
 		allRanks[lower..upper].each do |a|
 			counter = counter + 1
 			rankedNames[a] = counter
-    end
+    	end
 
 		return rankedNames
 	end

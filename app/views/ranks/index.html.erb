@@ -28,19 +28,19 @@
 			</center>
 		</p>
 		<% counter = counter + 1; %>
-		<%end%>
+		<% end %>
 	</div>
 
 	<tbody>
-	<% @ranks.each do |rank| %>
-		<tr>
-		<td><%= rank.user_id %></td>
-		<td><%= rank.score %></td>
-		<td><%= link_to 'Show', rank %></td>
-		<td><%= link_to 'Edit', edit_rank_path(rank) %></td>
-		<td><%= link_to 'Destroy', rank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	</tr>
-<% end %>
+		<% @ranks.each do |rank| %>
+			<tr>
+			<td><%= rank.user_id %></td>
+			<td><%= rank.score %></td>
+			<td><%= link_to 'Show', rank %></td>
+			<td><%= link_to 'Edit', edit_rank_path(rank) %></td>
+			<td><%= link_to 'Destroy', rank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
 	</tbody>
 </table>
 
