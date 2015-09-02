@@ -28,9 +28,7 @@ class RanksController < ApplicationController
 		User.all.each do |u|
 			currentRank = Rank.find_by(user_id: u.id)
 
-			if(currentRank)
-				#Already registered
-			else
+			unless currentRank
 				currentRank = Rank.new
 				currentRank.user_id = u.id
 				currentRank.score = 0
