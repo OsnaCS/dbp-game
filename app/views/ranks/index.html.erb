@@ -15,12 +15,13 @@
 		<% RanksController.rankList(0,10).each do |rank, pos| %>
 		<p>
 			<center>
-				<%= pos %>. <%= rank.score %><br/> <%=User.find_by_id(rank.user_id).email%>
+				<%= pos %>. <%= rank.score %><br/> <%=User.find_by(id: rank.user_id).email%>
 			</center>
 		</p>
 		<% end %>
 	</div>
-
+	
+	<h2>Edit Ranks</h2>
 	<tbody>
 		<% @ranks.each do |rank| %>
 			<tr>

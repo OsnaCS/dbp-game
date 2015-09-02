@@ -26,7 +26,7 @@ class RanksController < ApplicationController
 
 		currentRank = nil
 		User.all.each do |u|
-			currentRank = Rank.find_by(id: u.id)
+			currentRank = Rank.find_by(user_id: u.id)
 
 			if not currentRank
 				currentRank = Rank.new
