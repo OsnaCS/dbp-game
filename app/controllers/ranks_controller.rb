@@ -69,6 +69,6 @@ class RanksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rank_params
-      params.require(:rank).permit(:email, :score)
+      params.require(:rank).permit(:user_id, :score)
     end
 end

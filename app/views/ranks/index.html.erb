@@ -5,7 +5,7 @@
 <table>
 	<thead>
 		<tr>
-			<th>Email</th>
+			<th>UserID</th>
 			<th>Score</th>
 			<th colspan="3"></th>
 		</tr>
@@ -18,9 +18,9 @@
 			<center>
 				<% if counter <= 5 %>
 						<% if counter <= 3 %>
-							<font color='red'><%= counter %>. <b><%= r.score %></b> <i><%=r.email%></i></font>
+							<font color='red'><%= counter %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i></font>
 						<% else %>
-							<%= counter %>. <b><%= r.score %></b> <i><%=r.email%></i>
+							<%= counter %>. <b><%= r.score %></b> <i><%=User.find_by_id(r.user_id).email%></i>
 						<% end %>
 				<% end %>
 			</center>
@@ -32,7 +32,7 @@
 	<tbody>
 	<% @ranks.each do |rank| %>
 		<tr>
-		<td><%= rank.email %></td>
+		<td><%= rank.user_id %></td>
 		<td><%= rank.score %></td>
 		<td><%= link_to 'Show', rank %></td>
 		<td><%= link_to 'Edit', edit_rank_path(rank) %></td>
