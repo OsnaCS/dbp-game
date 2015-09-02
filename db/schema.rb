@@ -16,6 +16,25 @@ ActiveRecord::Schema.define(version: 20150902122110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ranks", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sciences", force: :cascade do |t|
+    t.integer  "science_id"
+    t.integer  "cost1"
+    t.integer  "cost2"
+    t.integer  "cost3"
+    t.float    "factor"
+    t.time     "duration"
+    t.string   "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stations_instances", force: :cascade do |t|
     t.integer  "shipID"
     t.integer  "statID"
