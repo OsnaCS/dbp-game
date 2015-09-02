@@ -11,40 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901090431) do
+ActiveRecord::Schema.define(version: 20150902122110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
+  create_table "stations_instances", force: :cascade do |t|
+    t.integer  "shipID"
+    t.integer  "statID"
+    t.integer  "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "playerships", force: :cascade do |t|
-    t.string   "player"
-    t.string   "name"
-    t.text     "description"
+  create_table "stationtypes", force: :cascade do |t|
+    t.integer  "statID"
+    t.text     "name"
+    t.integer  "costMineral"
+    t.integer  "costCristal"
+    t.integer  "costFuel"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "spaceships", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.float    "velocity"
-    t.float    "capacity"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.float    "fuel"
   end
 
   create_table "users", force: :cascade do |t|

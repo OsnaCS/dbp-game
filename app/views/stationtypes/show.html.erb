@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Statid:</strong>
+  <%= @stationtype.statID %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stationtype.name %>
+</p>
+
+<p>
+  <strong>Costmineral:</strong>
+  <%= @stationtype.costMineral %>
+</p>
+
+<p>
+  <strong>Costcristal:</strong>
+  <%= @stationtype.costCristal %>
+</p>
+
+<p>
+  <strong>Costfuel:</strong>
+  <%= @stationtype.costFuel %>
+</p>
+
+<%= link_to 'Edit', edit_stationtype_path(@stationtype) %> |
+<%= link_to 'Back', stationtypes_path %>

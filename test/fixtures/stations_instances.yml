@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipID: 1
+  statID: 1
+  level: 1
+
+two:
+  shipID: 1
+  statID: 1
+  level: 1

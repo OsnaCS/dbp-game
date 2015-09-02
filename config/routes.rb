@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :stations_instances
+
+  resources :stationtypes
+
   get 'home/index'
 
   devise_for :users

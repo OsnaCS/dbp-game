@@ -1,0 +1,2 @@
+module StationsInstancesHelper
+end

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shipid:</strong>
+  <%= @stations_instance.shipID %>
+</p>
+
+<p>
+  <strong>Statid:</strong>
+  <%= @stations_instance.statID %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @stations_instance.level %>
+</p>
+
+<%= link_to 'Edit', edit_stations_instance_path(@stations_instance) %> |
+<%= link_to 'Back', stations_instances_path %>
