@@ -11,40 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901090431) do
+ActiveRecord::Schema.define(version: 20150902124812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
+  create_table "ranks", force: :cascade do |t|
+    t.string   "user_id"
+    t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
+  create_table "sciences", force: :cascade do |t|
+    t.integer  "science_id"
+    t.integer  "cost1"
+    t.integer  "cost2"
+    t.integer  "cost3"
+    t.float    "factor"
+    t.time     "duration"
+    t.string   "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "playerships", force: :cascade do |t|
-    t.string   "player"
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "stations_instances", force: :cascade do |t|
+    t.integer  "shipID"
+    t.integer  "statID"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "spaceships", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.float    "velocity"
-    t.float    "capacity"
+  create_table "stationtypes", force: :cascade do |t|
+    t.integer  "statID"
+    t.text     "name"
+    t.integer  "costMineral"
+    t.integer  "costCristal"
+    t.integer  "costFuel"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.float    "fuel"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,9 +66,11 @@ ActiveRecord::Schema.define(version: 20150901090431) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
