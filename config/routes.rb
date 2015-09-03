@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :science_instances
+
   resources :sciences
 
   resources :ranks
