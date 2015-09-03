@@ -23,7 +23,9 @@ class RanksController < ApplicationController
   
   def self.rankList(center, offset)
     allRanks = Array.new
-    currentRank = nilUser.all.each do |u|
+    currentRank = nil
+
+    User.all.each do |u|
       currentRank = Rank.find_by(user_id: u.id)
 
       if not currentRank
