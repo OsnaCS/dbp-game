@@ -14,7 +14,7 @@
   <tbody>
     <% @rankings.each do |ranking| %>
       <tr>
-        <td><%= ranking.user_id %></td>
+        <td><%= ranking.user %></td>
         <td><%= ranking.value %></td>
         <td><%= link_to 'Show', ranking %></td>
         <td><%= link_to 'Edit', edit_ranking_path(ranking) %></td>
