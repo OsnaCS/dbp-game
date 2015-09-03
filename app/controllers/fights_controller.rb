@@ -69,6 +69,6 @@ class FightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fight_params
-      params.require(:fight).permit(:report, :time)
+      params.require(:fight).permit(:report, :time, :attacker_id, :defender_id)
     end
 end

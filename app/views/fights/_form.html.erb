@@ -16,6 +16,14 @@
     <%= f.text_area :report %>
   </div>
   <div class="field">
+    <%= f.label :attacker %><br>
+    <%= f.collection_select :attacker_id, User.all, :id, :username %>
+  </div>
+  <div class="field">
+    <%= f.label :defender %><br>
+    <%= f.collection_select :defender_id, User.all, :id, :username %>
+  </div>
+  <div class="field">
     <%= f.label :time %><br>
     <%= f.datetime_select :time %>
   </div>

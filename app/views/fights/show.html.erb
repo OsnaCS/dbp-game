@@ -9,6 +9,14 @@
   <strong>Time:</strong>
   <%= @fight.time %>
 </p>
+<p>
+  <strong>Attacker:</strong>
+  <%= @fight.attacker.username %>
+</p>
+<p>
+  <strong>Defender:</strong>
+  <%= @fight.defender.username %>
+</p>
 
 <%= link_to 'Edit', edit_fight_path(@fight) %> |
 <%= link_to 'Back', fights_path %>
