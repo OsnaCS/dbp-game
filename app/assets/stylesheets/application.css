@@ -60,6 +60,8 @@ ul li {
 	width: 10%;
 	height: 100%;
 	float: left;
+	display: inline-block;
+	top: 0;
 	background-color: #000066;
 }
 
@@ -129,7 +131,7 @@ ul li {
 }
 
 .login_text {
-	font-size: 55%;
+	font-size: 90%;
 	display: inline-block;
 }
 
