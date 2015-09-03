@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  science_id: 1
+  cost1: 1
+  cost2: 1
+  cost3: 1
+  factor: 1.5
+  duration: 2015-09-02 09:37:23
+  condition: MyString
+
+two:
+  science_id: 1
+  cost1: 1
+  cost2: 1
+  cost3: 1
+  factor: 1.5
+  duration: 2015-09-02 09:37:23
+  condition: MyString
