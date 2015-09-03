@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   
+<<<<<<< HEAD
   resources :fights
+=======
+  resources :sciences
+
+  resources :ranks
+>>>>>>> 49e203af40c0b0d4db52a6685eb18a6436517bcf
 
   get 'home/index'
 
