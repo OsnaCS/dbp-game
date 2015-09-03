@@ -11,11 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903100810) do
+ActiveRecord::Schema.define(version: 20150903130939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "example2s", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "example2s", ["user_id"], name: "index_example2s_on_user_id", using: :btree
+
+  create_table "examples", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
+
+  create_table "fighting_fleets", force: :cascade do |t|
+    t.float    "shield"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
 
   create_table "fights", force: :cascade do |t|
     t.text     "report"
@@ -29,6 +53,15 @@ ActiveRecord::Schema.define(version: 20150903100810) do
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
 
+  create_table "menus", force: :cascade do |t|
+    t.string   "title"
+    t.string   "link"
+    t.string   "image"
+    t.integer  "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ranks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "score"
@@ -36,8 +69,15 @@ ActiveRecord::Schema.define(version: 20150903100810) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sciences", force: :cascade do |t|
+  create_table "science_instances", force: :cascade do |t|
     t.integer  "science_id"
+    t.integer  "user_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sciences", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
@@ -46,7 +86,20 @@ ActiveRecord::Schema.define(version: 20150903100810) do
     t.string   "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
+
+  create_table "ship_groups", force: :cascade do |t|
+    t.integer  "fighting_fleet_id"
+    t.integer  "ship_id"
+    t.integer  "number"
+    t.float    "group_hitpoints"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "ship_groups", ["fighting_fleet_id"], name: "index_ship_groups_on_fighting_fleet_id", using: :btree
+  add_index "ship_groups", ["ship_id"], name: "index_ship_groups_on_ship_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
@@ -54,24 +107,17 @@ ActiveRecord::Schema.define(version: 20150903100810) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ships_stationtypes", force: :cascade do |t|
-    t.integer "ship_id"
-    t.integer "stationtypes_id"
-    t.integer "level"
-  end
-
-  create_table "stations_instances", force: :cascade do |t|
-    t.integer  "shipID"
-    t.integer  "statID"
+  create_table "ships_stations", force: :cascade do |t|
+    t.integer  "ships_id"
+    t.integer  "stations_id"
     t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "stationtypes", force: :cascade do |t|
-    t.integer  "statID"
+  create_table "stations", force: :cascade do |t|
     t.text     "name"
-    t.integer  "costMineral"
+    t.integer  "costMIneral"
     t.integer  "costCristal"
     t.integer  "costFuel"
     t.datetime "created_at",  null: false
@@ -100,4 +146,7 @@ ActiveRecord::Schema.define(version: 20150903100810) do
 
   add_foreign_key "example2s", "users"
   add_foreign_key "examples", "users"
+  add_foreign_key "fighting_fleets", "users"
+  add_foreign_key "ship_groups", "fighting_fleets"
+  add_foreign_key "ship_groups", "ships"
 end
