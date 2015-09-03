@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :ships_stations
+
   resources :ships
 
   resources :stations_instances

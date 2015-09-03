@@ -11,13 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902122110) do
+ActiveRecord::Schema.define(version: 20150903111703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "example2s", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "example2s", ["user_id"], name: "index_example2s_on_user_id", using: :btree
+
+  create_table "examples", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
+
+  create_table "fights", force: :cascade do |t|
+    t.text     "report"
+    t.datetime "time"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "attacker_id"
+    t.integer  "defender_id"
+  end
+
+  add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
+  add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
+
   create_table "ranks", force: :cascade do |t|
-    t.string   "email"
+    t.integer  "user_id"
     t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,6 +61,26 @@ ActiveRecord::Schema.define(version: 20150902122110) do
     t.string   "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ships", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ships_stations", force: :cascade do |t|
+    t.integer  "ships_id"
+    t.integer  "stationtypes_id"
+    t.integer  "level"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "ships_stationtypes", force: :cascade do |t|
+    t.integer "ship_id"
+    t.integer "stationtypes_id"
+    t.integer "level"
   end
 
   create_table "stations_instances", force: :cascade do |t|
@@ -66,9 +114,13 @@ ActiveRecord::Schema.define(version: 20150902122110) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "example2s", "users"
+  add_foreign_key "examples", "users"
 end

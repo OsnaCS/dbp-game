@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ships:</strong>
+  <%= @ships_station.ships_id %>
+</p>
+
+<p>
+  <strong>Stationtypes:</strong>
+  <%= @ships_station.stationtypes_id %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @ships_station.level %>
+</p>
+
+<%= link_to 'Edit', edit_ships_station_path(@ships_station) %> |
+<%= link_to 'Back', ships_stations_path %>

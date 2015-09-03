@@ -1,3 +1,5 @@
 class Ship < ActiveRecord::Base
-	has_and_belongs_to_many :stationtypes
-end
+	has_many :ships_stations
+	has_many :stationtypes, through => :ships_station
+	
+end 
