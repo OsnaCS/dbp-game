@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :fights
+
   get 'home/index'
 
   devise_for :users
