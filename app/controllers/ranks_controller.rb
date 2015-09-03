@@ -44,12 +44,12 @@ class RanksController < ApplicationController
 		
 		if(offset < 0)
 			offset = 0
-		end
+    end
 
 		lower = center - offset
 		if(lower < 0)
 			lower = 0
-    	end
+    end
 		upper = center + offset
     
 		if(upper >= allRanks.length)
