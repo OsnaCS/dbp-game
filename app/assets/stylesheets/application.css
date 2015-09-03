@@ -128,6 +128,11 @@ ul li {
 	box-sizing: border-box;
 }
 
+.login_text {
+	font-size: 55%;
+	display: inline-block;
+}
+
 /** Element - Settings **/ 
 #user_icon {
 	position: relative;

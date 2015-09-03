@@ -11,10 +11,9 @@
 	<div id="top" >
 		<div id="login" class="content">
 			<% if user_signed_in? %>
-				<p style="font-size: 55%"><%= current_user.email %></p><br>
+				<p class="login_text"><%= current_user.username %></p><br>
 				<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
-				<p style="font-size: 50%; float: left; margin-right: 10px;"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-				<p style="font-size: 50%; float: left;"><%= link_to('Bild ändern', destroy_user_session_path, :method => :delete) %></p>
+				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 			<% else %>
 				<p><%= link_to('Register', new_user_registration_path) %></p><br>
 				<p><%= link_to('Log in', new_user_session_path) %></p>
