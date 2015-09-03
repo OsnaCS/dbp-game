@@ -11,7 +11,18 @@
 	<div id="wrapper">
 		<div id="top" >
 			<div id="login" class="content">
-				<p>TEST</p>
+				<% if !user_signed_in? %>
+				  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+	  			    <%= f.text_field :login %>
+				    <%= f.password_field :password %>
+				    <%= f.check_box :remember_me %>
+				    <%= f.label :remember_me %>
+				    <%= f.submit 'Sign in' %>
+					<% end %>
+				<% else %>
+					<%= current_user.username %>
+					<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>
+				<% end %>  
 			</div>
 			<div id="banner" class="content">
 				<h1>SpielName</h1>
@@ -33,9 +44,11 @@
 				<% if user_signed_in? %>
 					<p>Hallo, <%= current_user.email %> möchtest du dich  
 					<%= link_to('ausloggen', destroy_user_session_path, :method => :delete) %>?</p>
+					<%= link_to('Edit', edit_user_registration_path) %>
 				<% else %>
 					<%= link_to('Register', new_user_registration_path) %>
 					<%= link_to('Log in', new_user_session_path) %>
+
 				<% end %>
 			</div>
 			<div id="game" class="content">
