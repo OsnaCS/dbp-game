@@ -1,14 +1,14 @@
 <table>
-  <tr>
-    <th>Position</th>
-    <th>Namen</th>
-    <th>Score</th>
-  </tr>
-  <% RanksController.rankList(0,10).each do |rank, pos| %>
-    <tr>
-      <td><%= pos %>.</td>
-      <td><%=  link_to(rank.user.username, rank.user.username) %></td>
-      <td><%= rank.score %></td>
-    </tr>
-  <% end %>
+	<tr>
+		<th>Position</th>
+		<th>Namen</th>
+		<th>Score</th>
+	</tr>
+	<% RanksController.rankList(0,10).each do |rank, pos| %>
+		<tr>
+			<td><%= pos %>.</td>
+			<td><%= rank.user.username %></td>
+			<td><%= rank.score %></td>
+		</tr>
+	<% end %>
 </table>
