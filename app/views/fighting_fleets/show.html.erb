@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shield:</strong>
+  <%= @fighting_fleet.shield %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @fighting_fleet.user %>
+</p>
+
+<%= link_to 'Edit', edit_fighting_fleet_path(@fighting_fleet) %> |
+<%= link_to 'Back', fighting_fleets_path %>

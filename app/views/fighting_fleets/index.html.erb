@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Fighting Fleets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shield</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fighting_fleets.each do |fighting_fleet| %>
+      <tr>
+        <td><%= fighting_fleet.shield %></td>
+        <td><%= fighting_fleet.user %></td>
+        <td><%= link_to 'Show', fighting_fleet %></td>
+        <td><%= link_to 'Edit', edit_fighting_fleet_path(fighting_fleet) %></td>
+        <td><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fighting fleet', new_fighting_fleet_path %>

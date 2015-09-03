@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :ship_groups
+
+  resources :fighting_fleets
+
   resources :fights
 
   get 'home/index'

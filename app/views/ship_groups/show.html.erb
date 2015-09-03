@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fleet:</strong>
+  <%= @ship_group.fleet %>
+</p>
+
+<p>
+  <strong>Ship:</strong>
+  <%= @ship_group.ship %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @ship_group.number %>
+</p>
+
+<p>
+  <strong>Group hitpoints:</strong>
+  <%= @ship_group.group_hitpoints %>
+</p>
+
+<%= link_to 'Edit', edit_ship_group_path(@ship_group) %> |
+<%= link_to 'Back', ship_groups_path %>
