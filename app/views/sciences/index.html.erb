@@ -5,13 +5,13 @@
 <table>
   <thead>
     <tr>
-      <th>Science</th>
       <th>Cost1</th>
       <th>Cost2</th>
       <th>Cost3</th>
       <th>Factor</th>
       <th>Duration</th>
       <th>Condition</th>
+      <th>Name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,13 +19,13 @@
   <tbody>
     <% @sciences.each do |science| %>
       <tr>
-        <td><%= science.science_id %></td>
         <td><%= science.cost1 %></td>
         <td><%= science.cost2 %></td>
         <td><%= science.cost3 %></td>
         <td><%= science.factor %></td>
-        <td><%= science.duration %></td>
+        <td><%= science.duration.strftime("%T") %></td>
         <td><%= science.condition %></td>
+        <td><%= science.name %></td>
         <td><%= link_to 'Show', science %></td>
         <td><%= link_to 'Edit', edit_science_path(science) %></td>
         <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Science:</strong>
-  <%= @science.science_id %>
-</p>
-
-<p>
   <strong>Cost1:</strong>
   <%= @science.cost1 %>
 </p>
@@ -33,6 +28,11 @@
 <p>
   <strong>Condition:</strong>
   <%= @science.condition %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @science.name %>
 </p>
 
 <%= link_to 'Edit', edit_science_path(@science) %> |
