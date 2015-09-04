@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  
-  resources :sciences
 
+  resources :stations
+  resources :ships_stations
+  resources :ships
+  resources :sciences
   resources :ranks
 
   get 'home/index'
