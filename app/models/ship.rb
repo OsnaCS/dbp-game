@@ -8,7 +8,8 @@ class Ship < ActiveRecord::Base
 
   def create_stations
     Station.all.each do |station|
-      self.ships_stations.build(ship: self, station: station, level: station.initial_level).save
+      self.ships_stations.build(ship: self, station: station, level: station.initial_level)
     end
+    save
   end
 end
