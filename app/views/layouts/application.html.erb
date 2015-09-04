@@ -29,7 +29,7 @@
 			<% end %> 
 		</div>
 		<div id="banner" class="content">
-			<h1>SpielName</h1>
+			<p id="game_name">SpielName</p>
 		</div>
 	</div>
 
@@ -43,7 +43,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p><%= Time.now %></p>
+			<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
+			<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
+			<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
 		</div>
 	</div>
 	
