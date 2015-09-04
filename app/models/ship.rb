@@ -10,6 +10,5 @@ class Ship < ActiveRecord::Base
     Station.all.each do |station|
       self.ships_stations.build(ship: self, station: station, level: station.initial_level)
     end
-    save
   end
 end
