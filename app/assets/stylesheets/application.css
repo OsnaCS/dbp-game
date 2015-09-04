@@ -190,10 +190,12 @@ ul li {
 	position: absolute;
 	width: 50px;
 	height: 50px;
+	left: calc(50% - 25px);
 }
 
 #notification-text
 {
 	position: absolute;
 	color: red;
+	left: 50%;
 }

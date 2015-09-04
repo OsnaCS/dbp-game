@@ -30,7 +30,19 @@
 			</div>
 		</div>
 		<div id="banner" class="content">
-			<p id="clock"><%= Time.now.hour %>:<%= Time.now.min %>:<%= Time.now.sec %></p>
+			<p id="clock">
+				<%= Time.now.hour %>:
+				<% if Time.now.min < 10 %>
+					0<%= Time.now.min %>:
+				<% else %>
+					<%= Time.now.min %>:
+				<% end %>
+				<% if Time.now.sec < 10 %>
+					0<%= Time.now.sec %>
+				<% else %>
+					<%= Time.now.sec %>
+				<% end %>
+			</p>
 			<p id="game_name">SpielName</p>
 		</div>
 	</div>
