@@ -19,4 +19,4 @@ test:
 
 production:
   <<: *default
-  database: game_production
+ 
