@@ -24,5 +24,21 @@
   <strong>Initiallevel:</strong>
   <%= @station.initial_level %>
 </p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @station.description %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @station.condition %>
+</p>
+
+<p>
+  <strong>Tier:</strong>
+  <%= @station.tier %>
+</p>
+
 <%= link_to 'Edit', edit_station_path(@station) %> |
 <%= link_to 'Back', stations_path %>
