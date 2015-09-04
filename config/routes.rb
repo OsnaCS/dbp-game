@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  get 'mesmanager/index'
+  get 'mesmanager/addmessage'
+
   resources :notifications
 
   resources :messages
