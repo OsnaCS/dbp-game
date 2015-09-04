@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sciences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Science</th>
+      <th>Cost1</th>
+      <th>Cost2</th>
+      <th>Cost3</th>
+      <th>Factor</th>
+      <th>Duration</th>
+      <th>Condition</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sciences.each do |science| %>
+      <tr>
+        <td><%= science.science_id %></td>
+        <td><%= science.cost1 %></td>
+        <td><%= science.cost2 %></td>
+        <td><%= science.cost3 %></td>
+        <td><%= science.factor %></td>
+        <td><%= science.duration %></td>
+        <td><%= science.condition %></td>
+        <td><%= link_to 'Show', science %></td>
+        <td><%= link_to 'Edit', edit_science_path(science) %></td>
+        <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Science', new_science_path %>

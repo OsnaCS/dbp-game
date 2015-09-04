@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Science:</strong>
+  <%= @science.science_id %>
+</p>
+
+<p>
+  <strong>Cost1:</strong>
+  <%= @science.cost1 %>
+</p>
+
+<p>
+  <strong>Cost2:</strong>
+  <%= @science.cost2 %>
+</p>
+
+<p>
+  <strong>Cost3:</strong>
+  <%= @science.cost3 %>
+</p>
+
+<p>
+  <strong>Factor:</strong>
+  <%= @science.factor %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @science.duration %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @science.condition %>
+</p>
+
+<%= link_to 'Edit', edit_science_path(@science) %> |
+<%= link_to 'Back', sciences_path %>
