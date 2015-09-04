@@ -13,3 +13,137 @@
  *= require_tree .
  *= require_self
  */
+
+ /** Main - Settings **/
+html,body {
+	margin: 0 auto;
+	background: url('background.jpg');
+	color: #FFF;
+}
+
+a {
+	color: #FFFF00;
+}
+
+ul {
+	list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul li {
+    background-image: url('marker.png');
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    background-size: 20px 20px;
+    margin: 30px 0 0 10px;
+}
+
+/** DIV - Settings**/
+#wrapper {
+	position: relative;
+	width: auto;
+	height: 900px;
+	padding: 25px 50px 1px 50px;
+	opacity: 0.85;
+}
+
+#top {
+	position: static;
+	width: 100%;
+	height: 15%;
+	top: 0%;
+}
+
+#login {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	float: left;
+	display: inline-block;
+	top: 0;
+	background-color: #000066;
+}
+
+#banner {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	float: left;
+	background-color: #000066;
+	background-image: url('banner.jpg');
+	background-size: 100% 100%;
+}
+
+#mid {
+	position: static;
+	width: 100%;
+	height: 10%;
+	top: 15%;
+}
+
+#ranking {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	float: left;
+	background-color: #000066;
+}
+
+#resources {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	float: left;
+	background-color: #000066;
+}
+
+#botm {
+	position: static;
+	width: 100%;
+	height: 75%;
+	top: 25%;
+}
+
+#menu {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	float: left;
+	background-color: #000066;
+}
+
+#game {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	float: left;
+	background-color: #000066;
+}
+
+.content {
+	position: relative;
+	display: table;
+	text-align: center;
+	vertical-align: middle;
+	border: 2px solid white;
+	box-sizing: border-box;
+}
+
+.login_text {
+	font-size: 90%;
+	display: inline-block;
+}
+
+/** Element - Settings **/ 
+#user_icon {
+	position: relative;
+	width: 30%;
+	height: 30%;
+}
+
+#game_name {
+	position: absolute;
+	bottom: 25px;
+	left: 50px;
+}

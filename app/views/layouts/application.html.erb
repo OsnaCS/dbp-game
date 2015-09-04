@@ -1,14 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DbpGame</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<title>Strategiespiel</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
 
+<div id="wrapper">
+	<div id="top" >
+		<div id="login" class="content">
+			<% if !user_signed_in? %>
+			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+			  	<%= f.label :login %><br />
+  			    <%= f.text_field :login %>
+			    <%= f.label :password %><br />
+			    <%= f.password_field :password %>
+			    <%= f.check_box :remember_me %>
+			    <%= f.label :remember_me %>
+			    <%= f.submit 'Sign in' %>
+				<% end %>
+			<% else %>
+				<p class="login_text"><%= current_user.username %></p><br>
+				<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+			<% end %> 
+		</div>
+		<div id="banner" class="content">
+			<h1>SpielName</h1>
+		</div>
+	</div>
+
+	<div id="mid">
+		<div id="ranking" class="content">
+			<% if user_signed_in? %>
+				<p>Points: </p>
+				<p>0</p>
+			<% else %>
+				<p>Not logged in</p>
+			<% end %>
+		</div>
+		<div id="resources" class="content">
+			<p><%= Time.now %></p>
+		</div>
+	</div>
+	
+	<div id="botm">
+		<div id="menu" class="content">
+			<br>
+			<ul>
+				<li>Feature-Liga</li>
+				<li>Schiffe</li>
+				<li>Forschung</li>
+				<li>Stationen</li>
+				<li>Anlagen</li>
+				<li>Einheiten</li>
+				<li>Einstellungen</li>
+			</ul>
+		</div>
+		<div id="game" class="content">
+			<%= yield %>
+		</div>
+	</div>
+</div>
 </body>
 </html>
