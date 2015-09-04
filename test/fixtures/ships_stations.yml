@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ships_id: 1
+  stations_id: 1
+  level: 1
+
+two:
+  ships_id: 1
+  stations_id: 1
+  level: 1
