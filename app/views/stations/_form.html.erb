@@ -1,10 +1,10 @@
-<%= form_for(@stationtype) do |f| %>
-  <% if @stationtype.errors.any? %>
+<%= form_for(@station) do |f| %>
+  <% if @station.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@stationtype.errors.count, "error") %> prohibited this stationtype from being saved:</h2>
+      <h2><%= pluralize(@station.errors.count, "error") %> prohibited this station from being saved:</h2>
 
       <ul>
-      <% @stationtype.errors.full_messages.each do |message| %>
+      <% @station.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,16 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :statID %><br>
-    <%= f.number_field :statID %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_area :name %>
   </div>
   <div class="field">
-    <%= f.label :costMineral %><br>
-    <%= f.number_field :costMineral %>
+    <%= f.label :costMIneral %><br>
+    <%= f.number_field :costMIneral %>
   </div>
   <div class="field">
     <%= f.label :costCristal %><br>

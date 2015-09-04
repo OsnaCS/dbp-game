@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @station.name %>
+</p>
+
+<p>
+  <strong>Costmineral:</strong>
+  <%= @station.costMIneral %>
+</p>
+
+<p>
+  <strong>Costcristal:</strong>
+  <%= @station.costCristal %>
+</p>
+
+<p>
+  <strong>Costfuel:</strong>
+  <%= @station.costFuel %>
+</p>
+
+<%= link_to 'Edit', edit_station_path(@station) %> |
+<%= link_to 'Back', stations_path %>

@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Ships</th>
-      <th>Stationtypes</th>
+      <th>Stations</th>
       <th>Level</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +16,7 @@
     <% @ships_stations.each do |ships_station| %>
       <tr>
         <td><%= ships_station.ships_id %></td>
-        <td><%= ships_station.stationtypes_id %></td>
+        <td><%= ships_station.stations_id %></td>
         <td><%= ships_station.level %></td>
         <td><%= link_to 'Show', ships_station %></td>
         <td><%= link_to 'Edit', edit_ships_station_path(ships_station) %></td>

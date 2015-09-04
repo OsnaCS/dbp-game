@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   
+  resources :stations
+
   resources :ships_stations
 
   resources :ships
 
   resources :stations_instances
-
-  resources :stationtypes
 
   get 'home/index'
 

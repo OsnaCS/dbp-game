@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StationtypeTest < ActiveSupport::TestCase
+class StationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

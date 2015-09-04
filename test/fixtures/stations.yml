@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  statID: 1
   name: MyText
-  costMineral: 1
+  costMIneral: 1
   costCristal: 1
   costFuel: 1
 
 two:
-  statID: 1
   name: MyText
-  costMineral: 1
+  costMIneral: 1
   costCristal: 1
   costFuel: 1
