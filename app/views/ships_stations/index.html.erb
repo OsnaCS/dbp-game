@@ -15,8 +15,8 @@
   <tbody>
     <% @ships_stations.each do |ships_station| %>
       <tr>
-        <td><%= ships_station.ships_id %></td>
-        <td><%= ships_station.stations_id %></td>
+        <td><%= ships_station.ship_id %></td>
+        <td><%= ships_station.station_id %></td>
         <td><%= ships_station.level %></td>
         <td><%= link_to 'Show', ships_station %></td>
         <td><%= link_to 'Edit', edit_ships_station_path(ships_station) %></td>
