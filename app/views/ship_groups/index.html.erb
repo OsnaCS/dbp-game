@@ -16,8 +16,8 @@
   <tbody>
     <% @ship_groups.each do |ship_group| %>
       <tr>
-        <td><%= ship_group.fleet %></td>
-        <td><%= ship_group.ship %></td>
+        <td><%= ship_group.fighting_fleet.name %></td>
+        <td><%= ship_group.ship.name %></td>
         <td><%= ship_group.number %></td>
         <td><%= ship_group.group_hitpoints %></td>
         <td><%= link_to 'Show', ship_group %></td>

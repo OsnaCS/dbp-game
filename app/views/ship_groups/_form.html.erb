@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :fleet_id %><br>
-    <%= f.text_field :fleet_id %>
+    <%= f.label :fighting_fleet_id %><br>
+    <%= f.collection_select :fighting_fleet_id, FightingFleet.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :ship_id %><br>
-    <%= f.text_field :ship_id %>
+    <%= f.collection_select :ship_id, Ship.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :number %><br>

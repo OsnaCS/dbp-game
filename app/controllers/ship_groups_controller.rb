@@ -69,6 +69,6 @@ class ShipGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ship_group_params
-      params.require(:ship_group).permit(:fleet_id, :ship_id, :number, :group_hitpoints)
+      params.require(:ship_group).permit(:fighting_fleet_id, :ship_id, :number, :group_hitpoints)
     end
 end

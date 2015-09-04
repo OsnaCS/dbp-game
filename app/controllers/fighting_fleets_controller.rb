@@ -69,6 +69,6 @@ class FightingFleetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fighting_fleet_params
-      params.require(:fighting_fleet).permit(:shield, :user_id)
+      params.require(:fighting_fleet).permit(:shield, :user_id,:name)
     end
 end
