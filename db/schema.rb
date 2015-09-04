@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904093321) do
+ActiveRecord::Schema.define(version: 20150904095159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20150904093321) do
     t.integer  "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time     "start_time"
   end
 
   create_table "sciences", force: :cascade do |t|
@@ -149,8 +150,9 @@ ActiveRecord::Schema.define(version: 20150904093321) do
     t.integer  "costMIneral"
     t.integer  "costCristal"
     t.integer  "costFuel"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "initial_level"
   end
 
   create_table "teaparties", force: :cascade do |t|
