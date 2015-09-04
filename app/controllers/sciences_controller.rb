@@ -48,11 +48,11 @@ class SciencesController < ApplicationController
     current_user.science_instances.each do |s|
 
       if(url[4] == s.science_id.to_s)
+            redirect_to sciences_url, notice: 'Starting Research of ' + Science.find_by(id: s.science_id).name + ' ...'
         s.level = s.level + 1
         s.save
       end
     end
-    redirect_to sciences_url
   end
 
   # POST /sciences

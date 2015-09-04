@@ -29,7 +29,6 @@
         <td><%= "true" %>
         <td><%= scienceList[science] %>
         <td><%= button_to 'Research', research_science_path(science), method: :get %></td>
-        <td><%= link_to 'Reset', root_path%></td>
         <td><%= link_to 'Show', science %></td>
         <td><%= link_to 'Edit', edit_science_path(science) %></td>
         <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>
