@@ -1,31 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Ships Stations</h1>
+<h1>Stationen</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Ships</th>
-      <th>Stations</th>
+      <th>Name</th>
+      <th>Beschreibung</th>
       <th>Level</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @ships_stations.each do |ships_station| %>
+    <% Station.all.each do |ships_station| %>
       <tr>
-        <td><%= ships_station.ship_id %></td>
-        <td><%= ships_station.station_id %></td>
-        <td><%= ships_station.level %></td>
-        <td><%= link_to 'Show', ships_station %></td>
-        <td><%= link_to 'Edit', edit_ships_station_path(ships_station) %></td>
-        <td><%= link_to 'Destroy', ships_station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= ships_station.name %></td>
+        <td><%= ships_station.description %></td>
+        <td><%= ships_station.initial_level %></td>
+        <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Ships station', new_ships_station_path %>
