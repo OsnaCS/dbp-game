@@ -26,15 +26,28 @@ class SciencesController < ApplicationController
     user.science_instances.each do |s|
     	scienceHash[s.science] = s.level
     end
+
+    instance = nil
+    Science.all.each do |s|
+      if not(scienceHash.has_key? s)
+        instance = ScienceInstance.new
+        instance.science_id = s.id
+        instance.user_id = user.id
+        instance.level = 0
+        ScienceInstance.create(:science_id => s.id, :user_id => user.id, :level => 0)
+        scienceHash[s] = instance.level
+      end
+    end
   	return scienceHash
 
   end
 
   def research
-    url = request.original_url;
-    
+    url = request.original_url.split("/");
+
     current_user.science_instances.each do |s|
-      if(url.include? s.science_id.to_s)
+
+      if(url[4] == s.science_id.to_s)
         s.level = s.level + 1
         s.save
       end
