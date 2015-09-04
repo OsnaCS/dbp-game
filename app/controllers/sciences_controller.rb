@@ -15,6 +15,7 @@ class SciencesController < ApplicationController
 
   # GET /sciences/new
   def new
+    @science = Science.new
   end
 
   # GET /sciences/1/edit
@@ -103,6 +104,6 @@ class SciencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def science_params
-      params.require(:science).permit(:cost1, :cost2, :cost3, :factor, :duration, :condition, :name)
+      params.require(:science).permit(:cost1, :cost2, :cost3, :factor, :duration, :condition, :name, :tier)
     end
 end

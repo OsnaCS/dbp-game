@@ -9,6 +9,7 @@
       <th>Cost1</th>
       <th>Cost2</th>
       <th>Cost3</th>
+      <th>Tier</th>
       <th>Duration</th>
       <th>Available</th>
       <th>Level</th>
@@ -19,12 +20,13 @@
   <tbody>
     <% scienceList = SciencesController.getSciences(current_user) %>
 
-    <% @sciences.each do |science| %>
+    <% @sciences.sort_by{|science| science.tier}.each do |science| %>
       <tr>
         <td><%= science.name %></td>
         <td><%= science.cost1 %></td>
         <td><%= science.cost2 %></td>
         <td><%= science.cost3 %></td>
+        <td><%= science.tier %></td>
         <td><%= science.duration.strftime("%T") %></td>
         <td><%= "true" %>
         <td><%= scienceList[science] %>
