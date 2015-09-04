@@ -1,5 +1,5 @@
 class ShipsStation < ActiveRecord::Base
 
-	belongs_to :ship
-	belongs_to :station
+  belongs_to :ship
+  belongs_to :station
 end
