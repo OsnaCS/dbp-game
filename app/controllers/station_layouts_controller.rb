@@ -1,0 +1,2 @@
+class StationLayoutsController < ApplicationController
+end
