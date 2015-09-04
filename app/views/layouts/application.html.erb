@@ -52,13 +52,13 @@
 			<br>
 			<ul>
 
-				<li><%= link_to "Home", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Schiffe", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Forschung", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Stationen", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
+				<li><%= link_to "Home", :home_index %></li>
+				<li><%= link_to "Schiffe", :home_index %></li>
+				<li><%= link_to "Forschung", :home_index %></li>
+				<li><%= link_to "Stationen", :home_index %></li>
+				<li><%= link_to "Anlagen", :home_index %></li>
+				<li><%= link_to "Einheiten", :home_index %></li>
+				<li><%= link_to "Rangliste", :ranks %></li>
 				<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 			</ul>
 		</div>
