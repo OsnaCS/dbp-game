@@ -31,5 +31,4 @@ class User < ActiveRecord::Base
     @login || self.username || self.email
   end
 
-
 end
