@@ -20,9 +20,9 @@ function getTimer() {
 	setInterval(
 		function()
 		{
-			document.getElementById("notification").innerHTML = "<p>" + counter + "</p>";
+			document.getElementById("notification-text").innerHTML = "" + counter;
 			counter++;
 		},
-		5000
+		1000
 	);
 }
