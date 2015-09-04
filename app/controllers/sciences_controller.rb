@@ -1,6 +1,5 @@
 class SciencesController < ApplicationController
   before_action :set_science, only: [:show, :edit, :update, :destroy]
-  helper_method :research
 
   # GET /sciences
   # GET /sciences.json
@@ -11,7 +10,7 @@ class SciencesController < ApplicationController
   # GET /sciences/1
   # GET /sciences/1.json
   def show
-  end 
+  end
 
   # GET /sciences/new
   def new
@@ -23,9 +22,9 @@ class SciencesController < ApplicationController
   end
 
   def self.getSciences(user)
-  	scienceHash = Hash.new(0)
+    scienceHash = Hash.new(0)
     user.science_instances.each do |s|
-    	scienceHash[s.science] = s.level
+      scienceHash[s.science] = s.level
     end
 
     instance = nil
@@ -39,8 +38,7 @@ class SciencesController < ApplicationController
         scienceHash[s] = instance.level
       end
     end
-  	return scienceHash
-
+    return scienceHash
   end
 
   def research
