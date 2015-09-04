@@ -49,10 +49,31 @@ class SciencesController < ApplicationController
     current_user.science_instances.each do |s|
 
       if(url[4] == s.science_id.to_s)
-            redirect_to sciences_url, notice: 'Starting Research of ' + Science.find_by(id: s.science_id).name + ' ...'
-        s.level = s.level + 1
+        s.start_time = Time.now
         s.save
+        redirect_to sciences_url, notice: 'Starting Research of ' + Science.find_by(id: s.science_id).name + ' ...'
       end
+    end
+  end
+
+  def self.updateTime(instance)
+    science = Science.find_by(id: instance.science_id)
+    durationInMillis = (science.duration.to_i - 946684800)
+
+    if(instance.start_time)
+      timeSinceResearch = (((Time.now.to_f * 1000.0).to_i - (instance.updated_at.to_f * 1000.0).to_i) / 1000)
+      restTime = durationInMillis - timeSinceResearch
+
+      if(restTime <= 0)
+        instance.level = instance.level + 1
+        instance.start_time = nil
+        instance.save
+        return durationInMillis;
+      else
+        return restTime;
+      end
+    else
+      return durationInMillis;
     end
   end
 

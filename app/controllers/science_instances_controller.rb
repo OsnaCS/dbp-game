@@ -69,6 +69,6 @@ class ScienceInstancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def science_instance_params
-      params.require(:science_instance).permit(:science_id, :user_id, :level)
+      params.require(:science_instance).permit(:science_id, :user_id, :level, :start_time)
     end
 end
