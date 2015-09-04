@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+var counter = 1;
+
+function getTimer() {
+	setInterval(
+		function()
+		{
+			document.getElementById("notification").innerHTML = "<p>" + counter + "</p>";
+			counter++;
+		},
+		5000
+	);
+}

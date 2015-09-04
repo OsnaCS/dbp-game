@@ -6,29 +6,31 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body>
+<body onload="getTimer();">
 
 
 <div id="wrapper">
 	<div id="top" >
-		<div id="login" class="content">
-			<% if !user_signed_in? %>
-			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
-			  	<%= f.label :login %><br />
-  			    <%= f.text_field :login %>
-			    <%= f.label :password %><br />
-			    <%= f.password_field :password %>
-			    <%= f.check_box :remember_me %>
-			    <%= f.label :remember_me %>
-			    <%= f.submit 'Sign in' %>
-				<% end %>
-			<% else %>
-				<p class="login_text"><%= current_user.username %></p><br>
-				<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
-				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-			<% end %> 
+		<div id="login-wrapper" class="content">
+			<div id="login">
+				<% if !user_signed_in? %>
+				  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+				  	<br>
+					<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
+				    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
+				    <%= f.check_box :remember_me %>
+				    <%= f.label :remember_me %>
+				    <%= f.submit 'Sign in', :id => 'loginbutton' %>
+					<% end %>
+				<% else %>
+					<p class="login_text"><%= current_user.username %></p><br>
+					<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+				<% end %> 
+			</div>
 		</div>
 		<div id="banner" class="content">
+			<p id="clock"><%= Time.now.hour %>:<%= Time.now.min %>:<%= Time.now.sec %></p>
 			<p id="game_name">SpielName</p>
 		</div>
 	</div>
@@ -43,24 +45,31 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p><%= Time.now %></p>
+			
 		</div>
 	</div>
 	
 	<div id="botm">
-		<div id="menu" class="content">
-			<br>
-			<ul>
-
-				<li><%= link_to "Home", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Schiffe", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Forschung", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Stationen", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
-				<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
-				<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
-			</ul>
+		<div id="menu-wrapper" class="content">
+			<div id="menu">
+				<br>
+				<ul>
+					<li><%= link_to "Home", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Schiffe", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Forschung", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Stationen", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
+					<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
+					<% if !user_signed_in? %>
+						<li><%= link_to "Registrieren", new_user_registration_path %></li>
+					<% else %>
+						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					<% end %>
+				</ul>
+			</div>
+			<div id="notification">
+			</div>
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
