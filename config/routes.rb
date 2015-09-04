@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
+
   
   get 'mesmanager/index'
   get 'mesmanager/addmessage'
 
   resources :notifications
-
   resources :messages
-
+  resources :stations
+  resources :ships_stations
+  resources :ships
   resources :sciences
-
   resources :ranks
 
   get 'home/index'

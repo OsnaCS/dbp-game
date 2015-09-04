@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  costMIneral: 1
+  costCristal: 1
+  costFuel: 1
+
+two:
+  name: MyText
+  costMIneral: 1
+  costCristal: 1
+  costFuel: 1
