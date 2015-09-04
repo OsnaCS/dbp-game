@@ -1,5 +1,6 @@
 class SciencesController < ApplicationController
   before_action :set_science, only: [:show, :edit, :update, :destroy]
+  helper_method :research
 
   # GET /sciences
   # GET /sciences.json
@@ -10,15 +11,35 @@ class SciencesController < ApplicationController
   # GET /sciences/1
   # GET /sciences/1.json
   def show
-  end
+  end 
 
   # GET /sciences/new
   def new
-    @science = Science.new
   end
 
   # GET /sciences/1/edit
   def edit
+  end
+
+  def self.getSciences(user)
+  	scienceHash = Hash.new(0)
+    user.science_instances.each do |s|
+    	scienceHash[s.science] = s.level
+    end
+  	return scienceHash
+
+  end
+
+  def research
+    url = request.original_url;
+    
+    current_user.science_instances.each do |s|
+      if(url.include? s.science_id.to_s)
+        s.level = s.level + 1
+        s.save
+      end
+    end
+    redirect_to sciences_url
   end
 
   # POST /sciences

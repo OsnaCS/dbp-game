@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   
   resources :science_instances
 
-  resources :sciences
+  get 'sciences/research'
+  resources :sciences do
+    member do
+      get 'research'
+    end
+  end
 
   resources :ranks
 

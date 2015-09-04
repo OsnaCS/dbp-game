@@ -17,6 +17,8 @@
   </thead>
 
   <tbody>
+    <% scienceList = SciencesController.getSciences(current_user) %>
+
     <% @sciences.each do |science| %>
       <tr>
         <td><%= science.name %></td>
@@ -25,8 +27,8 @@
         <td><%= science.cost3 %></td>
         <td><%= science.duration.strftime("%T") %></td>
         <td><%= "true" %>
-        <td><%= 0 %>
-        <td><%= link_to 'Research', root_path%></td>
+        <td><%= scienceList[science] %>
+        <td><%= button_to 'Research', research_science_path(science), method: :get %></td>
         <td><%= link_to 'Reset', root_path%></td>
         <td><%= link_to 'Show', science %></td>
         <td><%= link_to 'Edit', edit_science_path(science) %></td>
