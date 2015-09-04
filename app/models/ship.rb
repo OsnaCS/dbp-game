@@ -2,7 +2,7 @@ class Ship < ActiveRecord::Base
 
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
-  after_create :create_stations
+  after_initialize :create_stations, if: :new_record?
 
   private
 
