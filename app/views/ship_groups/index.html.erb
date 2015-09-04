@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ship Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fleet</th>
+      <th>Ship</th>
+      <th>Number</th>
+      <th>Group hitpoints</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ship_groups.each do |ship_group| %>
+      <tr>
+        <td><%= ship_group.fighting_fleet.name %></td>
+        <td><%= ship_group.ship.name %></td>
+        <td><%= ship_group.number %></td>
+        <td><%= ship_group.group_hitpoints %></td>
+        <td><%= link_to 'Show', ship_group %></td>
+        <td><%= link_to 'Edit', edit_ship_group_path(ship_group) %></td>
+        <td><%= link_to 'Destroy', ship_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ship group', new_ship_group_path %>
