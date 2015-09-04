@@ -7,17 +7,8 @@ class Ship < ActiveRecord::Base
   private
 
   def create_stations
-  $i=1
-	
-  while $i<3 do
-    station=ShipsStation.new(ship_id: self.id, station_id: $i, level: "1").save
-    $i=$i+1
-  end
-
-  while $i<17 do
-    station=ShipsStation.new(ship_id: self.id, station_id: $i, level: "0").save
-    $i=$i+1
-  end
-	
+    Station.all.each do |station|
+      self.ships_stations.build(ship: self, station: station, level: station.initial_level).save
+    end
   end
 end
