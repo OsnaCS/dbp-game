@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904123539) do
+ActiveRecord::Schema.define(version: 20150904123839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150904123539) do
     t.integer  "initial_level"
     t.text     "description"
     t.integer  "condition"
+    t.integer  "tier"
   end
 
   create_table "teaparties", force: :cascade do |t|
