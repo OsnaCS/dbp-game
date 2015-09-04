@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   resources :science_instances
 
   get 'sciences/research'
@@ -9,6 +8,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :stations
+  resources :ships_stations
+  resources :ships
+  resources :sciences
   resources :ranks
 
   get 'home/index'
