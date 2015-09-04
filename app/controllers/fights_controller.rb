@@ -1,6 +1,7 @@
 class FightsController < ApplicationController
   before_action :set_fight, only: [:show, :edit, :update, :destroy]
-
+  
+  
   # GET /fights
   # GET /fights.json
   def index
@@ -15,6 +16,7 @@ class FightsController < ApplicationController
   # GET /fights/new
   def new
     @fight = Fight.new
+  #  @fight.report = Fight.report(@fight.attacker_id, @fight.defender_id)
   end
 
   # GET /fights/1/edit
@@ -25,7 +27,7 @@ class FightsController < ApplicationController
   # POST /fights.json
   def create
     @fight = Fight.new(fight_params)
-
+    @fight.report = @fight.report_start
     respond_to do |format|
       if @fight.save
         format.html { redirect_to @fight, notice: 'Fight was successfully created.' }
@@ -40,6 +42,7 @@ class FightsController < ApplicationController
   # PATCH/PUT /fights/1
   # PATCH/PUT /fights/1.json
   def update
+    @fight.report = @fight.report_start
     respond_to do |format|
       if @fight.update(fight_params)
         format.html { redirect_to @fight, notice: 'Fight was successfully updated.' }

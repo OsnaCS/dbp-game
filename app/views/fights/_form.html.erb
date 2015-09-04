@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :report %><br>
-    <%= f.text_area :report %>
-  </div>
-  <div class="field">
     <%= f.label :attacker %><br>
     <%= f.collection_select :attacker_id, User.all, :id, :username %>
   </div>
