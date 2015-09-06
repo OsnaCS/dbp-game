@@ -61,7 +61,6 @@
 					<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
 					<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
 					<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
-					<li><%= link_to "CreateNotification", :controller => :'/mesmanager', :action => :addmessage, :message_id => 555 %></li>
 					<% if !user_signed_in? %>
 						<li><%= link_to "Registrieren", new_user_registration_path %></li>
 					<% else %>
