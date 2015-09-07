@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :expiditions
+
   resources :stations
   resources :ships_stations
   resources :ships

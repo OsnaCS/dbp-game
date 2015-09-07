@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Expiditions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expiditions.each do |expidition| %>
+      <tr>
+        <td><%= link_to 'Show', expidition %></td>
+        <td><%= link_to 'Edit', edit_expidition_path(expidition) %></td>
+        <td><%= link_to 'Destroy', expidition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expidition', new_expidition_path %>
