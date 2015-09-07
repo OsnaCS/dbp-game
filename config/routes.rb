@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'profile/index'
+
+  get 'profile/user'
+
   resources :stations
   resources :ships_stations
   resources :ships
