@@ -13,6 +13,7 @@
 			   <td><%= rank.user.email %></td>
 			 <% end %>
 			<td><%= rank.score %></td>
+			<td><td><%= button_to 'Edit', edit_rank_path(rank), method: :get%></td>
 		</tr>
 	<% end %>
 </table>
