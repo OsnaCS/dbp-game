@@ -16,38 +16,7 @@ ActiveRecord::Schema.define(version: 20150904123839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
-  create_table "comments", force: :cascade do |t|
-    t.string   "commenter"
-    t.text     "body"
-    t.integer  "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
-
-  create_table "example2s", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "example2s", ["user_id"], name: "index_example2s_on_user_id", using: :btree
-
-  create_table "examples", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.float    "shield"
@@ -168,14 +137,6 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.integer  "tier"
   end
 
-  create_table "teaparties", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "price"
-    t.text     "report"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -196,8 +157,6 @@ ActiveRecord::Schema.define(version: 20150904123839) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-  add_foreign_key "example2s", "users"
-  add_foreign_key "examples", "users"
   add_foreign_key "fighting_fleets", "users"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
