@@ -29,14 +29,14 @@
 			<% end %> 
 		</div>
 		<div id="banner" class="content">
-			<h1>SpielName</h1>
+			<p id="game_name">SpielName</p>
 		</div>
 	</div>
 
 	<div id="mid">
 		<div id="ranking" class="content">
 			<% if user_signed_in? %>
-				<p>Points: </p>
+				<p>Points:</p>
 				<p>0</p>
 			<% else %>
 				<p>Not logged in</p>
@@ -51,13 +51,15 @@
 		<div id="menu" class="content">
 			<br>
 			<ul>
-				<li>Feature-Liga</li>
-				<li>Schiffe</li>
-				<li>Forschung</li>
-				<li>Stationen</li>
-				<li>Anlagen</li>
-				<li>Einheiten</li>
-				<li>Einstellungen</li>
+
+				<li><%= link_to "Home", root_path %></li>
+				<li><%= link_to "Schiffe", root_path %></li>
+				<li><%= link_to "Forschung", root_path %></li>
+				<li><%= link_to "Stationen", root_path %></li>
+				<li><%= link_to "Anlagen", root_path %></li>
+				<li><%= link_to "Einheiten", root_path %></li>
+				<li><%= link_to "Rangliste", ranks_path %></li>
+				<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 			</ul>
 		</div>
 		<div id="game" class="content">
