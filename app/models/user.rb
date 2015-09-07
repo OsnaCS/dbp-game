@@ -36,9 +36,12 @@ class User < ActiveRecord::Base
   end
 
   def can_research(instance)
-    #returnvar = ScienceInstance.where(science_id: instance.science_id, user_id: instance.user_id).first.start_time.nil?
-    #return returnvar
-    return instance.start_time.nil?
+    science_instances.each do |instance|
+      if not(instance.start_time.nil?)
+        return false
+      end
+    end
+    return true
   end
 
   def self.find_for_database_authentication(warden_conditions)
