@@ -30,7 +30,7 @@ class Science < ActiveRecord::Base
     durationInSeconds = science.duration * science.factor * (instance.level + 1)
 
     if(instance.start_time)
-      timeSinceResearch = (((Time.now.to_f * 1000.0).to_i - (instance.updated_at.to_f * 1000.0).to_i) / 1000)
+      timeSinceResearch = (Time.now - instance.updated_at).to_i
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
