@@ -22,6 +22,7 @@
       <tr>
         <% if(science_instance.id) %>
           <% science = science_instance.science %>
+          <td><img src= "<%= image_url("science_icons/" + science.icon)%>", height="50", width="50"></td>
           <td><%= science.name %></td>
           <td><%= science.cost1 %></td>
           <td><%= science.cost2 %></td>
