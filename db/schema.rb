@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150907082248) do
+=======
+ActiveRecord::Schema.define(version: 20150904123539) do
+>>>>>>> cd567c5ff7d100982ff591839026ecd4b3b4d886
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,7 +169,10 @@ ActiveRecord::Schema.define(version: 20150907082248) do
     t.integer  "initial_level"
     t.text     "description"
     t.integer  "condition"
+<<<<<<< HEAD
     t.integer  "tier"
+=======
+>>>>>>> cd567c5ff7d100982ff591839026ecd4b3b4d886
   end
 
   create_table "teaparties", force: :cascade do |t|

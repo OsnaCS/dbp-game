@@ -27,16 +27,16 @@ a {
 
 ul {
 	list-style-type: none;
-    padding: 0px;
-    margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 
 ul li {
-    background-image: url('marker.png');
-    background-repeat: no-repeat;
-    background-position: 0px center;
-    background-size: 20px 20px;
-    margin: 30px 0 0 10px;
+	background-image: url('marker.png');
+	background-repeat: no-repeat;
+	background-position: 0px center;
+	background-size: 20px 20px;
+	margin: 30px 0 0 10px;
 }
 
 /** DIV - Settings**/
@@ -166,6 +166,32 @@ ul li {
 	display: inline-block;
 }
 
+.tooltip {
+	position: relative;
+	display: inline;
+	float: left;
+	margin: 30px 10% 0% 10%;
+}
+
+.tooltip:hover:after {
+	position: absolute;
+	background: #333;
+	border-radius: 5px;
+	width: 220px;
+	bottom: 25px;
+	left: 20%;
+	padding: 5px 15px;
+	z-index: 1;
+	content: attr(title);
+}
+
+.field {
+	position: relative;
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /** Element - Settings **/ 
 #user_icon {
 	position: relative;
@@ -179,23 +205,35 @@ ul li {
 	left: 50px;
 }
 
+
 #clock {
 	position: absolute;
 	top: 15px;
 	right: 100px;
 }
 
-#notification-image
-{
+#notification-image {
 	position: absolute;
 	width: 50px;
 	height: 50px;
 	left: calc(50% - 25px);
 }
 
-#notification-text
-{
+#notification-text {
 	position: absolute;
 	color: red;
 	left: 50%;
+}
+
+#rank_table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#error_explanation {
+	position: absolute;
+	color: #000;
+	top: 100px;
+	left: 100px;
+	z-index: 2;
 }

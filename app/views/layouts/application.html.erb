@@ -6,8 +6,7 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body onload="getTimer();">
-
+<body>
 
 <div id="wrapper">
 	<div id="top" >
@@ -57,7 +56,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			
+			<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
+			<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
+			<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
 		</div>
 	</div>
 	
@@ -66,28 +67,23 @@
 			<div id="menu" class="content">
 				<br>
 				<ul>
-					<li><%= link_to "Home", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Schiffe", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Forschung", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Stationen", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
-					<% if !user_signed_in? %>
-						<li><%= link_to "Registrieren", new_user_registration_path %></li>
-					<% else %>
-						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
-					<% end %>
+					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Schiffe", root_path %></li>
+					<li><%= link_to "Forschung", root_path %></li>
+					<li><%= link_to "Stationen", root_path %></li>
+					<li><%= link_to "Anlagen", root_path %></li>
+					<li><%= link_to "Einheiten", root_path %></li>
+					<li><%= link_to "Rangliste", ranks_path %></li>
+					<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 				</ul>
-			</div>
+			</div>		
 			<div id="notification" class="content">
 				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
 				<p id="notification-text"></p>
 			</div>
-		</div>
-		<div id="game" class="content">
+	</div>
+	<div id="game" class="content">
 			<%= yield %>
-		</div>
 	</div>
 </div>
 </body>
