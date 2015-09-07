@@ -1,4 +1,5 @@
 <h1>Ihr Benutzerprofil</h1>
+<p><img src="<%= image_url(@user.username) %>"></p>
 <p><%= @user.username %></p>
 <p><%= @user.email %></p>
 <p><%= @user.right_level %></p>
@@ -7,3 +8,11 @@
 <p>Moderator: <%= @user.is_moderator %></p>
 <p>Admin: <%= @user.is_admin %></p>
 <p>Superadmin: <%= @user.is_superadmin %></p>
+
+<%= form_tag({action: :upload}, multipart: true) do %>
+  <%= file_field_tag 'picture' %>
+<% end %>
+ 
+<%= form_for @profile do |f| %>
+  <%= f.file_field :picture %>
+<% end %>

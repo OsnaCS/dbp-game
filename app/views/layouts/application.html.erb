@@ -24,7 +24,7 @@
 					<% end %>
 				<% else %>
 					<p class="login_text"><%= current_user.username %></p><br>
-					<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+					<img id="user_icon" src="<%= image_url(current_user.username) %>"><br>
 					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 				<% end %> 
 			</div>

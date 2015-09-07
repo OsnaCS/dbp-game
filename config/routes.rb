@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
 
-  get 'profile/index'
+  get 'home/index'
 
+  get 'profile/index'
   get 'profile/user'
+  get 'profile/upload'
 
   resources :stations
   resources :ships_stations
   resources :ships
   resources :sciences
   resources :ranks
-
-  get 'home/index'
 
   devise_for :users
   devise_scope :user do
