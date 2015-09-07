@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(version: 20150907084522) do
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
     t.string   "icons"
+    t.string   "description"
+    t.integer  "tier"
+    t.integer  "condition"
   end
 
   create_table "users", force: :cascade do |t|
