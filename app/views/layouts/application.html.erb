@@ -74,7 +74,11 @@
 					<li><%= link_to "Anlagen", root_path %></li>
 					<li><%= link_to "Einheiten", root_path %></li>
 					<li><%= link_to "Rangliste", ranks_path %></li>
-					<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					<% if user_signed_in? %>
+						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					<% else %>
+						<li><%= link_to "Registrieren", new_user_registration_path %></li>
+					<% end %>
 				</ul>
 			</div>		
 			<div id="notification" class="content">
