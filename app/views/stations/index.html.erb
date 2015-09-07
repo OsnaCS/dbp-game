@@ -2,9 +2,9 @@
 
 <h1>Listing Stations</h1>
 
-<table style="border-collapse: collapse;", border="2px solid", align="center">
+<table id="stationssite">
   <thead>
-    <tr>
+    <tr id="table">
       <th>Icon</th>
       <th>IconPic</th>
       <th>Name</th>
@@ -19,10 +19,10 @@
   <tbody>
     <% @stations.each do |station| %>
       <tr>
-        <td><%= station.icons %></td>
-        <td height="25"><img src="<%= image_url(station.icons) %>", height="50", width="50"></td>
+        <td><%= station.icon %></td>
+        <td><img src="<%= image_url(station.icon) %>", height="50", width="50"></td>
         <td><%= station.name %></td>
-        <td><%= station.costMIneral %></td>
+        <td><%= station.costMineral %></td>
         <td><%= station.costCristal %></td>
         <td><%= station.costFuel %></td>
         <td><%= station.initial_level %></td>

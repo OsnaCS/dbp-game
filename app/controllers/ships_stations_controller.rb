@@ -4,6 +4,9 @@ class ShipsStationsController < ApplicationController
   # GET /ships_stations
   # GET /ships_stations.json
   def index
+    #Wenn Schiffe existieren
+    #@ship = Ship.find(params[:ship_id])
+    #@ships_stations = @ship.ships_stations
     @ships_stations = ShipsStation.all
   end
 

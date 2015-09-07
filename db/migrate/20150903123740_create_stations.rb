@@ -2,7 +2,7 @@ class CreateStations < ActiveRecord::Migration
   def change
     create_table :stations do |t|
       t.text :name
-      t.integer :costMIneral
+      t.integer :costMineral
       t.integer :costCristal
       t.integer :costFuel
 

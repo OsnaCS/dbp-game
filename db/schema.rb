@@ -54,16 +54,16 @@ ActiveRecord::Schema.define(version: 20150907084522) do
 
   create_table "stations", force: :cascade do |t|
     t.text     "name"
-    t.integer  "costMIneral"
+    t.integer  "costMineral"
     t.integer  "costCristal"
     t.integer  "costFuel"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
-    t.string   "icons"
+    t.string   "icon"
     t.string   "description"
-    t.integer  "tier"
-    t.integer  "condition"
+    t.string   "tier"
+    t.string   "condition"
   end
 
   create_table "users", force: :cascade do |t|

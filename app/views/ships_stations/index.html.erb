@@ -17,7 +17,7 @@
   <tbody>
     <% Station.all.each do |ships_station| %>
       <tr>
-        <td><img src="<%= image_url(ships_station.icons) %>", height="50", width="50"></td>
+        <td><img src="<%= image_url(ships_station.icon) %>", height="50", width="50"></td>
         <td><%= ships_station.name %></td>
         <td><%= ships_station.description %></td>
         <td><%= ships_station.initial_level %></td>
