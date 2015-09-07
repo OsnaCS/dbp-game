@@ -1,14 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Stationen</h1>
+<h1>Stationen</h1><br/>
 
-<table style="border-collapse: collapse;", border="2px solid", align="center">
+<table id="stationsite">
   <thead>
-    <tr>
-      <th height="25", width= 15%> </th>
-      <th height="25", width= 25%>Name</th>
-      <th height="25", width= 45%>Beschreibung</th>
-      <th height="25", width= 10%>Level</th>
+    <tr id="table">
+      <th> </th>
+      <th>Name</th>
+      <th>Beschreibung</th>
+      <th>Level</th>
+      <th> </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,11 +17,11 @@
   <tbody>
     <% Station.all.each do |ships_station| %>
       <tr>
-        <td height="25"><img src="<%= image_url(ships_station.icons) %>", height="50", width="50"></td>
-        <td height="25"><%= ships_station.name %></td>
-        <td height="25"><%= ships_station.description %></td>
-        <td height="25"><%= ships_station.initial_level %></td>
-        <td height="25"><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
+        <td><img src="<%= image_url(ships_station.icons) %>", height="50", width="50"></td>
+        <td><%= ships_station.name %></td>
+        <td><%= ships_station.description %></td>
+        <td><%= ships_station.initial_level %></td>
+        <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
       </tr>
     <% end %>
   </tbody>
