@@ -23,7 +23,7 @@
 				    <%= f.submit 'Sign in', :id => 'loginbutton' %>
 					<% end %>
 				<% else %>
-					<p class="login_text"><%= current_user.username %></p><br>
+					<p class="login_text"><%= link_to current_user.username, profile_index_path %></p><br>
 					<img id="user_icon" src="<%= image_url(current_user.username) %>"><br>
 					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 				<% end %> 
