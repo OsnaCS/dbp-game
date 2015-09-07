@@ -171,7 +171,7 @@ ul li {
 #user_icon {
 	position: relative;
 	width: 30%;
-	height: 30%;
+	height: auto;
 }
 
 #game_name {
