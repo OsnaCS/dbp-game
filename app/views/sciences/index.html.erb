@@ -27,7 +27,7 @@
           <td><%= science.cost2 %></td>
           <td><%= science.cost3 %></td>
           <td><%= science.tier %></td>
-          <td><%= Time.at(Science.update_time(science_instance) - (60 * 60)).strftime("%H:%M:%S").to_s %></td>
+          <td><%= Science.update_time(science_instance).to_s %></td>
           <td><%= "true" %></td>
           <td><%= science_instance.level %>
           <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>

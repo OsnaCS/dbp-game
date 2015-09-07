@@ -1,3 +1,5 @@
+require 'TimeFormatter'
+
 class Science < ActiveRecord::Base
   has_many :science_instances, dependent: :destroy
   has_many :users, :through => :science_instances
@@ -25,22 +27,22 @@ class Science < ActiveRecord::Base
 
   def self.update_time(instance)
     science = Science.find_by(id: instance.science_id)
-    durationInMillis = (science.duration.to_i - 946684800)
+    durationInSeconds = science.duration * science.factor * (instance.level + 1)
 
     if(instance.start_time)
       timeSinceResearch = (((Time.now.to_f * 1000.0).to_i - (instance.updated_at.to_f * 1000.0).to_i) / 1000)
-      restTime = durationInMillis - timeSinceResearch
+      restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
         instance.level = instance.level + 1
         instance.start_time = nil
         instance.save
-        return durationInMillis;
+        return format_count_time(durationInSeconds)
       else
-        return restTime;
+        return format_count_time(restTime)
       end
     else
-      return durationInMillis;
+      return format_count_time(durationInSeconds)
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904095159) do
+ActiveRecord::Schema.define(version: 20150907083521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,11 +61,11 @@ ActiveRecord::Schema.define(version: 20150904095159) do
 
   create_table "fights", force: :cascade do |t|
     t.text     "report"
-    t.datetime "time"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "attacker_id"
     t.integer  "defender_id"
+    t.time     "time"
   end
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
@@ -86,6 +86,16 @@ ActiveRecord::Schema.define(version: 20150904095159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notifications", ["message_id"], name: "index_notifications_on_message_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "ranks", force: :cascade do |t|
     t.integer  "user_id"
@@ -108,7 +118,7 @@ ActiveRecord::Schema.define(version: 20150904095159) do
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time     "duration"
+    t.integer  "duration"
     t.string   "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -153,6 +163,9 @@ ActiveRecord::Schema.define(version: 20150904095159) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
+    t.text     "description"
+    t.integer  "condition"
+    t.integer  "tier"
   end
 
   create_table "teaparties", force: :cascade do |t|
@@ -186,6 +199,8 @@ ActiveRecord::Schema.define(version: 20150904095159) do
   add_foreign_key "example2s", "users"
   add_foreign_key "examples", "users"
   add_foreign_key "fighting_fleets", "users"
+  add_foreign_key "notifications", "messages"
+  add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "ships"
 end
