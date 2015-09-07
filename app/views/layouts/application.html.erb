@@ -6,7 +6,7 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body onload="getTimer();">
+<body>
 
 
 <div id="wrapper">
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div id="banner" class="content">
-			<p id="clock"><%= Time.now.hour %>:<%= Time.now.min %>:<%= Time.now.sec %></p>
+			<p id="clock"><%= Time.now.strftime("%T"); %></p>
 			<p id="game_name">SpielName</p>
 		</div>
 	</div>
