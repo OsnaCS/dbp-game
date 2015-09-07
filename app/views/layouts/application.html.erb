@@ -6,89 +6,84 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body onload="getTimer();">
-
-
-<div id="wrapper">
-	<div id="top" >
-		<div id="login-wrapper" class="content">
-			<div id="login">
-				<% if !user_signed_in? %>
-				  <%= form_for(:user, :url => session_path(:user)) do |f| %>
-				  	<br>
-					<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
-				    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
-				    <%= f.check_box :remember_me %>
-				    <%= f.label :remember_me %>
-				    <%= f.submit 'Sign in', :id => 'loginbutton' %>
-					<% end %>
-				<% else %>
-					<p class="login_text"><%= current_user.username %></p><br>
-					<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
-					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-				<% end %> 
-			</div>
-		</div>
-		<div id="banner" class="content">
-			<p id="clock">
-				<%= Time.now.hour %>:
-				<% if Time.now.min < 10 %>
-					0<%= Time.now.min %>:
-				<% else %>
-					<%= Time.now.min %>:
-				<% end %>
-				<% if Time.now.sec < 10 %>
-					0<%= Time.now.sec %>
-				<% else %>
-					<%= Time.now.sec %>
-				<% end %>
-			</p>
-			<p id="game_name">SpielName</p>
-		</div>
-	</div>
-
-	<div id="mid">
-		<div id="ranking" class="content">
-			<% if user_signed_in? %>
-				<p>Points:</p>
-				<p>0</p>
-			<% else %>
-				<p>Not logged in</p>
-			<% end %>
-		</div>
-		<div id="resources" class="content">
-			
-		</div>
-	</div>
-	
-	<div id="botm">
-		<div id="menu-wrapper">
-			<div id="menu" class="content">
-				<br>
-				<ul>
-					<li><%= link_to "Home", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Schiffe", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Forschung", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Stationen", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Anlagen", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Einheiten", :controller => :'/home', :action => :index %></li>
-					<li><%= link_to "Rangliste", :controller => :'/ranks', :action => :index %></li>
+<body>
+	<div id="wrapper">
+		<div id="top" >
+			<div id="login-wrapper" class="content">
+				<div id="login">
 					<% if !user_signed_in? %>
-						<li><%= link_to "Registrieren", new_user_registration_path %></li>
+					  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+					  	<br>
+						<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
+					    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
+					    <%= f.check_box :remember_me %>
+					    <%= f.label :remember_me %>
+					    <%= f.submit 'Sign in', :id => 'loginbutton' %>
+						<% end %>
 					<% else %>
-						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
-					<% end %>
-				</ul>
+						<p class="login_text"><%= current_user.username %></p><br>
+						<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+						<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+					<% end %> 
+				</div>
 			</div>
-			<div id="notification" class="content">
-				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
-				<p id="notification-text"></p>
+			<div id="banner" class="content">
+				<p id="clock">
+					<%= Time.now.hour %>:
+					<% if Time.now.min < 10 %>
+						0<%= Time.now.min %>:
+					<% else %>
+						<%= Time.now.min %>:
+					<% end %>
+					<% if Time.now.sec < 10 %>
+						0<%= Time.now.sec %>
+					<% else %>
+						<%= Time.now.sec %>
+					<% end %>
+				</p>
+				<p id="game_name">SpielName</p>
 			</div>
 		</div>
-		<div id="game" class="content">
-			<%= yield %>
+
+		<div id="mid">
+			<div id="ranking" class="content">
+				<% if user_signed_in? %>
+					<p>Points:</p>
+					<p>0</p>
+				<% else %>
+					<p>Not logged in</p>
+				<% end %>
+			</div>
+			<div id="resources" class="content">
+				<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
+				<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
+				<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
+			</div>
+		</div>
+		<div id="botm">
+			<div id="menu-wrapper">
+				<div id="menu" class="content">
+					<br>
+					<ul>
+						<li><%= link_to "Home", root_path %></li>
+						<li><%= link_to "Schiffe", root_path %></li>
+						<li><%= link_to "Forschung", root_path %></li>
+						<li><%= link_to "Stationen", root_path %></li>
+						<li><%= link_to "Anlagen", root_path %></li>
+						<li><%= link_to "Einheiten", root_path %></li>
+						<li><%= link_to "Rangliste", ranks_path %></li>
+						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					</ul>
+				</div>
+				<div id="notification" class="content">
+					<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
+					<p id="notification-text"></p>
+				</div>
+			</div>
+			<div id="game" class="content">
+				<%= yield %>
+			</div>
 		</div>
 	</div>
-</div>
 </body>
 </html>
