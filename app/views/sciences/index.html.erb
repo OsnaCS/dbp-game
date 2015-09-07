@@ -11,14 +11,14 @@
       <th>Cost3</th>
       <th>Tier</th>
       <th>Duration</th>
-      <th>Available</th>
       <th>Level</th>
+      <th>ConditionID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% current_user.science_instances.sort_by{|instance| instance.science.name}.each do |science_instance| %>
+    <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
       <tr>
         <% if(science_instance.id) %>
           <% science = science_instance.science %>
@@ -28,9 +28,13 @@
           <td><%= science.cost3 %></td>
           <td><%= science.tier %></td>
           <td><%= Science.update_time(science_instance).to_s %></td>
-          <td><%= "true" %></td>
+          <% availability = current_user.check_condition(science.condition) && current_user.can_research(science_instance) %>
           <td><%= science_instance.level %>
-          <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+          <td><%= science.science_condition_id %></td>
+          <% if availability %>
+            <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+          <% else %>
+          <% end %>
           <td><%= link_to 'Edit', edit_science_path(science) %></td>
           <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

@@ -69,6 +69,6 @@ class SciencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def science_params
-      params.require(:science).permit(:cost1, :cost2, :cost3, :factor, :duration, :condition, :name, :tier)
+      params.require(:science).permit(:cost1, :cost2, :cost3, :factor, :duration, :condition, :name, :tier, :science_condition_id)
     end
 end
