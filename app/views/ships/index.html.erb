@@ -14,6 +14,10 @@
     <% @ships.each do |ship| %>
       <tr>
         <td><%= ship.name %></td>
+        <% ship.update_resources %>
+        <td>(<%= ship.metal %>)</td>
+        <td>(<%= ship.cristal %>)</td>
+        <td>(<%= ship.fuel %>)</td>
         <td><%= link_to 'Show', ship %></td>
         <td><%= link_to 'Edit', edit_ship_path(ship) %></td>
         <td><%= link_to 'Destroy', ship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
