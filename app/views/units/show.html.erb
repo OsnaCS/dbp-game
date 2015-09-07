@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @unit.name %>
+</p>
+
+<p>
+  <strong>Metal price:</strong>
+  <%= @unit.metal_price %>
+</p>
+
+<p>
+  <strong>Crystal price:</strong>
+  <%= @unit.crystal_price %>
+</p>
+
+<p>
+  <strong>Fuel price:</strong>
+  <%= @unit.fuel_price %>
+</p>
+
+<p>
+  <strong>Total cost:</strong>
+  <%= @unit.total_cost %>
+</p>
+
+<p>
+  <strong>Shell:</strong>
+  <%= @unit.shell %>
+</p>
+
+<p>
+  <strong>Damage:</strong>
+  <%= @unit.damage %>
+</p>
+
+<p>
+  <strong>Damage type:</strong>
+  <%= @unit.damage_type %>
+</p>
+
+<p>
+  <strong>Cargo:</strong>
+  <%= @unit.cargo %>
+</p>
+
+<p>
+  <strong>Speed:</strong>
+  <%= @unit.speed %>
+</p>
+
+<p>
+  <strong>Shipyard requirement:</strong>
+  <%= @unit.shipyard_requirement %>
+</p>
+
+<p>
+  <strong>Research requirement one:</strong>
+  <%= @unit.research_requirement_one %>
+</p>
+
+<p>
+  <strong>Research requiement two:</strong>
+  <%= @unit.research_requiement_two %>
+</p>
+
+<%= link_to 'Edit', edit_unit_path(@unit) %> |
+<%= link_to 'Back', units_path %>

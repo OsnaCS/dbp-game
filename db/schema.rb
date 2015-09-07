@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904123839) do
+ActiveRecord::Schema.define(version: 20150907131222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+
+
+
+  create_table "damage_types", force: :cascade do |t|
+    t.string   "name"
+    t.float    "shell_mult"
+    t.float    "shield_mult"
+    t.float    "station_mult"
+    t.float    "plattform_mult"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
 
 
@@ -37,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.time     "time"
   end
 
-  add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
+  add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.string   "title"
@@ -73,6 +86,13 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "resources", force: :cascade do |t|
+    t.text     "name"
+    t.integer  "production"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "science_instances", force: :cascade do |t|
     t.integer  "science_id"
     t.integer  "user_id"
@@ -87,12 +107,14 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time     "duration"
+    t.integer  "duration"
     t.string   "condition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "name"
     t.integer  "tier"
+    t.integer  "science_condition_id"
+    t.string   "icon"
   end
 
   create_table "ship_groups", force: :cascade do |t|
@@ -109,8 +131,12 @@ ActiveRecord::Schema.define(version: 20150904123839) do
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "metal"
+    t.integer  "cristal"
+    t.integer  "fuel"
+    t.datetime "lastChecked"
   end
 
   create_table "ships_stations", force: :cascade do |t|
@@ -135,7 +161,29 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.text     "description"
     t.integer  "condition"
     t.integer  "tier"
+    t.string   "icons"
   end
+
+
+  create_table "units", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "metal_price"
+    t.integer  "crystal_price"
+    t.integer  "fuel_price"
+    t.integer  "total_cost"
+    t.integer  "shell"
+    t.integer  "damage"
+    t.integer  "damage_type_id"
+    t.integer  "cargo"
+    t.integer  "speed"
+    t.integer  "shipyard_requirement"
+    t.integer  "research_requirement_one"
+    t.integer  "research_requirement_two"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -151,6 +199,7 @@ ActiveRecord::Schema.define(version: 20150904123839) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
+    t.integer  "right_level"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -162,4 +211,5 @@ ActiveRecord::Schema.define(version: 20150904123839) do
   add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "ships"
+  add_foreign_key "units", "damage_types"
 end
