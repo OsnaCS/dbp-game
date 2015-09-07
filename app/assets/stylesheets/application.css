@@ -27,16 +27,16 @@ a {
 
 ul {
 	list-style-type: none;
-    padding: 0px;
-    margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 
 ul li {
-    background-image: url('marker.png');
-    background-repeat: no-repeat;
-    background-position: 0px center;
-    background-size: 20px 20px;
-    margin: 30px 0 0 10px;
+	background-image: url('marker.png');
+	background-repeat: no-repeat;
+	background-position: 0px center;
+	background-size: 20px 20px;
+	margin: 30px 0 0 10px;
 }
 
 /** DIV - Settings**/
@@ -145,13 +145,13 @@ ul li {
 .tooltip:hover:after {
 	position: absolute;
 	background: #333;
-    border-radius: 5px;
-    width: 220px;
-    bottom: 25px;
-    left: 20%;
-    padding: 5px 15px;
-    z-index: 1;
-    content: attr(title);
+	border-radius: 5px;
+	width: 220px;
+	bottom: 25px;
+	left: 20%;
+	padding: 5px 15px;
+	z-index: 1;
+	content: attr(title);
 }
 
 .field {
