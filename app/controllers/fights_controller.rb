@@ -27,9 +27,10 @@ class FightsController < ApplicationController
   # POST /fights.json
   def create
     @fight = Fight.new(fight_params)
-    @fight.report = @fight.report_start
     respond_to do |format|
       if @fight.save
+         @fight.report = @fight.report_start
+         @fight.save
         format.html { redirect_to @fight, notice: 'Fight was successfully created.' }
         format.json { render :show, status: :created, location: @fight }
       else

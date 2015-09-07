@@ -1,25 +1,13 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-
-  resources :ship  
-
-=======
  
   resources :ship  
  
->>>>>>> becbfd7ea8e707f9ef462750766b2688d3437611
   resources :ship_groups
 
   resources :fighting_fleets
 
   resources :fights
-<<<<<<< HEAD
 
-    
-
-=======
-  
->>>>>>> becbfd7ea8e707f9ef462750766b2688d3437611
   resources :sciences
 
   resources :ranks

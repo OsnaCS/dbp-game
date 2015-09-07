@@ -1,4 +1,4 @@
-class Fight #< ActiveRecord::Base
+class Fight#< ActiveRecord::Base
 #  belongs_to :user
 #  belongs_to :attacker, :class_name => 'User', :foreign_key => 'attacker_id', inverse_of: :attacks
 #  belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
@@ -10,6 +10,8 @@ class Fight #< ActiveRecord::Base
      @spy_level_attacker = 2
      @spy_level_defender = 1
      @spy_event = true
+     @ships = {s1: {name: "ship1", damage: 5, hp: 15}, s2: {name: "ship2", damage: 4, hp: 20}}
+ 
   end
 
   def time_to_fight
@@ -79,4 +81,7 @@ f=Fight.new
 #puts "Starte Spy Phase:"
 #f.number_of_spy_probes = 1
 f.emp_phase
+f.spy_phase
+
+
 end
