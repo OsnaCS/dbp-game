@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_one :rank
   has_many :science_instances
   has_many :sciences, :through => :science_instances
+  after_initialize :create_science_instances
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -34,4 +35,12 @@ class User < ActiveRecord::Base
     @login || self.username || self.email
   end
 
+  private
+    def create_science_instances
+      Science.all.each do |science|
+        if not(science_instances.exists?(:science_id => science.id, :user_id => self.id))
+          science_instances.build(science: science, level: 0)
+        end
+      end
+    end
 end

@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  resources :science_instances
-
-  get 'sciences/research'
-  resources :sciences do
+  resources :science_instances do
     member do
       get 'research'
     end
   end
 
+  resources :sciences
   resources :stations
   resources :ships_stations
   resources :ships

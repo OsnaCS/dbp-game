@@ -1,5 +1,5 @@
 class ScienceInstancesController < ApplicationController
-  before_action :set_science_instance, only: [:show, :edit, :update, :destroy]
+  before_action :set_science_instance, only: [:research, :show, :edit, :update, :destroy]
 
   # GET /science_instances
   # GET /science_instances.json
@@ -35,6 +35,12 @@ class ScienceInstancesController < ApplicationController
         format.json { render json: @science_instance.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def research
+    @science_instance.start_time = Time.now
+    @science_instance.save
+    redirect_to sciences_url
   end
 
   # PATCH/PUT /science_instances/1

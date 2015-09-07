@@ -18,23 +18,22 @@
   </thead>
 
   <tbody>
-    <% scienceList = SciencesController.getSciences(current_user) %>
-    <% current_user.science_instances.sort_by{|instance| instance.science.tier}.each do |science_instance| %>
+    <% current_user.science_instances.sort_by{|instance| instance.science.name}.each do |science_instance| %>
       <tr>
-        <% science = science_instance.science %>
-        <td><%= science.name %></td>
-        <td><%= science.cost1 %></td>
-        <td><%= science.cost2 %></td>
-        <td><%= science.cost3 %></td>
-        <td><%= science.tier %></td>
-        <td><%= Time.at(SciencesController.updateTime(science_instance) - (60 * 60)).strftime("%H:%M:%S").to_s %></td>
-        <td><%= "true" %></td>
-        <td><%= scienceList[science] %></td>
-
-        <td><%= button_to 'Research', research_science_path(science), method: :get %></td>
-        <td><%= link_to 'Show', science %></td>
-        <td><%= link_to 'Edit', edit_science_path(science) %></td>
-        <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if(science_instance.id) %>
+          <% science = science_instance.science %>
+          <td><%= science.name %></td>
+          <td><%= science.cost1 %></td>
+          <td><%= science.cost2 %></td>
+          <td><%= science.cost3 %></td>
+          <td><%= science.tier %></td>
+          <td><%= Time.at(Science.update_time(science_instance) - (60 * 60)).strftime("%H:%M:%S").to_s %></td>
+          <td><%= "true" %></td>
+          <td><%= science_instance.level %>
+          <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+          <td><%= link_to 'Edit', edit_science_path(science) %></td>
+          <td><%= link_to 'Destroy', science, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -21,7 +21,7 @@ class RanksController < ApplicationController
   def edit
   end
   
-  def self.rankList(center, offset)
+  def self.rank_list(center, offset)
     allRanks = Array.new
     currentRank = nil
 
