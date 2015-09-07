@@ -1,2 +1,9 @@
 <h1>Ihr Benutzerprofil</h1>
 <p><%= @user.username %></p>
+<p><%= @user.email %></p>
+<p><%= @user.right_level %></p>
+<p>Normaler Benutzer: <%= @user.is_user %></p>
+<p>Premium Benutzer: <%= @user.is_premium_user %></p>
+<p>Moderator: <%= @user.is_moderator %></p>
+<p>Admin: <%= @user.is_admin %></p>
+<p>Superadmin: <%= @user.is_superadmin %></p>
