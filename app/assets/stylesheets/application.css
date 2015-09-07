@@ -19,6 +19,7 @@ html,body {
 	margin: 0 auto;
 	background: url('background.jpg');
 	color: #FFF;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -60,10 +61,8 @@ ul li {
 	width: 10%;
 	height: 100%;
 	max-width: 10%;
-	float: left;
 	display: inline-block;
 	top: 0;
-	background-color: #000066;
 }
 
 #banner {
@@ -71,8 +70,6 @@ ul li {
 	width: 90%;
 	height: 100%;
 	max-width: 90%;
-	float: left;
-	background-color: #000066;
 	background-image: url('banner.jpg');
 	background-size: 100% 100%;
 }
@@ -89,8 +86,6 @@ ul li {
 	width: 10%;
 	height: 100%;
 	max-width: 10%;
-	float: left;
-	background-color: #000066;
 }
 
 #resources {
@@ -98,8 +93,6 @@ ul li {
 	width: 90%;
 	height: 100%;
 	max-width: 90%;
-	float: left;
-	background-color: #000066;
 }
 
 #botm {
@@ -114,8 +107,6 @@ ul li {
 	width: 10%;
 	height: 100%;
 	max-width: 10%;
-	float: left;
-	background-color: #000066;
 }
 
 #game {
@@ -123,17 +114,19 @@ ul li {
 	width: 90%;
 	height: 100%;
 	max-width: 90%;
-	float: left;
-	background-color: #000066;
 }
 
 .content {
 	position: relative;
 	display: table;
+	float: left;
 	text-align: center;
 	vertical-align: middle;
+	border-radius: 10px;
 	border: 2px solid white;
+	box-shadow: 10px 10px #003366;
 	box-sizing: border-box;
+	background-color: #000066;
 }
 
 .login_text {
