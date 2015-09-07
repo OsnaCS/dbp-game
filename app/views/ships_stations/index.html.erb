@@ -5,6 +5,7 @@
 <table style="border-collapse: collapse;", border="2px solid", align="center">
   <thead>
     <tr>
+      <th height="25", width= 15%> </th>
       <th height="25", width= 25%>Name</th>
       <th height="25", width= 45%>Beschreibung</th>
       <th height="25", width= 10%>Level</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% Station.all.each do |ships_station| %>
       <tr>
+        <td height="25"><img src="<%= image_url(ships_station.icons) %>", height="50", width="50"></td>
         <td height="25"><%= ships_station.name %></td>
         <td height="25"><%= ships_station.description %></td>
         <td height="25"><%= ships_station.initial_level %></td>
