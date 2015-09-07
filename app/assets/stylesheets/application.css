@@ -157,7 +157,7 @@ ul li {
 	left: 20%;
 	padding: 5px 15px;
 	z-index: 1;
-	content: attr(title);
+	content: attr(data-tooltip);
 }
 
 .field {
