@@ -201,8 +201,10 @@ ul li {
 
 #notification-text {
 	position: absolute;
-	color: red;
-	left: 50%;
+	color: #FFF;
+	left: calc(50% - 5px);
+	background-color: red;
+	font-weight: bold;
 }
 
 #game_name {
