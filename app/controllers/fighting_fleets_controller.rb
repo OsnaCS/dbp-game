@@ -15,6 +15,8 @@ class FightingFleetsController < ApplicationController
   # GET /fighting_fleets/new
   def new
     @fighting_fleet = FightingFleet.new
+    
+
   end
 
   # GET /fighting_fleets/1/edit
@@ -24,17 +26,10 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets
   # POST /fighting_fleets.json
   def create
-    @fighting_fleet = FightingFleet.new(fighting_fleet_params)
-
-    respond_to do |format|
-      if @fighting_fleet.save
-        format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }
-        format.json { render :show, status: :created, location: @fighting_fleet }
-      else
-        format.html { render :new }
-        format.json { render json: @fighting_fleet.errors, status: :unprocessable_entity }
-      end
-    end
+    
+    @fighting_fleet = @fight.fighting_fleet.new(fighting_fleet_params)
+      
+    @fighting_fleet.save
   end
 
   # PATCH/PUT /fighting_fleets/1
@@ -69,6 +64,6 @@ class FightingFleetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fighting_fleet_params
-      params.require(:fighting_fleet).permit(:shield, :user_id,:name)
+      params.require(:fighting_fleet).permit(:shield, :user_id, :name, ship_groups_attributes: [:unit_id, :number, :group_hitpoints])
     end
 end

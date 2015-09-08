@@ -11,13 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907131222) do
+ActiveRecord::Schema.define(version: 20150908122811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
+  create_table "comments", force: :cascade do |t|
+    t.string   "commenter"
+    t.text     "body"
+    t.integer  "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
 
   create_table "damage_types", force: :cascade do |t|
     t.string   "name"
@@ -29,7 +43,21 @@ ActiveRecord::Schema.define(version: 20150907131222) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "example2s", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
+  add_index "example2s", ["user_id"], name: "index_example2s_on_user_id", using: :btree
+
+  create_table "examples", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.float    "shield"
@@ -43,15 +71,17 @@ ActiveRecord::Schema.define(version: 20150907131222) do
 
   create_table "fights", force: :cascade do |t|
     t.text     "report"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "attacker_id"
     t.integer  "defender_id"
     t.time     "time"
+    t.integer  "fighting_fleet_id"
   end
 
-  add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
+  add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
+  add_index "fights", ["fighting_fleet_id"], name: "index_fights_on_fighting_fleet_id", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.string   "title"
@@ -119,15 +149,15 @@ ActiveRecord::Schema.define(version: 20150907131222) do
 
   create_table "ship_groups", force: :cascade do |t|
     t.integer  "fighting_fleet_id"
-    t.integer  "ship_id"
     t.integer  "number"
     t.float    "group_hitpoints"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "unit_id"
   end
 
   add_index "ship_groups", ["fighting_fleet_id"], name: "index_ship_groups_on_fighting_fleet_id", using: :btree
-  add_index "ship_groups", ["ship_id"], name: "index_ship_groups_on_ship_id", using: :btree
+  add_index "ship_groups", ["unit_id"], name: "index_ship_groups_on_unit_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
@@ -164,6 +194,13 @@ ActiveRecord::Schema.define(version: 20150907131222) do
     t.string   "icons"
   end
 
+  create_table "teaparties", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.text     "report"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "units", force: :cascade do |t|
     t.string   "name"
@@ -206,10 +243,13 @@ ActiveRecord::Schema.define(version: 20150907131222) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "example2s", "users"
+  add_foreign_key "examples", "users"
   add_foreign_key "fighting_fleets", "users"
+  add_foreign_key "fights", "fighting_fleets"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
-  add_foreign_key "ship_groups", "ships"
+  add_foreign_key "ship_groups", "units"
   add_foreign_key "units", "damage_types"
 end

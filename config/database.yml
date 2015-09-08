@@ -1,8 +1,8 @@
 default: &default
   adapter: postgresql
-  host: localhost
-  username: myapp
-  password: password1
+  host: "<%= ENV['POSTGRES_HOST'] %>"
+  username: "<%= ENV['POSTGRES_USERNAME'] %>"
+  password: "<%= ENV['POSTGRES_PASSWORD'] %>"
   pool: 5
   timeout: 5000
 

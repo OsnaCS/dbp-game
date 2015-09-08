@@ -1,5 +1,8 @@
 class ShipGroupsController < ApplicationController
   before_action :set_ship_group, only: [:show, :edit, :update, :destroy]
+  
+  
+
 
   # GET /ship_groups
   # GET /ship_groups.json
@@ -15,6 +18,9 @@ class ShipGroupsController < ApplicationController
   # GET /ship_groups/new
   def new
     @ship_group = ShipGroup.new
+    
+    end
+    
   end
 
   # GET /ship_groups/1/edit
@@ -24,8 +30,9 @@ class ShipGroupsController < ApplicationController
   # POST /ship_groups
   # POST /ship_groups.json
   def create
+   
     @ship_group = ShipGroup.new(ship_group_params)
-
+    @ship_name =Unit.find(@ship_group.unit_id).name
     respond_to do |format|
       if @ship_group.save
         format.html { redirect_to @ship_group, notice: 'Ship group was successfully created.' }
@@ -69,6 +76,6 @@ class ShipGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ship_group_params
-      params.require(:ship_group).permit(:fighting_fleet_id, :ship_id, :number, :group_hitpoints)
+      params.require(:ship_group).permit(:fighting_fleet_id, :ship_id, :number, :group_hitpoints, :unit_name)
     end
 end

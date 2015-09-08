@@ -1,4 +1,5 @@
 <%= form_for(@fighting_fleet) do |f| %>
+  <%= f.fields_for :fights do |ff| %>
   <% if @fighting_fleet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:</h2>
@@ -23,7 +24,24 @@
     <%= f.label :user_id %><br>
     <%= f.collection_select :user_id, User.all, :id, :username %>
   </div>
+    <table>
+      <tr>
+        <th>Einheit</th>
+        <th>Besitzt</th>
+        <th>Verschicken</th>
+      </tr>
+      <%= f.fields_for :ship_groups do |fs| %>
+        <tr>
+          <td><%=fs.object.unit.name %></td>
+          <td><%= %></td>
+          <td><%=fs.number_field :number %></td>
+        </tr>
+        
+      <% end %>
+    </table>
+<% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
