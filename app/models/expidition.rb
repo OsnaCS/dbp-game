@@ -6,12 +6,6 @@ class Expidition < ActiveRecord::Base
    @explore_time
    @value
 
-   #def initialize(time, store, v)
-   #   @explore_time = time
-   #   @storeroom = store
-   #   @value = v
-   #end
-
    def explore
       @value = 0
       @fleet_storeroom = 0
@@ -84,22 +78,25 @@ class Expidition < ActiveRecord::Base
          end
       end
 
+      kreuzer_huelle = Unit.find_by_name("Kreuzer").shell * kreuzer_amount
+      fregatte_huelle = Unit.find_by_name("Fregatte").shell * fregatte_amount
+      jaeger_huelle = Unit.find_by_name("Jäger").shell * jaeger_amount
+      schild_huelle = Unit.find_by_name("mobiler Schild").shell * schild_amount
       shield_strenght = shield_amount * 5 
       gegner_flotte = Fighting_fleet.create(user: User.find_by_username("dummy"),
                                             shield: shield_strength)
       kreuzer_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
                                        "Kreuzer", number: kreuzer_amount,
-                                      group_hitpoints: kreuzer_amount*10) 
+                                      group_hitpoints: kreuzer_huelle) 
       fregatte_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
                                        "Fregatte", number: fregatte_amount,
-                                      group_hitpoints: fregatte_amount*10) 
+                                      group_hitpoints: fregattehuelle) 
       schild_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
                                        "mobiler Schild", number: schild_amount,
-                                      group_hitpoints: schild_amount*5) 
+                                      group_hitpoints: schild_huelle) 
       jaeger_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
                                        "Jäger", number: jaeger_amount,
-                                      group_hitpoints: jaeger_amount*1) 
-      #TODO Hardcodings entfernen sobald Werte in DB verfügbar
+                                      group_hitpoints: jaeger_huelle) 
       #TODO Kampf starten
    end
 
@@ -167,28 +164,32 @@ class Expidition < ActiveRecord::Base
          when "Jäger"
             g.number += jaeger_amount
          end
+      end
+         kreuzer_huelle = Unit.find_by_name("Kreuzer").shell * kreuzer_amount
+         fregatte_huelle = Unit.find_by_name("Fregatte").shell * fregatte_amount
+         jaeger_huelle = Unit.find_by_name("Jäger").shell * jaeger_amount
+         schild_huelle = Unit.find_by_name("mobiler Schild").shell *
+            schild_amount
          if(kreuzer_amount != 0)
-            #TODO Kreuzer ship_group erstellen und amount adden
+            kreuzer = Ship_group.create(fighting_fleet: fighting_fleet, ship:
+                                        "Kreuzer", number: kreuzer_amount,
+                                        group_hitpoints: kreuzer_huelle)
          end
          if(fregatte_amount != 0) 
-            #TODO fregatte ship_group erstellen und amount adden
+            fregatte = Ship_group.create(fighting_fleet: fighting_fleet, ship:
+                                         "Fregatte", number: kreuzer_amount,
+                                         group_hitpoints: fregatte_huelle)
          end
          if(schild_amount != 0)
-            #TODO schild ship_group erstellen und amount adden
+            schild = Ship_group.create(fighting_fleet: fighting_fleet, ship:
+                                       "mobiler Schild", number: schild_amount,
+                                      group_hitpoints: schild_huelle)
          end
          if(jaeger_amount != 0)
-            #TODO jaeger ship_group erstellen und amount adden
+            jaeger = Ship_group.create(fighting_fleet: fighting_fleet, ship:
+                                       "Jäger", number: jaeger_amount,
+                                       group_hitpoints: jaeger_huelle)
          end
-      end
    end
-
-  # print "Reisezeit angeben:\n"
-  # time = gets.to_i
-  # print "Lagerraum angeben:\n"
-  # store = gets.to_i
-  # print "Kampfstärke angeben:\n"
-  # v = gets.to_i
-  # exploration = Expidition.new(time, store, v)
-  # exploration.explore
 
 end

@@ -27,11 +27,6 @@ ActiveRecord::Schema.define(version: 20150907135923) do
   end
 
   create_table "expiditions", force: :cascade do |t|
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text     "mes"
-    t.integer  "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +52,13 @@ ActiveRecord::Schema.define(version: 20150907135923) do
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "mes"
+    t.integer  "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -160,7 +162,6 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level",            default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -168,9 +169,9 @@ ActiveRecord::Schema.define(version: 20150907135923) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "fighting_fleets", "users"
+  add_foreign_key "notifications", "messages"
+  add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "ships"
   add_foreign_key "units", "damage_types"
-  add_foreign_key "notifications", "messages"
-  add_foreign_key "notifications", "users"
 end
