@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Report:</strong>
+  <%= @fight.report %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @time_to_fight %>
+</p>
+<p>
+  <strong>Attacker:</strong>
+  <%= @fight.attacker.username %>
+</p>
+<p>
+  <strong>Defender:</strong>
+  <%= @fight.defender.username %>
+</p>
+
+<%= link_to 'Edit', edit_fight_path(@fight) %> |
+<%= link_to 'Back', fights_path %>

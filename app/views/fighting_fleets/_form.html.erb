@@ -1,0 +1,29 @@
+<%= form_for(@fighting_fleet) do |f| %>
+  <% if @fighting_fleet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:</h2>
+
+      <ul>
+      <% @fighting_fleet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :shield %><br>
+    <%= f.text_field :shield %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

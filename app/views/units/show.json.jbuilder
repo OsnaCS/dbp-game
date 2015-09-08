@@ -1,0 +1,1 @@
+json.extract! @unit, :id, :name, :metal_price, :crystal_price, :fuel_price, :total_cost, :shell, :damage, :damage_type_id, :cargo, :speed, :shipyard_requirement, :research_requirement_one, :research_requiement_two, :created_at, :updated_at

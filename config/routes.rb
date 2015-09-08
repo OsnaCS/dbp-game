@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+ 
+  resources :units
+
+  resources :damage_types
+
+  resources :ship  
+ 
+  resources :ship_groups
+
+  resources :fighting_fleets
+
+  resources :fights
+
+  resources :sciences
 
   resources :expiditions
 

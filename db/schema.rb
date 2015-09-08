@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time     "duration"
+    t.integer  "duration"
     t.string   "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,8 +37,12 @@ ActiveRecord::Schema.define(version: 20150907135923) do
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "metal"
+    t.integer  "cristal"
+    t.integer  "fuel"
+    t.datetime "lastChecked"
   end
 
   create_table "ships_stations", force: :cascade do |t|
@@ -76,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
+    t.integer  "right_level"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

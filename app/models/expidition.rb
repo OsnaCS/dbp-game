@@ -1,15 +1,15 @@
 class Expidition < ActiveRecord::Base
- 
-   
+
+   belongs_to :fighting_fleet
    @storeroom
    @explore_time
    @value
 
-   def initialize(time, store, v)
-      @explore_time = time
-      @storeroom = store
-      @value = v
-   end
+   #def initialize(time, store, v)
+   #   @explore_time = time
+   #   @storeroom = store
+   #   @value = v
+   #end
 
    def explore
       event = rand(100)
@@ -65,7 +65,7 @@ class Expidition < ActiveRecord::Base
       else
          metal = first
          crystal = 0;
-         fuel = 1 - first
+         fuel = 100 - first
       end
       relative_amount = rand(30..200)
       absolute_amount = @storeroom * relative_amount/10000.0
@@ -99,12 +99,13 @@ class Expidition < ActiveRecord::Base
       end
    end
 
-   print "Reisezeit angeben:\n"
-   time = gets.to_i
-   print "Lagerraum angeben:\n"
-   store = gets.to_i
-   print "Kampfstärke angeben:\n"
-   v = gets.to_i
-   exploration = Expidition.new(time, store, v)
-   exploration.explore
+  # print "Reisezeit angeben:\n"
+  # time = gets.to_i
+  # print "Lagerraum angeben:\n"
+  # store = gets.to_i
+  # print "Kampfstärke angeben:\n"
+  # v = gets.to_i
+  # exploration = Expidition.new(time, store, v)
+  # exploration.explore
+
 end
