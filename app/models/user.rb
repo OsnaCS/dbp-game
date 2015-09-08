@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   has_many :defends, :class_name => 'Fight', :foreign_key  => "defender_id", inverse_of: :defender
 
   has_one :rank
+    
+  has_many :notifications
+  has_many :messages, through: :notifications
+
   # Include default devise modules. Others available are:
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
