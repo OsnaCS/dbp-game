@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :user_ships
+
   resources :resources
 
   resources :stations
