@@ -9,13 +9,16 @@ class Ship < ActiveRecord::Base
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
         if station.station_id == 1	#metal
-          self.metal = get_collect_difference(20, station.station_id, last_checked)
+          self.metal += get_collect_difference(station.level, station.station_id, last_checked)
+          #self.metal=0
         end
         if station.station_id == 2	#cristal
-          self.cristal += get_collect_difference(20, station.station_id, last_checked)
+          self.cristal += get_collect_difference(station.level, station.station_id, last_checked)
+          #self.cristal=0
         end
         if station.station_id == 3	#fuel
-          self.fuel += get_collect_difference(20, station.station_id, last_checked)
+          self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
+          #self.fuel=0
         end
 	end
     
@@ -35,14 +38,13 @@ class Ship < ActiveRecord::Base
     end
   end
 
-
-private
-def get_collect_difference(level, id, last_update)
-  	if id==1 || id==2 || id==3
+  private
+  def get_collect_difference(level, id, last_update)
+  	if id==1 || id==2
   		start = 2000.0
-  		
-  		if(id==3) 
-  			start = 1000.0
+    end
+  	if(id==3) 
+  		start = 1000.0
 		end
 		start /= 3600.0
 		time = Time.now.getutc
@@ -50,8 +52,6 @@ def get_collect_difference(level, id, last_update)
 		elapsed_seconds = time - last_update
 		produktion = (start* (1.5 ** level))*(elapsed_seconds)
 		return produktion
-  	end
-  	return 0
   end
 
  
