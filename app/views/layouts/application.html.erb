@@ -24,7 +24,7 @@
 					<p class="login_text"><%= current_user.username %></p><br>
 					<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
 					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-				<% end %> 
+				<% end %>
 			</div>
 			<div id="banner" class="content">
 				<p id="game_name">SpielName</p>
@@ -51,9 +51,9 @@
 					<br>
 					<ul>
 						<li><%= link_to "Home", root_path %></li>
-						<li><%= link_to "Schiffe", root_path %></li>
+						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", root_path %></li>
-						<li><%= link_to "Stationen", root_path %></li>
+						<li><%= link_to "Stationen", stations_path %></li>
 						<li><%= link_to "Anlagen", root_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Rangliste", ranks_path %></li>
@@ -63,7 +63,7 @@
 				<div id="notification" class="content">
 					<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
 					<p id="notification-text"></p>
-				</div>		
+				</div>
 			</div>
 			<div id="game" class="content">
 					<%= yield %>

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   has_one :rank
     
   has_many :notifications
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
   def login=(login)
     @login = login
   end
-  
+
   def login
     @login || self.username || self.email
   end
