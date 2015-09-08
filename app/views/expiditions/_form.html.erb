@@ -1,17 +1,79 @@
 <%= form_for(@expidition) do |f| %>
-  <% if @expidition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expidition.errors.count, "error") %> prohibited this expidition from being saved:</h2>
+   <% if @expidition.errors.any? %>
+      <div id="error_explanation">
+         <h2><%= pluralize(@expidition.errors.count, "error") %> prohibited this expidition from being saved:</h2>
 
-      <ul>
-      <% @expidition.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+         <ul>
+            <% @expidition.errors.full_messages.each do |message| %>
+               <li><%= message %></li>
+            <% end %>
+         </ul>
+      </div>
+   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+   <div class="field">
+   <table>
+      <tr>
+         <td>Schiffstyp</td>
+         <td>stationierte Menge</td>
+         <td>zu schickende Anzahl</td>
+      </tr>
+      <tr>
+         <td>
+            <%= f.label 'Expeditionsschiff'%>
+         </td>
+         <td>
+            <%= f.label 5%>
+         </td>
+         <td>
+            <%= number_field_tag('expschiff', min:1)%>
+         </td>
+      </tr>
+ <tr>
+         <td>
+            <%= f.label 'Jaeger'%>
+         </td>
+         <td>
+            <%= f.label 5%>
+         </td>
+         <td>
+            <%= number_field_tag('expschiff', min:1)%>
+         </td>
+ </tr>
+ <tr>
+         <td>
+            <%= f.label 'Fregatte'%>
+         </td>
+         <td>
+            <%= f.label 5%>
+         </td>
+         <td>
+            <%= number_field_tag('expschiff', min:1)%>
+         </td>
+ </tr>
+ <tr>
+         <td>
+            <%= f.label 'Kreuzer'%>
+         </td>
+         <td>
+            <%= f.label 5%>
+         </td>
+         <td>
+            <%= number_field_tag('expschiff', min:1)%>
+         </td>
+      </tr> <tr>
+         <td>
+            <%= f.label 'Expeditionsschiff'%>
+         </td>
+         <td>
+            <%= f.label 5%>
+         </td>
+         <td>
+            <%= number_field_tag('expschiff', min:1)%>
+         </td>
+      </tr>
+            </table>
+   <div class="actions">
+      <%= f.submit %>
+   </div>
 <% end %>

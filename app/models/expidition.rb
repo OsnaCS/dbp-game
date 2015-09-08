@@ -1,6 +1,6 @@
 class Expidition < ActiveRecord::Base
 
-   belongs_to :fighting_fleet
+   has_one :fighting_fleet
    @exp_storeroom
    @fleet_storeroom
    @explore_time
@@ -16,23 +16,22 @@ class Expidition < ActiveRecord::Base
       @value = 0
       @fleet_storeroom = 0
       @exp_storeroom = 0
-      fighting_fleet.ship_group.each do |g|
+      fighting_fleet.ship_group.all.each do |g|
         @value += g.unit.total_cost * g.number
         @fleet_storeroom += g.unit.cargo * g.number
         if(g.unit.name == "Expeditionsschiff")
-           #TODO Unit Verknuepfung ueberpruefen
            @exp_storeroom += g.unit.cargo * g.number
         end
       end
       event = rand(100)
       happen = 1.0-(1.0/(1.0 + @explore_time))
       happen = happen * 100
-      puts "#{happen}"
       if(happen>event)
          return occurance
       else
          return nothing
       end
+      #TODO Flotte zurueckschicken
    end
 
    def occurance
@@ -50,13 +49,14 @@ class Expidition < ActiveRecord::Base
    end
 
    def nothing
-      puts "Nothing"
+      #TODO Notification
    end
 
    def destruction
-      fighting_fleet.ship_group.each do |g|
+      fighting_fleet.ship_group.all.each do |g|
          g.number = 0
       end
+      #TODO Notification
    end
 
    def fight
@@ -83,8 +83,26 @@ class Expidition < ActiveRecord::Base
             jaeger_amount += 1
          end
       end
-         #TODO gegnerische Flotte erstellen basierend auf den amounts
+
+      shield_strenght = shield_amount * 5 
+      gegner_flotte = Fighting_fleet.create(user: User.find_by_username("dummy"),
+                                            shield: shield_strength)
+      kreuzer_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
+                                       "Kreuzer", number: kreuzer_amount,
+                                      group_hitpoints: kreuzer_amount*10) 
+      fregatte_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
+                                       "Fregatte", number: fregatte_amount,
+                                      group_hitpoints: fregatte_amount*10) 
+      schild_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
+                                       "mobiler Schild", number: schild_amount,
+                                      group_hitpoints: schild_amount*5) 
+      jaeger_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
+                                       "Jäger", number: jaeger_amount,
+                                      group_hitpoints: jaeger_amount*1) 
+      #TODO Hardcodings entfernen sobald Werte in DB verfügbar
+      #TODO Kampf starten
    end
+
    def ressource
       first = rand(100)
       second = rand(100)
@@ -103,7 +121,7 @@ class Expidition < ActiveRecord::Base
       end
       relative_amount = rand(30..200)
       absolute_amount = @exp_storeroom * relative_amount/10000.0
-      final_amount = min (absolute_amount, @fleet_storeroom)
+      final_amount = [absolute_amount, @fleet_storeroom].min
       metal_got = final_amount * metal
       crystal_got = final_amount * crystal
       fuel_got = final_amount * fuel
@@ -137,7 +155,7 @@ class Expidition < ActiveRecord::Base
          end
       end
       #TODO Nachricht erstellen
-      fighting_fleet.ship_group.each do |g|
+      fighting_fleet.ship_group.all.each do |g|
          case g.unit.name
          when "Kreuzer"
             g.number += kreuzer_amount
