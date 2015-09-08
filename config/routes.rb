@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
 
   resources :sciences
+  resources :notifications
+  resources :messages
   resources :stations
   resources :ships_stations
   resources :ships
