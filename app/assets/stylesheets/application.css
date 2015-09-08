@@ -205,6 +205,8 @@ ul li {
 	left: calc(50% - 5px);
 	background-color: red;
 	font-weight: bold;
+	border: 2px solid red;
+	border-radius: 5px;
 }
 
 #game_name {
