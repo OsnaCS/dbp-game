@@ -11,14 +11,14 @@
 	<div id="top" >
 		<div id="login" class="content">
 			<% if !user_signed_in? %>
-			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
-			  	<%= f.label :login %><br />
-  			    <%= f.text_field :login %>
-			    <%= f.label :password %><br />
-			    <%= f.password_field :password %>
-			    <%= f.check_box :remember_me %>
-			    <%= f.label :remember_me %>
-			    <%= f.submit 'Sign in' %>
+				<%= form_for(:user, :url => session_path(:user)) do |f| %>
+					<%= f.label :login %><br />
+					<%= f.text_field :login %>
+					<%= f.label :password %><br />
+					<%= f.password_field :password %>
+					<%= f.check_box :remember_me %>
+					<%= f.label :remember_me %>
+					<%= f.submit 'Sign in' %>
 				<% end %>
 			<% else %>
 				<p class="login_text"><%= current_user.username %></p><br>
@@ -48,18 +48,24 @@
 	</div>
 	
 	<div id="botm">
-		<div id="menu" class="content">
-			<br>
-			<ul>
-				<li><%= link_to "Home", root_path, :class => 'menu-links' %></li>
-				<li><%= link_to "Schiffe", root_path %></li>
-				<li><%= link_to "Forschung", root_path %></li>
-				<li><%= link_to "Stationen", root_path %></li>
-				<li><%= link_to "Anlagen", root_path %></li>
-				<li><%= link_to "Einheiten", root_path %></li>
-				<li><%= link_to "Rangliste", ranks_path %></li>
-				<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
-			</ul>
+		<div id="menu-wrapper">
+			<div id="menu" class="content">
+				<br>
+				<ul>
+					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Schiffe", root_path %></li>
+					<li><%= link_to "Forschung", root_path %></li>
+					<li><%= link_to "Stationen", root_path %></li>
+					<li><%= link_to "Anlagen", root_path %></li>
+					<li><%= link_to "Einheiten", root_path %></li>
+					<li><%= link_to "Rangliste", ranks_path %></li>
+					<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+				</ul>
+			</div>
+			<div id="notification" class="content">
+				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
+				<p id="notification-text"></p>
+			</div>		
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
