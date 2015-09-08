@@ -7,8 +7,6 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-
-
 <div id="wrapper">
 	<div id="top" >
 		<div id="login" class="content">
@@ -29,7 +27,7 @@
 			<% end %> 
 		</div>
 		<div id="banner" class="content">
-			<h1>SpielName</h1>
+			<p id="game_name">SpielName</p>
 		</div>
 	</div>
 
@@ -45,7 +43,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p><%= Time.now %></p>
+			<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
+			<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
+			<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
 		</div>
 	</div>
 	
@@ -53,13 +53,14 @@
 		<div id="menu" class="content">
 			<br>
 			<ul>
-				<li>Feature-Liga</li>
-				<li>Schiffe</li>
-				<li><%= button_to "Science", sciences_path, :class => "button", :method => :get%></li>
-				<li>Stationen</li>
-				<li>Anlagen</li>
-				<li>Einheiten</li>
-				<li>Einstellungen</li>
+				<li><%= link_to "Home", root_path %></li>
+				<li><%= link_to "Schiffe", root_path %></li>
+				<li><%= link_to "Forschung", sciences_path %></li>
+				<li><%= link_to "Stationen", root_path %></li>
+				<li><%= link_to "Anlagen", root_path %></li>
+				<li><%= link_to "Einheiten", root_path %></li>
+				<li><%= link_to "Rangliste", ranks_path %></li>
+				<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 			</ul>
 		</div>
 		<div id="game" class="content">

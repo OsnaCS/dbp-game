@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907130432) do
+ActiveRecord::Schema.define(version: 20150907135923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 20150907130432) do
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "ranks", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,6 +130,7 @@ ActiveRecord::Schema.define(version: 20150907130432) do
   end
 
   create_table "sciences", force: :cascade do |t|
+    t.integer  "science_id"
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
@@ -143,19 +143,7 @@ ActiveRecord::Schema.define(version: 20150907130432) do
     t.integer  "tier"
     t.integer  "science_condition_id"
     t.string   "icon"
-  end
-
-  create_table "ship_groups", force: :cascade do |t|
-    t.integer  "fighting_fleet_id"
-    t.integer  "ship_id"
-    t.integer  "number"
-    t.float    "group_hitpoints"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "ship_groups", ["fighting_fleet_id"], name: "index_ship_groups_on_fighting_fleet_id", using: :btree
-  add_index "ship_groups", ["ship_id"], name: "index_ship_groups_on_ship_id", using: :btree
+ end
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
