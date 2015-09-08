@@ -2,7 +2,7 @@
 
 <h1>Forschung</h1>
 
-<table>
+<table border="1" cellpadding="10">
   <thead>
     <tr>
       <th></th>
@@ -36,14 +36,15 @@
           <td><%= science_instance.level %>
           <% if availability %>
             <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
-
           <% else %>
+            <td></td>
           <% end %>
           
           <td><%= link_to 'Bearbeiten', edit_science_path(science) %></td>
           <td><%= link_to 'Löschen', science, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
         <% end %>
       </tr>
+
     <% end %>
   </tbody>
 </table>
