@@ -86,6 +86,7 @@ ul li {
 	width: 10%;
 	height: 100%;
 	max-width: 10%;
+	min-height: 100%;
 }
 
 #resources {
@@ -93,6 +94,7 @@ ul li {
 	width: 90%;
 	height: 100%;
 	max-width: 90%;
+	max-height: 100%;
 }
 
 #botm {
@@ -151,8 +153,7 @@ ul li {
 
 .tooltip {
 	position: relative;
-	display: inline;
-	float: left;
+	display: inline-block;
 	width: 40px;
 	height: 40px;
 	margin: 20px 15% 0% 15%;
