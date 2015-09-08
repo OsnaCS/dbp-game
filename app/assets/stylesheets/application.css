@@ -186,3 +186,7 @@ ul li {
 	left: 100px;
 	z-index: 2;
 }
+
+.numfield {
+	width: 50px;
+}

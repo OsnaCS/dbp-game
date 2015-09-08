@@ -5,9 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Ressource</th>
-      <th>Value</th>
+      <th>Zu\Von</th>
+      <th>Metall</th>
+      <th>Kristall</th>
+      <th>Treibstoff</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,15 +16,102 @@
   <tbody>
     <% @trades.each do |trade| %>
       <tr>
-        <td><%= trade.id %></td>
-        <td><%= trade.updated_at %></td>
-        <td><%= trade.ressource %></td>
-        <td><%= trade.value %></td>
+        <% if(trade.ressource==1) %>
+          <th>
+            Metall
+          </th>
+          <td>
+            <%= form_tag("/trades", method: "get") do %>
+              <%= label_tag(number_with_precision(params[:sell_metall].to_i, precision: 0) || '0') %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_metall].to_i * trade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_metall].to_i * trade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+        <% end %>
+        <% if(trade.ressource==2) %>
+          <th>
+            Kristall
+          </th>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_kristall].to_i * trade.value, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag("/trades", method: "get") do %>
+              <%= label_tag(number_with_precision(params[:sell_kristall].to_i, precision: 0) || '0') %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_kristall].to_i * trade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+        <% end %>
+        <% if(trade.ressource==4) %>
+          <th>
+            Treibstoff
+          </th>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * trade.value, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag '' do %>
+              <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * trade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_tag("/trades", method: "get") do %>
+              <%= label_tag(number_with_precision(params[:sell_treibstoff].to_i, precision: 0) || '0') %>
+            <% end %>
+          </td>
+        <% end %>
+    
+
+
         <td><%= link_to 'Show', trade %></td>
         <td><%= link_to 'Edit', edit_trade_path(trade) %></td>
         <td><%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+    <tr>
+      <th>Base</th>
+      <% @trades.each do |trade| %>
+        <td><%= trade.ressource %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <% @trades.each do |trade| %>
+        <td><%= number_with_precision(trade.value , precision: 2) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <%= form_tag("/trades", method: "get") do %>
+        <td>
+          <%= submit_tag("Calc") %>
+        </td>
+        <td>
+          <%= number_field_tag(:sell_metall, :metall, class: 'numfield', placeholder: number_with_precision(params[:sell_metall].to_i, precision: 0) || '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        </td>
+        <td>
+          <%= number_field_tag(:sell_kristall, :kristall, class: 'numfield', placeholder: number_with_precision(params[:sell_kristall].to_i, precision: 0) || '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        </td>
+        <td>
+          <%= number_field_tag(:sell_treibstoff, :treibstoff, class: 'numfield', placeholder: number_with_precision(params[:sell_treibstoff].to_i, precision: 0) || '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        </td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
 
