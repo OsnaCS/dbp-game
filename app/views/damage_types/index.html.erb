@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Damage Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Shell mult</th>
+      <th>Shield mult</th>
+      <th>Station mult</th>
+      <th>Plattform mult</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @damage_types.each do |damage_type| %>
+      <tr>
+        <td><%= damage_type.name %></td>
+        <td><%= damage_type.shell_mult %></td>
+        <td><%= damage_type.shield_mult %></td>
+        <td><%= damage_type.station_mult %></td>
+        <td><%= damage_type.plattform_mult %></td>
+        <td><%= link_to 'Show', damage_type %></td>
+        <td><%= link_to 'Edit', edit_damage_type_path(damage_type) %></td>
+        <td><%= link_to 'Destroy', damage_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Damage type', new_damage_type_path %>
