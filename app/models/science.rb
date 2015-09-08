@@ -25,24 +25,37 @@ class Science < ActiveRecord::Base
     return scienceHash
   end
 
-  def self.update_time(instance)
+  def self.update_time(instance, format)
     science = Science.find_by(id: instance.science_id)
-    durationInSeconds = science.duration * science.factor * (instance.level + 1)
+    durationInSeconds = science.duration * science.factor ** (instance.level + 1)
 
     if(instance.start_time)
       timeSinceResearch = (Time.now - instance.updated_at).to_i
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
-        instance.level = instance.level + 1
+       instance.level = instance.level + 1
         instance.start_time = nil
         instance.save
-        return format_count_time(durationInSeconds)
+
+        if not(format)
+          return durationInSeconds;
+        else
+          return format_count_time(durationInSeconds)
+        end
       else
-        return format_count_time(restTime)
+        if not(format)
+          return restTime;
+        else
+          return format_count_time(restTime)
+        end
       end
     else
-      return format_count_time(durationInSeconds)
+      if not(format)
+        return durationInSeconds;
+      else
+        return format_count_time(durationInSeconds)
+      end
     end
   end
 end
