@@ -132,6 +132,7 @@ ul li {
 .login_text {
 	font-size: 90%;
 	display: inline-block;
+	margin-bottom: 5px;
 }
 
 .tooltip {
@@ -142,6 +143,7 @@ ul li {
 	height: 40px;
 	margin: 20px 15% 0% 15%;
 	background-size: contain;
+	border: 2px solid #5A5A5A;
 }
 
 .tooltip:hover:after {
@@ -172,6 +174,7 @@ ul li {
 	background-size: 100% 100%;
 	margin-left: auto;
 	margin-right: auto;
+	border: 2px solid #5A5A5A;
 }
 
 #game_name {
