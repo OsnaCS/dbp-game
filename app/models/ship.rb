@@ -1,5 +1,7 @@
 class Ship < ActiveRecord::Base
-
+  
+  has_one :user_ship
+  has_one :user, :through => :user_ships
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
@@ -31,11 +33,12 @@ class Ship < ActiveRecord::Base
   def create_stations
     Station.all.each do |station|
       self.ships_stations.build(ship: self, station: station, level: station.initial_level)
+      end
       self.metal=0
       self.cristal=0
       self.fuel=0
       self.lastChecked = Time.now.getutc
-    end
+      return self.id
   end
 
   private

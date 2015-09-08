@@ -24,7 +24,7 @@ class ShipsController < ApplicationController
   # POST /ships
   # POST /ships.json
   def create
-    @ship = Ship.new(ship_params)
+    @ship = current_user.create_ship(ship_params)
 
     respond_to do |format|
       if @ship.save
