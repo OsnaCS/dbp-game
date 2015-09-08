@@ -2,32 +2,47 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body, html { height: 100%;}
-#table_content {
-	border-collapse: seperate;
-	border: 1px solid white;
-	padding: 20px;
-	border-spacing: 10px;
-	margin: auto;
-}
 
-#table_border {
-	border-collapse: collapse;
-	border: 3px solid white;
-	margin: auto;
-	width: 100%;
+#table {
+  //margin: auto;
+  width: 40%;
+  border: 5px;
+  border-collapse: collapse;
 }
 
 #icon {
-	border: 3px solid white;
-	display: table;
+  border: 3px solid white;
+  display: table;
+  //margin-bottom: 30px;
+  border-collapse: collapse;
 }
 
-#not_running {
-    border-collapse: collapse;
-	border: 1px solid white;
+#text {
+  display: table;
+  margin-bottom: 30px;
+  border-collapse: collapse;
 }
 
-#running {
-    border-collapse: collapse;
-	border: 1px solid white;
+#active {
+	background: #1411fa;
+	border: 5px;
+	border-collapse: collapse;
+	font-weight: bold;
 }
+#inactive {
+	border: 5px;
+	border-collapse: collapse;
+}
+
+a span{	
+	display:none;
+	color:#fff;
+	background: #00317d;
+	padding:5px;
+	border-radius:44px;
+    font-weight: bold;
+	width:300px;
+	position: absolute;
+}
+a { display: inline-block;}
+a:hover span{ display:block; }

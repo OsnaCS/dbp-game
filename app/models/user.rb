@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   #f:<condition_id>:<level>,*
   def check_condition(conditions)
     condition_split = conditions.split(",")
+
     condition_split.each do |condition|
       condition_elements = condition.split(":")
       if(condition_elements[0].eql? "f")
@@ -35,13 +36,13 @@ class User < ActiveRecord::Base
     return true
   end
 
-  def can_research(instance)
+  def is_researching()
     science_instances.each do |instance|
       if not(instance.start_time.nil?)
-        return false
+        return true
       end
     end
-    return true
+    return false
   end
 
   def self.find_for_database_authentication(warden_conditions)

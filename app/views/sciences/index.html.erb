@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Forschung</h1>
+<h1 id="table">Forschung</h1>
 
-<table id="table_border">
-  <thead id ="table_border">
-    <tr id="table">
+<table id="table">
+  <thead>
+    <tr>
       <th></th>
       <th>Name</th>
       <th>Metall</th>
@@ -15,40 +15,49 @@
     </tr>
   </thead>
 
-  <tbody id ="table_border">
+  <tbody>
     <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
-      <tr id="table_content">
-        <% if(science_instance.id) %>
-          <% science = science_instance.science %>
-          <td id="table_content">
-            <div id="science" class="tooltip" title="Hallo">
-              <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", title= "Forschung", id="icon">
-            </div>
-          </td>
-          <td id="table_content"><%= science.name %></td>
-          <td id="table_content"><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-          <td id="table_content"><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-          <td id="table_content"><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-          <% if(science_instance.start_time.nil?) %>
-            <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
-          <% else %>
-            <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
-            <%= javascript_tag "start_timer()" -%>
-          <% end %>
-          <% availability = current_user.check_condition(science.condition) && current_user.can_research(science_instance) %>
-          <td id="table_content"><%= science_instance.level %>
-          <% if availability %>
-            <td id="table_content"><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
-          <% else %>
-            <td id="table_content">Nicht verfügbar</td>
-          <% end %>
-          
-          <td><%= link_to 'Bearbeiten', edit_science_path(science) %></td>
-          <td><%= link_to 'Löschen', science, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
-        <% end %>
-      </tr>
+     <% is_researching = nil %>
+     <% if(science_instance.start_time.nil?) %>
+       <tr id="inactive">
+       <% is_researching = true %>
+     <% else %>
+       <tr id="active">
+       <% is_researching = false %>
+     <% end %>
 
+     <% if(science_instance.id) %>
+       <% science = science_instance.science %>
+        <td>
+          <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", id="icon">
+        </td>
+        <td><%= science.name %></td>
+        <td><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+        <td><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+        <td><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+
+        <% if(science_instance.start_time.nil?) %>
+          <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
+        <% else %>
+          <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
+          <%= javascript_tag "start_timer()" -%>
+        <% end %>
+        
+        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching() %>
+        <td><%= science_instance.level %>
+
+        <% if availability %>
+          <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+        <% else %>
+          <% if(is_researching) %>
+            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
+          <% else %>
+            <td>Forscht...</td>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
+    </tr>
   </tbody>
 </table>
 <br>
