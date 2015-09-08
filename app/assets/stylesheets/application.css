@@ -213,6 +213,8 @@ ul li {
 
 #rank_table {
 	margin: 1% auto 1% auto;
+	table-layout: fixed;
+	width: 90%;
 }
 
 #error_explanation {
