@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Science.create([
 	{
-		id: 1000,
+		id: 4001,
 		cost1: 10,
 		cost2: 0,
 		cost3: 0,
@@ -20,7 +20,7 @@ Science.create([
 		icon: 'huelle.png'
 	},
 	{
-		id: 1001,
+		id: 4002,
 		cost1: 4,
 		cost2: 3,
 		cost3: 0,
@@ -33,7 +33,7 @@ Science.create([
 		icon: 'laser.png'
 	},
 	{
-		id: 1002,
+		id: 4003,
 		cost1: 0,
 		cost2: 3,
 		cost3: 1,
@@ -46,7 +46,7 @@ Science.create([
 		icon: 'spionage.png'
 	},
 	{
-		id: 1003,
+		id: 4004,
 		cost1: 8,
 		cost2: 0,
 		cost3: 3,
@@ -59,7 +59,7 @@ Science.create([
 		icon: 'triebwerke.png'
 	},
 	{
-		id: 1004,
+		id: 4005,
 		cost1: 4,
 		cost2: 8,
 		cost3: 0,
@@ -72,7 +72,7 @@ Science.create([
 		icon: 'ionen.png'
 	},
 	{
-		id: 1005,
+		id: 4006,
 		cost1: 0,
 		cost2: 6,
 		cost3: 2,
@@ -85,7 +85,7 @@ Science.create([
 		icon: 'schilde.png'
 	},
 	{
-		id: 1006,
+		id: 4007,
 		cost1: 20,
 		cost2: 0,
 		cost3: 5,
@@ -98,20 +98,20 @@ Science.create([
 		icon: 'pilotentraining.png'
 	},
 	{
-		id: 1007,
-		cost1: 20,
-		cost2: 10,
-		cost3: 0,
+		id: 4008,
+		cost1: 0,
+		cost2: 160,
+		cost3: 100,
 		factor: 2,
-		duration: 240,
-		condition: 'f:5:10',
-		name: 'Kinetik',
-		tier: 3,
-		science_condition_id: 8,
-		icon: 'kinetik.png'
+		duration: 43200,
+		condition: 'f:3:12',
+		name: 'Netzwerk',
+		tier: 4,
+		science_condition_id: 10,
+		icon: 'netzwerk.png'
 	},
 	{
-		id: 1008,
+		id: 4009,
 		cost1: 320,
 		cost2: 0,
 		cost3: 100,
@@ -124,16 +124,16 @@ Science.create([
 		icon: 'pioniersausbildung.png'
 	},
 	{
-		id: 1009,
-		cost1: 0,
-		cost2: 160,
-		cost3: 100,
+		id: 4010,
+		cost1: 20,
+		cost2: 10,
+		cost3: 0,
 		factor: 2,
-		duration: 43200,
-		condition: 'f:3:12',
-		name: 'Netzwerk',
-		tier: 4,
-		science_condition_id: 10,
-		icon: 'netzwerk.png'
-	}
+		duration: 240,
+		condition: 'f:5:10',
+		name: 'Kinetik',
+		tier: 3,
+		science_condition_id: 8,
+		icon: 'kinetik.png'
+	},
 ])

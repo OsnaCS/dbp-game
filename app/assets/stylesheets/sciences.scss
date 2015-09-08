@@ -1,3 +1,33 @@
 // Place all the styles related to the Sciences controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body, html { height: 100%;}
+#table_content {
+	border-collapse: seperate;
+	border: 1px solid white;
+	padding: 20px;
+	border-spacing: 10px;
+	margin: auto;
+}
+
+#table_border {
+	border-collapse: collapse;
+	border: 3px solid white;
+	margin: auto;
+	width: 100%;
+}
+
+#icon {
+	border: 3px solid white;
+	display: table;
+}
+
+#not_running {
+    border-collapse: collapse;
+	border: 1px solid white;
+}
+
+#running {
+    border-collapse: collapse;
+	border: 1px solid white;
+}

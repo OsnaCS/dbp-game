@@ -2,9 +2,9 @@
 
 <h1>Forschung</h1>
 
-<table border="1" cellpadding="10">
-  <thead>
-    <tr>
+<table id="table_border">
+  <thead id ="table_border">
+    <tr id="table">
       <th></th>
       <th>Name</th>
       <th>Metall</th>
@@ -12,32 +12,35 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Stufe</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id ="table_border">
     <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
-      <tr>
+      <tr id="table_content">
         <% if(science_instance.id) %>
           <% science = science_instance.science %>
-          <td><img src= "<%= image_url("science_icons/" + science.icon)%>", height="50", width="50"></td>
-          <td><%= science.name %></td>
-          <td><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-          <td><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-          <td><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+          <td id="table_content">
+            <div id="science" class="tooltip" title="Hallo">
+              <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", title= "Forschung", id="icon">
+            </div>
+          </td>
+          <td id="table_content"><%= science.name %></td>
+          <td id="table_content"><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+          <td id="table_content"><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+          <td id="table_content"><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
           <% if(science_instance.start_time.nil?) %>
-            <td id = "not_researching"><%= Science.update_time(science_instance, true).to_s %></td>
+            <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
           <% else %>
             <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
             <%= javascript_tag "start_timer()" -%>
           <% end %>
           <% availability = current_user.check_condition(science.condition) && current_user.can_research(science_instance) %>
-          <td><%= science_instance.level %>
+          <td id="table_content"><%= science_instance.level %>
           <% if availability %>
-            <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+            <td id="table_content"><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
           <% else %>
-            <td></td>
+            <td id="table_content">Nicht verfügbar</td>
           <% end %>
           
           <td><%= link_to 'Bearbeiten', edit_science_path(science) %></td>
@@ -49,6 +52,5 @@
   </tbody>
 </table>
 <br>
-
 <%= link_to 'New Science', new_science_path %>
 <%= link_to 'LevelCheat', science_instances_path %>
