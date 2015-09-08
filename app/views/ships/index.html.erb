@@ -15,12 +15,9 @@
       <tr>
         <td><%= usership.ship.name %></td>
         <% usership.ship.update_resources %>
-        <td>(<%= usership.ship.metal %>)</td>
-        <td>(<%= usership.ship.cristal %>)</td>
-        <td>(<%= usership.ship.fuel %>)</td>
-        <td><%= link_to 'Show', usership.ship %></td>
+        <td><%= link_to usership.ship.name, usership.ship %></td>
         <td><%= link_to 'Edit', edit_ship_path(usership.ship) %></td>
-        <td><%= link_to 'Destroy', usership.ship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </td>
       </tr>
     <% end %> 
   </tbody>

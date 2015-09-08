@@ -29,6 +29,11 @@ class Ship < ActiveRecord::Base
     
   end
 
+  def select_ship(shipID)
+    $selected_ship=shipID
+    
+  end
+
   private
   def create_stations
     Station.all.each do |station|

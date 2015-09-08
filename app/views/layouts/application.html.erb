@@ -56,9 +56,10 @@
 				<% end %>
 			</div>
 			<div id="resources" class="content">
-				<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
-				<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
-				<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
+				<p class="tooltip" title="Ausgewaehltes Schiff">Selected: <%=Ship.find_by(id: $selected_ship).name%></p>
+				<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: <%=Ship.find_by(id: $selected_ship).metal%></p>
+				<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: <%= Ship.find_by(id: $selected_ship).cristal%></p>
+				<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: <%=Ship.find_by(id: $selected_ship).fuel%> </p>
 			</div>
 
 		</div>

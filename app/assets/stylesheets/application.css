@@ -170,7 +170,7 @@ ul li {
 	position: relative;
 	display: inline;
 	float: left;
-	margin: 30px 10% 0% 10%;
+	margin: 30px 3% 0% 10%;
 }
 
 .tooltip:hover:after {

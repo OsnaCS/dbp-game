@@ -11,29 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150908084220) do
-=======
-ActiveRecord::Schema.define(version: 20150907135923) do
->>>>>>> f8f438213a6ac3b16e5c0945ccf3f99017bbaed0
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
-  create_table "ranks", force: :cascade do |t|
-    t.string   "email"
-    t.integer  "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "resources", force: :cascade do |t|
-    t.text     "name"
-    t.integer  "production"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-=======
   create_table "messages", force: :cascade do |t|
     t.text     "mes"
     t.integer  "code"
@@ -56,7 +38,13 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
->>>>>>> f8f438213a6ac3b16e5c0945ccf3f99017bbaed0
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.text     "name"
+    t.integer  "production"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sciences", force: :cascade do |t|
@@ -100,7 +88,6 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
-<<<<<<< HEAD
     t.text     "description"
     t.integer  "condition"
     t.integer  "tier"
@@ -111,8 +98,6 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.integer  "ship_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
->>>>>>> f8f438213a6ac3b16e5c0945ccf3f99017bbaed0
   end
 
   create_table "users", force: :cascade do |t|
@@ -129,16 +114,12 @@ ActiveRecord::Schema.define(version: 20150907135923) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level",            default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-<<<<<<< HEAD
-=======
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
->>>>>>> f8f438213a6ac3b16e5c0945ccf3f99017bbaed0
 end
