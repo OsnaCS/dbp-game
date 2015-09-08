@@ -4,7 +4,18 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    @trades = Trade.all
+    time = DateTime.now
+    Trade.all.each do |trade|
+      if(true)
+        trade.created_at = time
+        trade.updated_at = time
+        trade.value = (0.6 * rand + 0.3) * trade.ressource  #ToDo: muss mit random substituiert werden
+        trade.save
+      end
+    end
+
+
+    @trades = Trade.all.order(:ressource)
   end
 
   # GET /trades/1
@@ -69,6 +80,6 @@ class TradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trade_params
-      params.require(:trade).permit(:trade_id, :value)
+      params.require(:trade).permit(:trade_id, :ressource, :value)
     end
 end
