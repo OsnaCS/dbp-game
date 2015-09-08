@@ -23,7 +23,9 @@
 					<% end %>
 				<% else %>
 					<p class="login_text"><%= link_to current_user.username, profile_index_path %></p><br>
-					<img id="user_icon" src="<%= image_url(current_user.username) %>"><br>
+					<% if UserIcon.find_by_user_id(current_user.id) != nil %>
+					<img id="user_icon" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+					<% end %>
 					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 				<% end %> 
 			</div>

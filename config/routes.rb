@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :user_icons
+
   get 'home/index'
 
   get 'profile/index'

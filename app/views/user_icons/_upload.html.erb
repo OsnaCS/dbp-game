@@ -1,0 +1,6 @@
+<div class="field">
+    <%= form_for @user_icon, url: user_icons_path, method: :post, html: { multipart: true } do |form| %>
+      <%= form.file_field :image %>
+      <%= form.submit %>
+    <% end %>
+  </div>
