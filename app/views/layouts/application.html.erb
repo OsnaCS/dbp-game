@@ -22,7 +22,7 @@
 				<% end %>
 			<% else %>
 				<p class="login_text"><%= current_user.username %></p><br>
-				<img id="user_icon" src="https://bloggermymaze.files.wordpress.com/2009/09/klassisch_quadratisch_mittig_600.jpg"><br>
+				<div id="user_icon"></div><br>
 				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 			<% end %> 
 		</div>
@@ -41,9 +41,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p class="tooltip" data-tooltip="Verfügbare Metall-Resourcen">Metall: 0</p>
-			<p class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen">Kristall: 0</p>
-			<p class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
+			<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
+			<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
+			<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
 		</div>
 	</div>
 	
