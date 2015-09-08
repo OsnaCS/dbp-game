@@ -7,8 +7,6 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-
-
 <div id="wrapper">
 	<div id="top" >
 		<div id="login" class="content">
@@ -43,7 +41,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p><%= Time.now %></p>
+			<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
+			<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
+			<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
 		</div>
 	</div>
 	
