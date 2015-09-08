@@ -4,8 +4,7 @@ Rails.application.routes.draw do
 
   get 'profile/index'
   get 'profile/user'
-  get 'profile/upload'
-
+ 
   resources :stations
   resources :ships_stations
   resources :ships
