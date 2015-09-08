@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :notifications
+  resources :messages
   resources :stations
   resources :ships_stations
   resources :ships
@@ -14,7 +16,7 @@ Rails.application.routes.draw do
       root :to => 'home#index'
     end
     unauthenticated :user do
-      root :to => 'devise/sessions#new', as: :unauthenticated_root
+      root :to => 'home#index', as: :unauthenticated_root
     end
   end
 
