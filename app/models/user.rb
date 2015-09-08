@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
   has_one :rank
   has_many :user_ships
-  has_many :ships, :through => :user_ships
+  has_many :ships, :through => :user_ships   
+  has_many :notifications
+  has_many :messages, through: :notifications
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
