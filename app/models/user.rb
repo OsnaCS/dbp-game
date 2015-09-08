@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   has_one :rank
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
   def login=(login)
     @login = login
   end
-  
+
   def login
     @login || self.username || self.email
   end
