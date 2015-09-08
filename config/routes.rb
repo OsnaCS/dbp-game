@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :trades
+
   resources :stations
   resources :ships_stations
   resources :ships
