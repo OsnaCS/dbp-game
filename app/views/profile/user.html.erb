@@ -1,27 +1,36 @@
 <% if user_signed_in? %>
 	<% if current_user.is_user %>
-		<h1>Benutzerprofil von <%= @user.username %></h1>
+		<br>
+		<h1 class="userlabel">Benutzerprofil von <%= @user.username %></h1>
 		<p><% if UserIcon.find_by_user_id(@user.id) != nil %>
-    		<img id="user_icon_edit" src="<%= image_url(UserIcon.find_by_user_id(@user.id).image.url) %>"><br>
+    		<img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(@user.id).image.url) %>"><br>
     	</p>
   		<% else %>
-    		<img id="user_icon_edit" src="<%= image_url('ui/default.png') %>"><br>
+    		<img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
   		<% end %>
-		<p>Benutzername: <%= @user.username %></p>
+		<div>
+			<p class="userlabel">Benutzername: <%= @user.username %></p>
+		</div>
 		<% if current_user.is_moderator %>
-			<p>Emailadresse: <%= @user.email %></p>
+			<div>
+				<p class="userlabel">Emailadresse: <%= @user.email %></p>
+			</div>
 		<% end %>
 		<% if current_user.is_admin %>
-			<p>Rechtelevel: <%= @user.right_level %></p>
-			<p>Normaler Benutzer: <%= @user.is_user %></p>
-			<p>Premium Benutzer: <%= @user.is_premium_user %></p>
-			<p>Moderator: <%= @user.is_moderator %></p>
-			<p>Admin: <%= @user.is_admin %></p>
-			<p>Superadmin: <%= @user.is_superadmin %></p>
+			<div><p class="userlabel">Rechtelevel: <%= @user.right_level %></p></div>
+			<div><p class="userlabel">Normaler Benutzer: <%= @user.is_user %></p></div>
+			<div><p class="userlabel">Premium Benutzer: <%= @user.is_premium_user %></p></div>
+			<div><p class="userlabel">Moderator: <%= @user.is_moderator %></p></div>
+			<div><p class="userlabel">Admin: <%= @user.is_admin %></p></div>
+			<div><p class="userlabel">Superadmin: <%= @user.is_superadmin %></p></div>
 		<% end %>
 		<% if current_user.id == @user.id %>
-			<p><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
+			<div>
+				<p class="userbutton"><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
+			</div>
 		<% end %>
-		<p><%= link_to "Zurück", ranks_path %></p>
+		<div>
+			<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
+		</div>
 	<% end %>
 <% end %>
