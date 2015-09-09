@@ -13,7 +13,9 @@
     </div>
   <% else %>
     <img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
-    <%= link_to 'Benutzerbild hochladen', new_user_icon_path, class: 'userbutton' %>
+    <p class="userbutton">
+      <%= link_to 'Benutzerbild hochladen', new_user_icon_path %>
+    </p>
 
   <% end %>
 
