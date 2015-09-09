@@ -80,25 +80,12 @@ class Expidition < ActiveRecord::Base
          end
       end
 
-      kreuzer_huelle = Unit.find_by_name("Kreuzer").shell * kreuzer_amount
-      fregatte_huelle = Unit.find_by_name("Fregatte").shell * fregatte_amount
-      jaeger_huelle = Unit.find_by_name("Jäger").shell * jaeger_amount
-      schild_huelle = Unit.find_by_name("mobiler Schild").shell * schild_amount
-      shield_strenght = shield_amount * 5 
-      gegner_flotte = Fighting_fleet.create(user: User.find_by_username("dummy"),
-                                            shield: shield_strength)
-      kreuzer_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
-                                       "Kreuzer", number: kreuzer_amount,
-                                      group_hitpoints: kreuzer_huelle) 
-      fregatte_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
-                                       "Fregatte", number: fregatte_amount,
-                                      group_hitpoints: fregattehuelle) 
-      schild_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
-                                       "mobiler Schild", number: schild_amount,
-                                      group_hitpoints: schild_huelle) 
-      jaeger_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
-                                       "Jäger", number: jaeger_amount,
-                                      group_hitpoints: jaeger_huelle) 
+      gegner_flotte = Fighting_fleet.create(user: User.find_by_username("dummy"))
+      gegner_flotte.ship_groups.find_by_name("Kreuzer").number += kreuzer_amount
+      gegner_flotte.ship_groups.find_by_name("Jäger").number += jaeger_amount
+      gegner_flotte.ship_groups.find_by_name("Fregatte").number += fregatte_amount
+      gegner_flotte.ship_groups.find_by_name("mobiler Schild").number += schild_amount
+
       fight_id = rand(5101..5106)
       current_user.notifications.create(message: Message.find_by_code(fight_id))
       #TODO Kampf starten
@@ -178,31 +165,14 @@ class Expidition < ActiveRecord::Base
             g.number += jaeger_amount
          end
       end
-         kreuzer_huelle = Unit.find_by_name("Kreuzer").shell * kreuzer_amount
-         fregatte_huelle = Unit.find_by_name("Fregatte").shell * fregatte_amount
-         jaeger_huelle = Unit.find_by_name("Jäger").shell * jaeger_amount
-         schild_huelle = Unit.find_by_name("mobiler Schild").shell *
-            schild_amount
-         if(kreuzer_amount != 0)
-            kreuzer = Ship_group.create(fighting_fleet: fighting_fleet, ship:
-                                        "Kreuzer", number: kreuzer_amount,
-                                        group_hitpoints: kreuzer_huelle)
-         end
-         if(fregatte_amount != 0) 
-            fregatte = Ship_group.create(fighting_fleet: fighting_fleet, ship:
-                                         "Fregatte", number: kreuzer_amount,
-                                         group_hitpoints: fregatte_huelle)
-         end
-         if(schild_amount != 0)
-            schild = Ship_group.create(fighting_fleet: fighting_fleet, ship:
-                                       "mobiler Schild", number: schild_amount,
-                                      group_hitpoints: schild_huelle)
-         end
-         if(jaeger_amount != 0)
-            jaeger = Ship_group.create(fighting_fleet: fighting_fleet, ship:
-                                       "Jäger", number: jaeger_amount,
-                                       group_hitpoints: jaeger_huelle)
-         end
+
+
+      fighting_fleet = Fighting_fleet.create(user: User.find_by_username("dummy"))
+      fighting_fleet.ship_groups.find_by_name("Kreuzer").number += kreuzer_amount
+      fighting_fleet.ship_groups.find_by_name("Jäger").number += jaeger_amount
+      fighting_fleet.ship_groups.find_by_name("Fregatte").number += fregatte_amount
+      fighting_fleet.ship_groups.find_by_name("mobiler Schild").number += schild_amount
+
    end
 
    def set_exp_time time
