@@ -2,11 +2,6 @@ class Expidition < ActiveRecord::Base
 
    has_one :fighting_fleet
 
-   @exp_storeroom
-   @fleet_storeroom
-   @explore_time
-   @value
-
    def explore
       @value = 0
       @fleet_storeroom = 0
@@ -27,6 +22,11 @@ class Expidition < ActiveRecord::Base
          return nothing
       end
       #TODO Flotte zurueckschicken
+   end
+
+   def self.shipamount(shiptype)
+         #TODO Abfrage an das aktuelle Schiff wie viel Schiffe des Typs shiptype vorhanden sind
+         return amount=0
    end
 
    def occurance
@@ -196,5 +196,5 @@ class Expidition < ActiveRecord::Base
    def set_exp_time time
       @explore_time = time      
    end
-   
+
 end

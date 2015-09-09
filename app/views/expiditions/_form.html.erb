@@ -14,24 +14,30 @@
    <div class="field">
    Expeditionszeit in Stunden:<br>
    <%= number_field_tag(:exp_time, 1, within: 1...25) %>
-
-   <table>
+   <br><br>
+   <table border="1">
+      <colgroup span=2></colgroup>
       <tr>
-         <td>Einheit</td>
-         <td>stationierte Menge</td>
-         <td>zu schickende Anzahl</td>
+         <th></th>
+         <th>Einheit</th>
+         <th>stationierte Menge</th>
+         <th>zu schickende Anzahl</th>
       </tr>
 
       <% @units.each do |unit| %>
          <tr>
-           <td><%= unit.name %></td>       
-           <td><%= unit.id %></td>
+         <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
+           <td align=left ><%= unit.name %></td>       
+           <td><%= Expidition.shipamount(unit.id) %></td>
            <!--#TODO ID gegen Datenbankabfrage austauschen und Max Werte für die Einheiten hinzufügen-->
-           <td><%= number_field_tag(unit.id, 0, min:0) %></td>
+           <td><%= number_field_tag(unit.id, 0, min:0, max: Expidition.shipamount(unit.id)) %></td>
          </tr>
+
       <% end %>
 
             </table>
+   <br>
+
    <div class="actions">
       <%= f.submit %>
    </div>
