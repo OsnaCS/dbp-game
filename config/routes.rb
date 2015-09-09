@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :user_ships  resources :notifications
+  resources :user_ships  
+  resources :notifications
   resources :messages
   resources :stations
   resources :ships_stations

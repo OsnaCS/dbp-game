@@ -10,9 +10,6 @@
       <th>Costcristal</th>
       <th>Costfuel</th>
       <th>Level</th>
-      <th>Description</th>
-      <th>Condition</th>
-      <th>Tier</th>  
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,9 +22,6 @@
         <td><%= station.costCristal %></td>
         <td><%= station.costFuel %></td>
         <td><%= station.initial_level %></td>
-        <td><%= station.description %></td>
-        <td><%= station.condition %></td>
-        <td><%= station.tier %></td>
         <td><%= link_to 'Show', station %></td>
         <td><%= link_to 'Edit', edit_station_path(station) %></td>
         <td><%= link_to 'Destroy', station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
