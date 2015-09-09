@@ -20,8 +20,8 @@ html,body {
 	background: url('ui/background.jpg');
 }
 
-a {
-	color: #FFFF00 !important;
+a, a:visited {
+	color: #FFFF00;
 }
 
 ul {
@@ -256,11 +256,14 @@ ul li {
 	width: auto;
 	display: inline-block;
 	background-color: white;
-	color: black;
 	font-weight: bold;
 	padding: 5px;
 	border-radius: 5px;
 	border: 2px solid black;
+}
+
+a.userbutton, .userbutton a {
+	color: black;
 }
 
 .submitbutton {
