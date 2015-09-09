@@ -21,7 +21,7 @@ html,body {
 }
 
 a {
-	color: #FFFF00;
+	color: #FFFF00 !important;
 }
 
 ul {
@@ -182,7 +182,7 @@ ul li {
 	margin-right: auto;
 }
 
-/** Element - Settings **/ 
+/** Element - Settings **/
 #user_icon {
 	position: relative;
 	width: 40px;
@@ -234,6 +234,7 @@ ul li {
 #rank_table {
 	margin-left: auto;
 	margin-right: auto;
+
 }
 
 #res-metal {

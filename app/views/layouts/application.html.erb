@@ -28,7 +28,7 @@
 					<div id="user_icon"></div><br>
 				<% end %>
 				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-			<% end %> 
+			<% end %>
 		</div>
 		<div id="banner" class="content">
 			<p id="game_name">SpielName</p>
@@ -50,7 +50,7 @@
 			<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
 		</div>
 	</div>
-	
+
 	<div id="botm">
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
@@ -63,6 +63,7 @@
 						<li><%= link_to "Stationen", root_path %></li>
 						<li><%= link_to "Anlagen", root_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
+						<li><%= link_to "Handel", trades_path %></li>
 						<li><%= link_to "Rangliste", ranks_path %></li>
 						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 					<% else %>
