@@ -1,6 +1,7 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  #<!-- prüfe auf schiff !-->
 
   # GET /trades
   # GET /trades.json
