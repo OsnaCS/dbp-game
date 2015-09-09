@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  metal_price: 1
+  crystal_price: 1
+  fuel_price: 1
+  total_cost: 1
+  shell: 1
+  damage: 1
+  damage_type_id: 
+  cargo: 1
+  speed: 1
+  shipyard_requirement: 1
+  research_requirement_one: 1
+  research_requiement_two: 1
+
+two:
+  name: MyString
+  metal_price: 1
+  crystal_price: 1
+  fuel_price: 1
+  total_cost: 1
+  shell: 1
+  damage: 1
+  damage_type_id: 
+  cargo: 1
+  speed: 1
+  shipyard_requirement: 1
+  research_requirement_one: 1
+  research_requiement_two: 1

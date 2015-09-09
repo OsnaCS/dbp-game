@@ -1,0 +1,2 @@
+module FightingFleetsHelper
+end

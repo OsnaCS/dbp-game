@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  shell_mult: 1.5
+  shield_mult: 1.5
+  station_mult: 1.5
+  plattform_mult: 1.5
+
+two:
+  name: MyString
+  shell_mult: 1.5
+  shield_mult: 1.5
+  station_mult: 1.5
+  plattform_mult: 1.5
