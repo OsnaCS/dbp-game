@@ -86,11 +86,29 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.integer  "condition"
   end
 
+<<<<<<< HEAD
   create_table "user_ships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "ship_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+=======
+  create_table "trades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "ressource"
+    t.decimal  "value"
+    t.datetime "change_at"
+
+  create_table "user_icons", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+>>>>>>> 6e4843c114190adcb58552389d445b9cdbcd9a55
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,7 +125,11 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
+<<<<<<< HEAD
     t.integer  "activeShip"
+=======
+    t.integer  "right_level",            default: 0,  null: false
+>>>>>>> 6e4843c114190adcb58552389d445b9cdbcd9a55
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

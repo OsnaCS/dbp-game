@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   def login
     @login || self.username || self.email
   end
-
   
   def create_ship(ship_name)
     s = self.ships.build(ship_name)
@@ -48,6 +47,27 @@ class User < ActiveRecord::Base
   def select_ship(shipID)
     self.activeShip=shipID
     self.save
+  end
+
+  def is_user
+    return right_level == 0
+  end
+
+  def is_premium_user
+    return right_level == 1
+  end
+
+  def is_moderator
+    return right_level == 2
+  end
+
+  def is_admin
+    return right_level == 3
+  end
+
+  def is_superadmin
+    return right_level == 4
+>>>>>>> 6e4843c114190adcb58552389d445b9cdbcd9a55
   end
 
 end
