@@ -15,7 +15,7 @@
     <% @ships.each do |ships| %>
       <tr>
         <td><%= ships.name %></td>
-        <td><%= link_to 'Stationen', ship_stations_url(id: ships.id) %></td>
+        <td><%= link_to 'Stationen', ship_ships_stations_path(ships) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -33,14 +33,15 @@
   </thead>
 
   <tbody>
-    <% @ships.each do |ship| %>
+    <% UserShip.where(:user_id => current_user.id).each do |usership| %>
       <tr>
-        <td><%= ship.name %></td>
-        <td><%= link_to 'Show', ship %></td>
-        <td><%= link_to 'Edit', edit_ship_path(ship) %></td>
-        <td><%= link_to 'Destroy', ship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= usership.ship.name %></td>
+        <% usership.ship.update_resources %>
+        <td><%= link_to usership.ship.name, usership.ship %></td>
+        <td><%= link_to 'Edit', edit_ship_path(usership.ship) %></td>
+  </td>
       </tr>
-    <% end %>
+    <% end %> 
   </tbody>
 </table>
 

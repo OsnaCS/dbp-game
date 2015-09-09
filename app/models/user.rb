@@ -1,8 +1,10 @@
 class User < ActiveRecord::Base
   has_one :rank
-    
+  has_many :user_ships
+  has_many :ships, :through => :user_ships   
   has_many :notifications
   has_many :messages, through: :notifications
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,6 +19,7 @@ class User < ActiveRecord::Base
   :uniqueness => {
     :case_sensitive => false
   }
+
 
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
@@ -34,25 +37,36 @@ class User < ActiveRecord::Base
   def login
     @login || self.username || self.email
   end
+  
+  def create_ship(ship_name)
+    s = self.ships.build(ship_name)
+    self.user_ships.build(user: self, ship: s)
+    return s
+  end
+
+  def select_ship(shipID)
+    self.activeShip=shipID
+    self.save
+  end
 
   def is_user
-    return right_level == 0
+    return right_level >= 0
   end
 
   def is_premium_user
-    return right_level == 1
+    return right_level >= 1
   end
 
   def is_moderator
-    return right_level == 2
+    return right_level >= 2
   end
 
   def is_admin
-    return right_level == 3
+    return right_level >= 3
   end
 
   def is_superadmin
-    return right_level == 4
+    return right_level >= 4
   end
 
 end
