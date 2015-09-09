@@ -6,4 +6,4 @@ class RemoveColumnFromRank < ActiveRecord::Migration
   def down
   	add_column :ranks, :user_id, :integer
   end
-end 
+end
