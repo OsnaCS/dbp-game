@@ -199,6 +199,12 @@ ul li {
 	height: 30%;
 }
 
+#user_icon_edit {
+	position: relative;
+	width: 8%;
+	height: 8%;
+}
+
 #game_name {
 	position: absolute;
 	bottom: 25px;

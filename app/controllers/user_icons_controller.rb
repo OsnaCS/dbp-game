@@ -24,12 +24,15 @@ class UserIconsController < ApplicationController
   # POST /user_icons
   # POST /user_icons.json
   def create
+    if UserIcon.find_by_user_id(current_user.id) != nil
+      UserIcon.find_by_user_id(current_user.id).destroy
+    end
     @user_icon = UserIcon.new(user_icon_params)
     #@user_icon = UserIcon.new(user_icon_params)
     @user_icon.user_id = current_user.id
     respond_to do |format|
       if @user_icon.save
-        format.html { redirect_to @user_icon, notice: 'User icon was successfully created.' }
+        format.html { redirect_to edit_user_registration_path }
         format.json { render :show, status: :created, location: @user_icon }
       else
         format.html { render :new }
@@ -57,7 +60,7 @@ class UserIconsController < ApplicationController
   def destroy
     @user_icon.destroy
     respond_to do |format|
-      format.html { redirect_to user_icons_url, notice: 'User icon was successfully destroyed.' }
+      format.html { redirect_to edit_user_registration_path }
       format.json { head :no_content }
     end
   end
