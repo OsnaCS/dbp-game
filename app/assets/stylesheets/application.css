@@ -189,7 +189,9 @@ ul li {
 	height: 40px;
 	margin-left: auto;
 	margin-right: auto;
-	border: 2px solid #5A5A5A;
+	border: 2px solid red;
+	background-color: white;
+	border-radius: 5px;
 }
 
 #user_icon_edit {
@@ -228,6 +230,20 @@ ul li {
 	margin-right: 5px;
 	margin-left: 5px;
 	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userlogintextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: 80%;
 	display: inline-block;
 	background-color: white;
 	color: black;
