@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
+ActiveRecord::Schema.define(version: 20150909120848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,28 +60,25 @@
   add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
-    t.float    "shield"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.integer  "fight_id"
   end
 
+  add_index "fighting_fleets", ["fight_id"], name: "index_fighting_fleets_on_fight_id", using: :btree
   add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
 
   create_table "fights", force: :cascade do |t|
-    t.text     "report"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "attacker_id"
     t.integer  "defender_id"
-    t.time     "time"
-    t.integer  "fighting_fleet_id"
   end
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
-  add_index "fights", ["fighting_fleet_id"], name: "index_fights_on_fighting_fleet_id", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.string   "title"
@@ -133,21 +130,23 @@
   end
 
   create_table "sciences", force: :cascade do |t|
-    t.integer "science_id"
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time  "duration"
+    t.integer  "duration"
     t.string   "condition"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.string   "name"
+    t.integer  "tier"
+    t.integer  "science_condition_id"
+    t.string   "icon"
   end
 
   create_table "ship_groups", force: :cascade do |t|
     t.integer  "fighting_fleet_id"
     t.integer  "number"
-    t.float    "group_hitpoints"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "unit_id"
@@ -160,6 +159,10 @@
     t.text     "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "metal"
+    t.integer  "cristal"
+    t.integer  "fuel"
+    t.datetime "lastChecked"
   end
 
   create_table "ships_stations", force: :cascade do |t|
@@ -229,7 +232,7 @@
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level", default: 0, null: false
+    t.integer  "right_level"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -238,8 +241,8 @@
 
   add_foreign_key "example2s", "users"
   add_foreign_key "examples", "users"
+  add_foreign_key "fighting_fleets", "fights"
   add_foreign_key "fighting_fleets", "users"
-  add_foreign_key "fights", "fighting_fleets"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"

@@ -1,5 +1,5 @@
+
 <%= form_for(@fighting_fleet) do |f| %>
-  <%= f.fields_for :fights do |ff| %>
   <% if @fighting_fleet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:</h2>
@@ -17,29 +17,36 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :shield %><br>
-    <%= f.text_field :shield %>
-  </div>
-  <div class="field">
     <%= f.label :user_id %><br>
     <%= f.collection_select :user_id, User.all, :id, :username %>
   </div>
+  <%= f.fields_for :fight do |ff| %>
+    
+    <div class="field">
+    <%= ff.label :attacker_id %><br>
+      <%= ff.collection_select  :attacker_id, User.all, :id, :username %>
+    </div>
+    <div class="field">
+      <%= ff.label :defender_id %><br>
+      <%= ff.collection_select  :defender_id, User.all, :id, :username %>
+    </div>
+<% end %>
     <table>
       <tr>
         <th>Einheit</th>
         <th>Besitzt</th>
         <th>Verschicken</th>
       </tr>
-      <%= f.fields_for @fighting_fleet.ship_groups do |fs| %>
+      <%= f.fields_for :ship_groups do |fs| %>
         <tr>
           <td><%=fs.object.unit.name %></td>
           <td><%= fs.object.unit.id %></td>
-          <td><%=fs.number_field :number %></td>
+          <td><%=fs.number_field :number, min: 0 %></td>
         </tr>
         
+        <%= fs.hidden_field :unit_id %>
       <% end %>
     </table>
-<% end %>
   <div class="actions">
     
     <%= f.submit %>

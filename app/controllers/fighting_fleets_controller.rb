@@ -1,6 +1,6 @@
 class FightingFleetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_fighting_fleet, only: [:show, :edit, :update, :destroy]
-
   # GET /fighting_fleets
   # GET /fighting_fleets.json
   def index
@@ -70,6 +70,6 @@ class FightingFleetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fighting_fleet_params
-      params.require(:fighting_fleet).permit(:shield, :user_id, :name, ship_groups_attributes: [:unit_id, :number, :group_hitpoints])
+      params.require(:fighting_fleet).permit(:shield, :user_id, :name, ship_groups_attributes: [:unit_id, :number, :group_hitpoints],fight_attributes: [:attacker_id, :defender_id])
     end
 end

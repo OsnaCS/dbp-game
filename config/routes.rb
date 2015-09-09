@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   resources :damage_types
 
-  resources :fights
   resources :fighting_fleets do
     resources :ship_groups
- 
+    resources :fights 
   end
 
 
