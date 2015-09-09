@@ -5,7 +5,7 @@
     		<img id="user_icon_edit" src="<%= image_url(UserIcon.find_by_user_id(@user.id).image.url) %>"><br>
     	</p>
   		<% else %>
-    		<img id="user_icon_edit" src="ui/default.png"><br>
+    		<img id="user_icon_edit" src="<%= image_url('ui/default.png') %>"><br>
   		<% end %>
 		<p>Benutzername: <%= @user.username %></p>
 		<% if current_user.is_moderator %>

@@ -3,14 +3,11 @@
   <p>von Spieler <%= current_user.username %></p>
 
   <% if UserIcon.find_by_user_id(current_user.id) != nil %>
-
-    <img id="user_icon_edit" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+    <img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
     <p><%= link_to 'Benutzerbild ändern', edit_user_icon_path(UserIcon.find_by_user_id(current_user.id)) %>
-    <%= link_to 'Benutzerbild entfernen', UserIcon.find_by_user_id(current_user.id), method: :delete, data: { confirm: 'Bist du dir sicher?' } %></p>
-
+      <%= link_to 'Benutzerbild entfernen', UserIcon.find_by_user_id(current_user.id), method: :delete, data: { confirm: 'Bist du dir sicher?' } %></p>
   <% else %>
-
-    <img id="user_icon_edit" src="ui/default.png"><br>
+    <img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
     <%= link_to 'Benutzerbild hochladen', new_user_icon_path %>
 
   <% end %>

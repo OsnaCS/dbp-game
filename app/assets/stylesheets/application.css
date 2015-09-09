@@ -187,8 +187,6 @@ ul li {
 	position: relative;
 	width: 40px;
 	height: 40px;
-	background-image: url('ui/default.png');
-	background-size: 100% 100%;
 	margin-left: auto;
 	margin-right: auto;
 	border: 2px solid #5A5A5A;

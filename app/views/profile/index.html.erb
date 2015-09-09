@@ -1,8 +1,10 @@
 <% if user_signed_in? %>
 	<% if current_user.is_user %>
 		<h1>Ihr Benutzerprofil</h1>
-		<p><% if UserIcon.find_by_user_id(current_user.id) != nil %>
+		<p> <% if UserIcon.find_by_user_id(current_user.id) != nil %>
 								<img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+			<% else %>
+    			<img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
 			<% end %>
 		</p>
 		<p>Benutzername: <%= @user.username %></p>
