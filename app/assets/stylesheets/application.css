@@ -38,7 +38,6 @@ ul li {
 	margin: 30px 0 0 10px;
 }
 
-/** DIV - Settings**/
 #wrapper {
 	position: relative;
 	width: auto;
@@ -155,12 +154,10 @@ ul li {
 
 .tooltip {
 	position: relative;
-	display: inline-block;
+	float: left;
 	width: 40px;
 	height: 40px;
-	margin: 20px 15% 0% 15%;
 	background-size: contain;
-	border: 2px solid #5A5A5A;
 }
 
 .tooltip:hover:after {
@@ -182,7 +179,6 @@ ul li {
 	margin-right: auto;
 }
 
-/** Element - Settings **/
 #user_icon {
 	position: relative;
 	width: 40px;
@@ -237,10 +233,6 @@ ul li {
 
 }
 
-#res-metal {
-	background-image: url('resources/metal.png');
-}
-
 #error_explanation {
 	position: absolute;
 	color: #000;
@@ -289,10 +281,22 @@ ul li {
 	background-color: white;
 }
 
+#res-table {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#res-metal {
+	background-image: url('resources/metal.png');
+}
+
 #res-crystal {
+	border: 0;
 	background-image: url('resources/crystal.png');
 }
 
 #res-fuel {
+	border: 0;
 	background-image: url('resources/fuel.png');
 }

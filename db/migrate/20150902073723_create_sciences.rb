@@ -8,6 +8,7 @@ class CreateSciences < ActiveRecord::Migration
       t.float :factor
       t.time :duration
       t.string :condition
+      t.string :name
 
       t.timestamps null: false
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909074153) do
+ActiveRecord::Schema.define(version: 20150909075429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,22 +40,38 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.integer  "user_id"
   end
 
-  create_table "sciences", force: :cascade do |t|
+  create_table "science_instances", force: :cascade do |t|
     t.integer  "science_id"
+    t.integer  "user_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time     "start_time"
+  end
+
+  create_table "sciences", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time     "duration"
+    t.integer  "duration"
     t.string   "condition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "tier"
+    t.integer  "science_condition_id"
+    t.string   "icon"
   end
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "metal"
+    t.integer  "cristal"
+    t.integer  "fuel"
+    t.datetime "lastChecked"
   end
 
   create_table "ships_stations", force: :cascade do |t|
@@ -100,6 +116,13 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.datetime "image_updated_at"
   end
 
+  create_table "user_ships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -115,6 +138,7 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.datetime "updated_at",                          null: false
     t.string   "username"
     t.integer  "right_level",            default: 0,  null: false
+    t.integer  "activeShip"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

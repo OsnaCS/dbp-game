@@ -1,3 +1,55 @@
 // Place all the styles related to the Sciences controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#table_sciences {
+  margin: auto;
+  position: relative;
+  width: 70%;
+  border: 5px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#icon {
+  border: 3px solid white;
+  display: table;
+  //margin-bottom: 30px;
+  border-collapse: collapse;
+}
+
+#text {
+  display: table;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+}
+
+#active {
+	background: #1411fa;
+	border: 5px;
+	border-collapse: collapse;
+	font-weight: bold;
+}
+#inactive {
+	border: 5px;
+	border-collapse: collapse;
+}
+
+a span{	
+	display:none;
+	color:#fff;
+	background: #00317d;
+	padding:5px;
+	border-radius:44px;
+    font-weight: bold;
+	width:300px;
+	position: absolute;
+}
+
+canvas {
+    background: #eee;
+    position: relative;
+}
+
+a { display: inline-block;}
+a:hover span{ display:block; }
