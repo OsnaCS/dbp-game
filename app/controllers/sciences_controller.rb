@@ -1,6 +1,14 @@
 class SciencesController < ApplicationController
   before_action :set_science, only: [:show, :edit, :update, :destroy]
 
+  before_filter :check_login
+
+  def check_login
+    unless current_user
+      redirect_to "/users/sign_in/"
+    end
+  end
+  
   # GET /sciences
   # GET /sciences.json
   def index

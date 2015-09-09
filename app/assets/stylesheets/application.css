@@ -218,13 +218,16 @@ ul li {
 }
 
 #res-metal {
+	border: 0;
 	background-image: url('resources/metal.png');
 }
 
 #res-crystal {
+	border: 0;
 	background-image: url('resources/crystal.png');
 }
 
 #res-fuel {
+	border: 0;
 	background-image: url('resources/fuel.png');
 }
