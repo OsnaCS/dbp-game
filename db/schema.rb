@@ -178,16 +178,40 @@ ActiveRecord::Schema.define(version: 20150909120848) do
 
   create_table "stations", force: :cascade do |t|
     t.text     "name"
-    t.integer  "costMIneral"
+    t.integer  "costMineral"
     t.integer  "costCristal"
     t.integer  "costFuel"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
-    t.text     "description"
-    t.integer  "condition"
     t.integer  "tier"
-    t.string   "icons"
+    t.string   "icon"
+    t.integer  "condition"
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "ressource"
+    t.decimal  "value"
+    t.datetime "change_at"
+  end
+
+  create_table "user_icons", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "user_ships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "ship_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teaparties", force: :cascade do |t|
@@ -232,7 +256,8 @@ ActiveRecord::Schema.define(version: 20150909120848) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level"
+    t.integer  "activeShip"
+    t.integer  "right_level",            default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

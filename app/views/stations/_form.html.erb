@@ -11,13 +11,18 @@
     </div>
   <% end %>
 
+  <div class= "field">
+    <%= f.label :icon %><br>
+    <%= f.text_area :icon %>
+  </div>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_area :name %>
   </div>
   <div class="field">
-    <%= f.label :costMIneral %><br>
-    <%= f.number_field :costMIneral %>
+    <%= f.label :costMineral %><br>
+    <%= f.number_field :costMineral %>
   </div>
   <div class="field">
     <%= f.label :costCristal %><br>
@@ -27,7 +32,7 @@
     <%= f.label :costFuel %><br>
     <%= f.number_field :costFuel %>
   </div>
- <div class="field">
+  <div class="field">
     <%= f.label :initial_level %><br>
     <%= f.number_field :initial_level %>
   </div>

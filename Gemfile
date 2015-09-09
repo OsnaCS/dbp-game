@@ -3,6 +3,8 @@ ruby "2.2.2"
 
 # gem for user Managament und Authentication
 gem 'devise'
+# gem for file upload management
+gem 'paperclip'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use pg as the database for Active Record
