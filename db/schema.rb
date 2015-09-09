@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909120848) do
+ActiveRecord::Schema.define(version: 20150909140635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20150909120848) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "name"
     t.integer  "fight_id"
   end
 
@@ -223,9 +222,11 @@ ActiveRecord::Schema.define(version: 20150909120848) do
     t.integer  "research_requirement_two"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "message_id"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
+  add_index "units", ["message_id"], name: "index_units_on_message_id", using: :btree
 
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
@@ -275,4 +276,5 @@ ActiveRecord::Schema.define(version: 20150909120848) do
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "units"
   add_foreign_key "units", "damage_types"
+  add_foreign_key "units", "messages"
 end
