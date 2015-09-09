@@ -21,11 +21,10 @@ class Expidition < ActiveRecord::Base
       else
          return nothing
       end
-      #TODO Flotte zurueckschicken
    end
 
    def self.shipamount(shiptype)
-         Ships.find(current_user.activeShip).#Befehl um stationierte Schiffe abzufragen
+         #Ships.find(current_user.activeShip).#Befehl um stationierte Schiffe abzufragen
          return amount=0
    end
 
