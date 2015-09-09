@@ -39,8 +39,10 @@
 	<div id="mid">
 		<div id="ranking" class="content">
 			<% if user_signed_in? %>
-				<p>Points:</p>
-				<p>0</p>
+			    <%= link_to "Points", ranks_path%>
+				<% if(current_user.rank) %>
+				  <p><%= current_user.rank.score %></p>
+				<% end %>
 			<% else %>
 				<p>Not logged in</p>
 			<% end %>
@@ -95,7 +97,7 @@
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<li><%= link_to "Schiffe", ships_path %></li>
-					<li><%= link_to "Forschung", root_path %></li>
+					<li><%= link_to "Forschung", sciences_path %></li>
 					<li><%= link_to "Stationen", stations_path %></li>
 					<li><%= link_to "Anlagen", root_path %></li>
 					<li><%= link_to "Einheiten", root_path %></li>
