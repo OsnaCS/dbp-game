@@ -222,6 +222,20 @@ ul li {
 	border: 2px solid black;
 }
 
+.usertextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
 .userbutton {
 	margin: auto;
 	margin-bottom: 5px;
@@ -235,6 +249,12 @@ ul li {
 	padding: 5px;
 	border-radius: 5px;
 	border: 2px solid black;
+}
+
+.submitbutton {
+	font-weight: bold;
+	border: 2px solid black;
+	border-radius: 5px;
 }
 
 .userbutton:hover {
