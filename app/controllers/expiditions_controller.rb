@@ -28,8 +28,8 @@ class ExpiditionsController < ApplicationController
   def create
     @expidition = Expidition.new(expidition_params)
 
-    @expidition.explore_time = params[:exp_time]
-    @expidition.arrival_time = Time.now + 3600 * params[:exp_time].to_i
+    @expidition.explore_time = params[:exp_time].to_i
+    @expidition.arrival_time = Time.now + @expidition.explore_time.hours
 
     #TODO Spieler fleet erstellen/losschicken
 

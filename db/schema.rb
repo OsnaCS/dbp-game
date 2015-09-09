@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150909090435) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "explore_time"
-    t.date     "arrival_time"
+    t.datetime "arrival_time"
     t.integer  "fighting_fleet_id"
   end
 
