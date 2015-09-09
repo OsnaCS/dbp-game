@@ -32,7 +32,8 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets.json
   def create
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
-    @fighting_fleet.attacker=current_user
+    @fighting_fleet.fight.attacker_id=current_user.id
+    @fighting_fleet.user_id=current_user.id
     respond_to do |format|
       if @fighting_fleet.save
         format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }

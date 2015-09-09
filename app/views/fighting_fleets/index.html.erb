@@ -1,39 +1,37 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Fighting Fleets</h1>
-
+    <% @fighting_fleets.each do |fighting_fleet| %>
+<div class="field" >
+  <table>
+    <tr>
+      <th>Angreifer: </th>
+      <th><%=fighting_fleet.fight.attacker.username%></th>
+      <th>Verteidiger: </th>
+      <th><%=fighting_fleet.fight.defender.username%></th>
+    </tr>
+  </table>
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th colspan="13">Units send</th>
-      <th>Attacker</th>
-      <th>Defender</th>
+      <th>Schiffe</th>
+      <th >Anzahl</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @fighting_fleets.each do |fighting_fleet| %>
-      <tr>
-        <td><%= fighting_fleet.user.username %></td>
-        <td><%= fighting_fleet.name %></td>
-        <td>ID:<br> Number:</td>
         <% fighting_fleet.ship_groups.each do |s|  %>
-            <td><%= s.unit_id%> <br>
-            <%=s.number %> </td>
+      <tr>
+            <td><%= s.unit.name%> </td>
+            <td><%= s.number%> </td>
+      </tr>
         <% end %>
-        <td><%= fighting_fleet.fight.attacker.username%> <br>
-        <td><%= fighting_fleet.fight.defender.username%> <br>
-        <%= %> </td>
-        <td><%= link_to 'Show', fighting_fleet %></td>
         <td><%= link_to 'Edit', edit_fighting_fleet_path(fighting_fleet) %></td>
         <td><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+</div>
 <%= link_to 'New Fighting fleet', new_fighting_fleet_path %>

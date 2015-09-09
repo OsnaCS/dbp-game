@@ -31,7 +31,7 @@ class ShipGroupsController < ApplicationController
   # POST /ship_groups
   # POST /ship_groups.json
   def create
-   
+    @max_ships=50  
     @ship_group = ShipGroup.new(ship_group_params)
     @ship_name =Unit.find(@ship_group.unit_id).name
     respond_to do |format|

@@ -14,25 +14,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.collection_select :user_id, User.all, :id, :username %>
-  </div>
   <%= f.fields_for :fight do |ff| %>
     
-    <div class="field">
-    <%= ff.label :attacker_id %><br>
-      <%= ff.collection_select  :attacker_id, User.all, :id, :username %>
-    </div>
     <div class="field">
       <%= ff.label :defender_id %><br>
       <%= ff.collection_select  :defender_id, User.all, :id, :username %>
     </div>
 <% end %>
+  <div class="field">
     <table>
       <tr>
         <th>Einheit</th>
@@ -43,12 +32,13 @@
         <tr>
           <td><%=fs.object.unit.name %></td>
           <td><%= fs.object.unit.id %></td>
-          <td><%=fs.number_field :number, min: 0 %></td>
+          <td><%=fs.number_field :number, min: 0, max: 50 %></td>
         </tr>
         
         <%= fs.hidden_field :unit_id %>
       <% end %>
     </table>
+    </div>
   <div class="actions">
     
     <%= f.submit %>
