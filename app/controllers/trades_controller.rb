@@ -7,7 +7,7 @@ class TradesController < ApplicationController
   def index
     time = DateTime.now
     Trade.all.each do |trade|
-      if(time.to_i-trade.change_at.to_i>=86400) # 60*60*24 = blub Zeit in Sekunden umgerechnet auf 1 Tag Laenge
+      if(time.to_i-trade.change_at.to_i>=21600) # 60*60*6 = blub Zeit in Sekunden umgerechnet auf 1 Tag Laenge
         trade.change_at = time
         trade.value = (0.6 * rand + 0.3) * trade.ressource  #ToDo: muss mit random substituiert werden
         trade.save

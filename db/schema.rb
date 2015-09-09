@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.integer  "ressource"
     t.decimal  "value"
     t.datetime "change_at"
+  end
 
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
