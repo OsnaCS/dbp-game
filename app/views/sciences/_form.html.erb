@@ -10,11 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :science_id %><br>
-    <%= f.number_field :science_id %>
-  </div>
   <div class="field">
     <%= f.label :cost1 %><br>
     <%= f.number_field :cost1 %>
@@ -33,11 +28,27 @@
   </div>
   <div class="field">
     <%= f.label :duration %><br>
-    <%= f.time_select :duration %>
+    <%= f.number_field :duration %>
   </div>
   <div class="field">
     <%= f.label :condition %><br>
     <%= f.text_field :condition %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :tier %><br>
+    <%= f.text_field :tier %>
+  </div>
+  <div class="field">
+    <%= f.label :icon %><br>
+    <%= f.text_field :icon %>
+  </div>
+  <div class="field">
+    <%= f.label :science_condition_id %><br>
+    <%= f.number_field :science_condition_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

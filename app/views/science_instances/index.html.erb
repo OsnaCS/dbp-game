@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Science Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Science</th>
+      <th>User</th>
+      <th>Level</th>
+      <th>Start</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @science_instances.each do |science_instance| %>
+      <tr>
+        <td><%= science_instance.science_id %></td>
+        <td><%= science_instance.user_id %></td>
+        <td><%= science_instance.level %></td>
+
+        <% time = science_instance.start_time %>
+        <% if(time) %>
+          <td><%= time.strftime("%T") %></td>
+        <% else %>
+          <td>Not started</td>
+        <% end %>
+        <td><%= link_to 'Show', science_instance %></td>
+        <td><%= link_to 'Edit', edit_science_instance_path(science_instance) %></td>
+        <td><%= link_to 'Destroy', science_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Science instance', new_science_instance_path %>

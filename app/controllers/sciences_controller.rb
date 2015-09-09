@@ -1,6 +1,14 @@
 class SciencesController < ApplicationController
   before_action :set_science, only: [:show, :edit, :update, :destroy]
 
+  before_filter :check_login
+
+  def check_login
+    unless current_user
+      redirect_to "/users/sign_in/"
+    end
+  end
+  
   # GET /sciences
   # GET /sciences.json
   def index
@@ -69,6 +77,6 @@ class SciencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def science_params
-      params.require(:science).permit(:science_id, :cost1, :cost2, :cost3, :factor, :duration, :condition)
+      params.require(:science).permit(:cost1, :cost2, :cost3, :factor, :duration, :condition, :name, :tier, :science_condition_id, :icon)
     end
 end

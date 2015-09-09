@@ -158,8 +158,6 @@ ul li {
 	width: 40px;
 	height: 40px;
 	background-size: contain;
-	border: 2px solid #5A5A5A;
-
 }
 
 .tooltip:hover:after {
@@ -294,9 +292,11 @@ ul li {
 }
 
 #res-crystal {
+	border: 0;
 	background-image: url('resources/crystal.png');
 }
 
 #res-fuel {
+	border: 0;
 	background-image: url('resources/fuel.png');
 }
