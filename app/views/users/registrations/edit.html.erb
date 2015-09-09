@@ -1,16 +1,18 @@
 <% if user_signed_in? %>
-  <h2>Benutzerprofil ändern</h2>
-  <p>von Spieler <%= current_user.username %></p>
-
+  <br>
+  <h2 class="userlabel">Benutzerprofil ändern</h2>
+  <div>
+    <p class="userlabel">von Spieler <%= current_user.username %></p>
+  </div>
   <% if UserIcon.find_by_user_id(current_user.id) != nil %>
-
-    <img id="user_icon_edit" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
-    <p><%= link_to 'Benutzerbild ändern', edit_user_icon_path(UserIcon.find_by_user_id(current_user.id)) %>
-    <%= link_to 'Benutzerbild entfernen', UserIcon.find_by_user_id(current_user.id), method: :delete, data: { confirm: 'Bist du dir sicher?' } %></p>
-
+    <img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+    <div>
+      <p class="userbutton"><%= link_to 'Benutzerbild ändern', edit_user_icon_path(UserIcon.find_by_user_id(current_user.id)) %></p>
+      <p class="userbutton">
+      <%= link_to 'Benutzerbild entfernen', UserIcon.find_by_user_id(current_user.id), method: :delete, data: { confirm: 'Bist du dir sicher?' } %></p>
+    </div>
   <% else %>
-
-    <img id="user_icon_edit" src="ui/default.png"><br>
+    <img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
     <%= link_to 'Benutzerbild hochladen', new_user_icon_path %>
 
   <% end %>
@@ -19,8 +21,8 @@
     <%= devise_error_messages! %>
 
     <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true %>
+      <p class="userlabel"><%= f.label :email %></p><br />
+      <p class="usertextfield"><%= f.email_field :email, autofocus: true %></p>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -28,26 +30,26 @@
     <% end %>
 
     <div class="field">
-      <%= f.label "Neues Passwort eingeben" %> <br />
-      <%= f.password_field :password, autocomplete: "off" %>
+      <p class="userlabel"><%= f.label "Neues Passwort eingeben" %></p> <br />
+      <p class="usertextfield"><%= f.password_field :password, autocomplete: "off" %></p>
     </div>
 
     <div class="field">
-      <%= f.label "Passwort bestätigen" %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <p class="userlabel"><%= f.label "Passwort bestätigen" %></p><br />
+      <p class="usertextfield"><%= f.password_field :password_confirmation, autocomplete: "off" %></p>
     </div>
 
     <div class="field">
-      <%= f.label "Aktuelles Passwort wird zur Bestätigung benötigt" %><br />
-      <%= f.password_field :current_password, autocomplete: "off" %>
+      <p class="userlabel"><%= f.label "Aktuelles Passwort wird zur Bestätigung benötigt" %></p><br />
+      <p class="usertextfield"><%= f.password_field :current_password, autocomplete: "off" %></p>
     </div>
 
     <div class="actions">
-      <%= f.submit "Update" %>
+      <%= f.submit "Update", :class => 'submitbutton' %>
     </div>
   <% end %>
 
-  <h2>Meinen Account löschen</h2>
+  <h3 class="userlabel">Du möchtest deinen Account löschen?</h2>
 
-  <p><%= button_to "Account löschen", registration_path(resource_name), data: { confirm: "Bist du sicher?" }, method: :delete %></p>
+  <p><%= button_to "Account löschen", registration_path(resource_name), data: { confirm: "Bist du sicher?" }, method: :delete, :class => 'submitbutton' %></p>
 <% end %>
