@@ -17,8 +17,7 @@
  /** Main - Settings **/
 html,body {
 	margin: 0 auto;
-	background: url('background.jpg');
-	color: #FFF;
+	background: url('ui/background.jpg');
 }
 
 a {
@@ -32,7 +31,7 @@ ul {
 }
 
 ul li {
-	background-image: url('marker.png');
+	background-image: url('ui/marker.png');
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	background-size: 20px 20px;
@@ -55,40 +54,23 @@ ul li {
 	top: 0%;
 }
 
-#login-wrapper {
+#login {
 	position: relative;
 	width: 10%;
 	height: 100%;
-	float: left;
+	max-width: 10%;
+	max-height: 100%;
 	display: inline-block;
 	top: 0;
-	background-color: #000066;
-}
-
-#login {
-	position: relative;
-	width: 90%;
-	height: 100%;
-	margin-left: 10px;
-	margin-right: 10px;
-	background-color: #000066;
-}
-
-.logintext {
-	width: 95%;
-}
-
-#loginbutton {
-	width:50%;
 }
 
 #banner {
 	position: relative;
 	width: 90%;
 	height: 100%;
-	float: left;
-	background-color: #000066;
-	background-image: url('banner.jpg');
+	max-width: 90%;
+	max-height: 100%;
+	background-image: url('ui/banner.jpg');
 	background-size: 100% 100%;
 }
 
@@ -103,16 +85,16 @@ ul li {
 	position: relative;
 	width: 10%;
 	height: 100%;
-	float: left;
-	background-color: #000066;
+	max-width: 10%;
+	max-height: 100%;
 }
 
 #resources {
 	position: relative;
 	width: 90%;
 	height: 100%;
-	float: left;
-	background-color: #000066;
+	max-width: 90%;
+	max-height: 100%;
 }
 
 #botm {
@@ -127,7 +109,6 @@ ul li {
 	width: 10%;
 	height: 100%;
 	float: left;
-	background-color: #000066;
 }
 
 #menu {
@@ -148,29 +129,38 @@ ul li {
 	position: relative;
 	width: 90%;
 	height: 100%;
-	float: left;
-	background-color: #000066;
+	max-width: 90%;
+	max-height: 100%;
+	overflow-y: scroll;
 }
 
 .content {
 	position: relative;
 	display: table;
+	float: left;
 	text-align: center;
 	vertical-align: middle;
+	border-radius: 10px;
 	border: 2px solid white;
+	box-shadow: 10px 10px #5A5A5A;
 	box-sizing: border-box;
+	background-color: #000066;
 }
 
 .login_text {
 	font-size: 90%;
 	display: inline-block;
+	margin-bottom: 5px;
 }
 
 .tooltip {
 	position: relative;
-	display: inline;
-	float: left;
-	margin: 30px 10% 0% 10%;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 20px 15% 0% 15%;
+	background-size: contain;
+	border: 2px solid #5A5A5A;
 }
 
 .tooltip:hover:after {
@@ -182,7 +172,7 @@ ul li {
 	left: 20%;
 	padding: 5px 15px;
 	z-index: 1;
-	content: attr(title);
+	content: attr(data-tooltip);
 }
 
 .field {
@@ -195,20 +185,13 @@ ul li {
 /** Element - Settings **/
 #user_icon {
 	position: relative;
-	width: 30%;
-	height: 30%;
-}
-
-#game_name {
-	position: absolute;
-	bottom: 25px;
-	left: 50px;
-}
-
-#clock {
-	position: absolute;
-	top: 15px;
-	right: 100px;
+	width: 40px;
+	height: 40px;
+	background-image: url('ui/default.png');
+	background-size: 100% 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 2px solid #5A5A5A;
 }
 
 #notification-image {
@@ -220,14 +203,20 @@ ul li {
 
 #notification-text {
 	position: absolute;
-	color: red;
-	left: 50%;
+	color: #FFF;
+	left: calc(50% - 5px);
+	background-color: red;
+	font-weight: bold;
+	border: 2px solid red;
+	border-radius: 5px;
 }
 
-#rank_table {
-	margin-left: auto;
-	margin-right: auto;
+#game_name {
+	position: absolute;
+	bottom: 25px;
+	left: 50px;
 }
+
 
 #error_explanation {
 	position: absolute;
@@ -235,4 +224,16 @@ ul li {
 	top: 100px;
 	left: 100px;
 	z-index: 2;
+}
+
+#res-metal {
+	background-image: url('resources/metal.png');
+}
+
+#res-crystal {
+	background-image: url('resources/crystal.png');
+}
+
+#res-fuel {
+	background-image: url('resources/fuel.png');
 }
