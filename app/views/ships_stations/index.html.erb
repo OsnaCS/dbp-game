@@ -7,7 +7,6 @@
     <tr id="table">
       <th> </th>
       <th>Name</th>
-      <th>Beschreibung</th>
       <th>Level</th>
       <th> </th>
       <th colspan="3"></th>
@@ -19,7 +18,6 @@
       <tr>
         <td><img src="<%= image_url(ships_station.station.icon) %>", height="50", width="50"></td>
         <td><%= ships_station.station.name %></td>
-        <td><%= ships_station.station.description %></td>
         <td><%= ships_station.station.initial_level %></td>
         <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
       </tr>
