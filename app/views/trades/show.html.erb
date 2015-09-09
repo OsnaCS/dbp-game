@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ressource:</strong>
+  <%= @trade.ressource %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @trade.value %>
+</p>
+
+<%= link_to 'Edit', edit_trade_path(@trade) %> |
+<%= link_to 'Back', trades_path %>

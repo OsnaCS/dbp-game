@@ -1,0 +1,15 @@
+<% if current_user.is_admin %>
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>User:</strong>
+	  <%= @user_icon.user_id %>
+	  <strong>URL:</strong>
+	  <%= image_tag @user_icon.image.url %>
+	  <strong>Image:</strong>
+	  <%= image_tag @user_icon.image.url(:medium) %>
+	</p>
+
+	<%= link_to 'Edit', edit_user_icon_path(@user_icon) %> |
+	<%= link_to 'Back', user_icons_path %>
+<% end %>

@@ -14,11 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-var counter = 1;
 
-$(document).ready(function () {
-  getTimer();
-});
+function formatTime(secs) {
+
+	var counter = 1;
+
+	$(document).ready(function () {
+ 	 getTimer();
+	});
+}
 
 function getTimer() {
 	setInterval(
@@ -29,4 +33,5 @@ function getTimer() {
 		},
 		1000
 	);
+
 }

@@ -1,13 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Ships Stations</h1>
+<h1>Stationen</h1><br/>
 
-<table>
+<table id="stationsite">
   <thead>
-    <tr>
-      <th>Ships</th>
-      <th>Stations</th>
+    <tr id="table">
+      <th> </th>
+      <th>Name</th>
       <th>Level</th>
+      <th> </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,17 +16,12 @@
   <tbody>
     <% @ships_stations.each do |ships_station| %>
       <tr>
-        <td><%= ships_station.ship_id %></td>
-        <td><%= ships_station.station_id %></td>
-        <td><%= ships_station.level %></td>
-        <td><%= link_to 'Show', ships_station %></td>
-        <td><%= link_to 'Edit', edit_ships_station_path(ships_station) %></td>
-        <td><%= link_to 'Destroy', ships_station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><img src="<%= image_url(ships_station.station.icon) %>", height="50", width="50"></td>
+        <td><%= ships_station.station.name %></td>
+        <td><%= ships_station.station.initial_level %></td>
+        <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Ships station', new_ships_station_path %>
