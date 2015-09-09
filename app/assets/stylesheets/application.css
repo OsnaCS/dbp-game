@@ -193,6 +193,8 @@ ul li {
 }
 
 .numfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
 	width: 50px;
 	height: 25px;
 	margin:0px auto;
@@ -201,6 +203,8 @@ ul li {
 }
 
 .innernumfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
 	text-align: center;
 	line-height:25px;
 	font-size: 16px;
@@ -213,6 +217,8 @@ ul li {
 }
 
 .numfield {
+	border: 0px solid white;
+	border-radius: 5px;
 	width: 50px;
 	height: 25px;
 	font-size: 16px;

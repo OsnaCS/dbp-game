@@ -1,5 +1,5 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update, :destroy]
+  before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
 
   # GET /trades
   # GET /trades.json
@@ -69,6 +69,31 @@ class TradesController < ApplicationController
       format.html { redirect_to trades_url, notice: 'Trade was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def buy
+    if(@trade.ressource == 1)
+      buy = (params[:sell_metall].to_i * @trade.value / params[:to].to_i)
+      # reduce params[:amount] from metall
+    end
+    if(@trade.ressource == 2)
+      buy = (params[:sell_kristall].to_i * @trade.value / params[:to].to_i)
+      # reduce params[:amount] from kristall
+    end
+    if(@trade.ressource == 4)
+      buy = (params[:sell_treibstoff].to_i * @trade.value / params[:to].to_i)
+      # reduce params[:amount] from treibstoff
+    end
+    if(params[:to] == 1)
+      # add buy to metall
+    end
+    if(params[:to] == 2)
+      # add buy to kristall
+    end
+    if(params[:to] == 4)
+      # add buy to treibstoff
+    end
+    redirect_to trades_url
   end
 
   private

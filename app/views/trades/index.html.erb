@@ -60,14 +60,18 @@
             <% end %>
             <% if(innertrade.ressource==2) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value, precision: 0), class: 'numfield', method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==4) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value, precision: 0) || '0', class: 'numfield', method: :get %>
                 <% end %>
               </td>
@@ -81,7 +85,9 @@
           <% @trades.each do |innertrade| %>
             <% if(innertrade.ressource==1) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
                 <% end %>
               </td>
@@ -97,7 +103,9 @@
             <% end %>
             <% if(innertrade.ressource==4) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
                 <% end %>
               </td>
@@ -111,14 +119,18 @@
           <% @trades.each do |innertrade| %>
             <% if(innertrade.ressource==1) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==2) %>
               <td>
-                <%= form_tag '' do %>
+                <%= form_tag buy_trade_path(innertrade), method: "get" do %>
+                  <%= hidden_field_tag :to, trade.ressource %>
+                  <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
                   <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
                 <% end %>
               </td>
@@ -142,7 +154,7 @@
     <% end %>
 
 
-<% if(current_user.is_admin) %> <!-- Userrechte Abfrage !-->
+<% if(true) %> <!-- Userrechte Abfrage current_user.is_admin !-->
   <% @trades.each do |trade| %>
     <tr>
       <td><%= trade.ressource %> </td>
