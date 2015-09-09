@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :trades
+
+    resources :trades do
+    member do
+      get 'buy'
+    end
+  end
 
   resources :stations
   resources :ships_stations

@@ -142,7 +142,7 @@
     <% end %>
 
 
-<% if() %>
+<% if(current_user.is_admin) %> <!-- Userrechte Abfrage !-->
   <% @trades.each do |trade| %>
     <tr>
       <td><%= trade.ressource %> </td>
