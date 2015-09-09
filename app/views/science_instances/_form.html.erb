@@ -1,0 +1,29 @@
+<%= form_for(@science_instance) do |f| %>
+  <% if @science_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@science_instance.errors.count, "error") %> prohibited this science_instance from being saved:</h2>
+
+      <ul>
+      <% @science_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :science_id %><br>
+    <%= f.number_field :science_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :level %><br>
+    <%= f.number_field :level %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

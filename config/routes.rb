@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :science_instances do
+    member do
+      get 'research'
+      get 'cancle_research'
+      get 'instant_research'
+    end
+  end
 
   resources :user_ships  
   resources :notifications
