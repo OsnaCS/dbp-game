@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'profile/index'
   get 'profile/user'
  
+  resources :notifications
+  resources :messages
   resources :stations
   resources :ships_stations
   resources :ships

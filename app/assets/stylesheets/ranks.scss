@@ -1,3 +1,25 @@
 // Place all the styles related to the Ranks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#rank_table {
+	margin: 1% auto 1% auto;
+	table-layout: fixed;
+	width: 90%;
+}
+
+#rank_table th {
+	padding: 5px;
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+}
+
+#rank_table td {
+	padding: 10px;
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color: #CC0000;
+	color: white;
+}

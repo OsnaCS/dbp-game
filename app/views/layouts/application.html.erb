@@ -7,43 +7,31 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
+<<<<<<< HEAD
 
 <div id="wrapper">
 	<div id="top" >
-		<div id="login-wrapper" class="content">
-			<div id="login">
-				<% if !user_signed_in? %>
-				  <%= form_for(:user, :url => session_path(:user)) do |f| %>
-				  	<br>
-					<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
-				    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
-				    <%= f.check_box :remember_me %>
-				    <%= f.label :remember_me %>
-				    <%= f.submit 'Sign in', :id => 'loginbutton' %>
-					<% end %>
+		<div id="login" class="content">
+			<% if !user_signed_in? %>
+			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+			  	<br>
+				<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
+			    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
+			    <%= f.check_box :remember_me %>
+			    <%= f.label :remember_me %>
+			    <%= f.submit 'Sign in', :id => 'loginbutton' %>
+			  <% end %>
+			<% else %>
+				<p class="login_text"><%= link_to current_user.username, profile_index_path %></p><br>
+				<% if UserIcon.find_by_user_id(current_user.id) != nil %>
+					<div id="user_icon" style="background-image: <%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"></div><br>
 				<% else %>
-					<p class="login_text"><%= link_to current_user.username, profile_index_path %></p><br>
-					<% if UserIcon.find_by_user_id(current_user.id) != nil %>
-						<img id="user_icon" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
-					<% end %>
-					<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-				<% end %> 
-			</div>
+					<div id="user_icon"></div><br>
+				<% end %>
+				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+			<% end %> 
 		</div>
 		<div id="banner" class="content">
-			<p id="clock">
-				<%= Time.now.hour %>:
-				<% if Time.now.min < 10 %>
-					0<%= Time.now.min %>:
-				<% else %>
-					<%= Time.now.min %>:
-				<% end %>
-				<% if Time.now.sec < 10 %>
-					0<%= Time.now.sec %>
-				<% else %>
-					<%= Time.now.sec %>
-				<% end %>
-			</p>
 			<p id="game_name">SpielName</p>
 		</div>
 	</div>
@@ -58,9 +46,9 @@
 			<% end %>
 		</div>
 		<div id="resources" class="content">
-			<p class="tooltip" title="Verfügbare Metall-Resourcen">Metall: 0</p>
-			<p class="tooltip" title="Verfügbare Kristall-Resourcen">Kristall: 0</p>
-			<p class="tooltip" title="Verfügbare Treibstoff-Resourcen">Treibstoff: 0</p>
+			<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
+			<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
+			<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
 		</div>
 	</div>
 	
@@ -87,9 +75,10 @@
 				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
 				<p id="notification-text"></p>
 			</div>
-	</div>
-	<div id="game" class="content">
+		</div>
+		<div id="game" class="content">
 			<%= yield %>
+		</div>	
 	</div>
 </div>
 </body>

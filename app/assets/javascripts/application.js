@@ -16,8 +16,9 @@
 //= require_tree .
 var counter = 1;
 
-$(document).ready(function(){
-	getTimer();
+
+$(document).ready(function () {
+  getTimer();
 });
 
 function getTimer() {
