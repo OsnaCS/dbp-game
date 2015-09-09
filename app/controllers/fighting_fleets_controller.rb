@@ -3,8 +3,13 @@ class FightingFleetsController < ApplicationController
   before_action :set_fighting_fleet, only: [:show, :edit, :update, :destroy]
   # GET /fighting_fleets
   # GET /fighting_fleets.json
+
   def index
-    @fighting_fleets = FightingFleet.all
+    @fighting_fleets=FightingFleet.all	
+  end
+
+  def user
+  	@user = User.find_by_username(params[:user])
   end
 
   # GET /fighting_fleets/1
@@ -27,7 +32,7 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets.json
   def create
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
-#    byebug
+    @fighting_fleet.attacker=current_user
     respond_to do |format|
       if @fighting_fleet.save
         format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }

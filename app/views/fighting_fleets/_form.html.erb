@@ -1,4 +1,6 @@
 
+<% if user_signed_in? %>
+	<% if current_user.is_user %>
 <%= form_for(@fighting_fleet) do |f| %>
   <% if @fighting_fleet.errors.any? %>
     <div id="error_explanation">
@@ -53,3 +55,5 @@
   </div>
 <% end %>
 
+  <% end %>
+  <% end %>

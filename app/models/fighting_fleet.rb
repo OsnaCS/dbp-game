@@ -14,7 +14,7 @@ class FightingFleet < ActiveRecord::Base
 
   def initialize_units    
     if self.fight.nil? 
-      self.build_fight 
+      self.build_fight  
     end
     if self.ship_groups.empty?
       Unit.all.each do|u| 

@@ -1,5 +1,4 @@
 class ShipGroupsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_ship_group, only: [:show, :edit, :update, :destroy]
   
   
