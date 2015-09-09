@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.integer  "ressource"
     t.decimal  "value"
     t.datetime "change_at"
+
+  create_table "user_icons", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -104,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150909074153) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
+    t.integer  "right_level",            default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
