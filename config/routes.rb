@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-
     resources :trades do
     member do
       get 'buy'
     end
   end
 
+  resources :notifications
+  resources :messages
   resources :stations
   resources :ships_stations
   resources :ships

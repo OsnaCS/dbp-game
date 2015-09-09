@@ -14,14 +14,24 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-function sell_metall() {
-  var metal = document.getElementById("count_metall").placeholder;
-  console.log(metal);
-  document.getElementById('show_metall').innerHTML = metal;
-}
-
 
 function formatTime(secs) {
 
+	var counter = 1;
+
+	$(document).ready(function () {
+ 	 getTimer();
+	});
+}
+
+function getTimer() {
+	setInterval(
+		function()
+		{
+			document.getElementById("notification-text").innerHTML = "" + counter;
+			counter++;
+		},
+		1000
+	);
 
 }
