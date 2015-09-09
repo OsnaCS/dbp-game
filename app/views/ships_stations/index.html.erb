@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Stationen</h1><br/>
+<h1 id="table" >Stationen</h1><br/>
 
-<table class="stationsite">
+<table id="table_stations">
   <thead>
-    <tr id="table">
+    <tr>
       <th> </th>
       <th>Name</th>
       <th>Level</th>
@@ -16,7 +16,11 @@
   <tbody>
     <% @ships_stations.each do |ships_station| %>
       <tr>
-        <td><img src="<%= image_url(ships_station.station.icon) %>", height="50", width="50"></td>
+        <td>
+         <a>
+            <img src= "<%= image_url(ships_station.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(ships_station.station.id).mes %></span>
+         </a>
         <td><%= ships_station.station.name %></td>
         <td><%= ships_station.station.initial_level %></td>
         <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
