@@ -205,6 +205,12 @@ ul li {
 	height: 8%;
 }
 
+#user_icon_profile {
+	position: relative;
+	width: 8%;
+	height: 8%;
+}
+
 #game_name {
 	position: absolute;
 	bottom: 25px;
