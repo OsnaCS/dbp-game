@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     member do
       get 'research'
       get 'cancle_research'
+      get 'instant_research'
     end
   end
 

@@ -12,7 +12,8 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Stufe</th>
-      <th>Info</th>
+      <th>Status</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -52,7 +53,8 @@
           <% if(inactive) %>
             <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
           <% else %>
-            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %></td>
+            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %>
+            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
           <% end %>
         <% end %>
       <% end %>

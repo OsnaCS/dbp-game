@@ -1,5 +1,5 @@
 class ScienceInstancesController < ApplicationController
-  before_action :set_science_instance, only: [:research, :cancle_research, :show, :edit, :update, :destroy]
+  before_action :set_science_instance, only: [:research, :cancle_research, :instant_research, :show, :edit, :update, :destroy]
 
   # GET /science_instances
   # GET /science_instances.json
@@ -44,6 +44,13 @@ class ScienceInstancesController < ApplicationController
   end
 
   def cancle_research
+    @science_instance.start_time = nil
+    @science_instance.save
+    redirect_to sciences_url
+  end
+
+  def instant_research
+    @science_instance.level = @science_instance.level + 1
     @science_instance.start_time = nil
     @science_instance.save
     redirect_to sciences_url
