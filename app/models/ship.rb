@@ -6,7 +6,6 @@ class Ship < ActiveRecord::Base
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
 
-  public
   def update_resources
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
