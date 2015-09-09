@@ -15,6 +15,12 @@
 //= require turbolinks
 //= require_tree .
 
+var counter = 1;
+
+$(document).ready(function () {
+ 	getTimer();
+});
+
 /**
  * @brief Starts a timer for a countdown
  */
@@ -61,12 +67,6 @@ function timer(time) {
     window.location.reload();
   }
 }
-
-var counter = 1;
-
-$(document).ready(function () {
- 	getTimer();
-});
 
 function getTimer() {
 	setInterval(
