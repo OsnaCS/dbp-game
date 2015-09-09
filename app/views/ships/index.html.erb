@@ -3,48 +3,26 @@
 <h1>Schiffe</h1><br/>
 
 <table id="stationsite">
-  <thead>
-    <tr id="table">
+
+    <tr id="ship_t1">
       <th>Name</th>
-      <th> </th>
-      <th colspan="3"></th>
+      <th>Auswahl</th>
+      <th>Station</th>
     </tr>
-  </thead>
+
 
   <tbody>
-    <% @ships.each do |ships| %>
-      <tr>
-        <td><%= ships.name %></td>
-        <td><%= link_to 'Stationen', ship_ships_stations_path(ships) %></td>
+   <% UserShip.where(:user_id => current_user.id).each do |usership| %>
+      <tr id="ship_t1">
+        <td id="ship_t2"><%= usership.ship.name %></td>
+        <td id="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
+        <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+        <% usership.ship.update_resources %>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-<br>
-
-<h1>Listing Ships</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% UserShip.where(:user_id => current_user.id).each do |usership| %>
-      <tr>
-        <td><%= usership.ship.name %></td>
-        <% usership.ship.update_resources %>
-        <td><%= link_to usership.ship.name, usership.ship %></td>
-        <td><%= link_to 'Edit', edit_ship_path(usership.ship) %></td>
-  </td>
-      </tr>
-    <% end %> 
-  </tbody>
-</table>
-
 <br>
 
 <%= link_to 'New Ship', new_ship_path %>
