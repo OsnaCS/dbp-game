@@ -231,12 +231,6 @@ ul li {
 	left: 50px;
 }
 
-#notification-text {
-	position: absolute;
-	color: red;
-	left: 50%;
-}
-
 #rank_table {
 	margin-left: auto;
 	margin-right: auto;

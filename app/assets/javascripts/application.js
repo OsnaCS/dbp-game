@@ -15,14 +15,11 @@
 //= require turbolinks
 //= require_tree .
 
-function formatTime(secs) {
+var counter = 1;
 
-	var counter = 1;
-
-	$(document).ready(function () {
- 	 getTimer();
-	});
-}
+$(document).ready(function () {
+ 	getTimer();
+});
 
 function getTimer() {
 	setInterval(
