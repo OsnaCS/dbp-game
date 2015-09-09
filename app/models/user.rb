@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
 
   def is_superadmin
     return right_level == 4
->>>>>>> 6e4843c114190adcb58552389d445b9cdbcd9a55
+
   end
 
 end
