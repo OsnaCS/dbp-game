@@ -63,7 +63,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value, precision: 0), class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value, precision: 0), class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
@@ -72,7 +72,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
@@ -88,7 +88,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
@@ -106,7 +106,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
@@ -122,7 +122,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
@@ -131,7 +131,7 @@
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
