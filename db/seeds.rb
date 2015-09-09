@@ -16,7 +16,7 @@ Station.create([
 	  costFuel: 0,
 	  initial_level: 0,
 	  #description: 'dient zur kontinuierlichen Metallgewinnung',
-	  tier: '1',
+	  tier: 1,
 	  icon: 'Metallscanner.png'
 	},
 	{
