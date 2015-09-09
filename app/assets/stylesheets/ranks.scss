@@ -7,3 +7,19 @@
 	table-layout: fixed;
 	width: 90%;
 }
+
+#rank_table th {
+	padding: 5px;
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+}
+
+#rank_table td {
+	padding: 10px;
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color: #CC0000;
+	color: white;
+}
