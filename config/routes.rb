@@ -12,15 +12,21 @@ Rails.application.routes.draw do
 
   get 'profile/index'
   get 'profile/user'
- 
 
   resources :notifications
   resources :messages
   resources :stations
-  resources :ships_stations
-  resources :ships
   resources :sciences
   resources :ranks
+  resources :ships
+  resources :ships_stations
+
+  get 'home/index'
+
+  #nesting resources ships --> ships_stations
+  resources :ships do
+    resources :ships_stations
+  end
 
   devise_for :users
   devise_scope :user do

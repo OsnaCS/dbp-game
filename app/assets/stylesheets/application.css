@@ -182,7 +182,7 @@ ul li {
 	margin-right: auto;
 }
 
-/** Element - Settings **/ 
+/** Element - Settings **/
 #user_icon {
 	position: relative;
 	width: 40px;
@@ -231,6 +231,14 @@ ul li {
 	left: 50px;
 }
 
+
+#error_explanation {
+	position: absolute;
+	color: #000;
+	top: 100px;
+	left: 100px;
+	z-index: 2;
+
 #notification-text {
 	position: absolute;
 	color: red;
@@ -240,6 +248,7 @@ ul li {
 #rank_table {
 	margin-left: auto;
 	margin-right: auto;
+
 }
 
 #res-metal {
