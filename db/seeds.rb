@@ -24,6 +24,175 @@ Unit.create({"name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fu
 Unit.create({"name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "total_cost"=>900, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "shipyard_requirement"=>12, "research_requirement_one"=>10, "research_requirement_two"=>12})
 Unit.create({"name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "total_cost"=>1200, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>12})
 Unit.create({"name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "total_cost"=>12, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>10})
+# Creator for table Stations
+Station.create([
+	{
+	  id: 2001,
+	  name: 'Kollektor Metall',
+	  costMineral: 4,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Metallscanner.png'
+	},
+	{
+	  id: 2002,
+	  name: 'Kollektor Kristall',
+	  costMineral: 2,
+	  costCristal: 2,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Kristallscanner.png'
+	},
+	{
+	  id: 2003,
+	  name: 'Kollektor Treibstoff',
+	  costMineral: 2,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Treibstoffscanner.png'
+	},
+	{
+	  id: 2004,
+	  name: 'Forschungsstation',
+	  costMineral: 0,
+	  costCristal: 2,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Forschungsstation.png'
+	},
+	{
+	  id: 2005,
+	  name: 'Baugebäude',
+	  costMineral: 2,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Baugebaeude.png'
+	},
+	{
+	  id: 2006,
+	  name: 'Werft',
+	  costMineral: 4,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Werft.png'
+	},
+	{
+	  id: 2007,
+	  name: 'Erweiterungsplattform',
+	  costMineral: 8,
+	  costCristal: 0,
+	  costFuel: 2,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 3,
+	  icon: 'Erweiterungsplattform.png'
+	},
+	{
+	  id: 2008,
+	  name: 'Ressourcenlager Metall',
+	  costMineral: 3,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Metalllager.png'
+	},
+	{
+      id: 2009,
+      name: 'Ressourcenlager Kristall',
+      costMineral: 1,
+      costCristal: 2,
+      costFuel: 0,
+      initial_level: 0,
+	  tier: 1,
+	  icon: 'Kristalllager.png'
+	},
+	{
+	  id: 2010,
+	  name: 'Ressourcenlager Treibstoff',
+	  costMineral: 1,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Treibstofflager.png'
+	},
+	{
+	  id: 2011,
+	  name: 'Ressourcentresor Metall',
+	  costMineral: 6,
+	  costCristal: 2,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99, tier: 2,
+	  icon: 'Metalltresor.png'
+	},
+	{
+	  id: 2012,
+	  name: 'Ressourcentresor Kristall',
+	  costMineral: 2,
+	  costCristal: 4,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Kristalltresor.png'
+	},
+	{
+	  id: 2013,
+	  name: 'Ressourcentresor Treibstoff',
+	  costMineral: 2,
+	  costCristal: 0,
+	  costFuel: 2,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Treibstofftresor.png'
+	},
+	{
+	  id: 2014,
+	  name: 'Energiegenerator',
+      costMineral: 0,
+      costCristal: 1,
+      costFuel: 1,
+      initial_level: 0,
+	  tier: 1,
+	  icon: 'Energiegenerator.png'
+	},
+	{
+	  id: 2015,
+	  name: 'Verbrennungsgenerator',
+	  costMineral: 4,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Verbrennungsgenerator.png'
+	},
+	{
+	  id: 2016,
+	  name: 'Reparaturgebäude',
+	  costMineral: 8,
+	  costCristal: 4,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 3,
+	  icon: 'Reparaturgebaeude.png'
+
 # Creator for Messages
 Message.create([
 	# Messages for Science

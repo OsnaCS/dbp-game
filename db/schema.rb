@@ -125,12 +125,15 @@ ActiveRecord::Schema.define(version: 20150909090435) do
 
   create_table "stations", force: :cascade do |t|
     t.text     "name"
-    t.integer  "costMIneral"
+    t.integer  "costMineral"
     t.integer  "costCristal"
     t.integer  "costFuel"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
+    t.integer  "tier"
+    t.string   "icon"
+    t.integer  "condition"
   end
 
   create_table "units", force: :cascade do |t|
