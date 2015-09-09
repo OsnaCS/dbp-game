@@ -1,5 +1,27 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Schiffe</h1><br/>
+
+<table id="stationsite">
+  <thead>
+    <tr id="table">
+      <th>Name</th>
+      <th> </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ships.each do |ships| %>
+      <tr>
+        <td><%= ships.name %></td>
+        <td><%= link_to 'Stationen', ship_stations_url(id: ships.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
 <h1>Listing Ships</h1>
 
 <table>
