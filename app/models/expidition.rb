@@ -1,6 +1,7 @@
 class Expidition < ActiveRecord::Base
 
    has_one :fighting_fleet
+
    @exp_storeroom
    @fleet_storeroom
    @explore_time
@@ -18,7 +19,7 @@ class Expidition < ActiveRecord::Base
         end
       end
       event = rand(100)
-      happen = 1.0-(1.0/(1.0 + @explore_time))
+      happen = 1.0-(1.0/(1.0 + (@explore_time * 0.2)))
       happen = happen * 100
       if(happen>event)
          return occurance
@@ -192,4 +193,8 @@ class Expidition < ActiveRecord::Base
          end
    end
 
+   def set_exp_time time
+      @explore_time = time      
+   end
+   
 end

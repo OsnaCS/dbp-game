@@ -15,6 +15,7 @@ class ExpiditionsController < ApplicationController
   # GET /expiditions/new
   def new
     @expidition = Expidition.new
+    @units = Unit.all
   end
 
   # GET /expiditions/1/edit
@@ -25,6 +26,11 @@ class ExpiditionsController < ApplicationController
   # POST /expiditions.json
   def create
     @expidition = Expidition.new(expidition_params)
+
+    @expidition.explore_time = params[:exp_time]
+    @expidition.arrival_time = Time.now + 3600 * params[:exp_time].to_i
+
+    #fleet = Fighting_fleet.create(current_user, "Exp_Flotte", )
 
     respond_to do |format|
       if @expidition.save

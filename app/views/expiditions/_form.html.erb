@@ -12,66 +12,25 @@
    <% end %>
 
    <div class="field">
+   Expeditionszeit in Stunden:<br>
+   <%= number_field_tag(:exp_time, 1, within: 1...25) %>
+
    <table>
       <tr>
-         <td>Schiffstyp</td>
+         <td>Einheit</td>
          <td>stationierte Menge</td>
          <td>zu schickende Anzahl</td>
       </tr>
-      <tr>
-         <td>
-            <%= f.label 'Expeditionsschiff'%>
-         </td>
-         <td>
-            <%= f.label 5%>
-         </td>
-         <td>
-            <%= number_field_tag('expschiff', min:1)%>
-         </td>
-      </tr>
- <tr>
-         <td>
-            <%= f.label 'Jaeger'%>
-         </td>
-         <td>
-            <%= f.label 5%>
-         </td>
-         <td>
-            <%= number_field_tag('expschiff', min:1)%>
-         </td>
- </tr>
- <tr>
-         <td>
-            <%= f.label 'Fregatte'%>
-         </td>
-         <td>
-            <%= f.label 5%>
-         </td>
-         <td>
-            <%= number_field_tag('expschiff', min:1)%>
-         </td>
- </tr>
- <tr>
-         <td>
-            <%= f.label 'Kreuzer'%>
-         </td>
-         <td>
-            <%= f.label 5%>
-         </td>
-         <td>
-            <%= number_field_tag('expschiff', min:1)%>
-         </td>
-      </tr> <tr>
-         <td>
-            <%= f.label 'Expeditionsschiff'%>
-         </td>
-         <td>
-            <%= f.label 5%>
-         </td>
-         <td>
-            <%= number_field_tag('expschiff', min:1)%>
-         </td>
-      </tr>
+
+      <% @units.each do |unit| %>
+         <tr>
+           <td><%= unit.name %></td>       
+           <td><%= unit.id %></td>
+           <!--#TODO ID gegen Datenbankabfrage austauschen und Max Werte für die Einheiten hinzufügen-->
+           <td><%= number_field_tag(unit.id, 0, min:0) %></td>
+         </tr>
+      <% end %>
+
             </table>
    <div class="actions">
       <%= f.submit %>

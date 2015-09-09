@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907135923) do
+ActiveRecord::Schema.define(version: 20150909090435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,14 @@ ActiveRecord::Schema.define(version: 20150907135923) do
   end
 
   create_table "expiditions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "explore_time"
+    t.date     "arrival_time"
+    t.integer  "fighting_fleet_id"
   end
+
+  add_index "expiditions", ["fighting_fleet_id"], name: "index_expiditions_on_fighting_fleet_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.float    "shield"
@@ -168,6 +173,7 @@ ActiveRecord::Schema.define(version: 20150907135923) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "expiditions", "fighting_fleets"
   add_foreign_key "fighting_fleets", "users"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
