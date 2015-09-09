@@ -45,4 +45,9 @@ class User < ActiveRecord::Base
     return s
   end
 
+  def select_ship(shipID)
+    self.activeShip=shipID
+    self.save
+  end
+
 end

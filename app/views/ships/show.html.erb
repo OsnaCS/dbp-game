@@ -2,7 +2,7 @@
 	
 <p>
   <strong>Name:</strong>
-  <% @ship.select_ship(@ship.user_ship.ship_id) %>
+  <% current_user.select_ship(@ship.user_ship.ship_id) %>
   <%= @ship.name %>
   ist ausgewählt
 </p>
