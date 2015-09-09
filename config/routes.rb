@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+    resources :trades do
+    member do
+      get 'buy'
+    end
+  end
+
   resources :user_icons
 
   get 'home/index'
@@ -7,6 +13,7 @@ Rails.application.routes.draw do
   get 'profile/index'
   get 'profile/user'
  
+
   resources :notifications
   resources :messages
   resources :stations

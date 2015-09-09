@@ -246,6 +246,54 @@ ul li {
 	background-image: url('resources/metal.png');
 }
 
+#error_explanation {
+	position: absolute;
+	color: #000;
+	top: 100px;
+	left: 100px;
+	z-index: 2;
+}
+
+.tradetable {
+	padding-top: 100px;
+	margin:0px auto;
+}
+
+.numfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
+	width: 50px;
+	height: 25px;
+	margin:0px auto;
+	color: black;
+	background-color: white;
+}
+
+.innernumfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
+	text-align: center;
+	line-height:25px;
+	font-size: 16px;
+	width:50px;
+	height:25px;
+	margin-top: 0px auto; 
+	font-weight: bold;
+	color: black;
+	background-color: white;
+}
+
+.numfield {
+	border: 0px solid white;
+	border-radius: 5px;
+	width: 50px;
+	height: 25px;
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+	background-color: white;
+}
+
 #res-crystal {
 	background-image: url('resources/crystal.png');
 }
