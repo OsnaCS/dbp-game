@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+    resources :trades do
+    member do
+      get 'buy'
+    end
+  end
+
   resources :user_icons
 
   get 'home/index'
