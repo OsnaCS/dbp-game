@@ -7,13 +7,24 @@ Rails.application.routes.draw do
     resources :fights 
   end
   resources :sciences
+  resources :science_instances do
+    member do
+      get 'research'
+      get 'cancle_research'
+      get 'instant_research'
+    end
+  end
+
   resources :user_ships  
   resources :notifications
   resources :messages
   resources :stations
+  resources :science
   resources :ranks
   resources :user_icons
-  
+  resources :ships
+  resources :ships_station  
+
   resources :trades do
     member do
       get 'buy'

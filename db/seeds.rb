@@ -5,25 +5,139 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Science.create([
+	{
+		id: 4001,
+		cost1: 10,
+		cost2: 0,
+		cost3: 0,
+		factor: 2,
+		duration: 60,
+		condition: '',
+		name: 'Hülle',
+		tier: 1,
+		science_condition_id: 1,
+		icon: 'huelle.png'
+	},
+	{
+		id: 4002,
+		cost1: 4,
+		cost2: 3,
+		cost3: 0,
+		factor: 2,
+		duration: 60,
+		condition: '',
+		name: 'Laser',
+		tier: 1,
+		science_condition_id: 2,
+		icon: 'laser.png'
+	},
+	{
+		id: 4003,
+		cost1: 0,
+		cost2: 3,
+		cost3: 1,
+		factor: 2,
+		duration: 60,
+		condition: '',
+		name: 'Spionage',
+		tier: 1,
+		science_condition_id: 3,
+		icon: 'spionage.png'
+	},
+	{
+		id: 4004,
+		cost1: 8,
+		cost2: 0,
+		cost3: 3,
+		factor: 2,
+		duration: 120,
+		condition: 'f:1:4',
+		name: 'Triebwerke',
+		tier: 2,
+		science_condition_id: 4,
+		icon: 'triebwerke.png'
+	},
+	{
+		id: 4005,
+		cost1: 4,
+		cost2: 8,
+		cost3: 0,
+		factor: 2,
+		duration: 120,
+		condition: 'f:2:10',
+		name: 'Ionen',
+		tier: 2,
+		science_condition_id: 5,
+		icon: 'ionen.png'
+	},
+	{
+		id: 4006,
+		cost1: 0,
+		cost2: 6,
+		cost3: 2,
+		factor: 2,
+		duration: 120,
+		condition: 'f:1:10,f:5:2',
+		name: 'Schild',
+		tier: 2,
+		science_condition_id: 6,
+		icon: 'schilde.png'
+	},
+	{
+		id: 4007,
+		cost1: 20,
+		cost2: 0,
+		cost3: 5,
+		factor: 2,
+		duration: 240,
+		condition: 'f:4:4',
+		name: 'Pilotentraining',
+		tier: 3,
+		science_condition_id: 7,
+		icon: 'pilotentraining.png'
+	},
+	{
+		id: 4008,
+		cost1: 0,
+		cost2: 160,
+		cost3: 100,
+		factor: 2,
+		duration: 43200,
+		condition: 'f:3:12',
+		name: 'Netzwerk',
+		tier: 4,
+		science_condition_id: 10,
+		icon: 'netzwerk.png'
+	},
+	{
+		id: 4009,
+		cost1: 320,
+		cost2: 0,
+		cost3: 100,
+		factor: 2,
+		duration: 43200,
+		condition: 'f:7:8',
+		name: 'Pioniersausbildung',
+		tier: 4,
+		science_condition_id: 9,
+		icon: 'pioniersausbildung.png'
+	},
+	{
+		id: 4010,
+		cost1: 20,
+		cost2: 10,
+		cost3: 0,
+		factor: 2,
+		duration: 240,
+		condition: 'f:5:10',
+		name: 'Kinetik',
+		tier: 3,
+		science_condition_id: 8,
+		icon: 'kinetik.png'
+	}])
 
 
-DamageType.create({"name"=>"laser", "shell_mult"=>1.5,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1})
-DamageType.create({"name"=>"ionen", "shell_mult"=>1,"shield_mult"=>1.5,"station_mult"=>1,"plattform_mult"=>1})
-DamageType.create({"name"=>"bomb", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>10,"plattform_mult"=>1})
-DamageType.create({"name"=>"teleport", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1000})
-
-Unit.create({"name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>80, "shell"=>50, "damage"=>2, "damage_type_id"=>1, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>6, "research_requirement_one"=>4, "research_requirement_two"=>4})
-Unit.create({"name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "total_cost"=>9, "shell"=>2, "damage"=>0, "damage_type_id"=>nil, "cargo"=>80, "speed"=>4, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>0})
-Unit.create({"name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "total_cost"=>36, "shell"=>8, "damage"=>0, "damage_type_id"=>nil, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>8})
-Unit.create({"name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "total_cost"=>10, "shell"=>1, "damage"=>0, "damage_type_id"=>nil, "cargo"=>1, "speed"=>128, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>2})
-Unit.create({"name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "total_cost"=>4, "shell"=>1, "damage"=>1, "damage_type_id"=>1, "cargo"=>2, "speed"=>8, "shipyard_requirement"=>2, "research_requirement_one"=>2, "research_requirement_two"=>2})
-Unit.create({"name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "total_cost"=>40, "shell"=>10, "damage"=>12, "damage_type_id"=>2, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>4, "research_requirement_one"=>4, "research_requirement_two"=>12})
-Unit.create({"name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "total_cost"=>100, "shell"=>10, "damage"=>50, "damage_type_id"=>2, "cargo"=>8, "speed"=>4, "shipyard_requirement"=>6, "research_requirement_one"=>6, "research_requirement_two"=>6})
-Unit.create({"name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>60, "shell"=>20, "damage"=>10, "damage_type_id"=>3, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>6})
-Unit.create({"name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "total_cost"=>400, "shell"=>200, "damage"=>500, "damage_type_id"=>3, "cargo"=>20, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>8})
-Unit.create({"name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "total_cost"=>900, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "shipyard_requirement"=>12, "research_requirement_one"=>10, "research_requirement_two"=>12})
-Unit.create({"name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "total_cost"=>1200, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>12})
-Unit.create({"name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "total_cost"=>12, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>10})
 #Creator for table Trades
 Trade.create([
 	{
@@ -208,8 +322,7 @@ Station.create([
 	  condition: 99,
 	  tier: 3,
 	  icon: 'Reparaturgebaeude.png'
-    }
-])
+}])
 
 # Creator for Messages
 Message.create([
@@ -584,3 +697,35 @@ Message.create([
 	  code: 5406
 	}
 ])
+
+#Create DamageType and Units
+DamageType.create({"name"=>"laser", "shell_mult"=>1.5,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1})
+DamageType.create({"name"=>"ionen", "shell_mult"=>1,"shield_mult"=>1.5,"station_mult"=>1,"plattform_mult"=>1})
+DamageType.create({"name"=>"bomb", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>10,"plattform_mult"=>1})
+DamageType.create({"name"=>"teleport", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1000})
+
+message1=Message.find_by code: 3007
+message2=Message.find_by code: 3005
+message3=Message.find_by code: 3006
+message4=Message.find_by code: 3001
+message5=Message.find_by code: 3008
+message6=Message.find_by code: 3009
+message7=Message.find_by code: 3010
+message8=Message.find_by code: 3011
+message9=Message.find_by code: 3012
+message10=Message.find_by code: 3004
+message11=Message.find_by code: 3002
+message12=Message.find_by code: 3003
+
+Unit.create({"name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>80, "shell"=>50, "damage"=>2, "damage_type_id"=>1, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>6, "research_requirement_one"=>4, "research_requirement_two"=>4, "message"=> message1})
+Unit.create({"name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "total_cost"=>9, "shell"=>2, "damage"=>0, "damage_type_id"=>nil, "cargo"=>80, "speed"=>4, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>0,"message"=>message2})
+Unit.create({"name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "total_cost"=>36, "shell"=>8, "damage"=>0, "damage_type_id"=>nil, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>8, "message"=>message3})
+Unit.create({"name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "total_cost"=>10, "shell"=>1, "damage"=>0, "damage_type_id"=>nil, "cargo"=>1, "speed"=>128, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>2,"message"=>message4})
+Unit.create({"name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "total_cost"=>4, "shell"=>1, "damage"=>1, "damage_type_id"=>1, "cargo"=>2, "speed"=>8, "shipyard_requirement"=>2, "research_requirement_one"=>2, "research_requirement_two"=>2, "message"=>message5})
+Unit.create({"name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "total_cost"=>40, "shell"=>10, "damage"=>12, "damage_type_id"=>2, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>4, "research_requirement_one"=>4, "research_requirement_two"=>12,"message"=>message6})
+Unit.create({"name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "total_cost"=>100, "shell"=>10, "damage"=>50, "damage_type_id"=>2, "cargo"=>8, "speed"=>4, "shipyard_requirement"=>6, "research_requirement_one"=>6, "research_requirement_two"=>6,"message"=>message7})
+Unit.create({"name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>60, "shell"=>20, "damage"=>10, "damage_type_id"=>3, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>6,"message"=>message8})
+Unit.create({"name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "total_cost"=>400, "shell"=>200, "damage"=>500, "damage_type_id"=>3, "cargo"=>20, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>8,"message"=>message9})
+Unit.create({"name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "total_cost"=>900, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "shipyard_requirement"=>12, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message10})
+Unit.create({"name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "total_cost"=>1200, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message11})
+Unit.create({"name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "total_cost"=>12, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>10,"message"=>message12})
