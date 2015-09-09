@@ -8,7 +8,15 @@
 }
 
 #table {
-	position: relative;
-	width: 100%;
-	height: 100%;
+  //margin: auto;
+  width: 60%;
+  border: 5px;
+  border-collapse: collapse;
+ }
+
+#icon {
+ border: 3px solid white;
+ display: table;
+ //margin-bottom: 30px;
+ border-collapse: collapse;
 }

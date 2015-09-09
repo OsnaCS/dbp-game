@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "activeShip"
     t.integer  "right_level",            default: 0,  null: false
+    t.integer  "activeShip"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
