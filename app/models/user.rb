@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_one :rank, dependent: :destroy
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
+  has_many :notifications
+  has_many :messages, through: :notifications
   after_initialize :init
 
   # Include default devise modules. Others available are:

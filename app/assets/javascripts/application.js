@@ -60,4 +60,19 @@ function timer(time) {
     window.location.reload();
     window.location.reload();
   }
+var counter = 1;
+
+$(document).ready(function () {
+  getTimer();
+});
+
+function getTimer() {
+	setInterval(
+		function()
+		{
+			document.getElementById("notification-text").innerHTML = "" + counter;
+			counter++;
+		},
+		1000
+	);
 }

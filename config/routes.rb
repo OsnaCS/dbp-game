@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :sciences
+  resources :notifications
+  resources :messages
   resources :stations
   resources :ships_stations
   resources :ships
