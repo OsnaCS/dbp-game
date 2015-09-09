@@ -16,6 +16,23 @@ ActiveRecord::Schema.define(version: 20150908122811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "commenter"
+    t.text     "body"
+    t.integer  "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
+
   create_table "damage_types", force: :cascade do |t|
     t.string   "name"
     t.float    "shell_mult"
@@ -26,6 +43,21 @@ ActiveRecord::Schema.define(version: 20150908122811) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "example2s", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "example2s", ["user_id"], name: "index_example2s_on_user_id", using: :btree
+
+  create_table "examples", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.float    "shield"
@@ -78,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150908122811) do
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "ranks", force: :cascade do |t|
+    t.integer  "user_id"
     t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,10 +126,13 @@ ActiveRecord::Schema.define(version: 20150908122811) do
   create_table "science_instances", force: :cascade do |t|
     t.integer  "science_id"
     t.integer  "user_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time     "start_time"
   end
 
   create_table "sciences", force: :cascade do |t|
-    t.integer  "science_id"
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
@@ -122,10 +158,6 @@ ActiveRecord::Schema.define(version: 20150908122811) do
 
   add_index "ship_groups", ["fighting_fleet_id"], name: "index_ship_groups_on_fighting_fleet_id", using: :btree
   add_index "ship_groups", ["unit_id"], name: "index_ship_groups_on_unit_id", using: :btree
-
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "ships", force: :cascade do |t|
     t.text     "name"
@@ -204,13 +236,15 @@ ActiveRecord::Schema.define(version: 20150908122811) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level",            default: 0,  null: false
+    t.integer  "right_level"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "example2s", "users"
+  add_foreign_key "examples", "users"
   add_foreign_key "fighting_fleets", "users"
   add_foreign_key "fights", "fighting_fleets"
   add_foreign_key "notifications", "messages"
@@ -218,6 +252,4 @@ ActiveRecord::Schema.define(version: 20150908122811) do
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "units"
   add_foreign_key "units", "damage_types"
-  add_foreign_key "notifications", "messages"
-  add_foreign_key "notifications", "users"
 end

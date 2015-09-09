@@ -30,10 +30,10 @@
         <th>Besitzt</th>
         <th>Verschicken</th>
       </tr>
-      <%= f.fields_for :ship_groups do |fs| %>
+      <%= f.fields_for @fighting_fleet.ship_groups do |fs| %>
         <tr>
           <td><%=fs.object.unit.name %></td>
-          <td><%= %></td>
+          <td><%= fs.object.unit.id %></td>
           <td><%=fs.number_field :number %></td>
         </tr>
         
@@ -41,6 +41,7 @@
     </table>
 <% end %>
   <div class="actions">
+    
     <%= f.submit %>
   </div>
 <% end %>

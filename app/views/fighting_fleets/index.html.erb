@@ -8,7 +8,7 @@
       <th>Shield</th>
       <th>User</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th colspan="15"></th>
     </tr>
   </thead>
 
@@ -18,6 +18,12 @@
         <td><%= fighting_fleet.shield %></td>
         <td><%= fighting_fleet.user.username %></td>
         <td><%= fighting_fleet.name %></td>
+        <td>ID:<br> HP:<br>NB:</td>
+        <% fighting_fleet.ship_groups.each do |s|  %>
+            <td><%= s.unit_id%> <br>
+            <%=s.group_hitpoints %><br>
+            <%=s.number %> </td>
+        <% end %>
         <td><%= link_to 'Show', fighting_fleet %></td>
         <td><%= link_to 'Edit', edit_fighting_fleet_path(fighting_fleet) %></td>
         <td><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>

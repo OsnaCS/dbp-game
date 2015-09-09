@@ -26,12 +26,18 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets
   # POST /fighting_fleets.json
   def create
-    
-    @fighting_fleet = @fight.fighting_fleet.new(fighting_fleet_params)
-      
-    @fighting_fleet.save
+    @fighting_fleet = FightingFleet.new(fighting_fleet_params)
+#    byebug
+    respond_to do |format|
+      if @fighting_fleet.save
+        format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }
+        format.json { render :show, status: :created, location: @fighting_fleet }
+      else
+        format.html { render :new }
+        format.json { render json: @fighting_fleet.errors, status: :unprocessable_entity }
+      end
+    end
   end
-
   # PATCH/PUT /fighting_fleets/1
   # PATCH/PUT /fighting_fleets/1.json
   def update
