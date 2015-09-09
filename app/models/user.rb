@@ -50,24 +50,23 @@ class User < ActiveRecord::Base
   end
 
   def is_user
-    return right_level == 0
+    return right_level >= 0
   end
 
   def is_premium_user
-    return right_level == 1
+    return right_level >= 1
   end
 
   def is_moderator
-    return right_level == 2
+    return right_level >= 2
   end
 
   def is_admin
-    return right_level == 3
+    return right_level >= 3
   end
 
   def is_superadmin
-    return right_level == 4
-
+    return right_level >= 4
   end
 
 end
