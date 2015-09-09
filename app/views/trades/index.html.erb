@@ -87,7 +87,7 @@
               <td>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
-                  <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
+                  <%= hidden_field_tag :amount, params[:sell_metall] %>
                   <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>

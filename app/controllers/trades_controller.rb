@@ -1,6 +1,7 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
+  before_action :set_trade, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  after_action only: [:buy]
 
   # GET /trades
   # GET /trades.json
@@ -73,27 +74,35 @@ class TradesController < ApplicationController
   end
 
   def buy
+    s = Ship.find_by id: current_user.activeShip
     if(@trade.ressource == 1)
-      buy = (params[:sell_metall].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.metal -= params[:amount].to_i
       # reduce params[:amount] from metall
     end
     if(@trade.ressource == 2)
-      buy = (params[:sell_kristall].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.cristal -= params[:amount].to_i
       # reduce params[:amount] from kristall
     end
     if(@trade.ressource == 4)
-      buy = (params[:sell_treibstoff].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.fuel -= params[:amount].to_i
       # reduce params[:amount] from treibstoff
     end
     if(params[:to] == 1)
+      s.metal += buy
       # add buy to metall
     end
     if(params[:to] == 2)
+      s.cristal += buy
       # add buy to kristall
     end
     if(params[:to] == 4)
+      s.fuel += buy
       # add buy to treibstoff
     end
+    s.save
     redirect_to trades_url
   end
 
