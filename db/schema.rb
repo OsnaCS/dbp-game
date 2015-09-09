@@ -128,6 +128,18 @@ ActiveRecord::Schema.define(version: 20150909140635) do
     t.time     "start_time"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "science_instances", force: :cascade do |t|
+    t.integer  "science_id"
+    t.integer  "user_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time     "start_time"
+  end
+
+>>>>>>> 544b7046d4babdaf8dc628b3f3f7b73ecf07057a
   create_table "sciences", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
@@ -135,9 +147,15 @@ ActiveRecord::Schema.define(version: 20150909140635) do
     t.float    "factor"
     t.integer  "duration"
     t.string   "condition"
+<<<<<<< HEAD
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.string   "name"
+=======
+    t.string   "name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+>>>>>>> 544b7046d4babdaf8dc628b3f3f7b73ecf07057a
     t.integer  "tier"
     t.integer  "science_condition_id"
     t.string   "icon"
