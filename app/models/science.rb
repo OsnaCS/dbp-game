@@ -34,7 +34,7 @@ class Science < ActiveRecord::Base
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
-       instance.level = instance.level + 1
+        instance.level = instance.level + 1
         instance.start_time = nil
         instance.save
 

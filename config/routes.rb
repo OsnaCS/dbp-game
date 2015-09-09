@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :science_instances do
     member do
       get 'research'
+      get 'cancle_research'
     end
   end
 

@@ -12,18 +12,19 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Stufe</th>
+      <th>Info</th>
     </tr>
   </thead>
 
   <tbody>
     <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
-     <% is_researching = nil %>
+     <% inactive = nil %>
      <% if(science_instance.start_time.nil?) %>
        <tr id="inactive">
-       <% is_researching = true %>
+       <% inactive = true %>
      <% else %>
        <tr id="active">
-       <% is_researching = false %>
+       <% inactive = false %>
      <% end %>
 
      <% if(science_instance.id) %>
@@ -36,23 +37,22 @@
         <td><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
         <td><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
 
-        <% if(science_instance.start_time.nil?) %>
+        <% if(inactive) %>
           <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
         <% else %>
           <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
-        
-        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching() %>
+        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching %>
         <td><%= science_instance.level %>
 
         <% if availability %>
-          <td><%= button_to 'Research', research_science_instance_path(science_instance), method: :get %></td>
+          <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
         <% else %>
-          <% if(is_researching) %>
+          <% if(inactive) %>
             <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
           <% else %>
-            <td>Forscht...</td>
+            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %></td>
           <% end %>
         <% end %>
       <% end %>
