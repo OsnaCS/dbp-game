@@ -9,18 +9,19 @@ class Ship < ActiveRecord::Base
   def update_resources
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
-        if station.station_id == 1	#metal
+        if station.station_id == 2001	#metal
           self.metal += get_collect_difference(station.level, station.station_id, last_checked)
           #self.metal=0
         end
-        if station.station_id == 2	#cristal
+        if station.station_id == 2002	#cristal
           self.cristal += get_collect_difference(station.level, station.station_id, last_checked)
           #self.cristal=0
         end
-        if station.station_id == 3	#fuel
+        if station.station_id == 2003	#fuel
           self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
           #self.fuel=0
         end
+        
 	end
     
     self.lastChecked = Time.now.getutc
@@ -44,10 +45,10 @@ class Ship < ActiveRecord::Base
 
   private
   def get_collect_difference(level, id, last_update)
-  	if id==1 || id==2
+  	if id==2001 || id==2002
   		start = 2000.0
     end
-  	if(id==3) 
+  	if(id==2003) 
   		start = 1000.0
 		end
 		start /= 3600.0
