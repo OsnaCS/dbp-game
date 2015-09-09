@@ -4,11 +4,14 @@ class User < ActiveRecord::Base
   has_many :attacks, :class_name => 'Fight', :foreign_key => "attacker_id", inverse_of: :attacker
   has_many :defends, :class_name => 'Fight', :foreign_key  => "defender_id", inverse_of: :defender
 
-  has_one :rank
+  has_one :rank, dependent: :destroy
+  has_many :science_instances, dependent: :destroy
+  has_many :sciences, :through => :science_instances
   has_many :user_ships
   has_many :ships, :through => :user_ships   
   has_many :notifications
   has_many :messages, through: :notifications
+  after_initialize :init
 
 
   # Include default devise modules. Others available are:
@@ -26,6 +29,32 @@ class User < ActiveRecord::Base
     :case_sensitive => false
   }
 
+  #f:<condition_id>:<level>,*
+  def check_condition(conditions)
+    condition_split = conditions.split(",")
+
+    condition_split.each do |condition|
+      condition_elements = condition.split(":")
+      if(condition_elements[0].eql? "f")
+        instance = ScienceInstance.find_by(:user_id => self.id, :science_id => Science.find_by(:science_condition_id => condition_elements[1]).id)
+        if not (instance.level >= condition_elements[2].to_i)
+          return false
+        end
+      else
+        return false
+      end
+    end
+    return true
+  end
+
+  def is_researching()
+    science_instances.each do |instance|
+      if not(instance.start_time.nil?)
+        return true
+      end
+    end
+    return false
+  end
 
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
@@ -75,4 +104,12 @@ class User < ActiveRecord::Base
     return right_level >= 4
   end
 
+  private
+    def init
+      Science.all.each do |science|
+        if not(science_instances.exists?(:science_id => science.id, :user_id => self.id))
+          science_instances.build(science: science, level: 0)
+        end
+      end
+    end
 end

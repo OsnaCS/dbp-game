@@ -82,16 +82,28 @@ ActiveRecord::Schema.define(version: 20150909090435) do
     t.integer  "user_id"
   end
 
-  create_table "sciences", force: :cascade do |t|
+  create_table "science_instances", force: :cascade do |t|
     t.integer  "science_id"
+    t.integer  "user_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time     "start_time"
+  end
+
+  create_table "sciences", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.time     "duration"
+    t.integer  "duration"
     t.string   "condition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "tier"
+    t.integer  "science_condition_id"
+    t.string   "icon"
   end
 
   create_table "ship_groups", force: :cascade do |t|

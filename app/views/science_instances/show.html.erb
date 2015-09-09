@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Science:</strong>
+  <%= @science_instance.science_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @science_instance.user_id %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @science_instance.level %>
+</p>
+
+<%= link_to 'Edit', edit_science_instance_path(@science_instance) %> |
+<%= link_to 'Back', science_instances_path %>
