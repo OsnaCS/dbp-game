@@ -35,4 +35,24 @@ class User < ActiveRecord::Base
     @login || self.username || self.email
   end
 
+  def is_user
+    return right_level == 0
+  end
+
+  def is_premium_user
+    return right_level == 1
+  end
+
+  def is_moderator
+    return right_level == 2
+  end
+
+  def is_admin
+    return right_level == 3
+  end
+
+  def is_superadmin
+    return right_level == 4
+  end
+
 end
