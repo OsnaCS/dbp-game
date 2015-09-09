@@ -142,17 +142,21 @@
     <% end %>
 
 
-
-<% @trades.each do |trade| %>
-<tr>
-<td><%= trade.ressource %> </td>
-        <td><%= link_to 'Show', trade %></td>
-        <td><%= link_to 'Edit', edit_trade_path(trade) %></td>
-        <td><%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+<% if() %>
+  <% @trades.each do |trade| %>
+    <tr>
+      <td><%= trade.ressource %> </td>
+      <td><%= link_to 'Show', trade %></td>
+      <td><%= link_to 'Edit', edit_trade_path(trade) %></td>
+      <td><%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to 'New Trade', new_trade_path %>
+    </td>
+  </tr>
 <% end %>
-<tr> <td><%= link_to 'New Trade', new_trade_path %></td></tr>
-
 
 
 
