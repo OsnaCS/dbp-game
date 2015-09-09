@@ -19,9 +19,12 @@ Rails.application.routes.draw do
   resources :notifications
   resources :messages
   resources :stations
+  resources :science
   resources :ranks
   resources :user_icons
-  
+  resources :ships
+  resources :ships_station  
+
   resources :trades do
     member do
       get 'buy'
