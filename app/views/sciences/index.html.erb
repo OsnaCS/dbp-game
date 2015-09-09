@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1 id="table">Forschung</h1>
+<h1>Forschung</h1>
 
-<table id="table">
+<table id="table_sciences">
   <thead>
     <tr>
       <th></th>
@@ -67,6 +67,3 @@
 <br>
 <%= link_to 'New Science', new_science_path %>
 <%= link_to 'LevelCheat', science_instances_path %>
-
-<canvas id=canvas width=1000 height=1000></canvas>
-<%= javascript_tag "draw()" -%>

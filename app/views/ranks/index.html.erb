@@ -7,11 +7,11 @@
 	<% Rank.rank_list(0,10).each do |rank, pos| %>
 		<tr>
 			<td><%= pos %>.</td>
-			<% if(rank.user.username) %>
-			  <td><%= rank.user.username %></td>
-			 <% else %>
-			   <td><%= rank.user.email %></td>
-			 <% end %>
+			<% if rank.user.username == current_user.username %>
+				<td><%= link_to current_user.username, profile_index_path %></td>
+			<% else %>
+				<td><%= link_to rank.user.username, {:controller => "profile", :action => "user", :user => rank.user.username } %></td>
+			<% end %>
 			<td><%= rank.score %></td>
 			<td><td><%= button_to 'Edit', edit_rank_path(rank), method: :get%></td>
 		</tr>

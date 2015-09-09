@@ -7,16 +7,36 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sciences
+  resources :user_ships  
   resources :notifications
   resources :messages
   resources :stations
-  resources :ships_stations
-  resources :ships
   resources :sciences
   resources :ranks
+  resources :user_icons
+  resources :ships
+  resources :ships_stations
+  
+  resources :trades do
+    member do
+      get 'buy'
+    end
+  end
+
+    #nesting resources ships --> ships_stations
+  resources :ships do
+    resources :ships_stations
+  end
 
   get 'home/index'
+  get 'profile/index'
+  get 'profile/user'
+  
+
+  get 'home/index'
+
+
+
 
   devise_for :users
   devise_scope :user do

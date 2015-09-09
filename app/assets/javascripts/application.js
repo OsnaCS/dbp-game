@@ -65,66 +65,15 @@ function timer(time) {
 var counter = 1;
 
 $(document).ready(function () {
-  getTimer();
+ 	getTimer();
 });
 
 function getTimer() {
 	setInterval(
-		function()
-		{
+		function(){
 			document.getElementById("notification-text").innerHTML = "" + counter;
 			counter++;
 		},
 		1000
 	);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var width = 1000;
-var heigth = 1000;
-var node_width = 100;
-var node_heigth = 100;
-var node_border_size = 10;
-var canvasElement;
-var graphics;
-var fontSize = 25;
-
-function draw() {
-  canvasElement = document.getElementById("canvas");
-  graphics = canvasElement.getContext("2d");
-
-  drawElementNode(108, 108);
-}
-
-function drawElementNode(x, y, text) {
-  if(graphics == null) {
-    return;
-  } else {
-    graphics.fillStyle = "darkblue";
-    graphics.fillRect(x, y, node_width, node_heigth);
-
-    graphics.fillStyle = "blue";
-    graphics.fillRect(
-      x + node_border_size, y + node_border_size, 
-      node_width - node_border_size * 2, node_heigth - node_border_size * 2);
-
-    graphics.fillStyle = "white";
-    graphics.font = "bold " + fontSize + "px Arial";
-    graphics.fillText("Hallo", x + node_border_size, y + (node_heigth / 2));
-  }
 }

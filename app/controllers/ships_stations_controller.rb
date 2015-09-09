@@ -4,7 +4,9 @@ class ShipsStationsController < ApplicationController
   # GET /ships_stations
   # GET /ships_stations.json
   def index
-    @ships_stations = ShipsStation.all
+    #Wenn Schiffe existieren
+    @ship = Ship.find(1)
+    @ships_stations = @ship.ships_stations
   end
 
   # GET /ships_stations/1

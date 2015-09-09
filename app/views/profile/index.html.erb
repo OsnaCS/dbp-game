@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+	<% if current_user.is_user %>
+		<h1>Ihr Benutzerprofil</h1>
+		<p><% if UserIcon.find_by_user_id(current_user.id) != nil %>
+								<img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+			<% end %>
+		</p>
+		<p>Benutzername: <%= @user.username %></p>
+		<p>Emailadresse: <%= @user.email %></p>
+	
+		<% if current_user.is_admin %>
+			<p>Rechtelevel: <%= @user.right_level %></p>
+			<p>Normaler Benutzer: <%= @user.is_user %></p>
+			<p>Premium Benutzer: <%= @user.is_premium_user %></p>
+			<p>Moderator: <%= @user.is_moderator %></p>
+			<p>Admin: <%= @user.is_admin %></p>
+			<p>Superadmin: <%= @user.is_superadmin %></p>
+		<% end %>
+		<p><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
+		<p><%= link_to "Zurück", ranks_path %></p>
+	<% end %>
+<% end %>

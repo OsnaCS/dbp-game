@@ -1,0 +1,27 @@
+<% if current_user.is_admin %>
+  <p id="notice"><%= notice %></p>
+
+  <h1>Listing User Icons</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>URL</th>
+        <th>Image</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user_icons.each do |user_icon| %>
+        <tr>
+          <td><%= user_icon.user_id %></td>
+          <td><%= link_to 'Show', user_icon %></td>
+          <td><%= link_to 'Edit', edit_user_icon_path(user_icon) %></td>
+          <td><%= link_to 'Destroy', user_icon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
