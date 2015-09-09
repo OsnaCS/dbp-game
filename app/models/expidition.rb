@@ -25,7 +25,7 @@ class Expidition < ActiveRecord::Base
    end
 
    def self.shipamount(shiptype)
-         #TODO Abfrage an das aktuelle Schiff wie viel Schiffe des Typs shiptype vorhanden sind
+         Ships.find(current_user.activeShip).#Befehl um stationierte Schiffe abzufragen
          return amount=0
    end
 
@@ -124,7 +124,11 @@ class Expidition < ActiveRecord::Base
       crystal_got = final_amount * crystal
       fuel_got = final_amount * fuel
       #TODO Nachrichten fuer die Ereignisse ausgeben
-      #TODO Ressourcen adden
+      
+      ship = Ships.find(current_user.activeShip)
+      ship.metal += metal_got
+      ship.cristal += crystal_got
+      ship.fuel += fuel_got
       
    end
 
