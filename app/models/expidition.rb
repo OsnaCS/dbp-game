@@ -44,14 +44,16 @@ class Expidition < ActiveRecord::Base
    end
 
    def nothing
-      #TODO Notification
+   	nothing_id = rand(5001..5006)
+      current_user.notifications.create(message: Message.find_by_code(nothing_id))
    end
 
    def destruction
       fighting_fleet.ship_group.all.each do |g|
          g.number = 0
       end
-      #TODO Notification
+      destruction_id = rand(5201..5211)
+      current_user.notifications.create(message: Message.find_by_code(destuction_id))
    end
 
    def fight
@@ -98,6 +100,8 @@ class Expidition < ActiveRecord::Base
       jaeger_part = Ship_group.create(fighting_fleet: gegner_flotte, ship:
                                        "Jäger", number: jaeger_amount,
                                       group_hitpoints: jaeger_huelle) 
+      fight_id = rand(5101..5106)
+      current_user.notifications.create(message: Message.find_by_code(fight_id))
       #TODO Kampf starten
    end
 
@@ -123,7 +127,9 @@ class Expidition < ActiveRecord::Base
       metal_got = final_amount * metal
       crystal_got = final_amount * crystal
       fuel_got = final_amount * fuel
-      #TODO Nachrichten fuer die Ereignisse ausgeben
+      
+      resi_id = rand(5401..5406)
+      current_user.notifications.create(message: Message.find_by_code(resi_id))
       
       ship = Ships.find(current_user.activeShip)
       ship.metal += metal_got
@@ -156,7 +162,10 @@ class Expidition < ActiveRecord::Base
             jaeger_amount += 1
          end
       end
-      #TODO Nachricht erstellen
+      
+	  salvage_id = rand(5301..5307)
+      current_user.notifications.create(message: Message.find_by_code(salvage_id))
+
       fighting_fleet.ship_group.all.each do |g|
          case g.unit.name
          when "Kreuzer"
