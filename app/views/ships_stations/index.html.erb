@@ -16,8 +16,11 @@
   <tbody>
     <% @ships_stations.each do |ships_station| %>
       <tr>
-        <td id="icon" class="tooltip" data-tooltip=" <%= Message.find_by_code(ships_station.station.id).mes %> ">
-          <img src="<%= image_url(ships_station.station.icon) %>", height="40", width="40"></td>
+        <td>
+         <a>
+            <img src= "<%= image_url(ships_station.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(ships_station.station.id).mes %></span>
+         </a>
         <td><%= ships_station.station.name %></td>
         <td><%= ships_station.station.initial_level %></td>
         <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
