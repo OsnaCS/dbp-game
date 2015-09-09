@@ -135,7 +135,7 @@ Science.create([
 		tier: 3,
 		science_condition_id: 8,
 		icon: 'kinetik.png'
-	},
+	}])
 
 # Creator for table Stations
 Station.create([
@@ -305,6 +305,7 @@ Station.create([
 	  condition: 99,
 	  tier: 3,
 	  icon: 'Reparaturgebaeude.png'
+}])
 
 # Creator for Messages
 Message.create([

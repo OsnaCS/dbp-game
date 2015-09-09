@@ -60,6 +60,8 @@ function timer(time) {
     window.location.reload();
     window.location.reload();
   }
+}
+
 var counter = 1;
 
 $(document).ready(function () {

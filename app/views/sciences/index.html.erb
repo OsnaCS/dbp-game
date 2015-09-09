@@ -31,7 +31,9 @@
      <% if(science_instance.id) %>
        <% science = science_instance.science %>
         <td>
-          <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", id="icon">
+          <a>
+            <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", id="icon">
+          <span><%= Message.find_by_code(science.id).mes %></span></a>
         </td>
         <td><%= science.name %></td>
         <td><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
