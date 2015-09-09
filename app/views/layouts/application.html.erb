@@ -58,9 +58,9 @@
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
-						<li><%= link_to "Schiffe", root_path %></li>
+						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", root_path %></li>
-						<li><%= link_to "Stationen", root_path %></li>
+						<li><%= link_to "Stationen", stations_path %></li>
 						<li><%= link_to "Anlagen", root_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
