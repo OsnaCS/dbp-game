@@ -1,1 +1,1 @@
-json.extract! @station, :id, :name, :costMIneral, :costCristal, :costFuel, :created_at, :updated_at
+json.extract! @station, :id, :name, :costMineral, :costCristal, :costFuel, :created_at, :updated_at
