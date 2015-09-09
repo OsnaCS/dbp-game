@@ -133,18 +133,15 @@
   end
 
   create_table "sciences", force: :cascade do |t|
+    t.integer "science_id"
     t.integer  "cost1"
     t.integer  "cost2"
     t.integer  "cost3"
     t.float    "factor"
-    t.integer  "duration"
+    t.time  "duration"
     t.string   "condition"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "name"
-    t.integer  "tier"
-    t.integer  "science_condition_id"
-    t.string   "icon"
   end
 
   create_table "ship_groups", force: :cascade do |t|
@@ -163,10 +160,6 @@
     t.text     "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "metal"
-    t.integer  "cristal"
-    t.integer  "fuel"
-    t.datetime "lastChecked"
   end
 
   create_table "ships_stations", force: :cascade do |t|
@@ -236,7 +229,7 @@
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level"
+    t.integer  "right_level", default: 0, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
