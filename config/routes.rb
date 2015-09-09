@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+    resources :trades do
+    member do
+      get 'buy'
+    end
+  end
+
+  resources :user_icons
+
+  get 'home/index'
+
+  get 'profile/index'
+  get 'profile/user'
+ 
+
   resources :notifications
   resources :messages
   resources :stations
@@ -7,8 +21,6 @@ Rails.application.routes.draw do
   resources :ships
   resources :sciences
   resources :ranks
-
-  get 'home/index'
 
   devise_for :users
   devise_scope :user do

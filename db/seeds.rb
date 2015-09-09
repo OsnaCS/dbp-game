@@ -6,6 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#Creator for table Trades
+Trade.create([
+	{
+		id: 201,
+		ressource: 1
+	},
+	{
+		id: 202,
+		ressource: 2
+	},
+	{
+		id: 203,
+		ressource: 4
+	}
+])
+
 # Creator for table Stations
 Station.create([
 	{
@@ -176,102 +192,102 @@ Station.create([
 	  icon: 'Reparaturgebaeude.png'
     }
 ])
-    
+
 # Creator for Messages
 Message.create([
 	# Messages for Science
 	{
-	  mes: 'verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
+	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
 	  code: 4001
 	},
 	{
-	  mes: 'verbessert zusätzlich den Schaden der Laserwaffen um 10% pro Level, 50% effektiver gegen Hüllen',
+	  mes: 'Verbessert zusätzlich den Schaden der Laserwaffen um 10% pro Level, 50% effektiver gegen Hüllen',
       code: 4002
 	},
 	{
-	  mes: 'verbessert erfolgreiche Spionage(-abwehr), Zusatzinformationen ab Level: 8,16',
+	  mes: 'Verbessert erfolgreiche Spionage(-abwehr), Zusatzinformationen ab Level: 8,16',
 	  code: 4003
 	},
 	{
-	  mes: 'verringert die Reisekosten',
+	  mes: 'Verringert die Reisekosten',
 	  code: 4004
 	},
 	{
-	  mes: 'verbessert den Schaden der Ionenkanonen um 10% pro Level, Ionen machen 50% mehr Schaden an Schilden',
+	  mes: 'Verbessert den Schaden der Ionenkanonen um 10% pro Level, Ionen machen 50% mehr Schaden an Schilden',
 	  code: 4005
 	},
 	{
-	  mes: 'verbessert Schildgeneratoren um 10% pro Level',
+	  mes: 'Verbessert Schildgeneratoren um 10% pro Level',
 	  code: 4006
 	},
 	{
-	  mes: 'verringert die Missrate der Piloten',
+	  mes: 'Verringert die Missrate der Piloten',
 	  code: 4007
 	},
 	{
-	  mes: 'ermöglicht die Forschungzusammenarbeit mehrerer Mutterschiffe',
+	  mes: 'Ermöglicht die Forschungzusammenarbeit mehrerer Mutterschiffe',
 	  code: 4008
 	},
 	{
-	  mes: 'gestattet ein zusätzliches Mutterschiff je Level',
+	  mes: 'Gestattet ein zusätzliches Mutterschiff je Level',
 	  code: 4009
 	},
 	{
-	  mes: 'verbessert Kinetikwaffen um 10% pro Level, ausgeglichener Schaden',
+	  mes: 'Verbessert Kinetikwaffen um 10% pro Level, ausgeglichener Schaden',
 	  code: 4010
 	},
 
 	# Messages for Units
 	{
-	  mes: 'dienen zur Spionage anderer Spieler',
+	  mes: 'Dienen zur Spionage anderer Spieler',
 	  code: 3001
 	},
 	{
-	  mes: 'dienen zur Schildverteidigung der eigenen Flotte',
+	  mes: 'Dienen zur Schildverteidigung der eigenen Flotte',
 	  code: 3002
 	},
 	{
-	  mes: 'dienen zur Ausschaltung gegnerischer Schilde, offensive Einheit, ionenbasierend',
+	  mes: 'Dienen zur Ausschaltung gegnerischer Schilde, offensive Einheit, ionenbasierend',
 	  code: 3003
 	},
 	{
-	  mes: 'offensive Einheit, effektiv gegen orbitale Waffenplattform(1000facher Schaden)',
+	  mes: 'Offensive Einheit, effektiv gegen orbitale Waffenplattform(1000facher Schaden)',
 	  code: 3004
 	},
 	{
-	  mes: 'dienen zum Transport von Ressourcen',
+	  mes: 'Dienen zum Transport von Ressourcen',
 	  code: 3005
 	},
 	{
-	  mes: 'dienen zum Transport von Ressourcen',
+	  mes: 'Dienen zum Transport von Ressourcen',
 	  code: 3006
 	},
 	{
-	  mes: 'dienen zur Erforschung des unbekannten Weltraumes',
+	  mes: 'Dienen zur Erforschung des unbekannten Weltraumes',
 	  code: 3007
 	},
 	{
-	  mes: 'offensive Einheit, laserbasierend',
+	  mes: 'Offensive Einheit, laserbasierend',
 	  code: 3008
 	},
 	{
-	  mes: 'offensive Einheit, laserbasierend',
+	  mes: 'Offensive Einheit, laserbasierend',
 	  code: 3009
 	},
 	{
-	  mes: 'offensive Einheit, ionenbasierend',
+	  mes: 'Offensive Einheit, ionenbasierend',
 	  code: 3010
 	},
 	{
-	  mes: 'offensive Einheit, kinetikbasierend',
+	  mes: 'Offensive Einheit, kinetikbasierend',
 	  code:	3011
 	},
 	{
-	  mes: 'offensive Einheit, effektiv gegen Anlagen(10facher Schaden), kinetikbasieren',
+	  mes: 'Offensive Einheit, effektiv gegen Anlagen(10facher Schaden), kinetikbasieren',
 	  code:	3012
 	},
 	{
-	  mes: 'dienen zur Energiegewinnung',
+	  mes: 'Dienen zur Energiegewinnung',
 	  code:	3013
 	},
 	{
@@ -279,27 +295,27 @@ Message.create([
 	  code:	3014
 	},
 	{
-	  mes: 'defensive Einheit, laserbasierend',
+	  mes: 'Defensive Einheit, laserbasierend',
 	  code:	3015
 	},
 	{
-	  mes: 'defensive Einheit, laserbasierend',
+	  mes: 'Defensive Einheit, laserbasierend',
 	  code:	3016
 	},
 	{
-	  mes: 'defensive Einheit, ionenbasierend',
+	  mes: 'Defensive Einheit, ionenbasierend',
 	  code:	3017
 	},
 	{
-	  mes: 'defensive Einheit, ionenbasierend',
+	  mes: 'Defensive Einheit, ionenbasierend',
 	  code:	3018
 	},
 	{
-	  mes: 'defensive Einheit, kinetikbasierend',
+	  mes: 'Defensive Einheit, kinetikbasierend',
 	  code:	3019
 	},
 	{
-	  mes:'defensive Einheit, kinetikbasierend',
+	  mes:'Defensive Einheit, kinetikbasierend',
 	  code:	3020
 	},
 	{
@@ -307,77 +323,77 @@ Message.create([
 	  code:	3021
 	},
 	{
-	  mes: 'dienen zur Schildverteidigung des Mutterschiffes',
+	  mes: 'Dienen zur Schildverteidigung des Mutterschiffes',
 	  code:	3022
 	},
 	{
-	  mes: 'dienen zur Schildverteidigung des Mutterschiffes',
+	  mes: 'Dienen zur Schildverteidigung des Mutterschiffes',
 	  code:	3023
 	},
 
 	# Messages for Stations
 	{
-	  mes: 'dient zur kontinuierlichen Metallgewinnung',
+	  mes: 'Dient zur kontinuierlichen Metallgewinnung',
 	  code: 2001
 	},
 	{
-	  mes: 'dient zur kontinuierlichen Kristallgewinnung',
+	  mes: 'Dient zur kontinuierlichen Kristallgewinnung',
 	  code: 2002
 	},
 	{
-	  mes: 'dient zur kontinuierlichen Treibstoffgewinnung',
+	  mes: 'Dient zur kontinuierlichen Treibstoffgewinnung',
 	  code: 2003
 	},
 	{
-	  mes: 'dient zur Erforschung neuer Technologien',
+	  mes: 'Dient zur Erforschung neuer Technologien',
 	  code: 2004
 	},
 	{
-	  mes: 'baut Gebäude',
+	  mes: 'Baut Gebäude',
 	  code: 2005
 	},
 	{
-	  mes: 'baut defensive und offensive Einheiten',
+	  mes: 'Baut defensive und offensive Einheiten',
 	  code: 2006
 	},
 	{
-	  mes: 'erweitert die Grundfläche des Mutterschiffes',
+	  mes: 'Erweitert die Grundfläche des Mutterschiffes',
 	  code: 2007
 	},
 	{
-	  mes: 'lagert Metall',
+	  mes: 'Lagert Metall',
 	  code: 2008
 	},
 	{
-	  mes: 'lagert Kristal',
+	  mes: 'Lagert Kristal',
 	  code: 2009
 	},
 	{
-	  mes: 'lagert Treibstoff',
+	  mes: 'Lagert Treibstoff',
 	  code: 2010
 	},
 	{
-	  mes: 'sicheres Metalllager',
+	  mes: 'Sicheres Metalllager',
 	  code: 2011
 	},
 	{
-	  mes: 'sicheres Kristalllager',
+	  mes: 'Sicheres Kristalllager',
 	  code: 2012
 	},
 	{
-	  mes: 'sicheres Treibstofflager',
+	  mes: 'Sicheres Treibstofflager',
 	  code: 2013
 	},
 	{
-	  mes: 'erzeugt Energie',
+	  mes: 'Erzeugt Energie',
 	  code: 2014
 	},
 	{
-	  mes: 'verbraucht Treibstoff zur Energiegewinnung',
+	  mes: 'Verbraucht Treibstoff zur Energiegewinnung',
 	  code: 2015
 	},
 	{
-	  mes: 'repariert defensive Einheiten',
+	  mes: 'Repariert defensive Einheiten',
 	  code: 2016
 	},
 
