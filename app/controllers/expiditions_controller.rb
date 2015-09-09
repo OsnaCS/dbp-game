@@ -1,5 +1,6 @@
 class ExpiditionsController < ApplicationController
   before_action :set_expidition, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /expiditions
   # GET /expiditions.json

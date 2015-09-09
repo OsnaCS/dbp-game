@@ -136,6 +136,14 @@ ActiveRecord::Schema.define(version: 20150909090435) do
     t.integer  "condition"
   end
 
+  create_table "trades", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "ressource"
+    t.decimal  "value"
+    t.datetime "change_at"
+  end
+
   create_table "units", force: :cascade do |t|
     t.string   "name"
     t.integer  "metal_price"
@@ -155,14 +163,6 @@ ActiveRecord::Schema.define(version: 20150909090435) do
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
- 
-  create_table "trades", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "ressource"
-    t.decimal  "value"
-    t.datetime "change_at"
-  end
 
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
