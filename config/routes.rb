@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :user_icons
+
+  get 'home/index'
+
+  get 'profile/index'
+  get 'profile/user'
+
   resources :notifications
   resources :messages
   resources :stations
@@ -9,12 +16,10 @@ Rails.application.routes.draw do
   resources :ships_stations
 
   get 'home/index'
-  get '/ships/:id/ships_stations' => 'ships_stations#index', as: :ship_stations
 
   #nesting resources ships --> ships_stations
   resources :ships do
     resources :ships_stations
-      get 'ship_stations'
   end
 
   devise_for :users

@@ -7,22 +7,26 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
+
 <div id="wrapper">
 	<div id="top" >
 		<div id="login" class="content">
 			<% if !user_signed_in? %>
-				<%= form_for(:user, :url => session_path(:user)) do |f| %>
-					<%= f.label :login %><br />
-					<%= f.text_field :login %>
-					<%= f.label :password %><br />
-					<%= f.password_field :password %>
-					<%= f.check_box :remember_me %>
-					<%= f.label :remember_me %>
-					<%= f.submit 'Sign in' %>
-				<% end %>
+			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+			  	<br>
+				<%= f.text_field :login, placeholder: "Username", :class => 'logintext' %>
+			    <%= f.password_field :password , placeholder: "Passwort", :class => 'logintext' %>
+			    <%= f.check_box :remember_me %>
+			    <%= f.label :remember_me %>
+			    <%= f.submit 'Sign in', :id => 'loginbutton' %>
+			  <% end %>
 			<% else %>
-				<p class="login_text"><%= current_user.username %></p><br>
-				<div id="user_icon"></div><br>
+				<p class="login_text"><%= link_to current_user.username, profile_index_path %></p><br>
+				<% if UserIcon.find_by_user_id(current_user.id) != nil %>
+					<div id="user_icon" style="background-image: <%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"></div><br>
+				<% else %>
+					<div id="user_icon"></div><br>
+				<% end %>
 				<p class="login_text"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
 			<% end %>
 		</div>
@@ -59,9 +63,13 @@
 					<li><%= link_to "Anlagen", root_path %></li>
 					<li><%= link_to "Einheiten", root_path %></li>
 					<li><%= link_to "Rangliste", ranks_path %></li>
-					<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					<% if user_signed_in? %>
+						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+					<% else %>
+						<li><%= link_to "Registrieren", new_user_registration_path %></li>
+					<% end %>
 				</ul>
-			</div>
+			</div>		
 			<div id="notification" class="content">
 				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
 				<p id="notification-text"></p>
@@ -69,7 +77,7 @@
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
-		</div>
+		</div>	
 	</div>
 </div>
 </body>

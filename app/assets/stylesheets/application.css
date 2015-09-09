@@ -194,12 +194,26 @@ ul li {
 	border: 2px solid #5A5A5A;
 }
 
+#user_icon_edit {
+	position: relative;
+	width: 8%;
+	height: 8%;
+}
+
+#user_icon_profile {
+	position: relative;
+	width: 8%;
+	height: 8%;
+}
+
+
 #notification-image {
 	position: absolute;
 	width: 50px;
 	height: 50px;
 	left: calc(50% - 25px);
 }
+
 
 #notification-text {
 	position: absolute;
@@ -224,6 +238,17 @@ ul li {
 	top: 100px;
 	left: 100px;
 	z-index: 2;
+
+#notification-text {
+	position: absolute;
+	color: red;
+	left: 50%;
+}
+
+#rank_table {
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 #res-metal {
