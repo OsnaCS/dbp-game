@@ -46,46 +46,51 @@
 			<% end %>
 		</div>
 
-
-
 		<div id="resources" class="content">
-
-		<% if current_user!=nil %>
-			<p class="tooltip" title="Ausgewaehltes Schiff">Selected: 
-				<% if current_user.activeShip!=nil%>
-				  <%=Ship.find_by(id: current_user.activeShip).name%>
-				<% else %>
-			    kein Schiff ausgewählt!</p>
-				<% end %>
-
-			<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen">
-			  <p>Metall: 
-        <% if current_user.activeShip!=nil%>
-				  <%=Ship.find_by(id: current_user.activeShip).metal%>
-				<% else %>
-				  0 </p>
-				<% end %>
-			</div>
-
-			<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"> 
-			  <p>Kristall: 
-        <% if current_user.activeShip!=nil%>
-				  <%= Ship.find_by(id: current_user.activeShip).cristal%>
-				<% else %>
-				  0</p>
-				<% end %> 
-			</div>
-
-			<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"> 
-			  <p>Treibstoff: 
-        <% if current_user.activeShip!=nil %>
-				  <%=Ship.find_by(id: current_user.activeShip).fuel%> 
-				<% else %>
-				  0</p>
-				<% end %> 
-			</div>
-		<% end %>
-	 </div>
+			<% if current_user!=nil %>
+				<table id="res-table"><tr>
+					<td class="res-row">
+						<p title="Ausgewaehltes Schiff">Selected: 
+							<% if current_user.activeShip!=nil%>
+				  				<%=Ship.find_by(id: current_user.activeShip).name%>
+							<% else %>
+			    				kein Schiff ausgewählt!
+							<% end %>
+						</p>
+					</td>
+					<td class="res-row">
+						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
+			  			<p>Metall: 
+        					<% if current_user.activeShip!=nil%>
+				  				<%=Ship.find_by(id: current_user.activeShip).metal%>
+							<% else %>
+				  				0
+							<% end %>
+						</p>
+					</td>
+					<td class="res-row">
+						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
+			  			<p>Kristall: 
+        					<% if current_user.activeShip!=nil%>
+				  				<%= Ship.find_by(id: current_user.activeShip).cristal%>
+							<% else %>
+				  				0
+							<% end %> 
+						</p>
+					</td>
+					<td class="res-row">
+						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
+			  			<p>Treibstoff: 
+        					<% if current_user.activeShip!=nil %>
+				  				<%=Ship.find_by(id: current_user.activeShip).fuel%> 
+							<% else %>
+				  				0
+							<% end %> 
+						</p>
+					</td>
+				</tr></table>
+			<% end %>
+	 	</div>
 	</div>
 
 	<div id="botm">
