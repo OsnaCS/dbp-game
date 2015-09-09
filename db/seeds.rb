@@ -6,6 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#Creator for table Trades
+Trade.create([
+	{
+		id: 201,
+		ressource: 1
+	},
+	{
+		id: 202,
+		ressource: 2
+	},
+	{
+		id: 203,
+		ressource: 4
+	}
+])
+
 # Creator for table Stations
 Station.create([
 	{
