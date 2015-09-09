@@ -1,7 +1,6 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update, :destroy]
+  before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  after_action only: [:buy]
 
   # GET /trades
   # GET /trades.json
@@ -75,35 +74,51 @@ class TradesController < ApplicationController
 
   def buy
     s = Ship.find_by id: current_user.activeShip
+    buy = 0
     if(@trade.ressource == 1)
-      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
-      s.metal -= params[:amount].to_i
-      # reduce params[:amount] from metall
+      if(s.metal < params[:amount].to_i)
+        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        return
+      else
+        buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
+        s.metal -= params[:amount].to_i
+        # reduce params[:amount] from metall
+      end
     end
     if(@trade.ressource == 2)
-      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
-      s.cristal -= params[:amount].to_i
-      # reduce params[:amount] from kristall
+      if(s.cristal < params[:amount].to_i)
+        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        return
+      else
+        buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
+        s.cristal -= params[:amount].to_i
+        # reduce params[:amount] from kristall
+      end
     end
     if(@trade.ressource == 4)
-      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
-      s.fuel -= params[:amount].to_i
-      # reduce params[:amount] from treibstoff
+      if(s.fuel < params[:amount].to_i)
+        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        return
+      else
+        buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
+        s.fuel -= params[:amount].to_i
+        # reduce params[:amount] from treibstoff
+      end
     end
-    if(params[:to] == 1)
+    if(params[:to].to_i == 1)
       s.metal += buy
       # add buy to metall
     end
-    if(params[:to] == 2)
+    if(params[:to].to_i == 2)
       s.cristal += buy
       # add buy to kristall
     end
-    if(params[:to] == 4)
+    if(params[:to].to_i == 4)
       s.fuel += buy
       # add buy to treibstoff
     end
     s.save
-    redirect_to trades_url
+    redirect_to trades_url, notice: 'Trade was successful'
   end
 
   private
