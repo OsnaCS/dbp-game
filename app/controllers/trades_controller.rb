@@ -1,13 +1,14 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
+  before_action :set_trade, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  after_action only: [:buy]
 
   # GET /trades
   # GET /trades.json
   def index
     time = DateTime.now
     Trade.all.each do |trade|
-      if(time.to_i-trade.change_at.to_i>=86400) # 60*60*24 = blub Zeit in Sekunden umgerechnet auf 1 Tag Laenge
+      if(time.to_i-trade.change_at.to_i>=21600) # 60*60*6 = blub Zeit in Sekunden umgerechnet auf 1 Tag Laenge
         trade.change_at = time
         trade.value = (0.6 * rand + 0.3) * trade.ressource  #ToDo: muss mit random substituiert werden
         trade.save
@@ -73,27 +74,35 @@ class TradesController < ApplicationController
   end
 
   def buy
+    s = Ship.find_by id: current_user.activeShip
     if(@trade.ressource == 1)
-      buy = (params[:sell_metall].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.metal -= params[:amount].to_i
       # reduce params[:amount] from metall
     end
     if(@trade.ressource == 2)
-      buy = (params[:sell_kristall].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.cristal -= params[:amount].to_i
       # reduce params[:amount] from kristall
     end
     if(@trade.ressource == 4)
-      buy = (params[:sell_treibstoff].to_i * @trade.value / params[:to].to_i)
+      buy = (params[:amount].to_i * @trade.value / params[:to].to_i).to_i
+      s.fuel -= params[:amount].to_i
       # reduce params[:amount] from treibstoff
     end
     if(params[:to] == 1)
+      s.metal += buy
       # add buy to metall
     end
     if(params[:to] == 2)
+      s.cristal += buy
       # add buy to kristall
     end
     if(params[:to] == 4)
+      s.fuel += buy
       # add buy to treibstoff
     end
+    s.save
     redirect_to trades_url
   end
 
