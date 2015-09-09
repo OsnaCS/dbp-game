@@ -6,6 +6,175 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Creator for table Stations
+Station.create([
+	{
+	  id: 2001,
+	  name: 'Kollektor Metall',
+	  costMineral: 4,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Metallscanner.png'
+	},
+	{
+	  id: 2002,
+	  name: 'Kollektor Kristall',
+	  costMineral: 2,
+	  costCristal: 2,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Kristallscanner.png'
+	},
+	{
+	  id: 2003,
+	  name: 'Kollektor Treibstoff',
+	  costMineral: 2,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Treibstoffscanner.png'
+	},
+	{
+	  id: 2004,
+	  name: 'Forschungsstation',
+	  costMineral: 0,
+	  costCristal: 2,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Forschungsstation.png'
+	},
+	{
+	  id: 2005,
+	  name: 'Baugebäude',
+	  costMineral: 2,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Baugebaeude.png'
+	},
+	{
+	  id: 2006,
+	  name: 'Werft',
+	  costMineral: 4,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Werft.png'
+	},
+	{
+	  id: 2007,
+	  name: 'Erweiterungsplattform',
+	  costMineral: 8,
+	  costCristal: 0,
+	  costFuel: 2,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 3,
+	  icon: 'Erweiterungsplattform.png'
+	},
+	{
+	  id: 2008,
+	  name: 'Ressourcenlager Metall',
+	  costMineral: 3,
+	  costCristal: 1,
+	  costFuel: 0,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Metalllager.png'
+	},
+	{
+      id: 2009,
+      name: 'Ressourcenlager Kristall',
+      costMineral: 1,
+      costCristal: 2,
+      costFuel: 0,
+      initial_level: 0,
+	  tier: 1,
+	  icon: 'Kristalllager.png'
+	},
+	{
+	  id: 2010,
+	  name: 'Ressourcenlager Treibstoff',
+	  costMineral: 1,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  tier: 1,
+	  icon: 'Treibstofflager.png'
+	},
+	{
+	  id: 2011,
+	  name: 'Ressourcentresor Metall',
+	  costMineral: 6,
+	  costCristal: 2,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99, tier: 2,
+	  icon: 'Metalltresor.png'
+	},
+	{
+	  id: 2012,
+	  name: 'Ressourcentresor Kristall',
+	  costMineral: 2,
+	  costCristal: 4,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Kristalltresor.png'
+	},
+	{
+	  id: 2013,
+	  name: 'Ressourcentresor Treibstoff',
+	  costMineral: 2,
+	  costCristal: 0,
+	  costFuel: 2,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Treibstofftresor.png'
+	},
+	{
+	  id: 2014,
+	  name: 'Energiegenerator',
+      costMineral: 0,
+      costCristal: 1,
+      costFuel: 1,
+      initial_level: 0,
+	  tier: 1,
+	  icon: 'Energiegenerator.png'
+	},
+	{
+	  id: 2015,
+	  name: 'Verbrennungsgenerator',
+	  costMineral: 4,
+	  costCristal: 0,
+	  costFuel: 1,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 2,
+	  icon: 'Verbrennungsgenerator.png'
+	},
+	{
+	  id: 2016,
+	  name: 'Reparaturgebäude',
+	  costMineral: 8,
+	  costCristal: 4,
+	  costFuel: 0,
+	  initial_level: 0,
+	  condition: 99,
+	  tier: 3,
+	  icon: 'Reparaturgebaeude.png'
+
 # Creator for Messages
 Message.create([
 	# Messages for Science

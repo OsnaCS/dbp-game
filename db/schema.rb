@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150909075429) do
+=======
+ActiveRecord::Schema.define(version: 20150909074153) do
+>>>>>>> a099e442ec7a0e40b7155371163b40e4edcca181
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,12 +86,13 @@ ActiveRecord::Schema.define(version: 20150909075429) do
 
   create_table "stations", force: :cascade do |t|
     t.text     "name"
-    t.integer  "costMIneral"
+    t.integer  "costMineral"
     t.integer  "costCristal"
     t.integer  "costFuel"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "initial_level"
+<<<<<<< HEAD
     t.text     "description"
     t.integer  "condition"
     t.integer  "tier"
@@ -98,6 +103,11 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.integer  "ship_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+=======
+    t.integer  "tier"
+    t.string   "icon"
+    t.integer  "condition"
+>>>>>>> a099e442ec7a0e40b7155371163b40e4edcca181
   end
 
   create_table "users", force: :cascade do |t|

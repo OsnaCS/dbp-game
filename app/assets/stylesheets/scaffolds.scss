@@ -1,6 +1,5 @@
 body {
-  background-color: #fff;
-  color: #333;
+  color: #fff;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -48,12 +47,17 @@ div {
 }
 
 #error_explanation {
+  position: absolute;
   width: 450px;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 0;
   margin-bottom: 20px;
   background-color: #f0f0f0;
+  color: #000;
+  top: 100px;
+  left: 100px;
+  z-index: 2;
 
   h2 {
     text-align: left;
@@ -63,7 +67,7 @@ div {
     margin: -7px;
     margin-bottom: 0px;
     background-color: #c00;
-    color: #fff;
+    color: #000;
   }
 
   ul li {
