@@ -15,7 +15,7 @@
     <% @ships.each do |ships| %>
       <tr>
         <td><%= ships.name %></td>
-        <td><%= link_to 'Stationen', ship_stations_url(id: ships.id) %></td>
+        <td><%= link_to 'Stationen', ship_ships_stations_path(ships) %></td>
       </tr>
     <% end %>
   </tbody>
