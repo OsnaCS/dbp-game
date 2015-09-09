@@ -175,7 +175,7 @@ Station.create([
 	  tier: 3,
 	  icon: 'Reparaturgebaeude.png'
     }
-])    
+])
 # Creator for Messages
 Message.create([
 	# Messages for Science
