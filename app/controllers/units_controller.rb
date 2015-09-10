@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  before_action :set_unit, only: [:show, :build, :edit, :update, :destroy]
 
   # GET /units
   # GET /units.json
@@ -19,6 +19,11 @@ class UnitsController < ApplicationController
 
   # GET /units/1/edit
   def edit
+  end
+
+  def build
+    anzahl = params[:amount]
+    redirect_to units_path
   end
 
   # POST /units

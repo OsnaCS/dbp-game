@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
- 
-  resources :units
+  resources :units do
+    member do
+      get 'build'
+    end
+  end
+
   resources :damage_types
   resources :fighting_fleets do
     resources :ship_groups
