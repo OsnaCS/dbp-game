@@ -2,9 +2,9 @@
 
 <h1>Listing Stations</h1>
 
-<table id="stationssite">
+<table id="table_stations">
   <thead>
-    <tr id="table">
+    <tr>
       <th>Icon</th>
       <th>IconPic</th>
       <th>Name</th>
@@ -12,7 +12,9 @@
       <th>Costcristal</th>
       <th>Costfuel</th>
       <th>Level</th>
-      <th colspan="3"></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -20,7 +22,12 @@
     <% @stations.each do |station| %>
       <tr>
         <td><%= station.icon %></td>
-        <td><img src="<%= image_url(station.icon) %>", height="50", width="50"></td>
+        <td>
+        <a>
+          <img src= "<%= image_url(station.icon)%>", width="50", height="50", id="icon">
+          <span><%= Message.find_by_code(station.id).mes %></span>
+         </a>
+        </td>
         <td><%= station.name %></td>
         <td><%= station.costMineral %></td>
         <td><%= station.costCristal %></td>

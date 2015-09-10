@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+ 
+  resources :units
+  resources :damage_types
+  resources :fighting_fleets do
+    resources :ship_groups
+    resources :fights 
+  end
+  resources :sciences
   resources :science_instances do
     member do
       get 'research'
@@ -11,12 +19,12 @@ Rails.application.routes.draw do
   resources :notifications
   resources :messages
   resources :stations
-  resources :sciences
+  resources :science
   resources :ranks
   resources :user_icons
   resources :ships
-  resources :ships_stations
-  
+  resources :ships_station  
+
   resources :trades do
     member do
       get 'buy'

@@ -1,8 +1,8 @@
 <% if current_user.is_user %>
 	<div class="field">
 	    <%= form_for @user_icon, url: user_icons_path, method: :post, html: { multipart: true } do |form| %>
-	      <%= form.file_field :image %>
-	      <%= form.submit 'Benutzerbild hochladen'%>
+	      <p class="userlabel"><%= form.file_field :image %></p>
+	      <%= form.submit 'Benutzerbild hochladen', :class => 'submitbutton'%>
 	    <% end %>
 	</div>
 <% end %>

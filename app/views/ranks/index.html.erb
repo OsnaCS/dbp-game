@@ -13,7 +13,6 @@
 				<td><%= link_to rank.user.username, {:controller => "profile", :action => "user", :user => rank.user.username } %></td>
 			<% end %>
 			<td><%= rank.score %></td>
-			<td><td><%= button_to 'Edit', edit_rank_path(rank), method: :get%></td>
 		</tr>
 	<% end %>
 </table>

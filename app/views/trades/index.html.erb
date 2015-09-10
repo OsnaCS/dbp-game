@@ -1,7 +1,8 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" style='color:green'><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
-<h1>Listing Trades</h1>
-
+<h1>Handelsbasar</h1>
+ <%= form_tag("/trades", method: "get") do %>
 <table class='tradetable'>
   <thead>
     <tr>
@@ -13,44 +14,54 @@
     </tr>
   </thead>
 
-  <tbody>
+<tbody>
     <tr>
-      <%= form_tag("/trades", method: "get") do %>
-        <td>
+        <% s = Ship.find_by id: current_user.activeShip %>
+        <td class='tradecolumns'>
           <%= submit_tag "Calc", class: 'numfield' %>
         </td>
-        <td>
-          <%= number_field_tag(:sell_metall, :metall, class: 'numfield', placeholder: '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        <td class='tradecolumns'>
+          <%= number_field_tag(:sell_metall, :metall, class: 'numfield', placeholder: '0', min: 0, max: s.metal) %> <!-- max value has to be dependant on the actual ressource value !-->
         </td>
-        <td>
-          <%= number_field_tag(:sell_kristall, :kristall, class: 'numfield', placeholder: '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        <td class='tradecolumns'>
+          <%= number_field_tag(:sell_kristall, :kristall, class: 'numfield', placeholder: '0', min: 0, max: s.cristal) %> <!-- max value has to be dependant on the actual ressource value !-->
         </td>
-        <td>
-          <%= number_field_tag(:sell_treibstoff, :treibstoff, class: 'numfield', placeholder: '0', min: 0, max: 696) %> <!-- max value has to be dependant on the actual ressource value !-->
+        <td class='tradecolumns'>
+          <%= number_field_tag(:sell_treibstoff, :treibstoff, class: 'numfield', placeholder: '0', min: 0, max: s.fuel) %> <!-- max value has to be dependant on the actual ressource value !-->
         </td>
+      
+    </tr>
+    </tbody>
+
+</table>
+
+<% end %>
+
+<table class='tradetable'>
+
+
+  <tbody>
+    <tr>
+      <th class='tradecolumns'>Base</th>
+      <% @trades.each do |trade| %>
+        <td class='tradecolumns'><%= trade.ressource %></td>
       <% end %>
     </tr>
     <tr>
-      <th>Base</th>
+      <th class='tradecolumns'>Value</th>
       <% @trades.each do |trade| %>
-        <td><%= trade.ressource %></td>
-      <% end %>
-    </tr>
-    <tr>
-      <th>Value</th>
-      <% @trades.each do |trade| %>
-        <td><%= number_with_precision(trade.value , precision: 2) %></td>
+        <td class='tradecolumns'><%= number_with_precision(trade.value , precision: 2) %></td>
       <% end %>
     </tr>
     <% @trades.each do |trade| %>
       <tr>
         <% if(trade.ressource==1) %>
-          <th>
+          <th class='tradecolumns'>
             Metall
           </th>
           <% @trades.each do |innertrade| %>
             <% if(innertrade.ressource==1) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag("/trades", method: "get") do %>
                   <div class='numfieldvalue'>
                     <%= label_tag number_with_precision(params[:sell_metall].to_i, precision: 0) || '0', nil, class: 'innernumfieldvalue' %>
@@ -59,41 +70,41 @@
               </td>
             <% end %>
             <% if(innertrade.ressource==2) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value, precision: 0), class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value, precision: 0), class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==4) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
           <% end %>
         <% end %>
         <% if(trade.ressource==2) %>
-          <th>
+          <th class='tradecolumns'>
             Kristall
           </th>
           <% @trades.each do |innertrade| %>
             <% if(innertrade.ressource==1) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==2) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag("/trades", method: "get") do %>
                   <div class='numfieldvalue'>
                     <%= label_tag (number_with_precision(params[:sell_kristall].to_i, precision: 0) || '0'), nil, class: 'innernumfieldvalue' %>
@@ -102,41 +113,41 @@
               </td>
             <% end %>
             <% if(innertrade.ressource==4) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_treibstoff] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_treibstoff].to_i * innertrade.value / 2, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
           <% end %>
         <% end %>
         <% if(trade.ressource==4) %>
-          <th>
+          <th class='tradecolumns'>
             Treibstoff
           </th>
           <% @trades.each do |innertrade| %>
             <% if(innertrade.ressource==1) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_metall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_metall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==2) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag buy_trade_path(innertrade), method: "get" do %>
                   <%= hidden_field_tag :to, trade.ressource %>
                   <%= hidden_field_tag :amount, params[:sell_kristall] || 0 %>
-                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', method: :get %>
+                  <%= submit_tag number_with_precision(params[:sell_kristall].to_i * innertrade.value / 4, precision: 0) || '0', class: 'numfield', data: { confirm: 'Are you sure?' }, method: :get %>
                 <% end %>
               </td>
             <% end %>
             <% if(innertrade.ressource==4) %>
-              <td>
+              <td class='tradecolumns'>
                 <%= form_tag("/trades", method: "get") do %>
                   <div class='numfieldvalue'>
                     <%= label_tag number_with_precision(params[:sell_treibstoff].to_i, precision: 0) || '0', nil, class: 'innernumfieldvalue' %>
@@ -154,17 +165,17 @@
     <% end %>
 
 
-<% if(true) %> <!-- Userrechte Abfrage current_user.is_admin !-->
+<% if (current_user.is_admin) %> <!-- Userrechte Abfrage current_user.is_admin !-->
   <% @trades.each do |trade| %>
     <tr>
-      <td><%= trade.ressource %> </td>
-      <td><%= link_to 'Show', trade %></td>
-      <td><%= link_to 'Edit', edit_trade_path(trade) %></td>
-      <td><%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td class='tradecolumns'><%= trade.ressource %> </td>
+      <td class='tradecolumns'><%= link_to 'Show', trade %></td>
+      <td class='tradecolumns'><%= link_to 'Edit', edit_trade_path(trade) %></td>
+      <td class='tradecolumns'><%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
   <tr>
-    <td>
+    <td class='tradecolumns'>
       <%= link_to 'New Trade', new_trade_path %>
     </td>
   </tr>

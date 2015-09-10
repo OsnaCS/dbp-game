@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fleet_id: 
+  ship_id: 
+  number: 
+  group_hitpoints: 1.5
+
+two:
+  fleet_id: 
+  ship_id: 
+  number: 
+  group_hitpoints: 1.5
