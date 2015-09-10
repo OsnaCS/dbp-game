@@ -8,6 +8,15 @@ class Ship < ActiveRecord::Base
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
 
+  def is_building()
+    facility_instances.each do |instance|
+      if not(instance.start_time.nil?)
+        return true
+      end
+    end
+    return false
+  end
+
   def update_resources
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
@@ -60,6 +69,14 @@ class Ship < ActiveRecord::Base
 		produktion = (start* (1.5 ** level))*(elapsed_seconds)
 		return produktion
   end
+
+      def init
+      Facility.all.each do |facility|
+        if not(facility_instances.exists?(:facility_id => facility.id, :ship_id => self.id))
+          facility_instances.build(facility: facility, count: 0)
+        end
+      end
+    end
 
  
 end
