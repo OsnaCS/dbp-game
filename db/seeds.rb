@@ -5,6 +5,130 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Facility.create([
+	{
+		id: 3013,
+		cost1: 0,
+		cost2: 2,
+		cost3: 1,
+		duration: 120 * 8,
+		condition: '',
+		name: 'Solarpanel',
+		facility_condition_id: 13,
+		icon: 'solar.png'
+	},
+	{
+		id: 3014,
+		cost1: 2,
+		cost2: 0,
+		cost3: 0,
+		duration: 120 * 2,
+		condition: '',
+		name: 'Raketenturm',
+		facility_condition_id: 14,
+		icon: 'rocket.png'
+	},
+	{
+		id: 3015,
+		cost1: 3,
+		cost2: 1,
+		cost3: 0,
+		duration: 120 * 5,
+		condition: '',
+		name: 'Kleines Lasergeschütz',
+		facility_condition_id: 15,
+		icon: 'laser_small.png'
+	},
+	{
+		id: 3016,
+		cost1: 12,
+		cost2: 4,
+		cost3: 0,
+		duration: 120 * 20,
+		condition: '',
+		name: 'Großes Lasergeschütz',
+		facility_condition_id: 16,
+		icon: 'laser_big.png'
+	},
+	{
+		id: 3017,
+		cost1: 2,
+		cost2: 3,
+		cost3: 0,
+		duration: 120 * 8,
+		condition: '',
+		name: 'Kleiner Ionenbeschleuniger',
+		facility_condition_id: 17,
+		icon: 'ion_small.png'
+	},
+	{
+		id: 3018,
+		cost1: 8,
+		cost2: 12,
+		cost3: 0,
+		duration: 120 * 32,
+		condition: '',
+		name: 'Großer Ionenbeschleuniger',
+		facility_condition_id: 18,
+		icon: 'ion_big.png'
+	},
+	{
+		id: 3019,
+		cost1: 80,
+		cost2: 20,
+		cost3: 0,
+		duration: 120 * 120,
+		condition: '',
+		name: 'Massenbeschleuniger',
+		facility_condition_id: 19,
+		icon: 'mac.png'
+	},
+	{
+		id: 3020,
+		cost1: 1000,
+		cost2: 0,
+		cost3: 200,
+		duration: 120 * 1800,
+		condition: '',
+		name: 'Orbitale Waffenplattform',
+		facility_condition_id: 20,
+		icon: 'orbital.png'
+	},
+	{
+		id: 3021,
+		cost1: 0,
+		cost2: 500,
+		cost3: 1000,
+		duration: 120 * 5000,
+		condition: '',
+		name: 'Kuhtapult',
+		facility_condition_id: 21,
+		icon: 'udder.png'
+	},
+	{
+		id: 3022,
+		cost1: 50,
+		cost2: 100,
+		cost3: 0,
+		duration: 120 * 250,
+		condition: '',
+		name: 'Kleiner Schild',
+		facility_condition_id: 22,
+		icon: 'shield_small.png'
+	},
+	{
+		id: 3023,
+		cost1: 200,
+		cost2: 400,
+		cost3: 0,
+		duration: 120 * 1000,
+		condition: '',
+		name: 'Großer Schild',
+		facility_condition_id: 23,
+		icon: 'shield_big.png'
+	}])
+
 Science.create([
 	{
 		id: 4001,
