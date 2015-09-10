@@ -25,15 +25,21 @@ class ShipsController < ApplicationController
   # POST /ships
   # POST /ships.json
   def create
+    
     @ship = current_user.create_ship(ship_params)
 
     respond_to do |format|
-      if @ship.save
-        format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
-        format.json { render :show, status: :created, location: @ship }
+      if @ship!=nil
+        if @ship.save
+          format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
+          format.json { render :show, status: :created, location: @ship }
+        else
+          format.html { render :new }
+          format.json { render json: @ship.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @ship.errors, status: :unprocessable_entity }
+        format.html { redirect_to ships_path, notice: 'Man darf nicht mehr als neun Schiffe besitzen!' }
+        
       end
     end
   end

@@ -68,9 +68,20 @@ class User < ActiveRecord::Base
   end
   
   def create_ship(ship_name)
-    s = self.ships.build(ship_name)
-    self.user_ships.build(user: self, ship: s)
-    return s
+    if self.ship_count == nil
+      self.ship_count=0
+      self.save
+    end
+
+    if self.ship_count >= 9
+
+    else
+      self.ship_count+=1
+      self.save
+      s = self.ships.build(ship_name)
+      self.user_ships.build(user: self, ship: s)  
+    end  
+      return s
   end
 
   def select_ship(shipID)

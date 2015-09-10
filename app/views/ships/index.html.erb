@@ -22,5 +22,8 @@
   </tbody>
 </table>
 <br>
-
-<%= link_to 'New Ship', new_ship_path %>
+<% if current_user.ship_count < 9%>
+  <%= link_to 'New Ship', new_ship_path %>
+<%else %>
+  <p> Du darfst nicht mehr als neun Schiffe besitzen! </p>
+<%end%>
