@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910105608) do
+ActiveRecord::Schema.define(version: 20150910114208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150910105608) do
     t.integer  "tier"
     t.integer  "science_condition_id"
     t.string   "icon"
+    t.integer  "level_cap"
   end
 
   create_table "ship_groups", force: :cascade do |t|
