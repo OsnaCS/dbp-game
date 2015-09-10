@@ -1,5 +1,7 @@
 class Ship < ActiveRecord::Base
-  
+    
+  has_many :facility_instances, dependent: :destroy
+  has_many :facilities, :through => :facility_instances
   has_one :user_ship
   has_one :user, :through => :user_ships
   has_many :ships_stations
