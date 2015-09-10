@@ -1,3 +1,47 @@
 // Place all the styles related to the Trades controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tradecolumns{
+	width: 120px;
+}
+
+.tradetable {
+	padding: 0px auto;
+	margin:0px auto;
+}
+
+.numfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
+	width: 100px;
+	height: 25px;
+	margin:0px auto;
+	color: black;
+	background-color: white;
+}
+
+.innernumfieldvalue {
+	border: 0px solid white;
+	border-radius: 5px;
+	text-align: center;
+	line-height:25px;
+	font-size: 16px;
+	width:100px;
+	height:25px;
+	margin-top: 0px auto; 
+	font-weight: normal;
+	color: black;
+	background-color: white;
+}
+
+.numfield {
+	border: 0px solid white;
+	border-radius: 5px;
+	width: 100px;
+	height: 25px;
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+	background-color: white;
+}
