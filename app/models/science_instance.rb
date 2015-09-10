@@ -22,10 +22,10 @@ class ScienceInstance < ActiveRecord::Base
     reFuel = science.get_fuel_cost_ratio(currentLevel, ratio)
 
     back = ""
-    back = back + "Refund: <br>"
-    back = back+"- Metal: "+reMetal.to_i.to_s+"<br>"
-    back = back+"- Crystal: "+reCrystal.to_i.to_s+"<br>"
-    back = back+"- Fuel: "+reFuel.to_i.to_s+"<br>"
+    back = back + "Rückzahlung beim Abbruch: <br>"
+    back = back+"- Metall: "+reMetal.to_i.to_s+"<br>"
+    back = back+"- Kristalle: "+reCrystal.to_i.to_s+"<br>"
+    back = back+"- Treibstoff: "+reFuel.to_i.to_s+"<br>"
 
     return back.html_safe
   end
@@ -38,7 +38,10 @@ class ScienceInstance < ActiveRecord::Base
   	if(user.is_researching())
       back = back + "Aktuell wird geforscht...<br>"
   	end
-  	back = back + "Voraussetzung: <br>"
+
+    if(conds.length != 0)
+  	 back = back + "Voraussetzung: <br>"
+    end
   	conds.each do |cond|
   		c_info = cond.split(":")
   		typ = c_info[0]
