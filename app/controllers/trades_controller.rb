@@ -6,7 +6,7 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    if current_user.user_ships == nil 
+    if current_user.activeShip == nil 
       redirect_to :controller => 'ships', :action => 'new'
       return
     end
