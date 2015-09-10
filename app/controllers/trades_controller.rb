@@ -1,10 +1,15 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: [:buy, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  #<!-- prüfe auf schiff !-->
 
   # GET /trades
   # GET /trades.json
   def index
+    if current_user.user_ships == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     time = DateTime.now
     Trade.all.each do |trade|
       if(time.to_i-trade.change_at.to_i>=21600) # 60*60*6 = blub Zeit in Sekunden umgerechnet auf 1 Tag Laenge
@@ -74,6 +79,10 @@ class TradesController < ApplicationController
 
   def buy
     s = Ship.find_by id: current_user.activeShip
+    if s == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     buy = 0
     if(@trade.ressource == 1)
       if(s.metal < params[:amount].to_i)
