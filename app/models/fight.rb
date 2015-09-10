@@ -4,37 +4,51 @@ class Fight< ActiveRecord::Base
   belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
   has_one :fighting_fleet 
 
-#  def initialize
-#     @number_of_spy_probes = 1
-#     @number_of_emp_ships = 4
-#     @spy_level_attacker = 2
-#     @spy_level_defender = 1
-#     @spy_event = true
-     
-#     @ships = {s1: {name: "ship1", damage: 5, hp: 15, number: 4}, s2: {name: "ship2", damage: 4, hp: 20, number: 5}}
-#  end
-
-  def time_to_fight
-#    time=self.time.to_i - Time.now.to_i 
-    return 2 
-  end
   
   # Methode to start the report-creating with the names of the attacker 
   # and defender
   def report_start
-   return "Kampfbericht: \n \n Angreifer: #{self.attacker.username} Verteidiger: #{self.defender.username} \n \n "
+   @report= "Kampfbericht: \n \n Angreifer: #{self.attacker.username} Verteidiger: #{self.defender.username} \n \n "
   end
 
+  def user_science_level(user, science_id)
+    if (user.is_user)
+      self.user.science_instances.find_by(science_id: science_id).level
+    end
+  end
+
+  def pilottraining_id
+    return 4007
+  end
+  def spy_id
+    return 4003
+  end
+
+  def emp_ship_id
+    return 11
+  end
+
+  def spy_ship_id
+    return 4
+  end
   # Methode to calculate the threshold of for succesfull spying
   def threshold_spy
-    puts "Ergebnis:"
-    puts (@spy_level_defender - @spy_level_attacker)*0.05+0.5  
-    return (@spy_level_defender - @spy_level_attacker)*0.05+0.5  
+    return (user_science_level(defender, spy_id) - user_science_level(attacker, spy_id))*0.05+0.5  
+  end
+
+  def number_of_ships(user, unit_id)
+    if(user==self.attacker)
+      return self.fighting_fleet.ship_groups.find_by(unit_id: unit_id).number
+    elseif (user ==self.defender)
+      #MUSS NOCH ANGEPASST WERDEN!!!!!!!!!EINSELF
+      return 0 
+    end
+
   end
 
   # Calculate the threshold for a succesfull emp-event
-  def threshold_emp
-      return (1-(1/(1+0.5*@number_of_emp_ships)))
+  def threshold_emp(user)
+      return (1-(1/(1+0.5*number_ships_ships(user,emp_ship_id))))
   end
 
   # Random float from 0 to 1
@@ -42,53 +56,78 @@ class Fight< ActiveRecord::Base
     return rand()
   end 
   
-  # Random float from 0 to x
-  def random_to_x(max)
-    return rand(max)
+  def get_x_for_random(user)
+
+    return (1.3 -(0.01 * user_science_level(user, pilottraining_id)))
+    
   end
+
+  # Random float from 0 to x
+  def random_to_x(user)
+    return rand(get_x_for_random(user))
+  end
+
   # Methode for the spying-event
-#  def spy_phase
-#    puts("Anzahl der Spionage Drohnen:" + @number_of_spy_probes.to_s)
-#    if @number_of_spy_probes.to_f > 0
-#      puts tmp_random=random_to_one
-#      if threshold_spy > tmp_random
-#        #Spyprobes leave battle!!
-#        puts "Spionage geglückt!"
-#        return @spy_event=true
-#     
-#    end
-#      puts "Spionage gescheitert!"
-#      return @spy_event=false
-#    end
-#  end
-  
-  # Adds the result of the spying to the report
-  def spy_report
-    tmp="  Spionagebericht:  \n \n "
-    if (@spy_event)
-      tmp2= " #{tmp} Erfolg! Die Spionage ergab folgende Einblicke: \n \n"
-    else
-      tmp2= " #{tmp} Misserfolg! Ihre Dronen wurden zerstört. \n \n"
+  def spy_phase
+    if number_of_ships(self.attacker, spy_ship_id) > 0
+      # SPY_EVENT wird gestartet
+      if threshold_spy > tmp_random
+        #Spyprobes leave battle!!
+        spy_report(true, true)
+        #STARTE EVENT
+      else 
+        #Spionage gescheitert
+        spy_report(true, false)
+    end
+        #Spionage nicht gestartet
+        spy_report(false, false)
     end
   end
   
-  # Trying to destroy shields
- # def emp_phase
- #   if @number_of_emp_ships > 0
- #     tmp = threshold_emp
- #     randomtmp = random_to_one
- #     if tmp > randomtmp
- #       puts "Schilde zerstört!!! #{tmp} #{randomtmp}"
- #       return true
- #     end
- #   end
- #   puts "Schilde nicht zerstört!!! #{tmp} #{randomtmp} "
- #   return false
+  # Adds the result of the spying to the report
+  def spy_report(spy_start, spy_success)
+    if spy_start
+      @report << "  Spionagebericht:  \n \n "
+      if spy_success
+        @report << "Spionage erfolgreich! \n \n"
+        #START EVENT!!!!
+      else
+        @report << "Spionage fehlgeschlagen! Ihre Spionagedrohnen wurden zerstört"
+      end
+      @report << "Keine Drohnen verschickt!"
+    end
+  end
+  def spy_event
+    spy_level= user_science_level(self.attacker, spy_id)
+    if spy_level>=2
+      #EVENT Gesamtzahl Ressourcen, Einheiten und Anlagen
+      if spy_level >=8
+        #EVENT Seperate Auflistung
+        if spy_level >=16
+          #EVENT Seperate Forschung
+        end
+      end
+      else
+      #Spionagelevel zu niedrig.
+    end
+  end
+ 
+ # Trying to destroy shields
+  def emp_phase(user)
+    emp_ships=number_of_ships(user, emp_ship_id)
+    if emp_ships > 0
+      if threshold_emp > random_to_one
+        #Report + Schilde
+      else
+        #Report
+      end
+      #Report
+    end
     
   end
 
   # Adds the result from the emp-event to the report
-  def emp_report
+  def emp_report (emp_start, emp_success)
     
   end
 

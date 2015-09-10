@@ -31,13 +31,14 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets
   # POST /fighting_fleets.json
   def create
+    @fighting_fleets=FightingFleet.all
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
     @fighting_fleet.fight.attacker_id=current_user.id
     @fighting_fleet.user_id=current_user.id
     respond_to do |format|
       if @fighting_fleet.save
         format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }
-        format.json { render :show, status: :created, location: @fighting_fleet }
+        format.json { render :index, status: :created, location: @fighting_fleet }
       else
         format.html { render :new }
         format.json { render json: @fighting_fleet.errors, status: :unprocessable_entity }
@@ -67,7 +68,8 @@ class FightingFleetsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fighting_fleet

@@ -1,6 +1,8 @@
 require 'TimeFormatter'
 
 class Science < ActiveRecord::Base
+  has_one :science_one, :class_name => 'Unit', :foreign_key => "science_one_id"
+  has_one :science_two, :class_name => 'Unit', :foreign_key => "science_two_id"
   has_many :science_instances, dependent: :destroy
   has_many :users, :through => :science_instances
   validates_presence_of :cost1, :cost2, :cost3, :factor, :duration, :name, :tier, :science_condition_id, :icon

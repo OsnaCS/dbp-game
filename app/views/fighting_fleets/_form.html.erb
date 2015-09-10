@@ -17,22 +17,24 @@
   <%= f.fields_for :fight do |ff| %>
     
     <div class="field">
-      <%= ff.label :defender_id %><br>
+      <a><%= ff.label :defender_id %><br></a>
       <%= ff.collection_select  :defender_id, User.all, :id, :username %>
     </div>
 <% end %>
   <div class="field">
     <table>
       <tr>
-        <th>Einheit</th>
-        <th>Besitzt</th>
-        <th>Verschicken</th>
+        <th><a>Bild</a></th>
+        <th><a>Einheit</a></th>
+        <th><a>Besitzt</a></th>
+        <th><a>Verschicken</a></th>
       </tr>
       <%= f.fields_for :ship_groups do |fs| %>
         <tr>
-          <td><%=fs.object.unit.name %></td>
-          <td><%= fs.object.unit.id %></td>
-          <td><%=fs.number_field :number, min: 0, max: 50 %></td>
+          <td><a><img src= "<%= image_url(fs.object.unit.icon)%>", width="50", height="50", id="icon"><span><%= fs.object.unit.message.mes %></span></a> </td>
+          <td><a><%= fs.object.unit.name%><span><%= fs.object.unit.message.mes %></span></a> </td>
+          <td><a><%= fs.object.unit.id %></a></td>
+          <td><a><%=fs.number_field :number, min:0, max: 50 %></a></td>
         </tr>
         
         <%= fs.hidden_field :unit_id %>

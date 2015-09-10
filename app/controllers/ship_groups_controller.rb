@@ -3,7 +3,7 @@ class ShipGroupsController < ApplicationController
   before_action :set_ship_group, only: [:show, :edit, :update, :destroy]
   
   
-
+  
 
   # GET /ship_groups
   # GET /ship_groups.json

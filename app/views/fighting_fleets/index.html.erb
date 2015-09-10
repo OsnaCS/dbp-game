@@ -1,35 +1,40 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Fighting Fleets</h1>
+             <%= button_to 'Neue Flotte', new_fighting_fleet_path, method: :get %> 
   <% @fighting_fleets.each do |fighting_fleet| %>
+    <% if fighting_fleet.amount_of_groups > 0 %>
       <table>
         <tr>
-          <th>Angreifer: </th>
-          <th><%=fighting_fleet.fight.attacker.username%></th>
-          <th>Verteidiger: </th>
-          <th><%=fighting_fleet.fight.defender.username%></th>
+          <th><a>Angreifer:</a> </th>
+          <th><a><%=fighting_fleet.fight.attacker.username%></a></th>
+          <th><a>Verteidiger:</a> </th>
+          <th><a><%=fighting_fleet.fight.defender.username%></a></th>
         </tr>
       </table>
       <table>
         <thead>
           <tr>
-            <th>Schiffe</th>
-            <th >Anzahl</th>
+            <th><a>Schiffe</a></th>
+            <th ><a>Anzahl</a></th>
           </tr>
         </thead>
         <tbody>
           <% fighting_fleet.ship_groups.each do |s|  %>
+            <% if s.number > 0%>
             <tr>
-              <td><%= s.unit.name%> </td>
-              <td><%= s.number%> </td>
+          <td><a><img src= "<%= image_url(s.unit.icon)%>", width="50", height="50", id="icon"><span><%= s.unit.message.mes %></span></a> </td>
+      <td><a><%= s.unit.name%><span><%= s.unit.message.mes %></span></a> </td>
+              <td><a><%= s.number%></a> </td>
             </tr>
+          <% end %>
           <% end %>
           <tr>
             <td colspan="2"><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <tr>
-            <td colspan="2"> <%= button_to 'Neue Flotte', new_fighting_fleet_path, method: :get %></td> 
           </tr>
         </tbody>
       </table>
   <% end %>
+<%end%>
