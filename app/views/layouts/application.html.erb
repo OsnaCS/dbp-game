@@ -64,6 +64,7 @@
 			  <p>Metall: 
         <% if current_user.activeShip!=nil%>
 				  <%=Ship.find_by(id: current_user.activeShip).metal%>
+				  <%=1%>
 				<% else %>
 				  0 </p>
 				<% end %>
