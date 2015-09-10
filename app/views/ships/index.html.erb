@@ -17,8 +17,6 @@
         <td id="ship_t2"><%= usership.ship.name %></td>
         <td id="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
         <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
-        <% usership.ship.update_resources %>
-
       </tr>
     <% end %>
   </tbody>
