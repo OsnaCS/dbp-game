@@ -30,13 +30,25 @@
      <% end %>
 
      <% if(facility_instance.id) %>
-       <% facility = facility_instance.facility %>
-        <td>
-          <a>
-            <img src= "<%= image_url("facility_icons/" + facility.icon)%>", width="50", height="50", id="icon">
-          <span><%= Message.find_by_code(facility.facility_condition_id+3000).mes %></span></a>
-        </td>
-        <td><%= facility.name %></td>
+        <% facility = facility_instance.facility %>
+        <% hidden = facility.is_hidden %>
+        <% if hidden %>
+          <td>
+            <a>
+              <img src= "<%= image_url('facility_icons/secret.png')%>", width="50", height="50", id="icon">
+              <span><%= Message.find_by_code(3024).mes %></span>
+            </a>
+          </td>
+          <td><%= '???' %></td>
+        <% else %>
+          <td>
+            <a>
+              <img src= "<%= image_url("facility_icons/" + facility.icon)%>", width="50", height="50", id="icon">
+              <span><%= Message.find_by_code(facility.facility_condition_id+3000).mes %></span>
+            </a>
+          </td>
+          <td><%= facility.name %></td>
+        <% end %>
         <td><%= (facility.cost1 * resourcefactor).to_i %></td>
         <td><%= (facility.cost2 * resourcefactor).to_i %></td>
         <td><%= (facility.cost3 * resourcefactor).to_i %></td>
@@ -47,11 +59,16 @@
           <td id = "running"><%= Facility.update_time(facility_instance, false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
-        <% availability = current_user.check_condition(facility.condition) && !current_user.is_building %>
+        <% availability = current_user.check_condition(facility.condition) && !current_user.ships.find(current_user.activeShip).is_building %>
         <td><%= facility_instance.count %>
 
         <% if availability %>
-          <td><%= button_to 'Bauen', build_facility_instance_path(facility_instance), method: :get %></td>
+          <td>
+          <%= form_tag build_facility_instance_path(facility_instance), method: 'get' do %>
+            <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0) %>
+            <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
+          <% end %>
+          </td>
         <% else %>
           <% if(inactive) %>
             <td><a>Nicht verfügbar<span><%= facility_instance.get_conditions() %></span></a></td>
