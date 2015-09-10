@@ -21,7 +21,7 @@
 
 
 <% if current_user.ship_count < 9%>
-  <%if Ship.find_by(id: current_user.activeShip).metal > 200000 &&  Ship.find_by(id: current_user.activeShip).cristal > 100000%>
+  <%if current_user.has_enough_resources(200000, 100000, 0)%>
     <%= link_to 'New Ship', new_ship_path %>
   <%else%>
     <p> Nicht genug Rohstoffe für ein neues Schiff! </p>
