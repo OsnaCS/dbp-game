@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :facilities
+
 
   resources :science_instances do
     member do
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :stations
   resources :sciences
+  resources :facilities
   resources :ranks
   resources :user_icons
   resources :ships
