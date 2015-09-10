@@ -22,8 +22,11 @@ class UnitsController < ApplicationController
   end
 
   def build
-    anzahl = params[:amount]
-    redirect_to units_path
+    ship = Ship.find_by(:id => 1)
+    instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
+    instance.amount = params[:amount]
+    instance.save
+    redirect_to units_url
   end
 
   # POST /units

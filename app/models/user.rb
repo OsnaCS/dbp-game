@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_one :rank, dependent: :destroy
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
+  has_many :unit_instances, dependent: :destroy
+  has_many :units, :through => :unit_instances
   has_many :user_ships
   has_many :ships, :through => :user_ships   
   has_many :notifications
