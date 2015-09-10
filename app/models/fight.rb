@@ -78,7 +78,7 @@ class Fight< ActiveRecord::Base
       else 
         #Spionage gescheitert
         spy_report(true, false)
-    end
+      end
         #Spionage nicht gestartet
         spy_report(false, false)
     end
@@ -90,7 +90,7 @@ class Fight< ActiveRecord::Base
       @report << "  Spionagebericht:  \n \n "
       if spy_success
         @report << "Spionage erfolgreich! \n \n"
-        #START EVENT!!!!
+        spy_event
       else
         @report << "Spionage fehlgeschlagen! Ihre Spionagedrohnen wurden zerstört"
       end
@@ -117,45 +117,61 @@ class Fight< ActiveRecord::Base
     emp_ships=number_of_ships(user, emp_ship_id)
     if emp_ships > 0
       if threshold_emp > random_to_one
-        #Report + Schilde
+        emp_report(true, true)
       else
-        #Report
+        emp_report(true, false)
       end
-      #Report
+      emp_report(false, false)
     end
     
   end
 
   # Adds the result from the emp-event to the report
-  def emp_report (emp_start, emp_success)
+  def emp_report (user, emp_start, emp_success)
+    if emp_start
+        @report << "  Emp-Phase von #{user.username}:  \n \n "
+      if emp_success
+        @report << "Der EMP war erfolgreich!! Schild wurde Deaktiviert  \n \n "
+      else
+        @report << "EMP-Schiffe wurden zerstört! Schild wurde nicht Deaktiviert"
+      end
+      @report << "Keine EMP-Schiffe verschickt"
+    end  
+  end
+  
+  def turn(round)
+    return round.modulo(2)
+  end
+  
+  def defeat(user)
+    if(attacker==user)
+      
+    end
     
   end
-
-
   def fight
-    attackers_turn =true
-    ship_ary =[]
-    ships.each do |key|
-      print key
-        key.each do |name, damage, hp, number|
-        puts " #{name} #{damage} #{hp} #{number}"
-      
-        end    
+    @report
+    report_start
+    spy_phase
+    emp_phase(self.attacker)
+    emp_phase(self.defender)
+    round = 0
+    continue=true
+    while (round < 1000&&continue)do
+      if turn(round) == 0
+        #Attacker turn
+      else
+        #Defender turn
       end
+      if (defeat(attacker)||defeat(defender))
+        continue=false
+      end
+      round =+1
+      
     end
-
-  # Hilfsmethode zum testen, WIEDER LÖSCHEN!!!
-  def ships
-    return @ships
   end
+end
+
  
 
 
-#f=Fight.new
-#f.@number_of_spy_probes =1
-#puts "Starte Spy Phase:"
-#f.number_of_spy_probes = 1
-#f.emp_phase
-#f.spy_phase
-#f.fight
-#end
