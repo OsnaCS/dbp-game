@@ -5,6 +5,10 @@ class FacilitiesController < ApplicationController
   # GET /facilities
   # GET /facilities.json
   def index
+    if current_user.activeShip == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     @facilities = Facility.all
   end
 

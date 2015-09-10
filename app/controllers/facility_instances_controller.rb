@@ -1,9 +1,14 @@
 class FacilityInstancesController < ApplicationController
-  before_action :set_facility_instance, only: [:show, :edit, :update, :destroy]
+  before_action :set_facility_instance, only: [:show, :edit, :update, :destroy, :build, :cancel_build, :instant_build]
+  before_action :authenticate_user!
 
   # GET /facility_instances
   # GET /facility_instances.json
   def index
+    if current_user.activeShip == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     @facility_instances = FacilityInstance.all
   end
 
@@ -35,6 +40,49 @@ class FacilityInstancesController < ApplicationController
         format.json { render json: @facility_instance.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def build
+    p = params[:create_amount].to_i
+    if p <= 0
+      p = 1
+    end
+    s = Ship.find_by id: current_user.activeShip
+    if s == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
+    resourcefactor = 500
+    f = @facility_instance.facility
+    if(s.metal < p * f.cost1 * resourcefactor || s.cristal < p * f.cost2 * resourcefactor || s.fuel < p * f.cost3 * resourcefactor)
+      redirect_to facilities_url, alert: 'Build was cancelled! Not enough resources.'
+      return
+    else
+    s.metal -= p * f.cost1 * resourcefactor
+    s.cristal -= p * f.cost2 * resourcefactor
+    s.fuel -= p * f.cost3 * resourcefactor
+    s.save
+    end
+    @facility_instance.start_time = Time.now
+    @facility_instance.create_count = p
+    @facility_instance.save
+
+    redirect_to facilities_url
+  end
+
+  def cancel_build
+    @facility_instance.start_time = nil
+    @facility_instance.create_count = nil
+    @facility_instance.save
+    redirect_to facilities_url
+  end
+
+  def instant_build
+    @facility_instance.count = @facility_instance.count + (@facility_instance.create_count || 0)
+    @facility_instance.start_time = nil
+    @facility_instance.create_count = nil
+    @facility_instance.save
+    redirect_to facilities_url
   end
 
   # PATCH/PUT /facility_instances/1
