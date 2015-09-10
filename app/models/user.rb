@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
   has_many :user_ships
-  has_many :ships, :through => :user_ships   
+  has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
   after_initialize :init
@@ -148,6 +148,15 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def is_building()
+    ships_stations.each do |station|
+      if not(station.start_time.nil?)
+        return true
+      end
+    end
+    return false
+  end
+
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)
@@ -160,11 +169,11 @@ class User < ActiveRecord::Base
   def login=(login)
     @login = login
   end
-  
+
   def login
     @login || self.username || self.email
   end
-  
+
   def create_ship(ship_name)
     s = self.ships.build(ship_name)
     self.user_ships.build(user: self, ship: s)
