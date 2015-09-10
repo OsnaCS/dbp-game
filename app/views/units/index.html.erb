@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Units</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Metal price</th>
+      <th>Crystal price</th>
+      <th>Fuel price</th>
+      <th>Total cost</th>
+      <th>Shell</th>
+      <th>Damage</th>
+      <th>Damage type</th>
+      <th>Cargo</th>
+      <th>Speed</th>
+      <th>Shipyard requirement</th>
+      <th>Research requirement one</th>
+      <th>Research requiement two</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @units.each do |unit| %>
+      <tr>
+        <td><%= unit.name %></td>
+        <td><%= unit.metal_price %></td>
+        <td><%= unit.crystal_price %></td>
+        <td><%= unit.fuel_price %></td>
+        <td><%= unit.total_cost %></td>
+        <td><%= unit.shell %></td>
+        <td><%= unit.damage %></td>
+        <td><%= unit.damage_type %></td>
+        <td><%= unit.cargo %></td>
+        <td><%= unit.speed %></td>
+        <td><%= unit.shipyard_requirement %></td>
+        <td><%= unit.research_requirement_one %></td>
+        <td><%= unit.research_requiement_two %></td>
+        <td><%= link_to 'Show', unit %></td>
+        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
+        <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit', new_unit_path %>
