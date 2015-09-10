@@ -22,10 +22,12 @@ class ScienceInstance < ActiveRecord::Base
     reFuel = science.get_fuel_cost_ratio(currentLevel, ratio)
 
     back = ""
-    back = back + "Rückzahlung beim Abbruch: <br>"
-    back = back+"- Metall: "+reMetal.to_i.to_s+"<br>"
-    back = back+"- Kristalle: "+reCrystal.to_i.to_s+"<br>"
-    back = back+"- Treibstoff: "+reFuel.to_i.to_s+"<br>"
+    if not(self.research_ship.nil?)
+      back = back + "Rückzahlung beim Abbruch [" + (Ship.find_by(:id => self.research_ship)).name + "]: <br>"
+    end
+    back = back + "- Metall: "+reMetal.to_i.to_s+"<br>"
+    back = back + "- Kristalle: "+reCrystal.to_i.to_s+"<br>"
+    back = back + "- Treibstoff: "+reFuel.to_i.to_s+"<br>"
 
     return back.html_safe
   end
