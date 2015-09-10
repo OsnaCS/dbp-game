@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 20150909090435) do
     t.float    "factor"
     t.integer  "duration"
     t.string   "condition"
-    t.string   "name"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "tier"
