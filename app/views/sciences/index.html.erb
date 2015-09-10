@@ -41,14 +41,14 @@
         <td><%= fuel = science.get_fuel_cost(science_instance.level) %></td>
 
         <% if(inactive) %>
-          <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
+          <td id = "not_running"><%= science_instance.update_time(true).to_s %></td>
         <% else %>
-          <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
+          <td id = "running"><%= science_instance.update_time(false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
-        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching &&
-          current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= science_instance.level %>
+        <% level =science_instance.level %>
+        <% availability = current_user.can_research(science, level) %>
+        <td><%= level %></td>
 
         <% if availability %>
           <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
