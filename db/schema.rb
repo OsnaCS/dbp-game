@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910130314) do
+ActiveRecord::Schema.define(version: 20150910142049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,21 +159,21 @@ ActiveRecord::Schema.define(version: 20150910130314) do
     t.integer  "cargo"
     t.integer  "speed"
     t.integer  "shipyard_requirement"
-    t.integer  "research_requirement_one"
-    t.integer  "research_requirement_two"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "science_one_level"
+    t.integer  "science_two_level"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "message_id"
     t.string   "icon"
-    t.integer  "science_one_id"
-    t.integer  "science_two_id"
+    t.integer  "science_one_instance"
+    t.integer  "science_two_instance"
     t.integer  "damage_type_id"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
   add_index "units", ["message_id"], name: "index_units_on_message_id", using: :btree
-  add_index "units", ["science_one_id"], name: "index_units_on_science_one_id", using: :btree
-  add_index "units", ["science_two_id"], name: "index_units_on_science_two_id", using: :btree
+  add_index "units", ["science_one_instance"], name: "index_units_on_science_one_instance", using: :btree
+  add_index "units", ["science_two_instance"], name: "index_units_on_science_two_instance", using: :btree
 
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
