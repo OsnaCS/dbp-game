@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   get 'home/index'
+  get 'home/get_json_data', defaults: {format: 'json'}
   get 'profile/index'
   get 'profile/user'
   

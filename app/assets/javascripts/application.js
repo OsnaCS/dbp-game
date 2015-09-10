@@ -71,6 +71,9 @@ function timer(time) {
 function getTimer() {
 	setInterval(
 		function(){
+      $.getJSON('/home/get_json_data').done(function(data) {
+        $("#notification-text").html(data.msg);
+      });
 		},
 		1000
 	);
