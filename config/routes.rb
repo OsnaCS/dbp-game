@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :facility_instances
+
   resources :science_instances do
     member do
       get 'research'
