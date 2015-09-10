@@ -8,7 +8,7 @@ class ExpiditionsController < ApplicationController
     if(current_user.activeShip == nil)
       redirect_to :controller => 'ships', :action => 'new'
     end
-    @expiditions = Expidition.all
+    @expiditions = current_user.expedition_instances.map(&:expidition)
   end
 
   # GET /expiditions/1
@@ -19,7 +19,6 @@ class ExpiditionsController < ApplicationController
   # GET /expiditions/new
   def new
     @expidition = Expidition.new
-    @units = Unit.all
   end
 
   # GET /expiditions/1/edit
@@ -39,8 +38,17 @@ class ExpiditionsController < ApplicationController
       return
     end
 
+    @expidition.fighting_fleet= FightingFleet.create(user: current_user)
+    Unit.all.each do |unit|
+      ship_group = @expidition.fighting_fleet.ship_groups.find_by(:unit_id => unit.id)
+      ship_group.number = params[unit.id.to_s].to_i
+      ship_group.save
+    end
+
+
     respond_to do |format|
       if @expidition.save
+        ExpeditionInstance.create(user: current_user, expidition_id: @expidition.id)
         format.html { redirect_to @expidition, notice: 'Expidition was successfully created.' }
         format.json { render :show, status: :created, location: @expidition }
       else

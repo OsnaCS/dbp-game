@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Expedition Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Expidition</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expedition_instances.each do |expedition_instance| %>
+      <tr>
+        <td><%= expedition_instance.user_id %></td>
+        <td><%= expedition_instance.expidition_id %></td>
+        <td><%= link_to 'Show', expedition_instance %></td>
+        <td><%= link_to 'Edit', edit_expedition_instance_path(expedition_instance) %></td>
+        <td><%= link_to 'Destroy', expedition_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expedition instance', new_expedition_instance_path %>

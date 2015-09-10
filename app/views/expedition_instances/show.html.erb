@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @expedition_instance.user_id %>
+</p>
+
+<p>
+  <strong>Expidition:</strong>
+  <%= @expedition_instance.expidition_id %>
+</p>
+
+<%= link_to 'Edit', edit_expedition_instance_path(@expedition_instance) %> |
+<%= link_to 'Back', expedition_instances_path %>

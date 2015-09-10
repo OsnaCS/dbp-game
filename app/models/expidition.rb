@@ -1,6 +1,8 @@
 class Expidition < ActiveRecord::Base
 
    has_one :fighting_fleet
+   has_one :expedition_instances, dependent: :destroy
+   has_one :user, :through => :expedition_instances
 
    def explore
       @value = 0

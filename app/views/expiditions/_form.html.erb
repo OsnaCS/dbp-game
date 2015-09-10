@@ -24,7 +24,7 @@
          <th>zu schickende Anzahl</th>
       </tr>
 
-      <% @units.each do |unit| %>
+      <% Unit.all.each do |unit| %>
          <tr>
          <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
            <td align=left ><%= unit.name %></td>       

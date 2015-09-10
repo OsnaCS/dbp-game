@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :ships, :through => :user_ships   
   has_many :notifications
   has_many :messages, through: :notifications
+  has_many :expedition_instances, dependent: :destroy
+  has_many :expiditions, :through => :expedition_instances
   after_initialize :init
 
 

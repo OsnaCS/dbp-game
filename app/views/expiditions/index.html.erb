@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Currently Running Expeditions</h1>
+<h1>Laufende Expeditionen</h1>
 
 <table id="runningExp">
   <thead>
@@ -16,6 +16,7 @@
       <tr>
         <td><%= exp.explore_time %></td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
+        <td><%= link_to 'Flotte der Expedition einsehen', exp %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
  
+  resources :expedition_instances
+
   resources :units
   resources :damage_types
   resources :fighting_fleets do
