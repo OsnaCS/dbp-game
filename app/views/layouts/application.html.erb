@@ -28,7 +28,7 @@
 					<img id="user_icon" src="<%= image_url('ui/default.png') %>"><br>
 				<% end %>
 				<p class="userbutton"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-			<% end %> 
+			<% end %>
 		</div>
 		<div id="banner" class="content">
 			<p id="game_name">SpielName</p>
@@ -52,7 +52,7 @@
 			<% if current_user!=nil %>
 				<table id="res-table"><tr>
 					<td>
-						<p title="Ausgewaehltes Schiff">Selected: 
+						<p title="Ausgewaehltes Schiff">Selected:
 							<% if current_user.activeShip!=nil%>
 				  				<%=Ship.find_by(id: current_user.activeShip).name%>
 							<% else %>
@@ -62,7 +62,7 @@
 					</td>
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
-			  			<p>Metall: 
+			  			<p>Metall:
         					<% if current_user.activeShip!=nil%>
 				  				<%=Ship.find_by(id: current_user.activeShip).metal%>
 							<% else %>
@@ -72,22 +72,22 @@
 					</td>
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
-			  			<p>Kristall: 
+			  			<p>Kristall:
         					<% if current_user.activeShip!=nil%>
 				  				<%= Ship.find_by(id: current_user.activeShip).cristal%>
 							<% else %>
 				  				0
-							<% end %> 
+							<% end %>
 						</p>
 					</td>
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
-			  			<p>Treibstoff: 
+			  			<p>Treibstoff:
         					<% if current_user.activeShip!=nil %>
-				  				<%=Ship.find_by(id: current_user.activeShip).fuel%> 
+				  				<%=Ship.find_by(id: current_user.activeShip).fuel%>
 							<% else %>
 				  				0
-							<% end %> 
+							<% end %>
 						</p>
 					</td>
 				</tr></table>
@@ -104,7 +104,7 @@
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
-						<li><%= link_to "Stationen", stations_path %></li>
+						<li><%= link_to "Stationen", ship_ships_stations_path(UserShip.where(:user_id => current_user.id))%></li>
 						<li><%= link_to "Anlagen", root_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
@@ -123,7 +123,7 @@
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
-		</div>	
+		</div>
 	</div>
 </div>
 </body>
