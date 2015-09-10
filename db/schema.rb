@@ -11,10 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909075429) do
+ActiveRecord::Schema.define(version: 20150909140635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "damage_types", force: :cascade do |t|
+    t.string   "name"
+    t.float    "shell_mult"
+    t.float    "shield_mult"
+    t.float    "station_mult"
+    t.float    "plattform_mult"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "fighting_fleets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "fight_id"
+  end
+
+  add_index "fighting_fleets", ["fight_id"], name: "index_fighting_fleets_on_fight_id", using: :btree
+  add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
+
+  create_table "fights", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "attacker_id"
+    t.integer  "defender_id"
+  end
+
+  add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
+  add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.text     "mes"
@@ -64,6 +94,17 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.string   "icon"
   end
 
+  create_table "ship_groups", force: :cascade do |t|
+    t.integer  "fighting_fleet_id"
+    t.integer  "number"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "unit_id"
+  end
+
+  add_index "ship_groups", ["fighting_fleet_id"], name: "index_ship_groups_on_fighting_fleet_id", using: :btree
+  add_index "ship_groups", ["unit_id"], name: "index_ship_groups_on_unit_id", using: :btree
+
   create_table "ships", force: :cascade do |t|
     t.text     "name"
     t.datetime "created_at",  null: false
@@ -106,6 +147,28 @@ ActiveRecord::Schema.define(version: 20150909075429) do
     t.datetime "change_at"
   end
 
+  create_table "units", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "metal_price"
+    t.integer  "crystal_price"
+    t.integer  "fuel_price"
+    t.integer  "total_cost"
+    t.integer  "shell"
+    t.integer  "damage"
+    t.integer  "damage_type_id"
+    t.integer  "cargo"
+    t.integer  "speed"
+    t.integer  "shipyard_requirement"
+    t.integer  "research_requirement_one"
+    t.integer  "research_requirement_two"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "message_id"
+  end
+
+  add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
+  add_index "units", ["message_id"], name: "index_units_on_message_id", using: :btree
+
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",         null: false
@@ -145,6 +208,12 @@ ActiveRecord::Schema.define(version: 20150909075429) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "fighting_fleets", "fights"
+  add_foreign_key "fighting_fleets", "users"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
+  add_foreign_key "ship_groups", "fighting_fleets"
+  add_foreign_key "ship_groups", "units"
+  add_foreign_key "units", "damage_types"
+  add_foreign_key "units", "messages"
 end

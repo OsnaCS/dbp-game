@@ -1,0 +1,69 @@
+<%= form_for(@unit) do |f| %>
+  <% if @unit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@unit.errors.count, "error") %> prohibited this unit from being saved:</h2>
+
+      <ul>
+      <% @unit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :metal_price %><br>
+    <%= f.number_field :metal_price %>
+  </div>
+  <div class="field">
+    <%= f.label :crystal_price %><br>
+    <%= f.number_field :crystal_price %>
+  </div>
+  <div class="field">
+    <%= f.label :fuel_price %><br>
+    <%= f.number_field :fuel_price %>
+  </div>
+  <div class="field">
+    <%= f.label :total_cost %><br>
+    <%= f.number_field :total_cost %>
+  </div>
+  <div class="field">
+    <%= f.label :shell %><br>
+    <%= f.number_field :shell %>
+  </div>
+  <div class="field">
+    <%= f.label :damage %><br>
+    <%= f.number_field :damage %>
+  </div>
+  <div class="field">
+    <%= f.label :damage_type_id %><br>
+    <%= f.text_field :damage_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cargo %><br>
+    <%= f.number_field :cargo %>
+  </div>
+  <div class="field">
+    <%= f.label :speed %><br>
+    <%= f.number_field :speed %>
+  </div>
+  <div class="field">
+    <%= f.label :shipyard_requirement %><br>
+    <%= f.number_field :shipyard_requirement %>
+  </div>
+  <div class="field">
+    <%= f.label :research_requirement_one %><br>
+    <%= f.number_field :research_requirement_one %>
+  </div>
+  <div class="field">
+    <%= f.label :research_requiement_two %><br>
+    <%= f.number_field :research_requiement_two %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
