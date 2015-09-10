@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" style='color:green'><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
 <h1>Anlagen</h1>
 
@@ -49,9 +50,9 @@
           </td>
           <td><%= facility.name %></td>
         <% end %>
-        <td><%= (facility.cost1 * resourcefactor).to_i %></td>
-        <td><%= (facility.cost2 * resourcefactor).to_i %></td>
-        <td><%= (facility.cost3 * resourcefactor).to_i %></td>
+        <td><%= facility.cost1 * resourcefactor %></td>
+        <td><%= facility.cost2 * resourcefactor %></td>
+        <td><%= facility.cost3 * resourcefactor %></td>
 
         <% if(inactive) %>
           <td id = "not_running"><%= Facility.update_time(facility_instance, true).to_s %></td>
