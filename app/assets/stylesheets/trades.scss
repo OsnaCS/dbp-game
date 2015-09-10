@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.tradecolumns{
+	width: 120px;
+}
+
 .tradetable {
 	padding: 0px auto;
 	margin:0px auto;
@@ -10,7 +14,7 @@
 .numfieldvalue {
 	border: 0px solid white;
 	border-radius: 5px;
-	width: 50px;
+	width: 100px;
 	height: 25px;
 	margin:0px auto;
 	color: black;
@@ -23,7 +27,7 @@
 	text-align: center;
 	line-height:25px;
 	font-size: 16px;
-	width:50px;
+	width:100px;
 	height:25px;
 	margin-top: 0px auto; 
 	font-weight: normal;
@@ -34,7 +38,7 @@
 .numfield {
 	border: 0px solid white;
 	border-radius: 5px;
-	width: 50px;
+	width: 100px;
 	height: 25px;
 	font-size: 16px;
 	font-weight: bold;
