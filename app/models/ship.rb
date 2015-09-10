@@ -71,13 +71,13 @@ class Ship < ActiveRecord::Base
 		return produktion
   end
 
-      def init
-      Facility.all.each do |facility|
-        if not(facility_instances.exists?(:facility_id => facility.id, :ship_id => self.id))
-          facility_instances.build(facility: facility, count: 0)
-        end
+  def init
+    Facility.all.each do |facility|
+      if not(facility_instances.exists?(:facility_id => facility.id, :ship_id => self.id))
+        facility_instances.build(facility: facility, count: 0)
       end
     end
+  end
 
  
 end
