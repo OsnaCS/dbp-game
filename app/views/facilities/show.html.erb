@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cost1:</strong>
+  <%= @facility.cost1 %>
+</p>
+
+<p>
+  <strong>Cost2:</strong>
+  <%= @facility.cost2 %>
+</p>
+
+<p>
+  <strong>Cost3:</strong>
+  <%= @facility.cost3 %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @facility.duration %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @facility.name %>
+</p>
+
+<p>
+  <strong>Facility condition:</strong>
+  <%= @facility.facility_condition_id %>
+</p>
+
+<p>
+  <strong>Icon:</strong>
+  <%= @facility.icon %>
+</p>
+
+<%= link_to 'Edit', edit_facility_path(@facility) %> |
+<%= link_to 'Back', facilities_path %>
