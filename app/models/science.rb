@@ -21,12 +21,39 @@ class Science < ActiveRecord::Base
     return instance.level
   end
 
+  def get_metal_cost(level)
+    return (self.cost1 * 500 * (level + 1) * self.factor).to_i
+  end
+
+  def get_metal_cost_ratio(level, ratio)
+    return get_metal_cost(level).to_f * ratio
+  end
+
+  def get_crystal_cost(level)
+    return (self.cost2 * 500 * (level + 1) * self.factor).to_i
+  end
+
+  def get_crystal_cost_ratio(level, ratio)
+    return get_crystal_cost(level).to_f * ratio
+  end
+
+  def get_fuel_cost(level)
+    return (self.cost3 * 500 * (level + 1) * self.factor).to_i
+  end
+
+    def get_fuel_cost_ratio(level, ratio)
+    return get_fuel_cost(level).to_f * ratio
+  end
+
+  def get_duration(level)
+    return (self.duration * self.factor ** (level + 1))
+  end
   def self.update_time(instance, format)
     science = Science.find_by(id: instance.science_id)
-    durationInSeconds = science.duration * science.factor ** (instance.level + 1)
+    durationInSeconds = science.get_duration(instance.level)
 
     if(instance.start_time)
-      timeSinceResearch = (Time.now - instance.updated_at).to_i
+      timeSinceResearch = instance.get_time_since_research
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
