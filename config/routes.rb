@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
 
-  resources :facility_instances
+  resources :facility_instances do
+    member do
+      get 'build'
+      get 'cancel_research'
+      get 'instant_research'
+    end
+  end
+
 
   resources :science_instances do
     member do
