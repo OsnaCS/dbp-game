@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   resources :units
   resources :damage_types
   resources :fighting_fleets do
