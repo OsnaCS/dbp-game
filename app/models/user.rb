@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
   end
 
   def is_building()
-    ships_stations.each do |station|
+    user_ships_ship_ships_stations.each do |station|
       if not(station.start_time.nil?)
         return true
       end

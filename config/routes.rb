@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
- 
+
   resources :units
   resources :damage_types
   resources :fighting_fleets do
     resources :ship_groups
-    resources :fights 
+    resources :fights
   end
   resources :sciences
   resources :science_instances do
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :ranks
   resources :user_icons
   resources :ships
-  resources :ships_station  
+  resources :ships_station
 
   resources :trades do
     member do
@@ -31,12 +31,16 @@ Rails.application.routes.draw do
     end
   end
 
-    #nesting resources ships --> ships_stations
   resources :ships do
     member do
       get 'cheat'
     end
     resources :ships_stations
+      member do
+      get 'research'
+      get 'cancel_research'
+      get 'instant_research'
+    end
   end
 
   get 'home/index'

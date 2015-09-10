@@ -13,7 +13,18 @@
   </thead>
 
   <tbody>
-    <% @ships_stations.each do |ships_station| %>
+    <% Ship.find_by(id: current_user.activeShip).ships_stations.sort_by{|instance| instance.station.station_condition_id}.each do |ships_station| %>
+     <% inactive = nil %>
+     <% if(ships_station.start_time.nil?) %>
+       <tr id="inactive">
+       <% inactive = true %>
+     <% else %>
+       <tr id="active">
+       <% inactive = false %>
+     <% end %>
+
+     <% if(ships_station.id) %>
+       <% station = ships_station.station %>
       <tr>
         <td>
          <a>
@@ -23,20 +34,33 @@
          </td>
         <td><%= ships_station.station.name %></td>
         <td><%= ships_station.station.initial_level %></td>
+        <td><%= metal = station.get_metal_cost(ships_station.level) %></td>
+        <td><%= crystal = station.get_crystal_cost(ships_station.level) %></td>
+        <td><%= fuel = station.get_fuel_cost(ships_station.level) %></td>
+
+        <% if(inactive) %>
+          <td id = "not_running"><%= Station.update_time(ships_station, true).to_s %></td>
+        <% else %>
+          <td id = "running"><%= Station.update_time(ships_station, false).to_s %></td>
+          <%= javascript_tag "start_timer()" -%>
+        <% end %>
+        <% availability = current_user.check_condition(station.condition) &&
+          current_user.has_enough_resources(metal, crystal, fuel) %>
+        <td><%= ships_station.level %>
+
         <% if availability %>
-          <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
+          <td><%= button_to 'Upgrade', research_ships_stations_path(ships_station), method: :get %></td>
         <% else %>
           <% if(inactive) %>
-            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
+            <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
           <% else %>
-            <td><a><%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
-                       <span><%= science_instance.get_refund %></span></a>
-            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
+            <td><a><%= button_to 'Abbrechen', cancel_research_ships_station_path(ships_station), method: :get %>
+                       <span><%= ships_station.get_refund %></span></a>
+            <td><%= button_to 'Sofort', instant_research_ships_station_path(ships_station), method: :get %></td>
           <% end %>
         <% end %>
+       <% end %>
+      <% end %>
       </tr>
-    <% end %>
   </tbody>
 </table>
-<br>
-<%= link_to 'Schiffe', ships_path %>
