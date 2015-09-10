@@ -2,7 +2,7 @@ class Fight< ActiveRecord::Base
   belongs_to :user
   belongs_to :attacker, :class_name => 'User', :foreign_key => 'attacker_id', inverse_of: :attacks
   belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
-  has_one :fighting_fleet 
+  has_one :fighting_fleet, inverse_of: :fight 
 
 #  def initialize
 #     @number_of_spy_probes = 1

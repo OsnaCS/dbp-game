@@ -15,6 +15,7 @@ class ShipsController < ApplicationController
   # GET /ships/new
   def new
     @ship = Ship.new
+    current_user.activeShip = @ship.id
   end
 
   # GET /ships/1/edit

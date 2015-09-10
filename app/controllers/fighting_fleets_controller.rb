@@ -1,10 +1,15 @@
 class FightingFleetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_fighting_fleet, only: [:show, :edit, :update, :destroy]
-
   # GET /fighting_fleets
   # GET /fighting_fleets.json
+
   def index
-    @fighting_fleets = FightingFleet.all
+    @fighting_fleets=FightingFleet.all	
+  end
+
+  def user
+  	@user = User.find_by_username(params[:user])
   end
 
   # GET /fighting_fleets/1
@@ -15,6 +20,8 @@ class FightingFleetsController < ApplicationController
   # GET /fighting_fleets/new
   def new
     @fighting_fleet = FightingFleet.new
+    
+
   end
 
   # GET /fighting_fleets/1/edit
@@ -25,7 +32,8 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets.json
   def create
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
-
+    @fighting_fleet.fight.attacker_id=current_user.id
+    @fighting_fleet.user_id=current_user.id
     respond_to do |format|
       if @fighting_fleet.save
         format.html { redirect_to @fighting_fleet, notice: 'Fighting fleet was successfully created.' }
@@ -36,7 +44,6 @@ class FightingFleetsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /fighting_fleets/1
   # PATCH/PUT /fighting_fleets/1.json
   def update
@@ -69,6 +76,6 @@ class FightingFleetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fighting_fleet_params
-      params.require(:fighting_fleet).permit(:shield, :user_id,:name)
+      params.require(:fighting_fleet).permit(:shield, :user_id, :name, ship_groups_attributes: [:unit_id, :number, :group_hitpoints],fight_attributes: [:attacker_id, :defender_id])
     end
 end

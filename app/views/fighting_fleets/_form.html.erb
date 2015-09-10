@@ -1,3 +1,6 @@
+
+<% if user_signed_in? %>
+	<% if current_user.is_user %>
 <%= form_for(@fighting_fleet) do |f| %>
   <% if @fighting_fleet.errors.any? %>
     <div id="error_explanation">
@@ -11,19 +14,36 @@
     </div>
   <% end %>
 
+  <%= f.fields_for :fight do |ff| %>
+    
+    <div class="field">
+      <%= ff.label :defender_id %><br>
+      <%= ff.collection_select  :defender_id, User.all, :id, :username %>
+    </div>
+<% end %>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :shield %><br>
-    <%= f.text_field :shield %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.collection_select :user_id, User.all, :id, :username %>
-  </div>
+    <table>
+      <tr>
+        <th>Einheit</th>
+        <th>Besitzt</th>
+        <th>Verschicken</th>
+      </tr>
+      <%= f.fields_for :ship_groups do |fs| %>
+        <tr>
+          <td><%=fs.object.unit.name %></td>
+          <td><%= fs.object.unit.id %></td>
+          <td><%=fs.number_field :number, min: 0, max: 50 %></td>
+        </tr>
+        
+        <%= fs.hidden_field :unit_id %>
+      <% end %>
+    </table>
+    </div>
   <div class="actions">
+    
     <%= f.submit %>
   </div>
 <% end %>
+
+  <% end %>
+  <% end %>
