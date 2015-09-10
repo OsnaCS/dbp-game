@@ -144,11 +144,30 @@ class Fight< ActiveRecord::Base
   end
   
   def defeat(user)
+    count_all_ships=0
     if(attacker==user)
-      
+     
+      self.fighting_fleet.ship_groups.all.each do |f|
+        count_all_ships=+ f.number
+      end 
+    else
+      #Zählen der Defender-Einheiten  
     end
-    
+    return count_all_ships==0
   end
+
+  def sum_tP_group(ship_group)
+    return ship_group.number*ship_group.unit.shell
+  end
+
+  def sum_all (fleet)
+    sum=0
+    fleet.ship_groups.all.each do |f|
+      sum=+sum_tP_group(f)
+    end
+    return sum
+  end
+
   def fight
     @report
     report_start
