@@ -18,6 +18,7 @@
 var counter = 1;
 
 $(document).ready(function () {
+  getJsonData();
  	getTimer();
 });
 
@@ -71,10 +72,18 @@ function timer(time) {
 function getTimer() {
 	setInterval(
 		function(){
-      $.getJSON('/home/get_json_data').done(function(data) {
-        $("#notification-text").html(data.msg);
-      });
+      getJsonData();
 		},
-		1000
+		5000
 	);
+}
+
+function getJsonData() {
+  $.getJSON('/home/get_json_data').done(function(data) {
+    if(parseInt(data.msg) != 0)
+      $("#notification-text").html(data.msg);
+    $("#val-metal").html(data.metal);
+    $("#val-crystal").html(data.crystal);
+    $("#val-fuel").html(data.fuel);
+  });
 }
