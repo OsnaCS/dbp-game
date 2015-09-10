@@ -38,6 +38,7 @@
 
 	<div id="mid">
 		<div id="ranking" class="content">
+			<br>
 			<% if user_signed_in? %>
 			    <%= link_to "Points", ranks_path%>
 				<% if(current_user.rank) %>
@@ -114,7 +115,7 @@
 				</ul>
 			</div>
 			<div id="notification" class="content">
-				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
+				<div id="notification-image"></div>
 				<p id="notification-text">
 					<% if @notification_count != 0 %>
 						<%= @notification_count %>
