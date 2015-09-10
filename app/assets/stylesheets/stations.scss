@@ -7,39 +7,13 @@
 }
 
 #table_stations {
-  //margin: auto;
+  margin: auto;
   position: relative;
-  width: 70%;
+  width: 100%;
   border: 5px;
   border-collapse: collapse;
   table-layout: fixed;
  }
-
-#icon {
- border: 3px solid white;
-  display: table;
-  //margin-bottom: 30px;
-  border-collapse: collapse;
-}
-
-a span{
-	display:none;
-	color:#fff;
-	background: #00317d;
-	padding:5px;
-	border-radius:44px;
-    font-weight: bold;
-	width:300px;
-	position: absolute;
-}
-
-a { display: inline-block;}
-a:hover span{ display:block; }
-#table_1 {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
 
 #ship_t1 {
 	border-collapse: collapse;
