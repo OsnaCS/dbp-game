@@ -36,10 +36,11 @@ class ShipsController < ApplicationController
   def create
     
     @ship = current_user.create_ship(ship_params)
-    current_user.activeShip = @ship.id
+    
 
     respond_to do |format|
       if @ship!=nil
+        current_user.activeShip = @ship.id
         if @ship.save
           format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
           format.json { render :show, status: :created, location: @ship }
@@ -48,7 +49,7 @@ class ShipsController < ApplicationController
           format.json { render json: @ship.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to ships_path, notice: 'Man darf nicht mehr als neun Schiffe besitzen!' }
+        format.html { redirect_to ships_path, notice: 'Kauf nicht erfolgreich!' }
         
       end
     end

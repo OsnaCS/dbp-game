@@ -164,6 +164,7 @@ class User < ActiveRecord::Base
   def login
     @login || self.username || self.email
   end
+
   
   def create_ship(ship_name)
     if self.ship_count == nil
@@ -172,27 +173,18 @@ class User < ActiveRecord::Base
     end
 
     if self.ship_count < 9
-
       self.ship_count+=1
       self.save
-      s = self.ships.build(ship_name)
       if self.ship_count>1
-        pay_for_ship
+        if !has_enough_resources(200000,100000,0)
+          return
+        end  
+        remove_resources_from_current_ship(200000, 100000, 0)
       end
+      s = self.ships.build(ship_name)
       self.user_ships.build(user: self, ship: s)  
     end  
-      return s
-  end
-
-    def pay_for_ship
-    s = Ship.find_by(id: self.activeShip)
-    if s == nil 
-      return
-    end
-    s.metal -= 200000
-    s.cristal -= 100000
-          
-    s.save
+    return s
   end
 
   def select_ship(shipID)
