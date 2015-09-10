@@ -15,7 +15,6 @@ class ShipsController < ApplicationController
   # GET /ships/new
   def new
     @ship = Ship.new
-    current_user.activeShip = @ship.id
   end
 
   # GET /ships/1/edit
@@ -27,6 +26,7 @@ class ShipsController < ApplicationController
   def create
     
     @ship = current_user.create_ship(ship_params)
+    current_user.activeShip = @ship.id
 
     respond_to do |format|
       if @ship!=nil

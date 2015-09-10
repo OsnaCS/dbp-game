@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :ships 
+
   resources :science_instances do
     member do
       get 'research'
@@ -14,7 +16,6 @@ Rails.application.routes.draw do
   resources :sciences
   resources :ranks
   resources :user_icons
-  resources :ships
   resources :ships_stations
   
   resources :trades do
