@@ -703,6 +703,7 @@ DamageType.create({"name"=>"laser", "shell_mult"=>1.5,"shield_mult"=>1,"station_
 DamageType.create({"name"=>"ionen", "shell_mult"=>1,"shield_mult"=>1.5,"station_mult"=>1,"plattform_mult"=>1})
 DamageType.create({"name"=>"bomb", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>10,"plattform_mult"=>1})
 DamageType.create({"name"=>"teleport", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1000})
+DamageType.create({"name"=>"unbewaffnet", "shell_mult"=>0,"shield_mult"=>0,"station_mult"=>0,"plattform_mult"=>0})
 
 message1=Message.find_by code: 3007
 message2=Message.find_by code: 3005
@@ -717,15 +718,32 @@ message10=Message.find_by code: 3004
 message11=Message.find_by code: 3002
 message12=Message.find_by code: 3003
 
-Unit.create({"name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>80, "shell"=>50, "damage"=>2, "damage_type_id"=>1, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>6, "research_requirement_one"=>4, "research_requirement_two"=>4, "message"=> message1})
-Unit.create({"name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "total_cost"=>9, "shell"=>2, "damage"=>0, "damage_type_id"=>nil, "cargo"=>80, "speed"=>4, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>0,"message"=>message2})
-Unit.create({"name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "total_cost"=>36, "shell"=>8, "damage"=>0, "damage_type_id"=>nil, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>8, "message"=>message3})
-Unit.create({"name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "total_cost"=>10, "shell"=>1, "damage"=>0, "damage_type_id"=>nil, "cargo"=>1, "speed"=>128, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>2,"message"=>message4})
-Unit.create({"name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "total_cost"=>4, "shell"=>1, "damage"=>1, "damage_type_id"=>1, "cargo"=>2, "speed"=>8, "shipyard_requirement"=>2, "research_requirement_one"=>2, "research_requirement_two"=>2, "message"=>message5})
-Unit.create({"name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "total_cost"=>40, "shell"=>10, "damage"=>12, "damage_type_id"=>2, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>4, "research_requirement_one"=>4, "research_requirement_two"=>12,"message"=>message6})
-Unit.create({"name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "total_cost"=>100, "shell"=>10, "damage"=>50, "damage_type_id"=>2, "cargo"=>8, "speed"=>4, "shipyard_requirement"=>6, "research_requirement_one"=>6, "research_requirement_two"=>6,"message"=>message7})
-Unit.create({"name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>60, "shell"=>20, "damage"=>10, "damage_type_id"=>3, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>6,"message"=>message8})
-Unit.create({"name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "total_cost"=>400, "shell"=>200, "damage"=>500, "damage_type_id"=>3, "cargo"=>20, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>8,"message"=>message9})
-Unit.create({"name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "total_cost"=>900, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "shipyard_requirement"=>12, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message10})
-Unit.create({"name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "total_cost"=>1200, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message11})
-Unit.create({"name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "total_cost"=>12, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>10,"message"=>message12})
+science1=Science.find(4001)
+science2=Science.find(4002)
+science3=Science.find(4003)
+science4=Science.find(4004)
+science5=Science.find(4005)
+science6=Science.find(4006)
+science7=Science.find(4007)
+science8=Science.find(4008)
+science9=Science.find(4009)
+science10=Science.find(4010)
+
+damage_type1=DamageType.find(1)
+damage_type2=DamageType.find(2)
+damage_type3=DamageType.find(3)
+damage_type4=DamageType.find(4)
+damage_type5=DamageType.find(5)
+
+Unit.create({"name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>80, "shell"=>50, "damage"=>2, "damage_type"=>damage_type1, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>6, "research_requirement_one"=>4, "research_requirement_two"=>4, "message"=> message1, "icon" =>"entities/resource-ship.png", "science_one"=>science4, "science_two"=>science2})
+Unit.create({"name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "total_cost"=>9, "shell"=>2, "damage"=>0, "damage_type"=>damage_type5, "cargo"=>80, "speed"=>4, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>0,"message"=>message2, "icon" =>"entities/transporter-small.png", "science_one"=>science4})
+Unit.create({"name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "total_cost"=>36, "shell"=>8, "damage"=>0, "damage_type"=>damage_type5, "cargo"=>400, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>8, "message"=>message3, "icon" =>"entities/transporter-big.png", "science_one"=>science1, "science_two"=>science4})
+Unit.create({"name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "total_cost"=>10, "shell"=>1, "damage"=>0, "damage_type"=>damage_type5, "cargo"=>1, "speed"=>128, "shipyard_requirement"=>4, "research_requirement_one"=>2, "research_requirement_two"=>2,"message"=>message4, "icon" =>"entities/spy-drone.png", "science_one"=>science1, "science_two"=>science4})
+Unit.create({"name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "total_cost"=>4, "shell"=>1, "damage"=>1, "damage_type"=>damage_type1, "cargo"=>2, "speed"=>8, "shipyard_requirement"=>2, "research_requirement_one"=>2, "research_requirement_two"=>2, "message"=>message5, "icon" =>"entities/hunter.png", "science_one"=>science1, "science_two"=>science2})
+Unit.create({"name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "total_cost"=>40, "shell"=>10, "damage"=>12, "damage_type"=>damage_type2, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>4, "research_requirement_one"=>4, "research_requirement_two"=>12,"message"=>message6, "icon" =>"entities/fregatte.png", "science_one"=>science4, "science_two"=>science2})
+Unit.create({"name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "total_cost"=>100, "shell"=>10, "damage"=>50, "damage_type"=>damage_type2, "cargo"=>8, "speed"=>4, "shipyard_requirement"=>6, "research_requirement_one"=>6, "research_requirement_two"=>6,"message"=>message7, "icon" =>"entities/cruiser.png", "science_one"=>science4, "science_two"=>science5})
+Unit.create({"name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "total_cost"=>60, "shell"=>20, "damage"=>10, "damage_type"=>damage_type3, "cargo"=>5, "speed"=>8, "shipyard_requirement"=>8, "research_requirement_one"=>8, "research_requirement_two"=>6,"message"=>message8, "icon" =>"entities/bomber.png", "science_one"=>science4, "science_two"=>science10})
+Unit.create({"name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "total_cost"=>400, "shell"=>200, "damage"=>500, "damage_type"=>damage_type3, "cargo"=>20, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>8,"message"=>message9, "icon" =>"entities/destroyer.png", "science_one"=>science4, "science_two"=>science10})
+Unit.create({"name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "total_cost"=>900, "shell"=>100, "damage"=>50, "damage_type"=>damage_type4, "cargo"=>100, "speed"=>1, "shipyard_requirement"=>12, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message10, "icon" =>"entities/bomb-teleporter.png", "science_one"=>science4, "science_two"=>science10})
+Unit.create({"name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "total_cost"=>1200, "shell"=>100, "damage"=>20, "damage_type"=>damage_type2, "cargo"=>120, "speed"=>1, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>12,"message"=>message11, "icon" =>"entities/emp-ship.png", "science_one"=>science4, "science_two"=>science5})
+Unit.create({"name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "total_cost"=>12, "shell"=>5, "damage"=>0, "damage_type"=>damage_type5, "cargo"=>2, "speed"=>4, "shipyard_requirement"=>10, "research_requirement_one"=>10, "research_requirement_two"=>10,"message"=>message12, "icon" =>"entities/mobile-shield-generator.png", "science_one"=>science4, "science_two"=>science6})
