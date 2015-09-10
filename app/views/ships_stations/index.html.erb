@@ -23,16 +23,7 @@
          </td>
         <td><%= ships_station.station.name %></td>
         <td><%= ships_station.station.initial_level %></td>
-        <% if availability %>
-          <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
-        <% else %>
-          <% if(inactive) %>
-            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
-          <% else %>
-            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %>
-            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
-          <% end %>
-        <% end %>
+        <td><%= link_to 'Upgrade', ships_station, data: { confirm: 'Link in progress!' } %></td>
       </tr>
     <% end %>
   </tbody>
