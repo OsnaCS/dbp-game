@@ -36,9 +36,9 @@
           <span><%= Message.find_by_code(science.id).mes %></span></a>
         </td>
         <td><%= science.name %></td>
-        <td><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-        <td><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
-        <td><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+        <td><%= metal = science.get_metal_cost(science_instance.level) %></td>
+        <td><%= crystal = science.get_crystal_cost(science_instance.level) %></td>
+        <td><%= fuel = science.get_fuel_cost(science_instance.level) %></td>
 
         <% if(inactive) %>
           <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
@@ -46,7 +46,8 @@
           <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
-        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching %>
+        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching &&
+          current_user.has_enough_resources(metal, crystal, fuel) %>
         <td><%= science_instance.level %>
 
         <% if availability %>
@@ -55,7 +56,8 @@
           <% if(inactive) %>
             <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
           <% else %>
-            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %>
+            <td><a><%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
+                       <span><%= science_instance.get_refund %></span></a>
             <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
           <% end %>
         <% end %>
