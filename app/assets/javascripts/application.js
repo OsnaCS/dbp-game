@@ -19,7 +19,7 @@ var counter = 1;
 
 $(document).ready(function () {
   getJsonData();
- 	getTimer();
+ 	setInterval(getJsonData, 5000);
 });
 
 /**
@@ -67,15 +67,6 @@ function timer(time) {
     window.location.reload();
     window.location.reload();
   }
-}
-
-function getTimer() {
-	setInterval(
-		function(){
-      getJsonData();
-		},
-		5000
-	);
 }
 
 function getJsonData() {
