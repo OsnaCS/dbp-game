@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
   #f:<condition_id>:<level>,*
   def check_condition(conditions)
+    byebug
     condition_split = conditions.split(",")
 
     condition_split.each do |condition|

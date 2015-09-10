@@ -7,6 +7,7 @@ class Ship < ActiveRecord::Base
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
+  after_initialize :init
 
   def is_building()
     facility_instances.each do |instance|
