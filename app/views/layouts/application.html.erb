@@ -118,7 +118,11 @@
 			</div>
 			<div id="notification" class="content">
 				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
-				<p id="notification-text"></p>
+				<p id="notification-text">
+					<% if @notification_count != 0 %>
+						<%= @notification_count %>
+					<% end %>
+				</p>
 			</div>
 		</div>
 		<div id="game" class="content">

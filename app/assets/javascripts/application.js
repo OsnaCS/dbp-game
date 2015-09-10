@@ -71,8 +71,6 @@ function timer(time) {
 function getTimer() {
 	setInterval(
 		function(){
-			document.getElementById("notification-text").innerHTML = "" + counter;
-			counter++;
 		},
 		1000
 	);
