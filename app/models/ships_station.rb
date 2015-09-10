@@ -3,13 +3,13 @@ class ShipsStation < ActiveRecord::Base
   belongs_to :ship
   belongs_to :station
 
-  def get_time_since_research
+  def get_time_since_upgrade
     return (Time.now - self.updated_at).to_i
   end
 
-  def get_research_ratio
+  def get_building_ratio
     duration = self.station.get_duration(self.level).to_f
-    past = self.get_time_since_research.to_f
+    past = self.get_time_since_upgrade.to_f
     return 1.0 - (past/duration).to_f
   end
 
@@ -17,7 +17,7 @@ class ShipsStation < ActiveRecord::Base
     station = self.station
     currentLevel = self.level
 
-    ratio = self.get_research_ratio
+    ratio = self.get_building_ratio
     reMetal = station.get_metal_cost_ratio(currentLevel, ratio)
     reCrystal = station.get_crystal_cost_ratio(currentLevel, ratio)
     reFuel = station.get_fuel_cost_ratio(currentLevel, ratio)
