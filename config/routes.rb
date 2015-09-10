@@ -1,21 +1,4 @@
 Rails.application.routes.draw do
- 
-  resources :units
-
-  resources :damage_types
-
-  resources :ship  
- 
-  resources :ship_groups
-
-  resources :fighting_fleets
-
-  resources :fights
-
-  resources :sciences
-
-  resources :expiditions
-  
   resources :science_instances do
     member do
       get 'research'
@@ -28,6 +11,7 @@ Rails.application.routes.draw do
   resources :notifications
   resources :messages
   resources :stations
+  resources :expiditions
   resources :sciences
   resources :ranks
   resources :user_icons
