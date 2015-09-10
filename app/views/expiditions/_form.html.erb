@@ -29,7 +29,6 @@
          <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
            <td align=left ><%= unit.name %></td>       
            <td><%= Expidition.shipamount(unit.id) %></td>
-           <!--#TODO ID gegen Datenbankabfrage austauschen und Max Werte für die Einheiten hinzufügen-->
            <td><%= number_field_tag(unit.id, 0, min:0, max: Expidition.shipamount(unit.id)) %></td>
          </tr>
 

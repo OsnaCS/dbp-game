@@ -5,6 +5,9 @@ class ExpiditionsController < ApplicationController
   # GET /expiditions
   # GET /expiditions.json
   def index
+    if(current_user.activeShip == nil)
+      redirect_to :controller => 'ships', :action => 'new'
+    end
     @expiditions = Expidition.all
   end
 
@@ -29,9 +32,18 @@ class ExpiditionsController < ApplicationController
     @expidition = Expidition.new(expidition_params)
 
     @expidition.explore_time = params[:exp_time].to_i
-    @expidition.arrival_time = Time.now + @expidition.explore_time.hours
+    @expidition.arrival_time = Time.now + 3600 * (@expidition.explore_time + 2)
+    
+    ships = Hash.new(0)
+    Unit.all.each do |unit|
+      ships[unit.name] = params[unit.id]
+    end
 
-    #TODO Spieler fleet erstellen/losschicken
+    @expidition.create_fleet(ships)
+    if(@expiditon.fighting_fleet.ship_groups.find_by_name("Expeditionsschiff").number < 1)
+      format.html{ render :new}
+      format.json{ render json: @expiditions.errors, status: :unprocessable_entity }
+    end
 
     respond_to do |format|
       if @expidition.save

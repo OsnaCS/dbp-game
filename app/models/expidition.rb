@@ -23,6 +23,13 @@ class Expidition < ActiveRecord::Base
       end
    end
 
+   def create_fleet(ships)
+      fighting_fleet = Fighting_fleet.create(user: current_user)
+      figthing_fleet.ship_group.all.each do |group|
+         group.number = ships[group.unit.name]
+      end
+   end
+
    def self.shipamount(shiptype)
          #Ships.find(current_user.activeShip).#Befehl um stationierte Schiffe abzufragen
          return amount=0
