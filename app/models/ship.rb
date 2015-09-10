@@ -22,7 +22,7 @@ class Ship < ActiveRecord::Base
           #self.fuel=0
         end
         
-	end
+	  end
     
     self.lastChecked = Time.now.getutc
     self.save
