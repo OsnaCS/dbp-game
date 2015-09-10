@@ -3,25 +3,6 @@
 <h1>Schiffe</h1><br/>
 
 <table id="stationsite">
-  <thead>
-    <tr id="table">
-      <th>Name</th>
-      <th> </th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ships.each do |ships| %>
-      <tr>
-        <td><%= ships.name %></td>
-        <td><%= link_to 'Stationen', ship_ships_stations_path(ships) %></td>
-        <td><%= button_to "CheatRes", cheat_ship_path(ships), method: :get %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
 
     <tr id="ship_t1">
       <th>Name</th>
@@ -29,13 +10,13 @@
       <th>Station</th>
     </tr>
 
-
   <tbody>
    <% UserShip.where(:user_id => current_user.id).each do |usership| %>
       <tr id="ship_t1">
         <td id="ship_t2"><%= usership.ship.name %></td>
         <td id="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
         <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+        <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>
 
       </tr>
