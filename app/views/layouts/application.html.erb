@@ -64,7 +64,7 @@
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
         				<% if current_user.activeShip!=nil%>
-				  			<p id="val-metal" class="val-resources"></p>
+				  			<p id="val-metal" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).metal %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -72,7 +72,7 @@
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
         				<% if current_user.activeShip!=nil%>
-				  			<p id="val-crystal" class="val-resources"></p>
+				  			<p id="val-crystal" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).cristal %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %> 
@@ -80,7 +80,7 @@
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
         				<% if current_user.activeShip!=nil %>
-				  			<p id="val-fuel" class="val-resources"></p>
+				  			<p id="val-fuel" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).fuel %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %> 
