@@ -1,0 +1,8 @@
+<h1>Deine Benachrichtigungen</h1>
+
+<% @notes.each_value do |note| %>
+	<%= note[:note_id] %>
+	<%= note[:message] %>
+	<%= note[:timestamp] %>
+	<br>
+<% end %>
