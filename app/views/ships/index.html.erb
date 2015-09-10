@@ -16,6 +16,7 @@
       <tr>
         <td><%= ships.name %></td>
         <td><%= link_to 'Stationen', ship_ships_stations_path(ships) %></td>
+        <td><%= button_to "CheatRes", cheat_ship_path(ships), method: :get %></td>
       </tr>
     <% end %>
   </tbody>

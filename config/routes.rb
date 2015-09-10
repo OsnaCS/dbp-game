@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_ships  
+  resources :user_ships
   resources :notifications
   resources :messages
   resources :stations
@@ -25,17 +25,16 @@ Rails.application.routes.draw do
 
     #nesting resources ships --> ships_stations
   resources :ships do
+    member do
+      get 'cheat'
+    end
     resources :ships_stations
   end
 
   get 'home/index'
   get 'profile/index'
   get 'profile/user'
-  
-
   get 'home/index'
-
-
 
 
   devise_for :users
