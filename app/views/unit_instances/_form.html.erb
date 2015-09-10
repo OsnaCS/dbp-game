@@ -1,0 +1,29 @@
+<%= form_for(@unit_instance) do |f| %>
+  <% if @unit_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@unit_instance.errors.count, "error") %> prohibited this unit_instance from being saved:</h2>
+
+      <ul>
+      <% @unit_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :unit_id %><br>
+    <%= f.number_field :unit_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ship_id %><br>
+    <%= f.number_field :ship_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

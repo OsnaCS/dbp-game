@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910134347) do
+ActiveRecord::Schema.define(version: 20150910141424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,14 @@ ActiveRecord::Schema.define(version: 20150910134347) do
     t.integer  "ressource"
     t.decimal  "value"
     t.datetime "change_at"
+  end
+
+  create_table "unit_instances", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "ship_id"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "units", force: :cascade do |t|
