@@ -573,7 +573,7 @@ Message.create([
 	  code:	3020
 	},
 	{
-	  mes: '???',
+	  mes: 'Muuuh!',
 	  code:	3021
 	},
 	{
@@ -584,6 +584,11 @@ Message.create([
 	  mes: 'Dienen zur Schildverteidigung des Mutterschiffes',
 	  code:	3023
 	},
+	{
+	  mes: '???',
+	  code:	3024
+	},
+
 
 	# Messages for Stations
 	{
