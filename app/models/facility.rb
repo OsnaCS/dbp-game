@@ -1,26 +1,26 @@
 require 'TimeFormatter'
 
 class Facility < ActiveRecord::Base
-  has_many :science_instances, dependent: :destroy
-  has_many :users, :through => :science_instances
+  has_many :facility_instances, dependent: :destroy
+  has_many :users, :through => :facility_instances
   validates_presence_of :cost1, :cost2, :cost3, :duration, :name, :facility_condition_id, :icon
 
   # return -1 if user nil // -2 if id wrong
-  def self.get_facility_level(user, id)
+  def self.get_facility_count(user, id)
     if(user.nil?)
       return -1
     end
-    instance = ScienceInstance.find_by(:user_id => user.id, :facility_id => id)
+    instance = FacilityInstance.find_by(:user_id => user.id, :facility_id => id)
 
     if(instance.nil?)
       return -2
     end
 
-    return instance.level
+    return instance.count
   end
 
   def self.update_time(instance, format)
-    facility = Facility.find_by(id: instance.science_id)
+    facility = Facility.find_by(id: instance.facility_id)
     durationInSeconds = facility.duration # * Anzahl
 
     if(instance.start_time)
@@ -28,7 +28,7 @@ class Facility < ActiveRecord::Base
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
-        instance.level = instance.level + 1
+        instance.count = instance.count # + Anzahl
         instance.start_time = nil
         instance.save
 
