@@ -1,39 +1,69 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Facilities</h1>
+<h1>Anlagen</h1>
 
-<table>
+<table id="table_facilities">
   <thead>
     <tr>
-      <th>Cost1</th>
-      <th>Cost2</th>
-      <th>Cost3</th>
-      <th>Duration</th>
+      <th></th>
       <th>Name</th>
-      <th>Facility condition</th>
-      <th>Icon</th>
-      <th colspan="3"></th>
+      <th>Metall</th>
+      <th>Kristall</th>
+      <th>Treibstoff</th>
+      <th>Dauer</th>
+      <th>Anzahl</th>
+      <th>Status</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @facilities.each do |facility| %>
-      <tr>
-        <td><%= facility.cost1 %></td>
-        <td><%= facility.cost2 %></td>
-        <td><%= facility.cost3 %></td>
-        <td><%= facility.duration %></td>
-        <td><%= facility.name %></td>
-        <td><%= facility.facility_condition_id %></td>
-        <td><%= facility.icon %></td>
-        <td><%= link_to 'Show', facility %></td>
-        <td><%= link_to 'Edit', edit_facility_path(facility) %></td>
-        <td><%= link_to 'Destroy', facility, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
+     <% inactive = nil %>
+     <% if(science_instance.start_time.nil?) %>
+       <tr id="inactive">
+       <% inactive = true %>
+     <% else %>
+       <tr id="active">
+       <% inactive = false %>
+     <% end %>
+
+     <% if(science_instance.id) %>
+       <% science = science_instance.science %>
+        <td>
+          <a>
+            <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", id="icon">
+          <span><%= Message.find_by_code(science.id).mes %></span></a>
+        </td>
+        <td><%= science.name %></td>
+        <td><%= (science.cost1 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+        <td><%= (science.cost2 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+        <td><%= (science.cost3 * 500 * (science_instance.level + 1) * science.factor).to_i %></td>
+
+        <% if(inactive) %>
+          <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
+        <% else %>
+          <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
+          <%= javascript_tag "start_timer()" -%>
+        <% end %>
+        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching %>
+        <td><%= science_instance.level %>
+
+        <% if availability %>
+          <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
+        <% else %>
+          <% if(inactive) %>
+            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
+          <% else %>
+            <td><%= button_to 'Abbrechen', cancle_research_science_instance_path(science_instance), method: :get %>
+            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
+    </tr>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Facility', new_facility_path %>
+<%= link_to 'New Science', new_facility_path %>
+<%= link_to 'LevelCheat', facility_instances_path %>

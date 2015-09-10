@@ -26,13 +26,18 @@
 </p>
 
 <p>
-  <strong>Facility condition:</strong>
+  <strong>Facility Id:</strong>
   <%= @facility.facility_condition_id %>
 </p>
 
 <p>
   <strong>Icon:</strong>
   <%= @facility.icon %>
+</p>
+
+<p>
+  <strong>Conditions:</strong>
+  <%= @facility.condition %>
 </p>
 
 <%= link_to 'Edit', edit_facility_path(@facility) %> |
