@@ -33,16 +33,10 @@ class ExpiditionsController < ApplicationController
 
     @expidition.explore_time = params[:exp_time].to_i
     @expidition.arrival_time = Time.now + 3600 * (@expidition.explore_time + 2)
-    
-    ships = Hash.new(0)
-    Unit.all.each do |unit|
-      ships[unit.name] = params[unit.id]
-    end
 
-    @expidition.create_fleet(ships)
-    if(@expiditon.fighting_fleet.ship_groups.find_by_name("Expeditionsschiff").number < 1)
-      format.html{ render :new}
-      format.json{ render json: @expiditions.errors, status: :unprocessable_entity }
+    if(params[Unit.find_by_name("Expeditionsschiff").id.to_s].to_i < 1)
+      redirect_to expiditions_url, alert: 'Mindestens 1 Expeditionsschiff wird benötigt.'
+      return
     end
 
     respond_to do |format|

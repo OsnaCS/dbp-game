@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @expiditions.each do |exp| %>
+    <% @expiditions.sort_by(&:arrival_time).each do |exp| %>
       <tr>
         <td><%= exp.explore_time %></td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
