@@ -20,7 +20,7 @@ html,body {
 	background: url('ui/background.jpg');
 }
 
-a {
+a, a:visited {
 	color: #FFFF00;
 }
 
@@ -38,7 +38,6 @@ ul li {
 	margin: 30px 0 0 10px;
 }
 
-/** DIV - Settings**/
 #wrapper {
 	position: relative;
 	width: auto;
@@ -155,13 +154,10 @@ ul li {
 
 .tooltip {
 	position: relative;
-	display: inline-block;
+	float: left;
 	width: 40px;
 	height: 40px;
-	margin: 20px 15% 0% 15%;
 	background-size: contain;
-	border: 2px solid #5A5A5A;
-
 }
 
 .tooltip:hover:after {
@@ -183,16 +179,15 @@ ul li {
 	margin-right: auto;
 }
 
-/** Element - Settings **/
 #user_icon {
 	position: relative;
 	width: 40px;
 	height: 40px;
-	background-image: url('ui/default.png');
-	background-size: 100% 100%;
 	margin-left: auto;
 	margin-right: auto;
-	border: 2px solid #5A5A5A;
+	border: 2px solid red;
+	background-color: white;
+	border-radius: 5px;
 }
 
 #user_icon_edit {
@@ -202,11 +197,88 @@ ul li {
 }
 
 #user_icon_profile {
+	background-color: white;
 	position: relative;
 	width: 8%;
 	height: 8%;
+	border-radius: 5px;
+	border: 2px solid red;
 }
 
+.userlabel {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.usertextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userlogintextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: 80%;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userbutton {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userbutton a {
+	color: black;
+}
+
+.submitbutton {
+	font-weight: bold;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+.userbutton:hover {
+	background-color: black;
+}
+
+.userbutton:hover a {
+	color: white !important;
+}
 
 #notification-image {
 	position: absolute;
@@ -232,15 +304,10 @@ ul li {
 	left: 50px;
 }
 
-
 #rank_table {
 	margin-left: auto;
 	margin-right: auto;
 
-}
-
-#res-metal {
-	background-image: url('resources/metal.png');
 }
 
 #error_explanation {
@@ -252,10 +319,22 @@ ul li {
 }
 
 
+#res-table {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#res-metal {
+	background-image: url('resources/metal.png');
+}
+
 #res-crystal {
+	border: 0;
 	background-image: url('resources/crystal.png');
 }
 
 #res-fuel {
+	border: 0;
 	background-image: url('resources/fuel.png');
 }
