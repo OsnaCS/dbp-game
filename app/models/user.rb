@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-<<<<<<< HEAD
 
 #  has_many :fights
   has_many :attacks, :class_name => 'Fight', :foreign_key => "attacker_id", inverse_of: :attacker
