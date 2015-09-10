@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :facility_instances do
     member do
       get 'build'
-      get 'cancel_research'
-      get 'instant_research'
+      get 'cancel_build'
+      get 'instant_build'
     end
   end
 
