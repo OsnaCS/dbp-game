@@ -47,6 +47,98 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def cheat
+    current_user.remove_resources(-10000, -10000, -10000)
+  end
+
+  def get_metal()
+     ship = Ship.find_by(:id => self.activeShip)
+
+    if(ship.nil?)
+      return -1;
+    end
+    return ship.metal
+  end
+
+  def get_crystal()
+     ship = Ship.find_by(:id => self.activeShip)
+
+    if(ship.nil?)
+      return -1;
+    end
+    return ship.cristal
+  end
+
+  def get_fuel()
+     ship = Ship.find_by(:id => self.activeShip)
+
+    if(ship.nil?)
+      return -1;
+    end
+    return ship.fuel
+  end
+
+  def has_enough_metal(metal)
+    ship_metal = self.get_metal
+    if(ship_metal < metal)
+      return false
+    end
+    return true
+  end
+
+  def has_enough_crystal(crystal)
+    ship_crystal = self.get_crystal
+    if(ship_crystal < crystal)
+      return false
+    end
+    return true
+  end
+
+
+  def has_enough_fuel(fuel)
+    ship_fuel = self.get_fuel
+    if(ship_fuel < fuel)
+      return false
+    end
+    return true
+  end
+
+  def has_enough_resources(metal, crystal, fuel)
+    selfMetal = self.has_enough_metal(metal)
+    selfCrystal = self.has_enough_crystal(crystal)
+    selfFuel = self.has_enough_fuel(fuel)
+
+    return selfMetal && selfCrystal && selfFuel
+  end
+
+  def remove_resources(metal, crystal, fuel, ship)
+    ship_metal = ship.metal - metal
+    ship_crystal = ship.cristal - crystal
+    ship_fuel = ship.fuel - fuel
+
+    ship.metal = (ship_metal < 0 ? 0 : ship_metal)
+    ship.cristal = (ship_crystal < 0 ? 0 : ship_crystal)
+    ship.fuel = (ship_fuel < 0 ? 0 : ship_fuel)
+
+    ship.save
+  end
+
+  def remove_resources_from_current_ship(metal, crystal, fuel)
+    self.remove_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+  end
+
+  def add_resources(metal, crystal, fuel, ship)
+    ship.metal = ship.metal + metal
+    ship.cristal = ship.cristal + crystal
+    ship.fuel = ship.fuel + fuel
+
+    ship.save
+  end
+
+  def add_resources_to_current_ship(metal, crystal, fuel)
+    self.add_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+  end
+
   def is_researching()
     science_instances.each do |instance|
       if not(instance.start_time.nil?)

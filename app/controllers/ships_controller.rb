@@ -1,6 +1,16 @@
 class ShipsController < ApplicationController
-  before_action :set_ship, only: [:show, :edit, :update, :destroy]
+  before_action :set_ship, only: [:cheat, :show, :edit, :update, :destroy]
 
+  def cheat
+    @ship.metal = @ship.metal + 10000
+    @ship.cristal = @ship.cristal + 10000
+    @ship.fuel = @ship.fuel + 10000
+
+    @ship.save
+
+    redirect_to ships_url
+  end
+  
   # GET /ships
   # GET /ships.json
   def index
