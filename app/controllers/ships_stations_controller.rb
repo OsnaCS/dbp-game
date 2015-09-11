@@ -5,7 +5,7 @@ class ShipsStationsController < ApplicationController
   # GET /ships_stations.json
   def index
     #Wenn Schiffe existieren
-    @ship = Ship.find(current_user.activeShip)
+    @ship = Ship.find(params[:ship_id])
     @ships_stations = @ship.ships_stations
   end
 
@@ -48,7 +48,7 @@ class ShipsStationsController < ApplicationController
     fuel = @ships_station.station.get_fuel_cost(@ships_station.level)
 
     current_user.remove_resources_from_current_ship(metal, crystal, fuel)
-    redirect_to ships_stations_url
+    redirect_to ship_ships_stations_url(@ships_station.ship)
   end
 
   def cancel_upgrade
@@ -64,7 +64,7 @@ class ShipsStationsController < ApplicationController
 
     @ships_station.start_time = nil
     @ships_station.save
-    redirect_to ships_stations_url
+    redirect_to ship_ships_stations_url(@ships_station.ship)
   end
 
 
@@ -73,7 +73,7 @@ class ShipsStationsController < ApplicationController
     @ships_station.level = @ships_station.level + 1
     @ships_station.start_time = nil
     @ships_station.save
-    redirect_to ships_stations_url
+    redirect_to ship_ships_stations_url(@ships_station.ship)
   end
 
   # PATCH/PUT /ships_stations/1

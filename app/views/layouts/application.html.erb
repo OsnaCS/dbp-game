@@ -75,7 +75,7 @@
 				  			<p id="val-crystal" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).cristal %></p>
 						<% else %>
 				  			<p>0</p>
-						<% end %> 
+						<% end %>
 					</td>
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
@@ -83,7 +83,7 @@
 				  			<p id="val-fuel" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).fuel %></p>
 						<% else %>
 				  			<p>0</p>
-						<% end %> 
+						<% end %>
 					</td>
 				</tr></table>
 			<% end %>
@@ -98,11 +98,11 @@
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
                       <% if current_user.activeShip!=nil %>
-                        <%Ship.find_by(id: current_user.activeShip).update_resources%> 
+                        <%Ship.find_by(id: current_user.activeShip).update_resources%>
                       <% end %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
-						<li><%= link_to "Stationen", ship_ships_stations_path(UserShip.where(:user_id => current_user.id))%></li>
+						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
                   <li><%= link_to "Expeditionen", expeditions_path %></li>
 						<li><%= link_to "Anlagen", root_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
