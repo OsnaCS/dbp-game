@@ -19,7 +19,7 @@ var counter = 1;
 
 $(document).ready(function () {
   getJsonData();
- 	getTimer();
+ 	setInterval(getJsonData, 5000);
 });
 
 /**
@@ -69,19 +69,17 @@ function timer(time) {
   }
 }
 
-function getTimer() {
-	setInterval(
-		function(){
-      getJsonData();
-		},
-		5000
-	);
-}
-
 function getJsonData() {
   $.getJSON('/home/get_json_data').done(function(data) {
-    if(parseInt(data.msg) != 0)
+
+    if(parseInt(data.msg) != 0) {
       $("#notification-text").html(data.msg);
+      $('#notification-text').css({visibility: 'visible'});
+    }
+    else {
+      $('#notification-text').css({visibility: 'hidden'});
+    }
+
     $("#val-metal").html(data.metal);
     $("#val-crystal").html(data.crystal);
     $("#val-fuel").html(data.fuel);
