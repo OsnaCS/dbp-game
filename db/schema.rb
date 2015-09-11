@@ -74,9 +74,10 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.integer  "science_id"
     t.integer  "user_id"
     t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.time     "start_time"
+    t.integer  "research_ship"
   end
 
   create_table "sciences", force: :cascade do |t|
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.integer  "tier"
     t.integer  "science_condition_id"
     t.string   "icon"
+    t.integer  "level_cap"
   end
 
   create_table "ship_groups", force: :cascade do |t|
@@ -203,8 +205,8 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "right_level",            default: 0,  null: false
     t.integer  "activeShip"
+    t.integer  "right_level",            default: 0,  null: false
     t.integer  "ship_count"
   end
 

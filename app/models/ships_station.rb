@@ -66,4 +66,38 @@ class ShipsStation < ActiveRecord::Base
     end
   	return back.html_safe
   end
+
+  def update_time(format)
+    station = Station.find_by(id: self.station_id)
+    durationInSeconds = station.get_duration(self.level)
+
+    if(self.start_time)
+      timeSinceUpgrade = self.get_time_since_upgrade
+      restTime = durationInSeconds - timeSinceUpgrade
+
+      if(restTime <= 0)
+        self.level = self.level + 1
+        self.start_time = nil
+        self.save
+
+        if not(format)
+          return durationInSeconds;
+        else
+          return format_count_time(durationInSeconds)
+        end
+      else
+        if not(format)
+          return restTime;
+        else
+          return format_count_time(restTime)
+        end
+      end
+    else
+      if not(format)
+        return durationInSeconds;
+      else
+        return format_count_time(durationInSeconds)
+      end
+    end
+  end
 end
