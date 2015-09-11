@@ -380,52 +380,52 @@ Message.create([
 	# Messages for Science
 	{
 	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
-	  :fullmes 'Strukturierungen verstärkt. Hülle jeder Einheit um 10% verbessert',
+	  :fullmes 'Eure Strukturierungen wurden verstärkt. Die Hülle jeder Einheit wurde um 10% verbessert.',
 	  code: 4001
 	},
 	{
 	  mes: 'Verbessert zusätzlich den Schaden der Laserwaffen um 10% pro Level, 50% effektiver gegen Hüllen',
-	  :fullmes 'Schaden der Laserwaffen um 10% erhöht. Effektivität gegen Hüllen um 50% gestiegen.',
+	  :fullmes 'Der Schaden durch Laserwaffen wurde um 10% erhöht. Die Effektivität gegen Hüllen ist um 50% gestiegen.',
       code: 4002
 	},
 	{
 	  mes: 'Verbessert erfolgreiche Spionage(-abwehr), Zusatzinformationen ab Level: 8,16',
-	  :fullmes 'Die Chance für eine erfolgreiche Spionage(-abwehr) ist gestiegen',
+	  :fullmes 'Die Chance für eine erfolgreiche Spionage(-abwehr) ist gestiegen.',
 	  code: 4003
 	},
 	{
 	  mes: 'Verringert die Reisekosten',
-	  :fullmes 'Reisekosten wurden gesenkt',
+	  :fullmes 'Eure Reisekosten wurden gesenkt.',
 	  code: 4004
 	},
 	{
 	  mes: 'Verbessert den Schaden der Ionenkanonen um 10% pro Level, Ionen machen 50% mehr Schaden an Schilden',
-	  :fullmes 'Schaden der Ionenkanonen um 10% erhöht. Ionen machen 50% mehr Schaden an Schilden',
+	  :fullmes 'Der Schaden durch Ionenkanonen wurde um 10% erhöht. Ionen richten nun 50% mehr Schaden an Schilden an.',
 	  code: 4005
 	},
 	{
 	  mes: 'Verbessert Schildgeneratoren um 10% pro Level',
-	  :fullmes 'Schildgeneratoren um 10% verbessert',
+	  :fullmes 'Eure Schildgeneratoren wurden um 10% verbessert.',
 	  code: 4006
 	},
 	{
 	  mes: 'Verringert die Missrate der Piloten',
-	  :fullmes 'Missrate der Piloten verringert',
+	  :fullmes 'Die Missrate Eurer Piloten ist verringert worden.',
 	  code: 4007
 	},
 	{
 	  mes: 'Ermöglicht die Forschungzusammenarbeit mehrerer Mutterschiffe',
-	  :fullmes 'Forschungzusammenarbeit mehrerer Mutterschiffe ist nun möglich',
+	  :fullmes 'Die Forschungzusammenarbeit mehrerer Mutterschiffe ist nun möglich.',
 	  code: 4008
 	},
 	{
 	  mes: 'Gestattet ein zusätzliches Mutterschiff je Level',
-	  :fullmes 'Flottenkapazität erhöht',
+	  :fullmes 'Eure Flottenkapazität wurde erhöht.',
 	  code: 4009
 	},
 	{
 	  mes: 'Verbessert Kinetikwaffen um 10% pro Level, ausgeglichener Schaden',
-	  :fullmes 'Kinetikwaffen um 10% verstärkt',
+	  :fullmes 'Eure Kinetikwaffen sind um 10% verstärkt worden.',
 	  code: 4010
 	},
 
@@ -526,123 +526,134 @@ Message.create([
 	# Messages for Stations
 	{
 	  mes: 'Dient zur kontinuierlichen Metallgewinnung',
-	  :fullmes 'Metallgewinnung erhöht',
+	  :fullmes 'Eure Metallgewinnung wurde erhöht.',
 	  code: 2001
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Kristallgewinnung',
-	  :fullmes 'Kristallgewinnung erhöht',
+	  :fullmes 'Eure Kristallgewinnung wurde erhöht.',
 	  code: 2002
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Treibstoffgewinnung',
-	  :fullmes 'Treibstoffgewinnung erhöht',
+	  :fullmes 'Eure Treibstoffgewinnung wurde erhöht.',
 	  code: 2003
 	},
 	{
 	  mes: 'Dient zur Erforschung neuer Technologien',
-	  :fullmes 'Neue Technologien können erforscht werden',
+	  :fullmes 'Neue Technologien können nun erforscht werden.',
 	  code: 2004
 	},
 	{
 	  mes: 'Baut Gebäude',
-	  :fullmes '',
+	  :fullmes 'Die Bauzeit Eurer Stationen wurde verringert.',
 	  code: 2005
 	},
 	{
 	  mes: 'Baut defensive und offensive Einheiten',
+	  :fullmes 'Eure Einheiten können nun schneller erzeugt werden.',
 	  code: 2006
 	},
 	{
 	  mes: 'Erweitert die Grundfläche des Mutterschiffes',
+	  :fullmes 'Die Grundfläche Eures Mutterschiffes wurde vergrößert.',
 	  code: 2007
 	},
 	{
 	  mes: 'Lagert Metall',
+	  :fullmes 'Die Kapazität Eures Metalllagers wurde erhöht.',
 	  code: 2008
 	},
 	{
-	  mes: 'Lagert Kristal',
+	  mes: 'Lagert Kristall',
+	  :fullmes 'Die Kapazität Eures Kristalllagers wurde erhöht.',
 	  code: 2009
 	},
 	{
 	  mes: 'Lagert Treibstoff',
+	  :fullmes 'Die Kapazität Eures Treibstofflagers wurde erhöht.',
 	  code: 2010
 	},
 	{
 	  mes: 'Sicheres Metalllager',
+	  :fullmes 'Ihr Metalltresor hat nun eine höhere Kapazität.',
 	  code: 2011
 	},
 	{
 	  mes: 'Sicheres Kristalllager',
+	  :fullmes 'Ihr Kristalltresor hat nun eine höhere Kapazität.',
 	  code: 2012
 	},
 	{
 	  mes: 'Sicheres Treibstofflager',
+	  :fullmes 'Ihr Treibstofftresor hat nun eine höhere Kapazität.',
 	  code: 2013
 	},
 	{
 	  mes: 'Erzeugt Energie',
+	  :fullmes 'Ihr erzeugt nun mehr Energie.',
 	  code: 2014
 	},
 	{
 	  mes: 'Verbraucht Treibstoff zur Energiegewinnung',
+	  :fullmes 'Eure Energiegewinnung ist gestiegen.',
 	  code: 2015
 	},
 	{
 	  mes: 'Repariert defensive Einheiten',
+	  :fullmes 'Die Reparaturzeit Eurer Einheiten wurde verringert.',
 	  code: 2016
 	},
 
 	# Messages for Event: nothing
 	{
-	  mes: 'Deine Einheiten haben nur die Weite des Weltraumes gesehen und kamen zurück.',
+	  mes: 'Eure Einheiten haben nur die Weite des Weltraumes gesehen und kamen zurück.',
 	  code: 5001
 	},
 	{
-	  mes: 'Deine Einheiten haben ein Dokument gefunden,
+	  mes: 'Eure Einheiten haben ein Dokument gefunden,
 	  	    allerdings ist es mit Milch durchweicht wodurch es unleserlich wurde.',
 	  code: 5002
 	},
 	{
-	  mes: 'Deine Einheiten haben einen kleinen Stop bei SpaceBurger gemacht und kamen gesättigt zurück.',
+	  mes: 'Eure Einheiten haben einen kleinen Stop bei SpaceBurger gemacht und kamen gesättigt zurück.',
 	  code: 5003
 	},
 	{
-	  mes: 'Deine Einheiten bewunderten einige exotische Planeten.',
+	  mes: 'Eure Einheiten bewunderten einige exotische Planeten.',
 	  code: 5004
 	},
 	{
-	  mes: 'Deine Einheiten haben einige friedliche Schiffe entdeckt und kamen unversehrt zurück.',
+	  mes: 'Eure Einheiten haben einige friedliche Schiffe entdeckt und kamen unversehrt zurück.',
 	  code: 5005
 	},
 	{
-	  mes: 'Deine Einheiten haben einen Kaffe getrunken im Restaurant am Ende des Universiums.',
+	  mes: 'Eure Einheiten haben einen Kaffe getrunken im Restaurant am Ende des Universiums.',
 	  code: 5006
 	},
 
 	# Messages for Event: combat
 	{
-	  mes: 'Auf seiner Reise fiel deine Expedition in die Hände berüchtigter Weltraumpiraten.',
+	  mes: 'Auf seiner Reise fiel Eure Expedition in die Hände berüchtigter Weltraumpiraten.',
 	  code: 5101
 	},
 	{
-	  mes: 'Deine Einheiten landeten auf ihrer Reise im Orbit eines unbekannten Planeten,
+	  mes: 'Eure Einheiten landeten auf ihrer Reise im Orbit eines unbekannten Planeten,
 	        auf dem sie Eingeborene trafen. Aufgrund eines kulturellen Missverständnisses
 	        kam es zu einer Schlacht zwischen den Parteien.',
 	  code: 5102
 	},
 	{
-	  mes: 'Deine Einheiten trafen auf ein Volk, dass aufgrund eines traumatischen Erlebnisses darüber erzürnt war,
+	  mes: 'Eure Einheiten trafen auf ein Volk, dass aufgrund eines traumatischen Erlebnisses darüber erzürnt war,
 	        dass die Crew Milch bei sich hatte. Es kam zur Schlacht.',
 	  code: 5103
 	},
 	{
-	  mes: 'Deine Einheiten trafen auf eine Crew eines verfeindeten Mutterschiffes. Es kam zur Auseinandersetzung.',
+	  mes: 'Eure Einheiten trafen auf eine Crew eines verfeindeten Mutterschiffes. Es kam zur Auseinandersetzung.',
 	  code: 5104
 	},
 	{
-	  mes: 'Deine Einheiten kamen in eine intergalaktische Bar und haben sich unfreiwillig mit einer
+	  mes: 'Eure Einheiten kamen in eine intergalaktische Bar und haben sich unfreiwillig mit einer
 	        Weltraum-Motorrad-Gang angelegt.',
 	  code: 5105
 	},
@@ -653,46 +664,46 @@ Message.create([
 
 	# Messages for Event: destruction
 	{
-	  mes: 'Keine deiner Einheiten kamen zurück, es wurden lediglich Trümmer gefunden.',
+	  mes: 'Keine Eurer Einheiten kamen zurück, es wurden lediglich Trümmer gefunden.',
 	  code: 5201
 	},
 	{
-	  mes: 'Deine Einheiten haben einen katastrophalen Unfall gehabt ... vielleicht Wildwechsel?',
+	  mes: 'Eure Einheiten haben einen katastrophalen Unfall gehabt ... vielleicht Wildwechsel?',
 	  code: 5202
 	},
 	{
-	  mes: 'Deine Einheiten haben einen Verkehrsunfall gehabt. Ihnen wurde die Vorfahrt genommen ...
+	  mes: 'Eure Einheiten haben einen Verkehrsunfall gehabt. Ihnen wurde die Vorfahrt genommen ...
 	        wobei jeder weiß, dass man Vorfahrt hat, wenn man nett lächelt und winkt.',
 	  code: 5203
 	},
 	{
-	  mes: 'Deine Einheiten haben bekanntschaft mit einem Asteroiden gemacht ... von nahem.',
+	  mes: 'Eure Einheiten haben bekanntschaft mit einem Asteroiden gemacht ... von nahem.',
 	  code: 5204
 	},
 	{
-	  mes: 'Deine Einheiten wurden von einem SpaceShark gefressen,
+	  mes: 'Eure Einheiten wurden von einem SpaceShark gefressen,
 	        leider hört man im luftleeren Raum das JawsTheme nicht.',
 	  code: 5205
 	},
 	{
-	  mes: 'Deine Einheiten wurden ausgebeutet und ohne Treibstoff zurück gelassen ...
+	  mes: 'Eure Einheiten wurden ausgebeutet und ohne Treibstoff zurück gelassen ...
 	        dabei hatten diese nichtmal eine Freibeuterlizenz dabei.',
 	  code: 5206
 	},
 	{
-	  mes: 'Deine Einheiten flogen in ein schwarzes Loch.',
+	  mes: 'Eure Einheiten flogen in ein schwarzes Loch.',
 	  code: 5207
 	},
 	{
-	  mes: 'Es gibt keine Informationen über deine Einheiten.',
+	  mes: 'Es gibt keine Informationen über Eure Einheiten.',
 	  code: 5208
 	},
 	{
-	  mes: 'Deine Einheiten verloren ihr Leben bei einem Trip per Anhalter durch die Galaxis.',
+	  mes: 'Eure Einheiten verloren ihr Leben bei einem Trip per Anhalter durch die Galaxis.',
 	  code: 5209
 	},
 	{
-	  mes: 'Deine Einheiten kamen ums Leben, du hast Ihnen kein Handtuch mitgegeben.',
+	  mes: 'Eure Einheiten kamen ums Leben, du hast Ihnen kein Handtuch mitgegeben.',
 	  code: 5210
 	},
 	{
@@ -702,63 +713,63 @@ Message.create([
 
 	# Messages for Event: salvage
 	{
-	  mes: 'Deine Einheiten fanden eine verlassene Zivilisation. Sie nahmen Schiffe und goldene Tierstatuen mit.',
+	  mes: 'Eure Einheiten fanden eine verlassene Zivilisation. Sie nahmen Schiffe und goldene Tierstatuen mit.',
 	  code: 5301
 	},
 	{
-	  mes: 'Deine Einheiten nahmen an einer intergalaktischen Auktion teil und haben ein paar Schiffe ersteigert.
+	  mes: 'Eure Einheiten nahmen an einer intergalaktischen Auktion teil und haben ein paar Schiffe ersteigert.
 	        Zum Glück waren Steine die örtliche Währung.',
 	  code: 5302
 	},
 	{
-	  mes: 'Deine Einheiten fanden ein verlassenes Mutterschiff. Sie nahmen die brauchbaren Schiffe mit.',
+	  mes: 'Eure Einheiten fanden ein verlassenes Mutterschiff. Sie nahmen die brauchbaren Schiffe mit.',
 	  code: 5303
 	},
 	{
-	  mes: 'Deine Einheiten schlossen sich einem Krieg gegen einen Imperator an und gewannen.
+	  mes: 'Eure Einheiten schlossen sich einem Krieg gegen einen Imperator an und gewannen.
 	        Aus Dankbarkeit erhielten sie Schiffe.',
 	  code: 5304
 	},
 	{
-	  mes: 'Deine Einheiten fanden ein verlassenes Schiffslager und plünderten es.',
+	  mes: 'Eure Einheiten fanden ein verlassenes Schiffslager und plünderten es.',
 	  code: 5305
 	},
 	{
-	  mes: 'Deine Einheiten haben aus Langeweile aus den geborgenen Ressourcen neue Schiffe erbaut.',
+	  mes: 'Eure Einheiten haben aus Langeweile aus den geborgenen Ressourcen neue Schiffe erbaut.',
 	  code: 5306
 	},
 	{
-	  mes: 'Deine Truppen haben ihren Unwahrscheinlichkeitsdrive benutzt. Sie kamen in der Nähe eines Planeten aus,
+	  mes: 'Eure Truppen haben ihren Unwahrscheinlichkeitsdrive benutzt. Sie kamen in der Nähe eines Planeten aus,
 	        welcher sich urplötzlich in unbesetzte Schiffe umwandelte.',
 	  code: 5307
 	},
 
 	# Messages for Event: ressources
 	{
-	  mes: 'Deine Einheiten durchkämmten die Wüste (mit einem Kamm) und fanden dabei einige lohnende Ressourcen.',
+	  mes: 'Eure Einheiten durchkämmten die Wüste (mit einem Kamm) und fanden dabei einige lohnende Ressourcen.',
 	  code: 5401
 	},
 	{
-	  mes: 'Deine Einheiten fanden einen unbewohnten Planten mit vielen Ressourcen.',
+	  mes: 'Eure Einheiten fanden einen unbewohnten Planten mit vielen Ressourcen.',
 	  code: 5402
 	},
 	{
-	  mes: 'Deine Einheiten flogen mit Gold los, um neue Güter zu ertauschen, und erhielten zuerst Pferde,
+	  mes: 'Eure Einheiten flogen mit Gold los, um neue Güter zu ertauschen, und erhielten zuerst Pferde,
 	        welche sie dann weiter eintauschten, Schweine erhielten sie aber nicht.',
 	  code: 5403
 	},
 	{
-	  mes: 'Deine Einheiten kamen an einem intergalaktischen Kirmes vorbei und gewannen bei dem Spiel
+	  mes: 'Eure Einheiten kamen an einem intergalaktischen Kirmes vorbei und gewannen bei dem Spiel
 	        "Wirf die Ringe um den Saturn einige wertvolle Ressourcen."',
 	  code: 5404
 	},
 	{
-	  mes: 'Deine Einheiten trafen auf ein Transportschiff und beuteten dieses aus ...
+	  mes: 'Eure Einheiten trafen auf ein Transportschiff und beuteten dieses aus ...
 	        sie fühlten sich dabei schlecht, da sie ihre Freibeuterlizenz nicht dabei hatten.',
 	  code: 5405
 	},
 	{
-	  mes: 'Deine Einheiten haben einen seltsamen großen Würfel gefunden, der plötzlich klein wurde.
+	  mes: 'Eure Einheiten haben einen seltsamen großen Würfel gefunden, der plötzlich klein wurde.
 	        Sie nahmen diesen Würfel und verkauften ihn an eine mechanoide Rasse.',
 	  code: 5406
 	}
