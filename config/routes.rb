@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'instant_build'
     end
   end
+  get 'notification_view/index'
 
   resources :units
   resources :damage_types
