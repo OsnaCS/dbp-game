@@ -34,8 +34,6 @@ class User < ActiveRecord::Base
         if not (instance.level >= condition_elements[2].to_i)
           return false
         end
-      else
-        return false
       end
     end
     return true

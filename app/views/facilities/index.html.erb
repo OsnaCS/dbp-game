@@ -32,7 +32,7 @@
 
      <% if(facility_instance.id) %>
         <% facility = facility_instance.facility %>
-        <% hidden = facility.is_hidden %>
+        <% hidden = facility_instance.is_hidden %>
         <% if hidden %>
           <td>
             <a>
@@ -60,15 +60,17 @@
           <td id = "running"><%= Facility.update_time(facility_instance, false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
-        <% availability = current_user.check_condition(facility.condition) && !current_user.ships.find(current_user.activeShip).is_building %>
+        <% availability =  facility_instance.check_conditions && !current_user.ships.find(current_user.activeShip).building_capped %>
         <td><%= facility_instance.count %>
 
         <% if availability %>
           <td>
+          <a>
           <%= form_tag build_facility_instance_path(facility_instance), method: 'get' do %>
-            <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0) %>
+            <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0, max: facility_instance.get_buy_amount()) %>
             <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
           <% end %>
+          <span><%= 'Maximale Bauanzahl: ' + facility_instance.get_buy_amount().to_s.html_safe %></span></a>
           </td>
         <% else %>
           <% if(inactive) %>

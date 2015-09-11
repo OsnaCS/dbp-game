@@ -1,5 +1,5 @@
 class FacilityInstancesController < ApplicationController
-  before_action :set_facility_instance, only: [:show, :edit, :update, :destroy, :build, :cancel_build, :instant_build]
+  before_action :set_facility_instance, only: [:show, :edit, :update, :destroy, :build, :cancel_build, :instant_build, :check_conditions]
   before_action :authenticate_user!
 
   # GET /facility_instances

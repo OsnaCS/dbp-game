@@ -67,6 +67,7 @@ function timer(time) {
     window.location.reload();
   }
 }
+}
 
 function getTimer() {
 	setInterval(

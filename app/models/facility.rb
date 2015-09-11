@@ -5,11 +5,6 @@ class Facility < ActiveRecord::Base
   has_many :ships, :through => :facility_instances
   validates_presence_of :cost1, :cost2, :cost3, :duration, :name, :facility_condition_id, :icon
 
-  def is_hidden
-
-    return true
-  end
-
   # return -1 if user nil // -2 if id wrong
   def self.get_facility_count(user, id)
     if(user.nil?)
