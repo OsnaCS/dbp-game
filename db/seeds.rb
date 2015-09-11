@@ -147,7 +147,6 @@ Science.create([
 		level_cap: nil
 	}])
 
-
 #Creator for table Trades
 Trade.create([
 	{
