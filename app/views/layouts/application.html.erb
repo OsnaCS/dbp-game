@@ -115,17 +115,24 @@
 				</ul>
 			</div>
 			<div id="notification" class="content">
-				<div id="notification-image"></div>
-				<p id="notification-text">
-					<% if @notification_count != 0 %>
-						<%= @notification_count %>
-					<% end %>
-				</p>
+				<% if user_signed_in? %>
+					<div id="notification-image"></div>
+					<p id="notification-text">
+						<% if @notification_count != 0 %>
+							<%= @notification_count %>
+						<% end %>
+					</p>
+				<% else %>
+					<p>Not logged in</p>
+				<% end %>
 			</div>
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
 		</div>
+	</div>
+	<div id="footer">
+		<p>Universität Osnabrück &copy; 2015</p>
 	</div>
 </div>
 </body>
