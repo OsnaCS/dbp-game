@@ -57,8 +57,9 @@
         <% if(inactive) %>
           <td id = "not_running"><%= Facility.update_time(facility_instance, true).to_s %></td>
         <% else %>
-          <td id = "running"><%= Facility.update_time(facility_instance, false).to_s %></td>
-          <%= javascript_tag "start_timer()" -%>
+          <td class="running"
+              data-id="<%= facility_instance.facility_id %>"
+              data-time="<%= Facility.update_time(facility_instance, false).to_s %>"></td>
         <% end %>
         <% availability =  facility_instance.check_conditions && !current_user.ships.find(current_user.activeShip).building_capped %>
         <td><%= facility_instance.count %>
@@ -88,3 +89,5 @@
 <br>
 <%= link_to 'New Facility', new_facility_path %>
 <%= link_to 'LevelCheat', facility_instances_path %>
+
+<%= javascript_tag "start_timer()" -%>

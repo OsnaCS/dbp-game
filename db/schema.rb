@@ -16,6 +16,16 @@ ActiveRecord::Schema.define(version: 20150910132641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "damage_types", force: :cascade do |t|
+    t.string   "name"
+    t.float    "shell_mult"
+    t.float    "shield_mult"
+    t.float    "station_mult"
+    t.float    "plattform_mult"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "facilities", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
@@ -37,16 +47,6 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.time     "start_time"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-
-  create_table "damage_types", force: :cascade do |t|
-    t.string   "name"
-    t.float    "shell_mult"
-    t.float    "shield_mult"
-    t.float    "station_mult"
-    t.float    "plattform_mult"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
   end
 
   create_table "fighting_fleets", force: :cascade do |t|
