@@ -42,7 +42,7 @@
 			<% if user_signed_in? %>
 			    <%= link_to "Points", ranks_path%>
 				<% if(current_user.rank) %>
-				  <p><%= current_user.rank.score %></p>
+				  <p id="points"><%= current_user.rank.score %></p>
 				<% end %>
 			<% else %>
 				<p>Not logged in</p>
@@ -108,7 +108,7 @@
 						<li><%= link_to "Handel", trades_path %></li>
 						<li><%= link_to "Kampf",fighting_fleets_path %></li>
 						<li><%= link_to "Rangliste", ranks_path %></li>
-						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
+						<li><%= link_to "Settings", edit_user_registration_path %></li>
 					<% else %>
 						<li><%= link_to "Registrieren", new_user_registration_path %></li>
 					<% end %>
