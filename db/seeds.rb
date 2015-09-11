@@ -5,6 +5,130 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Facility.create([
+	{
+		id: 3013,
+		cost1: 0,
+		cost2: 2,
+		cost3: 1,
+		duration: 120 * 8,
+		condition: 'g:6:2,f:1:2',
+		name: 'Solarpanel',
+		facility_condition_id: 13,
+		icon: 'solar.png'
+	},
+	{
+		id: 3014,
+		cost1: 2,
+		cost2: 0,
+		cost3: 0,
+		duration: 120 * 2,
+		condition: 'g:6:2',
+		name: 'Raketenturm',
+		facility_condition_id: 14,
+		icon: 'rocket.png'
+	},
+	{
+		id: 3015,
+		cost1: 3,
+		cost2: 1,
+		cost3: 0,
+		duration: 120 * 5,
+		condition: 'g:6:4,f:2:4',
+		name: 'Kleines Lasergeschütz',
+		facility_condition_id: 15,
+		icon: 'laser_small.png'
+	},
+	{
+		id: 3016,
+		cost1: 12,
+		cost2: 4,
+		cost3: 0,
+		duration: 120 * 20,
+		condition: 'g:6:8,f:2:8',
+		name: 'Großes Lasergeschütz',
+		facility_condition_id: 16,
+		icon: 'laser_big.png'
+	},
+	{
+		id: 3017,
+		cost1: 2,
+		cost2: 3,
+		cost3: 0,
+		duration: 120 * 8,
+		condition: 'g:6:6,f:5:4',
+		name: 'Kleiner Ionenbeschleuniger',
+		facility_condition_id: 17,
+		icon: 'ion_small.png'
+	},
+	{
+		id: 3018,
+		cost1: 8,
+		cost2: 12,
+		cost3: 0,
+		duration: 120 * 32,
+		condition: 'g:6:8,f:5:8',
+		name: 'Großer Ionenbeschleuniger',
+		facility_condition_id: 18,
+		icon: 'ion_big.png'
+	},
+	{
+		id: 3019,
+		cost1: 80,
+		cost2: 20,
+		cost3: 0,
+		duration: 120 * 120,
+		condition: 'g:6:10,f:8:4',
+		name: 'Massenbeschleuniger',
+		facility_condition_id: 19,
+		icon: 'mac.png'
+	},
+	{
+		id: 3020,
+		cost1: 1000,
+		cost2: 0,
+		cost3: 200,
+		duration: 120 * 1800,
+		condition: 'g:6:12,f:8:10',
+		name: 'Orbitale Waffenplattform',
+		facility_condition_id: 20,
+		icon: 'orbital.png'
+	},
+	{
+		id: 3021,
+		cost1: 0,
+		cost2: 500,
+		cost3: 1000,
+		duration: 120 * 5000,
+		condition: 'g:6:16,f:9:6,f:10:8',
+		name: 'Kuhtapult',
+		facility_condition_id: 21,
+		icon: 'udder.png'
+	},
+	{
+		id: 3022,
+		cost1: 50,
+		cost2: 100,
+		cost3: 0,
+		duration: 120 * 250,
+		condition: 'g:6:6,f:6:2',
+		name: 'Kleiner Schild',
+		facility_condition_id: 22,
+		icon: 'shield_small.png'
+	},
+	{
+		id: 3023,
+		cost1: 200,
+		cost2: 400,
+		cost3: 0,
+		duration: 120 * 1000,
+		condition: 'g:6:8,f:6:6',
+		name: 'Großer Schild',
+		facility_condition_id: 23,
+		icon: 'shield_big.png'
+	}])
+
 Science.create([
 	{
 		id: 4001,
@@ -500,7 +624,7 @@ Message.create([
 	  code:	3020
 	},
 	{
-	  mes: '???',
+	  mes: 'Muuuh!',
 	  code:	3021
 	},
 	{
@@ -511,6 +635,11 @@ Message.create([
 	  mes: 'Dienen zur Schildverteidigung des Mutterschiffes',
 	  code:	3023
 	},
+	{
+	  mes: '???',
+	  code:	3024
+	},
+
 
 	# Messages for Stations
 	{
