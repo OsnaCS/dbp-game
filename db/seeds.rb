@@ -17,7 +17,8 @@ Science.create([
 		name: 'Hülle',
 		tier: 1,
 		science_condition_id: 1,
-		icon: 'huelle.png'
+		icon: 'huelle.png',
+		level_cap: -1
 	},
 	{
 		id: 4002,
@@ -30,7 +31,8 @@ Science.create([
 		name: 'Laser',
 		tier: 1,
 		science_condition_id: 2,
-		icon: 'laser.png'
+		icon: 'laser.png',
+		level_cap: -1
 	},
 	{
 		id: 4003,
@@ -43,7 +45,8 @@ Science.create([
 		name: 'Spionage',
 		tier: 1,
 		science_condition_id: 3,
-		icon: 'spionage.png'
+		icon: 'spionage.png',
+		level_cap: -1
 	},
 	{
 		id: 4004,
@@ -56,7 +59,8 @@ Science.create([
 		name: 'Triebwerke',
 		tier: 2,
 		science_condition_id: 4,
-		icon: 'triebwerke.png'
+		icon: 'triebwerke.png',
+		level_cap: -1
 	},
 	{
 		id: 4005,
@@ -69,7 +73,8 @@ Science.create([
 		name: 'Ionen',
 		tier: 2,
 		science_condition_id: 5,
-		icon: 'ionen.png'
+		icon: 'ionen.png',
+		level_cap: -1
 	},
 	{
 		id: 4006,
@@ -82,7 +87,8 @@ Science.create([
 		name: 'Schild',
 		tier: 2,
 		science_condition_id: 6,
-		icon: 'schilde.png'
+		icon: 'schilde.png',
+		level_cap: -1
 	},
 	{
 		id: 4007,
@@ -95,7 +101,8 @@ Science.create([
 		name: 'Pilotentraining',
 		tier: 3,
 		science_condition_id: 7,
-		icon: 'pilotentraining.png'
+		icon: 'pilotentraining.png',
+		level_cap: 20
 	},
 	{
 		id: 4008,
@@ -108,7 +115,8 @@ Science.create([
 		name: 'Netzwerk',
 		tier: 4,
 		science_condition_id: 10,
-		icon: 'netzwerk.png'
+		icon: 'netzwerk.png',
+		level_cap: 8
 	},
 	{
 		id: 4009,
@@ -121,7 +129,8 @@ Science.create([
 		name: 'Pioniersausbildung',
 		tier: 4,
 		science_condition_id: 9,
-		icon: 'pioniersausbildung.png'
+		icon: 'pioniersausbildung.png',
+		level_cap: 6
 	},
 	{
 		id: 4010,
@@ -134,7 +143,8 @@ Science.create([
 		name: 'Kinetik',
 		tier: 3,
 		science_condition_id: 8,
-		icon: 'kinetik.png'
+		icon: 'kinetik.png',
+		level_cap: -1
 	}])
 
 
