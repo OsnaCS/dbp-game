@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :build_lists
+
   resources :facility_instances do
     member do
       get 'build'

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Build Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @build_lists.each do |build_list| %>
+      <tr>
+        <td><%= link_to 'Show', build_list %></td>
+        <td><%= link_to 'Edit', edit_build_list_path(build_list) %></td>
+        <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Build list', new_build_list_path %>
