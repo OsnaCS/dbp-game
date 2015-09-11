@@ -28,7 +28,7 @@
 					<img id="user_icon" src="<%= image_url('ui/default.png') %>"><br>
 				<% end %>
 				<p class="userbutton"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-			<% end %> 
+			<% end %>
 		</div>
 		<div id="banner" class="content">
 			<p id="game_name">SpielName</p>
@@ -52,7 +52,7 @@
 			<% if current_user!=nil %>
 				<table id="res-table"><tr>
 					<td>
-						<p title="Ausgewaehltes Schiff">Selected: 
+						<p title="Ausgewaehltes Schiff">Selected:
 							<% if current_user.activeShip!=nil%>
 				  				<%=Ship.find_by(id: current_user.activeShip).name%>
 							<% else %>
@@ -62,33 +62,27 @@
 					</td>
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
-			  			<p>Metall: 
-        					<% if current_user.activeShip!=nil%>
-				  				<%=Ship.find_by(id: current_user.activeShip).metal%>
-							<% else %>
-				  				0
-							<% end %>
-						</p>
+        				<% if current_user.activeShip!=nil%>
+				  			<p id="val-metal" class="val-resources"></p>
+						<% else %>
+				  			<p>0</p>
+						<% end %>
 					</td>
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
-			  			<p>Kristall: 
-        					<% if current_user.activeShip!=nil%>
-				  				<%= Ship.find_by(id: current_user.activeShip).cristal%>
-							<% else %>
-				  				0
-							<% end %> 
-						</p>
+        				<% if current_user.activeShip!=nil%>
+				  			<p id="val-crystal" class="val-resources"></p>
+						<% else %>
+				  			<p>0</p>
+						<% end %> 
 					</td>
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
-			  			<p>Treibstoff: 
-        					<% if current_user.activeShip!=nil %>
-				  				<%=Ship.find_by(id: current_user.activeShip).fuel%> 
-							<% else %>
-				  				0
-							<% end %> 
-						</p>
+        				<% if current_user.activeShip!=nil %>
+				  			<p id="val-fuel" class="val-resources"></p>
+						<% else %>
+				  			<p>0</p>
+						<% end %> 
 					</td>
 				</tr></table>
 			<% end %>
@@ -102,12 +96,16 @@
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
+                      <% if current_user.activeShip!=nil %>
+                        <%Ship.find_by(id: current_user.activeShip).update_resources%> 
+                      <%end%>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
-						<li><%= link_to "Stationen", stations_path %></li>
+						<li><%= link_to "Stationen", ship_ships_stations_path(UserShip.where(:user_id => current_user.id))%></li>
 						<li><%= link_to "Anlagen", facilities_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
+						<li><%= link_to "Kampf",fighting_fleets_path %></li>
 						<li><%= link_to "Rangliste", ranks_path %></li>
 						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 					<% else %>
@@ -117,12 +115,16 @@
 			</div>
 			<div id="notification" class="content">
 				<img id="notification-image" src="http://businessmattersindia.com/wp-content/uploads/2014/01/Notification-2.png">
-				<p id="notification-text"></p>
+				<p id="notification-text">
+					<% if @notification_count != 0 %>
+						<%= @notification_count %>
+					<% end %>
+				</p>
 			</div>
 		</div>
 		<div id="game" class="content">
 			<%= yield %>
-		</div>	
+		</div>
 	</div>
 </div>
 </body>

@@ -1,6 +1,16 @@
 class ShipsController < ApplicationController
-  before_action :set_ship, only: [:show, :edit, :update, :destroy]
+  before_action :set_ship, only: [:cheat, :show, :edit, :update, :destroy]
 
+  def cheat
+    @ship.metal = @ship.metal + 10000
+    @ship.cristal = @ship.cristal + 10000
+    @ship.fuel = @ship.fuel + 10000
+
+    @ship.save
+
+    redirect_to ships_url
+  end
+  
   # GET /ships
   # GET /ships.json
   def index
@@ -24,15 +34,23 @@ class ShipsController < ApplicationController
   # POST /ships
   # POST /ships.json
   def create
+    
     @ship = current_user.create_ship(ship_params)
+    
 
     respond_to do |format|
-      if @ship.save
-        format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
-        format.json { render :show, status: :created, location: @ship }
+      if @ship!=nil
+        current_user.activeShip = @ship.id
+        if @ship.save
+          format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
+          format.json { render :show, status: :created, location: @ship }
+        else
+          format.html { render :new }
+          format.json { render json: @ship.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @ship.errors, status: :unprocessable_entity }
+        format.html { redirect_to ships_path, notice: 'Kauf nicht erfolgreich!' }
+        
       end
     end
   end
