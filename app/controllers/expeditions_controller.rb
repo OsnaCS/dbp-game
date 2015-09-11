@@ -1,13 +1,9 @@
 class ExpeditionsController < ApplicationController
   before_action :set_expedition, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /expeditions
   # GET /expeditions.json
   def index
-    if(current_user.activeShip == nil)
-      redirect_to :controller => 'ships', :action => 'new'
-    end
     @expeditions = current_user.expedition_instances.map(&:expedition)
 
     @expeditions.each do |expi|
