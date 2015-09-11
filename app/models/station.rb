@@ -47,7 +47,7 @@ class Station < ActiveRecord::Base
   end
   def self.update_time(ships_station, format)
     station = Station.find_by(id: ships_station.station_id)
-    durationInSeconds = station.get_duration(ships_station.level)
+    durationInSeconds = station.get_duration(ships_station.level) / (1 + 0.1 * ShipsStation.find_by(:ship_id => ships_station.ship_id, :station_id => 2005).level)
 
     if(ships_station.start_time)
       timeSinceUpgrade = ships_station.get_time_since_upgrade
