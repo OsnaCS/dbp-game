@@ -380,42 +380,52 @@ Message.create([
 	# Messages for Science
 	{
 	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
+	  :fullmes 'Strukturierungen verstärkt. Hülle jeder Einheit um 10% verbessert',
 	  code: 4001
 	},
 	{
 	  mes: 'Verbessert zusätzlich den Schaden der Laserwaffen um 10% pro Level, 50% effektiver gegen Hüllen',
+	  :fullmes 'Schaden der Laserwaffen um 10% erhöht. Effektivität gegen Hüllen um 50% gestiegen.',
       code: 4002
 	},
 	{
 	  mes: 'Verbessert erfolgreiche Spionage(-abwehr), Zusatzinformationen ab Level: 8,16',
+	  :fullmes 'Die Chance für eine erfolgreiche Spionage(-abwehr) ist gestiegen',
 	  code: 4003
 	},
 	{
 	  mes: 'Verringert die Reisekosten',
+	  :fullmes 'Reisekosten wurden gesenkt',
 	  code: 4004
 	},
 	{
 	  mes: 'Verbessert den Schaden der Ionenkanonen um 10% pro Level, Ionen machen 50% mehr Schaden an Schilden',
+	  :fullmes 'Schaden der Ionenkanonen um 10% erhöht. Ionen machen 50% mehr Schaden an Schilden',
 	  code: 4005
 	},
 	{
 	  mes: 'Verbessert Schildgeneratoren um 10% pro Level',
+	  :fullmes 'Schildgeneratoren um 10% verbessert',
 	  code: 4006
 	},
 	{
 	  mes: 'Verringert die Missrate der Piloten',
+	  :fullmes 'Missrate der Piloten verringert',
 	  code: 4007
 	},
 	{
 	  mes: 'Ermöglicht die Forschungzusammenarbeit mehrerer Mutterschiffe',
+	  :fullmes 'Forschungzusammenarbeit mehrerer Mutterschiffe ist nun möglich',
 	  code: 4008
 	},
 	{
 	  mes: 'Gestattet ein zusätzliches Mutterschiff je Level',
+	  :fullmes 'Flottenkapazität erhöht',
 	  code: 4009
 	},
 	{
 	  mes: 'Verbessert Kinetikwaffen um 10% pro Level, ausgeglichener Schaden',
+	  :fullmes 'Kinetikwaffen um 10% verstärkt',
 	  code: 4010
 	},
 
@@ -516,22 +526,27 @@ Message.create([
 	# Messages for Stations
 	{
 	  mes: 'Dient zur kontinuierlichen Metallgewinnung',
+	  :fullmes 'Metallgewinnung erhöht',
 	  code: 2001
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Kristallgewinnung',
+	  :fullmes 'Kristallgewinnung erhöht',
 	  code: 2002
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Treibstoffgewinnung',
+	  :fullmes 'Treibstoffgewinnung erhöht',
 	  code: 2003
 	},
 	{
 	  mes: 'Dient zur Erforschung neuer Technologien',
+	  :fullmes 'Neue Technologien können erforscht werden',
 	  code: 2004
 	},
 	{
 	  mes: 'Baut Gebäude',
+	  :fullmes '',
 	  code: 2005
 	},
 	{
