@@ -31,7 +31,7 @@
 			<% end %>
 		</div>
 		<div id="banner" class="content">
-			<p id="game_name">SpielName</p>
+			<p id="game_name">Lunency</p>
 		</div>
 	</div>
 
@@ -42,7 +42,7 @@
 			<% if user_signed_in? %>
 			    <%= link_to "Points", ranks_path%>
 				<% if(current_user.rank) %>
-				  <p><%= current_user.rank.score %></p>
+				  <p id="points"><%= current_user.rank.score %></p>
 				<% end %>
 			<% else %>
 				<p>Not logged in</p>
