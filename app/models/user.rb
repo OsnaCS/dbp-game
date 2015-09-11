@@ -10,14 +10,13 @@ class User < ActiveRecord::Base
   has_many :unit_instances, dependent: :destroy
   has_many :units, :through => :unit_instances
   has_many :user_ships
-  has_many :ships, :through => :user_ships   
+  has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
   after_initialize :init
 
 
   # Include default devise modules. Others available are:
-
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   devise :database_authenticatable, :registerable,
@@ -55,6 +54,28 @@ class User < ActiveRecord::Base
   
   def cheat
     current_user.remove_resources(-10000, -10000, -10000)
+  end
+
+  def get_science_instance(science)
+    return ScienceInstance.find_by(:user_id => self.id, :science_id => science.id)
+  end
+
+  def can_research(science, level)
+    condition = self.check_condition(science.condition) 
+    is_researching = !self.is_researching
+
+    metal = science.get_metal_cost(level) 
+    crystal = science.get_crystal_cost(level) 
+    fuel = science.get_fuel_cost(level)
+
+    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    science_instance = self.get_science_instance(science)
+
+    return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)   
+  end
+
+  def has_min_science_level(science, level)
+    return self.get_science_instance(science).level >= level.to_i
   end
 
   def get_metal()
@@ -99,7 +120,6 @@ class User < ActiveRecord::Base
     end
     return true
   end
-
 
   def has_enough_fuel(fuel)
     ship_fuel = self.get_fuel
@@ -166,14 +186,29 @@ class User < ActiveRecord::Base
   def login=(login)
     @login = login
   end
-  
+
   def login
     @login || self.username || self.email
   end
-  
+
   def create_ship(ship_name)
-    s = self.ships.build(ship_name)
-    self.user_ships.build(user: self, ship: s)
+    if self.ship_count == nil
+      self.ship_count=0
+      self.save
+    end
+
+    if self.ship_count < 9
+      self.ship_count+=1
+      self.save
+      if self.ship_count>1
+        if !has_enough_resources(200000,100000,0)
+          return
+        end
+        remove_resources_from_current_ship(200000, 100000, 0)
+      end
+      s = self.ships.build(ship_name)
+      self.user_ships.build(user: self, ship: s)
+    end
     return s
   end
 

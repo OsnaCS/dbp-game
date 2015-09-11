@@ -21,11 +21,14 @@
     <% Unit.all.each do |unit| %>
       <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
       <% instance = current_ship.get_unit_instance(unit)%></td>
+      <% inactive = nil %>
 
       <% if(instance.start_time.nil?) %>
         <tr id="inactive">
+        <% inactive = true %>
       <% else %>
         <tr id="active">
+        <% inactive = false %>
       <% end %>
         <td>
           <a>
@@ -36,9 +39,16 @@
           <td><%= unit.get_metal_cost %></td>
           <td><%= unit.get_crystal_cost %></td>
           <td><%= unit.get_fuel_cost %></td>
-          <td><%= instance.update_time(false) %></td>
-          <td><%= instance.amount %></td>
-          
+
+          <% if(inactive) %>
+            <td id = "not_running"><%= instance.update_time(true).to_s %></td>
+          <% else %>
+            <td class="running"
+              data-id="<%= instance.unit_id %>"
+              data-time="<%= instance.update_time(false) %>">
+            </td>
+          <% end %>
+          <td> <%= instance.amount %></td>
           <td>
             <%= form_tag build_unit_path(unit), method: 'get' do %>
               <%= hidden_field_tag :unit_id, unit.id%>
@@ -52,3 +62,4 @@
     <% end %>
   </tbody>
 </table>
+<%= javascript_tag "start_timer()" -%>
