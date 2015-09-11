@@ -22,14 +22,16 @@
          <th>Einheit</th>
          <th>stationierte Menge</th>
          <th>zu schickende Anzahl</th>
+         <th>Treibstoffkosten pro Stunde</tr>
       </tr>
 
       <% Unit.all.each do |unit| %>
          <tr>
-         <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
+           <td><%= #unit.icon %></td>
            <td align=left ><%= unit.name %></td>       
            <td><%= Expedition.shipamount(unit.id) %></td>
            <td><%= number_field_tag(unit.id, 0, min:0, max: Expedition.shipamount(unit.id)) %></td>
+           <td align=right ><%= ((unit.shell + unit.cargo)/@userFuelFactor).round %> pro Einheit</td>
          </tr>
 
       <% end %>
