@@ -13,7 +13,7 @@ Facility.create([
 		cost2: 2,
 		cost3: 1,
 		duration: 120 * 8,
-		condition: '',
+		condition: 'g:6:2,f:1:2',
 		name: 'Solarpanel',
 		facility_condition_id: 13,
 		icon: 'solar.png'
@@ -24,7 +24,7 @@ Facility.create([
 		cost2: 0,
 		cost3: 0,
 		duration: 120 * 2,
-		condition: '',
+		condition: 'g:6:2',
 		name: 'Raketenturm',
 		facility_condition_id: 14,
 		icon: 'rocket.png'
@@ -35,7 +35,7 @@ Facility.create([
 		cost2: 1,
 		cost3: 0,
 		duration: 120 * 5,
-		condition: '',
+		condition: 'g:6:4,f:2:4',
 		name: 'Kleines Lasergeschütz',
 		facility_condition_id: 15,
 		icon: 'laser_small.png'
@@ -46,7 +46,7 @@ Facility.create([
 		cost2: 4,
 		cost3: 0,
 		duration: 120 * 20,
-		condition: '',
+		condition: 'g:6:8,f:2:8',
 		name: 'Großes Lasergeschütz',
 		facility_condition_id: 16,
 		icon: 'laser_big.png'
@@ -57,7 +57,7 @@ Facility.create([
 		cost2: 3,
 		cost3: 0,
 		duration: 120 * 8,
-		condition: '',
+		condition: 'g:6:6,f:5:4',
 		name: 'Kleiner Ionenbeschleuniger',
 		facility_condition_id: 17,
 		icon: 'ion_small.png'
@@ -68,7 +68,7 @@ Facility.create([
 		cost2: 12,
 		cost3: 0,
 		duration: 120 * 32,
-		condition: '',
+		condition: 'g:6:8,f:5:8',
 		name: 'Großer Ionenbeschleuniger',
 		facility_condition_id: 18,
 		icon: 'ion_big.png'
@@ -79,7 +79,7 @@ Facility.create([
 		cost2: 20,
 		cost3: 0,
 		duration: 120 * 120,
-		condition: '',
+		condition: 'g:6:10,f:8:4',
 		name: 'Massenbeschleuniger',
 		facility_condition_id: 19,
 		icon: 'mac.png'
@@ -90,7 +90,7 @@ Facility.create([
 		cost2: 0,
 		cost3: 200,
 		duration: 120 * 1800,
-		condition: '',
+		condition: 'g:6:12,f:8:10',
 		name: 'Orbitale Waffenplattform',
 		facility_condition_id: 20,
 		icon: 'orbital.png'
@@ -101,7 +101,7 @@ Facility.create([
 		cost2: 500,
 		cost3: 1000,
 		duration: 120 * 5000,
-		condition: '',
+		condition: 'g:6:16,f:9:6,f:10:8',
 		name: 'Kuhtapult',
 		facility_condition_id: 21,
 		icon: 'udder.png'
@@ -112,7 +112,7 @@ Facility.create([
 		cost2: 100,
 		cost3: 0,
 		duration: 120 * 250,
-		condition: '',
+		condition: 'g:6:6,f:6:2',
 		name: 'Kleiner Schild',
 		facility_condition_id: 22,
 		icon: 'shield_small.png'
@@ -123,7 +123,7 @@ Facility.create([
 		cost2: 400,
 		cost3: 0,
 		duration: 120 * 1000,
-		condition: '',
+		condition: 'g:6:8,f:6:6',
 		name: 'Großer Schild',
 		facility_condition_id: 23,
 		icon: 'shield_big.png'
