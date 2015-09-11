@@ -931,8 +931,7 @@ Unit.create({
 				"science_one_instance"=>science3,
 				"science_two_instance"=>science4})
 Unit.create({
-				"name"=>"Mobiler
-				Schild",
+				"name"=>"Mobiler Schild",
 				"metal_price"=>0,
 				"crystal_price"=>4,
 				"fuel_price"=>1,

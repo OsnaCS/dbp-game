@@ -8,20 +8,17 @@ class ShipGroup < ActiveRecord::Base
   end
 
   def get_damage
-    return self.unit.damage.to_i    
-  end
-  def get_damage_type
-    return self.unit.damage_type_id.to_i    
+    return self.unit.damage    
   end
   
   def get_number
-    return self.number.to_i
+    return self.number
   end
  
   def get_hp
-    return self.unit.shell.to_i
+    return self.unit.shell
   end
   def get_id
-    return self.unit.id.to_i
+    return self.unit.id
   end
 end
