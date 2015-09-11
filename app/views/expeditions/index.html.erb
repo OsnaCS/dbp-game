@@ -3,7 +3,7 @@
 
 <h1>Laufende Expeditionen</h1>
 
-<table id="runningExp">
+<table id="table_expedition">
   <thead>
     <tr id="table">
       <th>Dauer</th>
@@ -15,9 +15,9 @@
   <tbody>
     <% @expeditions.sort_by(&:arrival_time).each do |exp| %>
       <tr>
-        <td><%= exp.explore_time %></td>
+        <td><%= exp.explore_time %> Stunden</td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
-        <td><%= link_to 'Flotte der Expedition einsehen', exp %></td>
+        <td><%= link_to 'Flotte einsehen', exp %></td>
       </tr>
     <% end %>
   </tbody>

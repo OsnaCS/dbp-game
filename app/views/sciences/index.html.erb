@@ -43,8 +43,8 @@
         <% if(inactive) %>
           <td id = "not_running"><%= science_instance.update_time(true).to_s %></td>
         <% else %>
-          <td class="running" 
-              data-id="<%= science_instance.science_id %>" 
+          <td class="running"
+              data-id="<%= science_instance.science_id %>"
               data-time="<%= science_instance.update_time(false) %>"></td>
         <% end %>
         <% level =science_instance.level %>

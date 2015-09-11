@@ -172,8 +172,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 1,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Metallscanner.png'
+	  icon: 'Metallscanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2002,
@@ -182,8 +185,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 2,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Kristallscanner.png'
+	  icon: 'Kristallscanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2003,
@@ -192,8 +198,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
+	  station_condition_id: 3,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstoffscanner.png'
+	  icon: 'Treibstoffscanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2004,
@@ -202,9 +211,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 4,
+	  condition: 's:5:4',
 	  tier: 2,
-	  icon: 'Forschungsstation.png'
+	  icon: 'Forschungsstation.png',
+	  duration: 240
 	},
 	{
 	  id: 2005,
@@ -213,8 +224,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 5,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Baugebaeude.png'
+	  icon: 'Baugebaeude.png',
+	  duration: 120
 	},
 	{
 	  id: 2006,
@@ -223,9 +237,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 6,
+	  condition: 's:5:2',
 	  tier: 2,
-	  icon: 'Werft.png'
+	  icon: 'Werft.png',
+	  duration: 240
 	},
 	{
 	  id: 2007,
@@ -234,9 +250,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 2,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 7,
+	  condition: 's:5:10',
 	  tier: 3,
-	  icon: 'Erweiterungsplattform.png'
+	  icon: 'Erweiterungsplattform.png',
+	  duration: 480
 	},
 	{
 	  id: 2008,
@@ -245,8 +263,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 8,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Metalllager.png'
+	  icon: 'Metalllager.png',
+	  duration: 120
 	},
 	{
       id: 2009,
@@ -255,8 +276,11 @@ Station.create([
       costCristal: 2,
       costFuel: 0,
       initial_level: 0,
+      station_condition_id: 9,
+      condition: '',
 	  tier: 1,
-	  icon: 'Kristalllager.png'
+	  icon: 'Kristalllager.png',
+	  duration: 120
 	},
 	{
 	  id: 2010,
@@ -265,8 +289,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
+	  station_condition_id: 10,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstofflager.png'
+	  icon: 'Treibstofflager.png',
+	  duration: 120
 	},
 	{
 	  id: 2011,
@@ -275,8 +302,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99, tier: 2,
-	  icon: 'Metalltresor.png'
+	  station_condition_id: 11,
+	  condition: 's:8:4',
+	  tier: 2,
+	  icon: 'Metalltresor.png',
+	  duration: 240
 	},
 	{
 	  id: 2012,
@@ -285,9 +315,11 @@ Station.create([
 	  costCristal: 4,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 12,
+	  condition: 's:9:4',
 	  tier: 2,
-	  icon: 'Kristalltresor.png'
+	  icon: 'Kristalltresor.png',
+	  duration: 240
 	},
 	{
 	  id: 2013,
@@ -296,9 +328,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 2,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 13,
+	  condition: 's:10:4',
 	  tier: 2,
-	  icon: 'Treibstofftresor.png'
+	  icon: 'Treibstofftresor.png',
+	  duration: 240
 	},
 	{
 	  id: 2014,
@@ -307,8 +341,11 @@ Station.create([
       costCristal: 1,
       costFuel: 1,
       initial_level: 0,
+      station_condition_id: 14,
+      condition: '',
 	  tier: 1,
-	  icon: 'Energiegenerator.png'
+	  icon: 'Energiegenerator.png',
+	  duration: 120
 	},
 	{
 	  id: 2015,
@@ -317,9 +354,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 15,
+	  condition: 's:14:4',
 	  tier: 2,
-	  icon: 'Verbrennungsgenerator.png'
+	  icon: 'Verbrennungsgenerator.png',
+	  duration: 240
 	},
 	{
 	  id: 2016,
@@ -328,9 +367,11 @@ Station.create([
 	  costCristal: 4,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 16,
+	  condition: 's:5:8',
 	  tier: 3,
-	  icon: 'Reparaturgebaeude.png'
+	  icon: 'Reparaturgebaeude.png',
+	  duration: 480
 }])
 
 # Creator for Messages
