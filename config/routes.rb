@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
- 
   resources :expedition_instances
+  get 'notification_view/index'
   resources :units
   resources :damage_types
   resources :fighting_fleets do
