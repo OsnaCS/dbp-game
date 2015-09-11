@@ -9,13 +9,13 @@ class ScienceInstance < ActiveRecord::Base
   def get_research_ratio
     duration = self.science.get_duration(self.level).to_f
     past = self.get_time_since_research.to_f
-    return 1.0 - (past/duration).to_f 
+    return 1.0 - (past/duration).to_f
   end
 
   def get_refund
     science = self.science
     currentLevel = self.level
-    
+
     ratio = self.get_research_ratio
     reMetal = science.get_metal_cost_ratio(currentLevel, ratio)
     reCrystal = science.get_crystal_cost_ratio(currentLevel, ratio)
@@ -36,7 +36,7 @@ class ScienceInstance < ActiveRecord::Base
     lvl = self.level
     cap =science.level_cap
 
-    if cap < 0
+    if cap.blank?
       return false
     end
 
@@ -67,7 +67,7 @@ class ScienceInstance < ActiveRecord::Base
         back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
       end
   	end
-    
+
     leftMetal = science.get_metal_cost(self.level) - user.get_metal
     leftCrystal = science.get_crystal_cost(self.level) - user.get_crystal
     leftFuel = science.get_fuel_cost(self.level) - user.get_fuel
