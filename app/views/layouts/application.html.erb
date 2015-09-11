@@ -101,6 +101,7 @@
                         <%Ship.find_by(id: current_user.activeShip).update_resources%>
                       <% end %>
 						<li><%= link_to "Schiffe", ships_path %></li>
+						<li><%= link_to "Management", build_lists_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
 						<% if current_user.activeShip!=nil %>
 						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
