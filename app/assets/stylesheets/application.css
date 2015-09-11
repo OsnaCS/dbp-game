@@ -338,3 +338,9 @@ ul li {
 	border: 0;
 	background-image: url('resources/fuel.png');
 }
+
+.val-resources {
+	font-weight: bold;
+	float: left;
+	margin-left: 5px;
+}

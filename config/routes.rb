@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   resources :units
   resources :damage_types
   resources :fighting_fleets do
@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   get 'home/index'
+  get 'home/get_json_data', defaults: {format: 'json'}
   get 'profile/index'
   get 'profile/user'
   get 'home/index'

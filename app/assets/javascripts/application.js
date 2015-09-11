@@ -18,6 +18,7 @@
 var counter = 1;
 
 $(document).ready(function () {
+  getJsonData();
  	getTimer();
 });
 
@@ -25,9 +26,7 @@ $(document).ready(function () {
  * @brief Starts a timer for a countdown
  */
 function start_timer() {
-  //var time = document.getElementById("running").innerHTML;
-  //timer(time);
-  timer2();
+  timer();
 }
 
 /**
@@ -59,36 +58,40 @@ function formatTime(secs) {
  *
  * @param time The remaining time
  */
-function timer(time) {  
-  if(time > 0) {
-    document.getElementById("running").innerHTML = formatTime(time);
-    window.setTimeout('timer('+ (--time) +')',1000);
-  } else {
-    window.location.reload();
-    window.location.reload();
-  }
-}
 
-funtion timer2(){
-	for (i = 0; i < 1000; i++) { 
-		var str = "running"+String(i);
-		var time = document.getElementById(str).innerHTML
-		
-		if(time!=null){
-			var countertime = parseInt(time);
-			document.getElementById(str).innerHTML = countertime;
+function timer(){
+	$('.running').each(function (time) {
+		var timeElement = $(this);
+		var secs = parseInt(timeElement.data("time"),10);
+		if(secs>0){
+			secs--;
+			timeElement.data('time', secs);
+			timeElement.html(formatTime(secs));
 		}
+		else{
+    		window.location.reload(); //did some magic
+    		window.location.reload();
+		}
+	});
 
-	}
-
+	window.setTimeout(timer,1000);
 }
 
 function getTimer() {
 	setInterval(
 		function(){
-			document.getElementById("notification-text").innerHTML = "" + counter;
-			counter++;
+      getJsonData();
 		},
-		1000
+		5000
 	);
+}
+
+function getJsonData() {
+  $.getJSON('/home/get_json_data').done(function(data) {
+    if(parseInt(data.msg) != 0)
+      $("#notification-text").html(data.msg);
+    $("#val-metal").html(data.metal);
+    $("#val-crystal").html(data.crystal);
+    $("#val-fuel").html(data.fuel);
+  });
 }

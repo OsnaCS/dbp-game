@@ -43,10 +43,9 @@
         <% if(inactive) %>
           <td id = "not_running"><%= science_instance.update_time(true).to_s %></td>
         <% else %>
-          <% strTag = "running"+science_instance.science_id.to_s %>
-          <%= "ID="strTag %>
-          <td id = "running"><%= science_instance.update_time(false).to_s %></td>
-          <%= javascript_tag "start_timer()" -%>
+          <td class="running" 
+              data-id="<%= science_instance.science_id %>" 
+              data-time="<%= science_instance.update_time(false) %>"></td>
         <% end %>
         <% level =science_instance.level %>
         <% availability = current_user.can_research(science, level) %>
@@ -60,13 +59,14 @@
           <% else %>
             <td><a><%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
                        <span><%= science_instance.get_refund %></span></a>
-            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
+              <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
     </tr>
   </tbody>
+   <%= javascript_tag "start_timer()" -%>
 </table>
 <br>
 <%= link_to 'New Science', new_science_path %>

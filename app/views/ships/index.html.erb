@@ -18,11 +18,21 @@
         <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
         <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>
-
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
 
-<%= link_to 'New Ship', new_ship_path %>
+
+
+
+<% if current_user.ship_count < 9%>
+  <%if current_user.has_enough_resources(200000, 100000, 0)%>
+    <%= link_to 'New Ship', new_ship_path %>
+  <%else%>
+    <p> Nicht genug Rohstoffe für ein neues Schiff! </p>
+  <%end%>
+<%else %>
+  <p> Du darfst nicht mehr als neun Schiffe besitzen! </p>
+<%end%>
