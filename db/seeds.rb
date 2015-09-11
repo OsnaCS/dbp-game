@@ -176,7 +176,7 @@ Station.create([
 	  station_condition_id: 1,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Metallscanner.png',
+	  icon: 'metal-scanner.png',
 	  duration: 120
 	},
 	{
@@ -189,7 +189,7 @@ Station.create([
 	  station_condition_id: 2,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Kristallscanner.png',
+	  icon: 'crystal-scanner.png',
 	  duration: 120
 	},
 	{
@@ -202,7 +202,7 @@ Station.create([
 	  station_condition_id: 3,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstoffscanner.png',
+	  icon: 'fuelscanner.png',
 	  duration: 120
 	},
 	{
@@ -215,7 +215,7 @@ Station.create([
 	  station_condition_id: 4,
 	  condition: 's:5:4',
 	  tier: 2,
-	  icon: 'Forschungsstation.png',
+	  icon: 'research-building.png',
 	  duration: 240
 	},
 	{
@@ -228,7 +228,7 @@ Station.create([
 	  station_condition_id: 5,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Baugebaeude.png',
+	  icon: 'construction-buildings.png',
 	  duration: 120
 	},
 	{
@@ -241,7 +241,7 @@ Station.create([
 	  station_condition_id: 6,
 	  condition: 's:5:2',
 	  tier: 2,
-	  icon: 'Werft.png',
+	  icon: 'dockyard.png',
 	  duration: 240
 	},
 	{
@@ -254,7 +254,7 @@ Station.create([
 	  station_condition_id: 7,
 	  condition: 's:5:10',
 	  tier: 3,
-	  icon: 'Erweiterungsplattform.png',
+	  icon: 'extension-platform.png',
 	  duration: 480
 	},
 	{
@@ -267,7 +267,7 @@ Station.create([
 	  station_condition_id: 8,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Metalllager.png',
+	  icon: 'metal-stock.png',
 	  duration: 120
 	},
 	{
@@ -280,7 +280,7 @@ Station.create([
       station_condition_id: 9,
       condition: '',
 	  tier: 1,
-	  icon: 'Kristalllager.png',
+	  icon: 'crystal-stock.png',
 	  duration: 120
 	},
 	{
@@ -293,7 +293,7 @@ Station.create([
 	  station_condition_id: 10,
 	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstofflager.png',
+	  icon: 'fuel-stock.png',
 	  duration: 120
 	},
 	{
@@ -306,7 +306,7 @@ Station.create([
 	  station_condition_id: 11,
 	  condition: 's:8:4',
 	  tier: 2,
-	  icon: 'Metalltresor.png',
+	  icon: 'metal-safe.png',
 	  duration: 240
 	},
 	{
@@ -319,7 +319,7 @@ Station.create([
 	  station_condition_id: 12,
 	  condition: 's:9:4',
 	  tier: 2,
-	  icon: 'Kristalltresor.png',
+	  icon: 'crystal-safe.png',
 	  duration: 240
 	},
 	{
@@ -332,7 +332,7 @@ Station.create([
 	  station_condition_id: 13,
 	  condition: 's:10:4',
 	  tier: 2,
-	  icon: 'Treibstofftresor.png',
+	  icon: 'fuel-safe.png',
 	  duration: 240
 	},
 	{
@@ -345,7 +345,7 @@ Station.create([
       station_condition_id: 14,
       condition: '',
 	  tier: 1,
-	  icon: 'Energiegenerator.png',
+	  icon: 'energy-generator.png',
 	  duration: 120
 	},
 	{
@@ -358,7 +358,7 @@ Station.create([
 	  station_condition_id: 15,
 	  condition: 's:14:4',
 	  tier: 2,
-	  icon: 'Verbrennungsgenerator.png',
+	  icon: 'burn-generator.png',
 	  duration: 240
 	},
 	{
@@ -371,7 +371,7 @@ Station.create([
 	  station_condition_id: 16,
 	  condition: 's:5:8',
 	  tier: 3,
-	  icon: 'Reparaturgebaeude.png',
+	  icon: 'repair-building.png',
 	  duration: 480
 }])
 
