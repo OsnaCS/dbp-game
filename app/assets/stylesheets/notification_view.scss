@@ -1,3 +1,49 @@
 // Place all the styles related to the notification-view controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#note-table {
+	position: relative;
+	text-align: left;
+	margin: auto;
+}
+
+.notificationlabel {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.notificationbutton {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.notificationbutton a {
+	color: black;
+}
+
+.notificationbutton:hover {
+	background-color: black;
+}
+
+.notificationbutton:hover a {
+	color: white !important;
+}
