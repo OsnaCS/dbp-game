@@ -21,8 +21,7 @@ class Ship < ActiveRecord::Base
           self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
           #self.fuel=0
         end
-
-	end
+	  end
 
     self.lastChecked = Time.now.getutc
     self.save

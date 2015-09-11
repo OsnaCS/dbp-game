@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150910132641) do
 
   # These are extensions that must be enabled in order to support this database
@@ -106,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150910132641) do
   add_index "ship_groups", ["unit_id"], name: "index_ship_groups_on_unit_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
-    t.text     "name"
+    t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "metal"
@@ -205,6 +206,7 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.string   "username"
     t.integer  "right_level",            default: 0,  null: false
     t.integer  "activeShip"
+    t.integer  "ship_count"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
