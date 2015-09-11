@@ -139,6 +139,7 @@ ul li {
 	height: 5%;
 	top: 95%;
 	text-align: center;
+	padding-top: 30px;
 }
 
 .content {
@@ -307,6 +308,10 @@ ul li {
 	font-weight: bold;
 	border: 2px solid red;
 	border-radius: 5px;
+}
+
+#notification-text[text=""] {
+	display: none;
 }
 
 #game_name {
