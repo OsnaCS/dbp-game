@@ -55,10 +55,6 @@ class NotificationsController < ApplicationController
   # DELETE /notifications/1.json
   def destroy
     @notification.destroy
-    #respond_to do |format|
-    #  format.html { redirect_to notifications_url, notice: 'Notification was successfully destroyed.' }
-    #  format.json { head :no_content }
-    #end
     redirect_to notification_view_index_path
   end
 

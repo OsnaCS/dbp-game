@@ -287,11 +287,6 @@ ul li {
 	left: calc(50% - 25px);
 }
 
-#notification {
-	float: left;
-	display: inline;
-}
-
 #notification-text {
 	position: absolute;
 	color: #FFF;
