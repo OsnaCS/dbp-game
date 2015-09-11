@@ -36,7 +36,7 @@ class ScienceInstance < ActiveRecord::Base
     lvl = self.level
     cap =science.level_cap
 
-    if cap < 0
+    if cap.blank?
       return false
     end
 

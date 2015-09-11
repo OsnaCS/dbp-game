@@ -18,7 +18,7 @@ Science.create([
 		tier: 1,
 		science_condition_id: 1,
 		icon: 'huelle.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4002,
@@ -32,7 +32,7 @@ Science.create([
 		tier: 1,
 		science_condition_id: 2,
 		icon: 'laser.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4003,
@@ -46,7 +46,7 @@ Science.create([
 		tier: 1,
 		science_condition_id: 3,
 		icon: 'spionage.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4004,
@@ -60,7 +60,7 @@ Science.create([
 		tier: 2,
 		science_condition_id: 4,
 		icon: 'triebwerke.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4005,
@@ -74,7 +74,7 @@ Science.create([
 		tier: 2,
 		science_condition_id: 5,
 		icon: 'ionen.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4006,
@@ -88,7 +88,7 @@ Science.create([
 		tier: 2,
 		science_condition_id: 6,
 		icon: 'schilde.png',
-		level_cap: -1
+		level_cap: nil
 	},
 	{
 		id: 4007,
@@ -144,7 +144,7 @@ Science.create([
 		tier: 3,
 		science_condition_id: 8,
 		icon: 'kinetik.png',
-		level_cap: -1
+		level_cap: nil
 	}])
 
 #Creator for table Trades
