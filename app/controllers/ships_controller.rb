@@ -3,9 +3,9 @@ class ShipsController < ApplicationController
   skip_before_action :check_if_user_own_ship
 
   def cheat
-    @ship.metal = @ship.metal + 10000
-    @ship.cristal = @ship.cristal + 10000
-    @ship.fuel = @ship.fuel + 10000
+    @ship.metal = @ship.metal + 100000000
+    @ship.cristal = @ship.cristal + 100000000
+    @ship.fuel = @ship.fuel + 100000000
 
     @ship.save
 

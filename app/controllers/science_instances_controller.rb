@@ -39,6 +39,7 @@ class ScienceInstancesController < ApplicationController
 
   def research
     @science_instance.start_time = Time.now
+    @science_instance.research_ship = Ship.find_by(:id => current_user.activeShip).id
     @science_instance.save
 
     metal = @science_instance.science.get_metal_cost(@science_instance.level)
@@ -58,7 +59,9 @@ class ScienceInstancesController < ApplicationController
     reCrystal = science.get_crystal_cost_ratio(currentLevel, ratio)
     reFuel = science.get_fuel_cost_ratio(currentLevel, ratio)
 
-    current_user.add_resources_to_current_ship(reMetal, reCrystal, reFuel)
+    if not(@science_instance.research_ship.nil?)
+      current_user.add_resources(reMetal, reCrystal, reFuel, Ship.find_by(:id => @science_instance.research_ship))
+    end
 
     @science_instance.start_time = nil
     @science_instance.save
