@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910141424) do
+ActiveRecord::Schema.define(version: 20150911104325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,19 +162,17 @@ ActiveRecord::Schema.define(version: 20150910141424) do
     t.integer  "metal_price"
     t.integer  "crystal_price"
     t.integer  "fuel_price"
-    t.integer  "total_cost"
     t.integer  "shell"
     t.integer  "damage"
     t.integer  "damage_type_id"
     t.integer  "cargo"
     t.integer  "speed"
-    t.integer  "shipyard_requirement"
-    t.integer  "research_requirement_one"
-    t.integer  "research_requirement_two"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "message_id"
     t.string   "icon"
+    t.string   "conditions"
+    t.integer  "duration"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
