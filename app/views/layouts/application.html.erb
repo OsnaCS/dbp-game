@@ -99,7 +99,7 @@
 					<% if user_signed_in? %>
                       <% if current_user.activeShip!=nil %>
                         <%Ship.find_by(id: current_user.activeShip).update_resources%> 
-                      <%end%>
+                      <% end %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
 						<li><%= link_to "Stationen", ship_ships_stations_path(UserShip.where(:user_id => current_user.id))%></li>
@@ -116,7 +116,9 @@
 			</div>
 			<div id="notification" class="content">
 				<% if user_signed_in? %>
-					<div id="notification-image"></div>
+					<%= link_to root_path do %>
+						<div id="notification-image"></div>
+					<% end %>
 					<p id="notification-text">
 						<% if @notification_count != 0 %>
 							<%= @notification_count %>
