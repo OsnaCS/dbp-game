@@ -15,7 +15,7 @@
   <tbody>
     <% @expeditions.sort_by(&:arrival_time).each do |exp| %>
       <tr>
-        <td><%= exp.explore_time %> Stunden</td>
+        <td><%= exp.explore_time %> Stunde(n)</td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
         <td><%= link_to 'Flotte einsehen', exp %></td>
       </tr>
