@@ -7,7 +7,7 @@ class ShipsStation < ActiveRecord::Base
     return (Time.now - self.updated_at).to_i
   end
 
-  def get_building_ratio
+  def get_upgrade_ratio
     duration = self.station.get_duration(self.level).to_f
     past = self.get_time_since_upgrade.to_f
     return 1.0 - (past/duration).to_f
@@ -17,7 +17,7 @@ class ShipsStation < ActiveRecord::Base
     station = self.station
     currentLevel = self.level
 
-    ratio = self.get_building_ratio
+    ratio = self.get_upgrade_ratio
     reMetal = station.get_metal_cost_ratio(currentLevel, ratio)
     reCrystal = station.get_crystal_cost_ratio(currentLevel, ratio)
     reFuel = station.get_fuel_cost_ratio(currentLevel, ratio)
@@ -36,7 +36,7 @@ class ShipsStation < ActiveRecord::Base
   	conds = info.split(",")
 
     back = ""
-  	if(user.is_building())
+  	if(ship.is_upgrading())
       back = back + "Aktuell wird eine Station ausgebaut ...<br>"
   	end
   	back = back + "Voraussetzung: <br>"
@@ -49,9 +49,9 @@ class ShipsStation < ActiveRecord::Base
   		back = back+"- Station: "+name+" "+lvl.to_s+"<br>"
   	end
 
-    leftMetal = station.get_metal_cost(self.level) - user.get_metal
-    leftCrystal = station.get_crystal_cost(self.level) - user.get_crystal
-    leftFuel = station.get_fuel_cost(self.level) - user.get_fuel
+    leftMetal = station.get_metal_cost(self.level) - ship.metal
+    leftCrystal = station.get_crystal_cost(self.level) - ship.cristal
+    leftFuel = station.get_fuel_cost(self.level) - ship.fuel
 
     if(leftMetal > 0)
       back = back + "- Fehlendes Metall: " + leftMetal.to_s + "<br>"

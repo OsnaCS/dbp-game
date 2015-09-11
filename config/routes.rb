@@ -15,6 +15,21 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ships do
+    member do
+      get 'cheat'
+    end
+    resources :ships_stations
+  end
+
+  resources :ships_stations do
+    member do
+      get 'upgrade'
+      get 'cancel_upgrade'
+      get 'instant_upgrade'
+    end
+  end
+
   resources :user_ships
   resources :notifications
   resources :messages
@@ -23,23 +38,10 @@ Rails.application.routes.draw do
   resources :ranks
   resources :user_icons
   resources :ships
-  resources :ships_station
 
   resources :trades do
     member do
       get 'buy'
-    end
-  end
-
-  resources :ships do
-    member do
-      get 'cheat'
-    end
-    resources :ships_stations
-      member do
-      get 'research'
-      get 'cancel_research'
-      get 'instant_research'
     end
   end
 

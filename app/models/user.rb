@@ -148,15 +148,6 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def is_building()
-    user_ships_ship_ships_stations.each do |station|
-      if not(station.start_time.nil?)
-        return true
-      end
-    end
-    return false
-  end
-
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)

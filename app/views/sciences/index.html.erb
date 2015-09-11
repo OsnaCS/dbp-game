@@ -43,7 +43,7 @@
         <% if(inactive) %>
           <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
         <% else %>
-          <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
+          <td id = "running"><%= Science.update_time(science_instance, fals e).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>
         <% availability = current_user.check_condition(science.condition) && !current_user.is_researching &&

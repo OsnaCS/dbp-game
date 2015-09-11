@@ -9,13 +9,13 @@ class Station < ActiveRecord::Base
     if(user.nil?)
       return -1
     end
-    ship_station = ShipsStation.find_by(:user_id => user.id, :station_id => id)
+    ships_station = ShipsStation.find_by(:user_id => user.id, :station_id => id)
 
-    if(ship_station.nil?)
+    if(ships_station.nil?)
       return -2
     end
 
-    return ship_station.level
+    return ships_station.level
   end
 
   def get_metal_cost(level)
@@ -45,18 +45,18 @@ class Station < ActiveRecord::Base
   def get_duration(level)
     return (self.duration * 2 ** level)
   end
-  def self.update_time(ship_station, format)
-    station = Station.find_by(id: ship_station.station_id)
-    durationInSeconds = station.get_duration(ship_station.level)
+  def self.update_time(ships_station, format)
+    station = Station.find_by(id: ships_station.station_id)
+    durationInSeconds = station.get_duration(ships_station.level)
 
-    if(ship_station.start_time)
-      timeSinceUpgrade = ship_station.get_time_since_upgrade
+    if(ships_station.start_time)
+      timeSinceUpgrade = ships_station.get_time_since_upgrade
       restTime = durationInSeconds - timeSinceUpgrade
 
       if(restTime <= 0)
-        ship_station.level = ship_station.level + 1
-        ship_station.start_time = nil
-        ship_station.save
+        ships_station.level = ships_station.level + 1
+        ships_station.start_time = nil
+        ships_station.save
 
         if not(format)
           return durationInSeconds;
