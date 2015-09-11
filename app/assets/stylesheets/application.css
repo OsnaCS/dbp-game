@@ -320,6 +320,7 @@ ul li {
 	position: absolute;
 	color: #FFF;
 	left: calc(50% - 5px);
+	top: 2px;
 	background-color: red;
 	font-weight: bold;
 	border: 2px solid red;
