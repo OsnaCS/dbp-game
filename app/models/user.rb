@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :messages, through: :notifications
   after_initialize :init
-
+  belongs_to :active_ship, foreign_key: :activeShip, class: Ship
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -201,9 +201,7 @@ class User < ActiveRecord::Base
     end
     return s
   end
-  def active_ship
-    return Ship.find_by(id: self.activeShip)
-  end
+
   def select_ship(shipID)
     self.activeShip=shipID
     self.save
