@@ -1,5 +1,5 @@
 class UnitInstancesController < ApplicationController
-  before_action :set_unit_instance, only: [:show, :edit, :update, :destroy]
+  before_action :set_unit_instance, only: [:instant_build, :cancel_build, :show, :edit, :update, :destroy]
 
   # GET /unit_instances
   # GET /unit_instances.json
@@ -19,6 +19,40 @@ class UnitInstancesController < ApplicationController
 
   # GET /unit_instances/1/edit
   def edit
+  end
+
+  def cancel_build
+    if not (@unit_instance.start_time.nil?)
+      unit = @unit_instance.unit
+      amount = @unit_instance.build_amount
+
+      ratio = @unit_instance.get_unit_ratio
+      reMetal = unit.get_metal_cost_ratio(ratio) * amount
+      reCrystal = unit.get_crystal_cost_ratio(ratio) * amount
+      reFuel = unit.get_fuel_cost_ratio(ratio) * amount
+
+      if not(@unit_instance.ship.nil?)
+        current_user.add_resources(reMetal, reCrystal, reFuel, @unit_instance.ship)
+      end
+
+      @unit_instance.start_time = nil
+      @unit_instance.build_amount = nil;
+      @unit_instance.save
+      redirect_to units_url
+    end
+  end
+
+  def instant_build
+    if not (@unit_instance.start_time.nil?)
+      @unit_instance.start_time = nil
+      
+      amount = @unit_instance.build_amount
+      @unit_instance.amount = @unit_instance.amount + amount
+      @unit_instance.build_amount = nil
+
+      @unit_instance.save
+      redirect_to units_url
+    end
   end
 
   # POST /unit_instances

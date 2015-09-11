@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :unit_instances
+  resources :unit_instances do
+    member do
+      get 'cancel_build'
+      get 'instant_build'
+    end
+  end
 
   resources :units do
     member do

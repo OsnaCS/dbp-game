@@ -73,6 +73,18 @@ class User < ActiveRecord::Base
 
     return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)   
   end
+  
+  def can_build_unit(unit, ship)
+    condition = self.check_condition(unit.conditions) 
+    not_building = ship.get_unit_instance(unit).start_time.nil?
+
+    metal = unit.get_metal_cost() 
+    crystal = unit.get_crystal_cost() 
+    fuel = unit.get_fuel_cost()
+
+    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    return condition && not_building && enough_resources 
+  end
 
   def has_min_science_level(science, level)
     return self.get_science_instance(science).level >= level.to_i
