@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :expedition_instances, dependent: :destroy
   has_many :expeditions, :through => :expedition_instances
   after_initialize :init
-
+  belongs_to :active_ship, foreign_key: :activeShip, class: Ship
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -41,8 +41,6 @@ class User < ActiveRecord::Base
         if not (instance.level >= condition_elements[2].to_i)
           return false
         end
-      else
-        return false
       end
     end
     return true

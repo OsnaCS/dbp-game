@@ -31,7 +31,7 @@
 			<% end %>
 		</div>
 		<div id="banner" class="content">
-			<p id="game_name">SpielName</p>
+			<p id="game_name">Lunency</p>
 		</div>
 	</div>
 
@@ -42,7 +42,7 @@
 			<% if user_signed_in? %>
 			    <%= link_to "Points", ranks_path%>
 				<% if(current_user.rank) %>
-				  <p><%= current_user.rank.score %></p>
+				  <p id="points"><%= current_user.rank.score %></p>
 				<% end %>
 			<% else %>
 				<p>Not logged in</p>
@@ -55,7 +55,7 @@
 					<td>
 						<p title="Ausgewaehltes Schiff">Selected:
 							<% if current_user.activeShip!=nil%>
-				  				<%=Ship.find_by(id: current_user.activeShip).name%>
+				  				<%=current_user.active_ship.name%>
 							<% else %>
 			    				kein Schiff ausgewählt!
 							<% end %>
@@ -103,10 +103,10 @@
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
 						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
-                  <li><%= link_to "Expeditionen", expeditions_path %></li>
-						<li><%= link_to "Anlagen", root_path %></li>
+						<li><%= link_to "Anlagen", facilities_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
+						<li><%= link_to "Expeditionen", expeditions_path %></li>
 						<li><%= link_to "Kampf",fighting_fleets_path %></li>
 						<li><%= link_to "Rangliste", ranks_path %></li>
 						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>

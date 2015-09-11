@@ -26,6 +26,29 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "facilities", force: :cascade do |t|
+    t.integer  "cost1"
+    t.integer  "cost2"
+    t.integer  "cost3"
+    t.integer  "duration"
+    t.string   "name"
+    t.integer  "facility_condition_id"
+    t.string   "icon"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "condition"
+  end
+
+  create_table "facility_instances", force: :cascade do |t|
+    t.integer  "facility_id"
+    t.integer  "ship_id"
+    t.integer  "count"
+    t.integer  "create_count"
+    t.time     "start_time"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "expedition_instances", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "expedition_id"
