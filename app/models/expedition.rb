@@ -1,14 +1,14 @@
 class Expedition < ActiveRecord::Base
 
    has_one :fighting_fleet
-   has_one :expedition_instances, dependent: :destroy
+   has_one :expedition_instance, dependent: :destroy
    has_one :user, :through => :expedition_instances
 
    def explore
       @value = 0
       @fleet_storeroom = 0
       @exp_storeroom = 0
-      fighting_fleet.ship_group.all.each do |g|
+      fighting_fleet.ship_groups.all.each do |g|
         @value += g.unit.total_cost * g.number
         @fleet_storeroom += g.unit.cargo * g.number
         if(g.unit.name == "Expeditionsschiff")
@@ -16,7 +16,7 @@ class Expedition < ActiveRecord::Base
         end
       end
       event = rand(100)
-      happen = 1.0-(1.0/(1.0 + (@explore_time * 0.2)))
+      happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
       happen = happen * 100
       if(happen>event)
          return occurance
@@ -26,7 +26,7 @@ class Expedition < ActiveRecord::Base
    end
 
    def self.shipamount(shiptype)
-         #Ships.find(current_user.activeShip).#Befehl um stationierte Schiffe abzufragen
+         #Ships.find(user.activeShip).#Befehl um stationierte Schiffe abzufragen
          return amount=1
    end
 
@@ -46,15 +46,15 @@ class Expedition < ActiveRecord::Base
 
    def nothing
    	nothing_id = rand(5001..5006)
-      current_user.notifications.create(message: Message.find_by_code(nothing_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id))
    end
 
    def destruction
-      fighting_fleet.ship_group.all.each do |g|
+      fighting_fleet.ship_groups.all.each do |g|
          g.number = 0
       end
       destruction_id = rand(5201..5211)
-      current_user.notifications.create(message: Message.find_by_code(destuction_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id))
    end
 
    def fight
@@ -64,6 +64,7 @@ class Expedition < ActiveRecord::Base
       jaeger_amount = 0
       fregatte_amount = 0
       schild_amount = 0
+      enemy_strength = 0
       until(limit<enemy_strength)
          ship_got = rand(100)
          case ship_got
@@ -82,15 +83,18 @@ class Expedition < ActiveRecord::Base
          end
       end
 
-      gegner_flotte = Fighting_fleet.create(user: User.find_by_username("dummy"))
-      gegner_flotte.ship_groups.find_by_name("Kreuzer").number += kreuzer_amount
-      gegner_flotte.ship_groups.find_by_name("Jäger").number += jaeger_amount
-      gegner_flotte.ship_groups.find_by_name("Fregatte").number += fregatte_amount
-      gegner_flotte.ship_groups.find_by_name("mobiler Schild").number += schild_amount
+      gegner_flotte = FightingFleet.create(user: User.find_by_username("dummy"))
+      gegner_flotte.ship_groups.find_by(:unit_id => 7).number += kreuzer_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => 5).number += jaeger_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => 6).number += fregatte_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => 12).number += schild_amount
+      gegner_flotte.save
 
       fight_id = rand(5101..5106)
-      current_user.notifications.create(message: Message.find_by_code(fight_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id))
       #TODO Kampf starten
+
+      gegner_flotte.destroy
    end
 
    def ressource
@@ -117,12 +121,13 @@ class Expedition < ActiveRecord::Base
       fuel_got = final_amount * fuel
       
       resi_id = rand(5401..5406)
-      current_user.notifications.create(message: Message.find_by_code(resi_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id))
       
-      ship = Ships.find(current_user.activeShip)
+      ship = Ship.find(self.expedition_instance.user.activeShip)
       ship.metal += metal_got
       ship.cristal += crystal_got
       ship.fuel += fuel_got
+      ship.save
       
    end
 
@@ -152,9 +157,9 @@ class Expedition < ActiveRecord::Base
       end
       
 	  salvage_id = rand(5301..5307)
-      current_user.notifications.create(message: Message.find_by_code(salvage_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id))
 
-      fighting_fleet.ship_group.all.each do |g|
+      fighting_fleet.ship_groups.all.each do |g|
          case g.unit.name
          when "Kreuzer"
             g.number += kreuzer_amount
@@ -169,16 +174,13 @@ class Expedition < ActiveRecord::Base
       end
 
 
-      fighting_fleet = Fighting_fleet.create(user: User.find_by_username("dummy"))
-      fighting_fleet.ship_groups.find_by_name("Kreuzer").number += kreuzer_amount
-      fighting_fleet.ship_groups.find_by_name("Jäger").number += jaeger_amount
-      fighting_fleet.ship_groups.find_by_name("Fregatte").number += fregatte_amount
-      fighting_fleet.ship_groups.find_by_name("mobiler Schild").number += schild_amount
+      fighting_fleet = FightingFleet.create(user: User.find_by_username("dummy"))
+      fighting_fleet.ship_groups.find_by(:unit_id => 7).number += kreuzer_amount
+      fighting_fleet.ship_groups.find_by(:unit_id => 5).number += jaeger_amount
+      fighting_fleet.ship_groups.find_by(:unit_id => 6).number += fregatte_amount
+      fighting_fleet.ship_groups.find_by(:unit_id => 12).number += schild_amount
+
+      fighting_fleet.save
 
    end
-
-   def set_exp_time time
-      @explore_time = time      
-   end
-
 end

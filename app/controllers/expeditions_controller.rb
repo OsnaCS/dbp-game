@@ -9,6 +9,14 @@ class ExpeditionsController < ApplicationController
       redirect_to :controller => 'ships', :action => 'new'
     end
     @expeditions = current_user.expedition_instances.map(&:expedition)
+
+    @expeditions.each do |expi|
+    	if(expi.arrival_time < (Time.now + 2.hours ))
+    		expi.explore
+    		expi.destroy
+    	end
+    end
+
   end
 
   # GET /expeditions/1
@@ -43,8 +51,8 @@ class ExpeditionsController < ApplicationController
        fuelcost += (unit.shell + unit.cargo) * params[unit.id.to_s].to_i
     end
 
-    fuelcost = fuelcost *
-       params[:exp_time].to_i/(1+(0.1*@userEngineLevel))
+    fuelcost = (fuelcost *
+       params[:exp_time].to_i/(1+(0.1*@userEngineLevel))).round
     userShip = Ship.find(current_user.activeShip)
     if(userShip.fuel < fuelcost)
       string = "Nicht genügend Treibstoff um diese
@@ -54,7 +62,7 @@ class ExpeditionsController < ApplicationController
     end
 
     @expedition.explore_time = params[:exp_time].to_i
-    @expedition.arrival_time = Time.now + 3600 * (@expedition.explore_time + 2)
+    @expedition.arrival_time = Time.now + 3600 * (2 + @expedition.explore_time) 
 
     @expedition.fighting_fleet= FightingFleet.create(user: current_user)
     Unit.all.each do |unit|

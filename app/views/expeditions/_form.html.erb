@@ -27,7 +27,6 @@
 
       <% Unit.all.each do |unit| %>
          <tr>
-           <td><%= #unit.icon %></td>
            <td align=left ><%= unit.name %></td>       
            <td><%= Expedition.shipamount(unit.id) %></td>
            <td><%= number_field_tag(unit.id, 0, min:0, max: Expedition.shipamount(unit.id)) %></td>
