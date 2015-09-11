@@ -315,7 +315,6 @@ ul li {
 	background-size: 100% 100%;
 }
 
-
 #notification-text {
 	position: absolute;
 	color: #FFF;
@@ -350,7 +349,6 @@ ul li {
 	left: 100px;
 	z-index: 2;
 }
-
 
 #res-table {
 	position: relative;
