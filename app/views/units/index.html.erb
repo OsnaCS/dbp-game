@@ -5,7 +5,7 @@
 <table id="table_units">
   <thead>
     <tr>
-      <th>Bild</th>
+      <th></th>
       <th>Name</th>
       <th>Metall</th>
       <th>Kristall</th>
@@ -19,21 +19,34 @@
 
   <tbody>
     <% Unit.all.each do |unit| %>
-      <tr>
-        <td></td>
-        <td><%= unit.name %></td>
-        <td><%= unit.metal_price %></td>
-        <td><%= unit.crystal_price %></td>
-        <td><%= unit.fuel_price %></td>
-        <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
-        <td><%= current_ship.get_unit_instance(unit).amount %></td>
+      <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
+      <% instance = current_ship.get_unit_instance(unit)%></td>
+
+      <% if(instance.start_time.nil?) %>
+        <tr id="inactive">
+      <% else %>
+        <tr id="active">
+      <% end %>
         <td>
-          <%= form_tag build_unit_path(unit), method: 'get' do %>
-          <%= hidden_field_tag :unit_id, unit.id%>
-          <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
-          <%= number_field_tag(:amount, placeholder: '0', min: 0,) %>
-          <%= submit_tag 'Herstellen' %>
-          <% end %>
+          <a>
+            <img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon">
+          </a>
+        </td>
+          <td><%= unit.name %></td>
+          <td><%= unit.get_metal_cost %></td>
+          <td><%= unit.get_crystal_cost %></td>
+          <td><%= unit.get_fuel_cost %></td>
+          <td><%= instance.update_time(false) %></td>
+          <td><%= instance.amount %></td>
+          
+          <td>
+            <%= form_tag build_unit_path(unit), method: 'get' do %>
+              <%= hidden_field_tag :unit_id, unit.id%>
+              <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
+              <%= number_field_tag(:amount, placeholder: '0', min: 0,) %>
+              <%= submit_tag 'Herstellen' %>
+            <% end %>
+          </td>
         </td>
       </tr>
     <% end %>

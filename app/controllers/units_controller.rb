@@ -25,12 +25,12 @@ class UnitsController < ApplicationController
     ship = Ship.find_by(:id => params[:ship_id])
     instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
 
-    if(params[:amount].nil? || params[:amount] == 0)
-      params[:amount] = 0
-    end
-    instance.amount = instance.amount + params[:amount].to_i
+    if not (params[:amount].nil? || params[:amount] == 0)
+      instance.start_time = Time.now
+      instance.build_amount = params[:amount].to_i
 
-    instance.save
+      instance.save
+    end
     redirect_to units_url
   end
 
