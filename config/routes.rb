@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   get 'notification_view/index'
 
   resources :units
