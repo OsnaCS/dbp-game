@@ -1,6 +1,6 @@
 class ShipsController < ApplicationController
   before_action :set_ship, only: [:cheat, :show, :edit, :update, :destroy]
-  skip_before_action :check_if_user_own_ship
+  skip_before_action :check_if_user_own_ship, except: [:index]
 
   def cheat
     @ship.metal = @ship.metal + 100000000
@@ -15,7 +15,6 @@ class ShipsController < ApplicationController
   # GET /ships
   # GET /ships.json
   def index
-    check_if_user_own_ship
     @ships = Ship.all
   end
 
