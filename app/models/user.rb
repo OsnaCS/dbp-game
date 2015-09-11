@@ -67,7 +67,17 @@ class User < ActiveRecord::Base
   def has_min_science_level(science, level)
     return self.get_science_instance(science).level >= level.to_i
   end
-
+  def next_ship_allowed
+    if ship_count < 3
+      return true
+    end
+    if self.ship_count > self.get_science_instance(Science.find_by(id: '4009')).level + 2
+      return false
+    else 
+      return true
+    end    
+  end
+  
   def get_metal()
      ship = Ship.find_by(:id => self.activeShip)
 
