@@ -1,5 +1,5 @@
 class ShipsStationsController < ApplicationController
-  before_action :set_ships_station, only: [:show, :edit, :update, :destroy]
+  before_action :set_ships_station, only: [:upgrade, :cancel_upgrade, :instant_upgrade, :show, :edit, :update, :destroy]
 
   # GET /ships_stations
   # GET /ships_stations.json
@@ -37,6 +37,43 @@ class ShipsStationsController < ApplicationController
         format.json { render json: @ships_station.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def upgrade
+    @ships_station.start_time = Time.now
+    @ships_station.save
+
+    metal = @ships_station.station.get_metal_cost(@ships_station.level)
+    crystal = @ships_station.station.get_crystal_cost(@ships_station.level)
+    fuel = @ships_station.station.get_fuel_cost(@ships_station.level)
+
+    current_user.remove_resources_from_current_ship(metal, crystal, fuel)
+    redirect_to ships_stations_url
+  end
+
+  def cancel_upgrade
+    currentLevel = @ships_station.level
+    station = @ships_station.station
+
+    ratio = @ships_station.get_upgrade_ratio
+    reMetal = station.get_metal_cost_ratio(currentLevel, ratio)
+    reCrystal = station.get_crystal_cost_ratio(currentLevel, ratio)
+    reFuel = station.get_fuel_cost_ratio(currentLevel, ratio)
+
+    current_user.add_resources_to_current_ship(reMetal, reCrystal, reFuel)
+
+    @ships_station.start_time = nil
+    @ships_station.save
+    redirect_to ships_stations_url
+  end
+
+
+
+  def instant_upgrade
+    @ships_station.level = @ships_station.level + 1
+    @ships_station.start_time = nil
+    @ships_station.save
+    redirect_to ships_stations_url
   end
 
   # PATCH/PUT /ships_stations/1
