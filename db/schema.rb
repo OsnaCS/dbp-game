@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20150910133603) do
 
   create_table "expedition_instances", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "expidition_id"
+    t.integer  "expedition_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  create_table "expiditions", force: :cascade do |t|
+  create_table "expeditions", force: :cascade do |t|
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "explore_time"
@@ -41,17 +41,17 @@ ActiveRecord::Schema.define(version: 20150910133603) do
     t.integer  "fighting_fleet_id"
   end
 
-  add_index "expiditions", ["fighting_fleet_id"], name: "index_expiditions_on_fighting_fleet_id", using: :btree
+  add_index "expeditions", ["fighting_fleet_id"], name: "index_expeditions_on_fighting_fleet_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "fight_id"
-    t.integer  "expidition_id"
+    t.integer  "expedition_id"
   end
 
-  add_index "fighting_fleets", ["expidition_id"], name: "index_fighting_fleets_on_expidition_id", using: :btree
+  add_index "fighting_fleets", ["expedition_id"], name: "index_fighting_fleets_on_expedition_id", using: :btree
   add_index "fighting_fleets", ["fight_id"], name: "index_fighting_fleets_on_fight_id", using: :btree
   add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
 
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(version: 20150910133603) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-  add_foreign_key "expiditions", "fighting_fleets"
+  add_foreign_key "expeditions", "fighting_fleets"
   add_foreign_key "fighting_fleets", "fights"
   add_foreign_key "fighting_fleets", "users"
   add_foreign_key "notifications", "messages"

@@ -1,10 +1,10 @@
-<%= form_for(@expidition) do |f| %>
-   <% if @expidition.errors.any? %>
+<%= form_for(@expedition) do |f| %>
+   <% if @expedition.errors.any? %>
       <div id="error_explanation">
-         <h2><%= pluralize(@expidition.errors.count, "error") %> prohibited this expidition from being saved:</h2>
+         <h2><%= pluralize(@expedition.errors.count, "error") %> prohibited this expedition from being saved:</h2>
 
          <ul>
-            <% @expidition.errors.full_messages.each do |message| %>
+            <% @expedition.errors.full_messages.each do |message| %>
                <li><%= message %></li>
             <% end %>
          </ul>
@@ -28,8 +28,8 @@
          <tr>
          <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
            <td align=left ><%= unit.name %></td>       
-           <td><%= Expidition.shipamount(unit.id) %></td>
-           <td><%= number_field_tag(unit.id, 0, min:0, max: Expidition.shipamount(unit.id)) %></td>
+           <td><%= Expedition.shipamount(unit.id) %></td>
+           <td><%= number_field_tag(unit.id, 0, min:0, max: Expedition.shipamount(unit.id)) %></td>
          </tr>
 
       <% end %>

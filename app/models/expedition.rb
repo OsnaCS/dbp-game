@@ -1,4 +1,4 @@
-class Expidition < ActiveRecord::Base
+class Expedition < ActiveRecord::Base
 
    has_one :fighting_fleet
    has_one :expedition_instances, dependent: :destroy

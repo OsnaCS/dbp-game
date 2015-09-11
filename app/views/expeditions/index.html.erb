@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @expiditions.sort_by(&:arrival_time).each do |exp| %>
+    <% @expeditions.sort_by(&:arrival_time).each do |exp| %>
       <tr>
         <td><%= exp.explore_time %></td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'neue Expedition Starten', new_expidition_path %>
+<%= link_to 'neue Expedition Starten', new_expedition_path %>

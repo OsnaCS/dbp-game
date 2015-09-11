@@ -69,6 +69,6 @@ class ExpeditionInstancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expedition_instance_params
-      params.require(:expedition_instance).permit(:user_id, :expidition_id)
+      params.require(:expedition_instance).permit(:user_id, :expedition_id)
     end
 end

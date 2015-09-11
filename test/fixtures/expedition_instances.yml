@@ -2,8 +2,8 @@
 
 one:
   user_id: 1
-  expidition_id: 1
+  expedition_id: 1
 
 two:
   user_id: 1
-  expidition_id: 1
+  expedition_id: 1

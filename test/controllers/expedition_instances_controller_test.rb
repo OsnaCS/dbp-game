@@ -18,7 +18,7 @@ class ExpeditionInstancesControllerTest < ActionController::TestCase
 
   test "should create expedition_instance" do
     assert_difference('ExpeditionInstance.count') do
-      post :create, expedition_instance: { expidition_id: @expedition_instance.expidition_id, user_id: @expedition_instance.user_id }
+      post :create, expedition_instance: { expedition_id: @expedition_instance.expedition_id, user_id: @expedition_instance.user_id }
     end
 
     assert_redirected_to expedition_instance_path(assigns(:expedition_instance))
@@ -35,7 +35,7 @@ class ExpeditionInstancesControllerTest < ActionController::TestCase
   end
 
   test "should update expedition_instance" do
-    patch :update, id: @expedition_instance, expedition_instance: { expidition_id: @expedition_instance.expidition_id, user_id: @expedition_instance.user_id }
+    patch :update, id: @expedition_instance, expedition_instance: { expedition_id: @expedition_instance.expedition_id, user_id: @expedition_instance.user_id }
     assert_redirected_to expedition_instance_path(assigns(:expedition_instance))
   end
 

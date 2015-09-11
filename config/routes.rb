@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :notifications
   resources :messages
   resources :stations
-  resources :expiditions
+  resources :expeditions
   resources :science
   resources :ranks
   resources :user_icons
