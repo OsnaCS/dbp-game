@@ -43,6 +43,8 @@
         <% if(inactive) %>
           <td id = "not_running"><%= science_instance.update_time(true).to_s %></td>
         <% else %>
+          <% strTag = "running"+science_instance.science_id.to_s %>
+          <%= "ID="strTag %>
           <td id = "running"><%= science_instance.update_time(false).to_s %></td>
           <%= javascript_tag "start_timer()" -%>
         <% end %>

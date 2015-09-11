@@ -25,8 +25,9 @@ $(document).ready(function () {
  * @brief Starts a timer for a countdown
  */
 function start_timer() {
-  var time = document.getElementById("running").innerHTML;
-  timer(time);
+  //var time = document.getElementById("running").innerHTML;
+  //timer(time);
+  timer2();
 }
 
 /**
@@ -66,6 +67,20 @@ function timer(time) {
     window.location.reload();
     window.location.reload();
   }
+}
+
+funtion timer2(){
+	for (i = 0; i < 1000; i++) { 
+		var str = "running"+String(i);
+		var time = document.getElementById(str).innerHTML
+		
+		if(time!=null){
+			var countertime = parseInt(time);
+			document.getElementById(str).innerHTML = countertime;
+		}
+
+	}
+
 }
 
 function getTimer() {
