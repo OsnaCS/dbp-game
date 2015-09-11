@@ -1,6 +1,4 @@
 class NotificationViewController < ApplicationController
-  before_action :authenticate_user!
-
   def index
   	@notifications = Notification.all.where(user_id: current_user.id)
   	@notes = Hash.new
