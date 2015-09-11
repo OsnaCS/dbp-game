@@ -186,7 +186,9 @@ class User < ActiveRecord::Base
     end  
     return s
   end
-
+  def active_ship
+    return Ship.find_by(id: self.activeShip)
+  end
   def select_ship(shipID)
     self.activeShip=shipID
     self.save

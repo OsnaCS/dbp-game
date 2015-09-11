@@ -54,7 +54,7 @@
 					<td>
 						<p title="Ausgewaehltes Schiff">Selected:
 							<% if current_user.activeShip!=nil%>
-				  				<%=Ship.find_by(id: current_user.activeShip).name%>
+				  				<%=current_user.active_ship.name%>
 							<% else %>
 			    				kein Schiff ausgewählt!
 							<% end %>
