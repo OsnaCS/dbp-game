@@ -46,13 +46,17 @@ class Ship < ActiveRecord::Base
   end
 
   def create_units
-    Unit.all.each do |unit|
-      if not(UnitInstance.exists?(:unit_id => unit.id, :ship_id => self.id))
-        instance = UnitInstance.new
-        instance.unit_id = unit.id
-        instance.ship_id = self.id
-        instance.amount = 0;
-        instance.save
+    if(self.id.nil?)
+      return
+    else
+      Unit.all.each do |unit|
+        if not(UnitInstance.exists?(:unit_id => unit.id, :ship_id => self.id))
+          instance = UnitInstance.new
+          instance.unit_id = unit.id
+          instance.ship_id = self.id
+          instance.amount = 0;
+          instance.save
+        end
       end
     end
   end

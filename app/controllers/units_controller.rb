@@ -22,9 +22,14 @@ class UnitsController < ApplicationController
   end
 
   def build
-    ship = Ship.find_by(:id => 1)
+    ship = Ship.find_by(:id => params[:ship_id])
     instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
-    instance.amount = params[:amount]
+
+    if(params[:amount].nil? || params[:amount] == 0)
+      params[:amount] = 0
+    end
+    instance.amount = instance.amount + params[:amount].to_i
+
     instance.save
     redirect_to units_url
   end

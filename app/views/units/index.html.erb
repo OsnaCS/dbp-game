@@ -17,7 +17,7 @@
   </thead>
 
   <tbody>
-    <% @units.each do |unit| %>
+    <% Unit.all.each do |unit| %>
       <tr>
         <td></td>
         <td><%= unit.name %></td>
@@ -29,8 +29,9 @@
         <td>
           <%= form_tag build_unit_path(unit), method: 'get' do %>
           <%= hidden_field_tag :unit_id, unit.id%>
-          <%= number_field_tag(:amount, :id, placeholder: '0', min: 0,) %>
-            <td> <%= submit_tag 'Herstellen' %> </td>
+          <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
+          <%= number_field_tag(:amount, placeholder: '0', min: 0,) %>
+          <%= submit_tag 'Herstellen' %>
           <% end %>
         </td>
       </tr>

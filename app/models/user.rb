@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def active_ship
+    return Ship.find_by(id: self.activeShip)
+  end
+  
   def cheat
     current_user.remove_resources(-10000, -10000, -10000)
   end
