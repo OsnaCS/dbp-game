@@ -1,5 +1,5 @@
 class Ship < ActiveRecord::Base
-  
+
   has_one :user_ship
   has_one :user, :through => :user_ships
   has_many :ships_stations
@@ -21,15 +21,21 @@ class Ship < ActiveRecord::Base
           self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
           #self.fuel=0
         end
-        
 	  end
-    
+
     self.lastChecked = Time.now.getutc
     self.save
-    
+
   end
 
-  
+  def is_upgrading()
+    ships_stations.each do |station|
+      if not(station.start_time.nil?)
+        return true
+      end
+    end
+    return false
+  end
 
   private
   def create_stations
@@ -48,7 +54,7 @@ class Ship < ActiveRecord::Base
   	if id==2001 || id==2002
   		start = 2000.0
     end
-  	if(id==2003) 
+  	if(id==2003)
   		start = 1000.0
 		end
 		start /= 3600.0
@@ -59,5 +65,5 @@ class Ship < ActiveRecord::Base
 		return produktion
   end
 
- 
+
 end

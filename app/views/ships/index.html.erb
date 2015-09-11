@@ -4,6 +4,11 @@
 
 <table id="stationsite">
 
+    <tr id="ship_t1">
+      <th>Name</th>
+      <th>Auswahl</th>
+      <th>Station</th>
+    </tr>
 
   <tbody>
    <% UserShip.where(:user_id => current_user.id).each do |usership| %>
@@ -11,6 +16,8 @@
         <td id="ship_t2"><%= usership.ship.name %></td>
         <td id="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
         <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+        <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
+        <% usership.ship.update_resources %>
       </tr>
     <% end %>
   </tbody>

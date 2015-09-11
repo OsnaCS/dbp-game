@@ -99,7 +99,7 @@ ul li {
 #botm {
 	position: static;
 	width: 100%;
-	height: 75%;
+	height: 70%;
 	top: 25%;
 }
 
@@ -131,6 +131,15 @@ ul li {
 	max-width: 90%;
 	max-height: 100%;
 	overflow-y: scroll;
+}
+
+#footer {
+	position: static;
+	width: 100%;
+	height: 5%;
+	top: 95%;
+	text-align: center;
+	padding-top: 30px;
 }
 
 .content {
@@ -285,8 +294,10 @@ ul li {
 	width: 50px;
 	height: 50px;
 	left: calc(50% - 25px);
+	top: 5px;
+	background-image: url('ui/message.png');
+	background-size: 100% 100%;
 }
-
 
 #notification-text {
 	position: absolute;
@@ -296,6 +307,10 @@ ul li {
 	font-weight: bold;
 	border: 2px solid red;
 	border-radius: 5px;
+}
+
+#notification-text[text=""] {
+	display: none;
 }
 
 #game_name {
@@ -317,7 +332,6 @@ ul li {
 	left: 100px;
 	z-index: 2;
 }
-
 
 #res-table {
 	position: relative;
