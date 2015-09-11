@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
   has_many :user_ships
-  has_many :ships, :through => :user_ships   
+  has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
   after_initialize :init
@@ -176,12 +176,11 @@ class User < ActiveRecord::Base
   def login=(login)
     @login = login
   end
-  
+
   def login
     @login || self.username || self.email
   end
 
-  
   def create_ship(ship_name)
     if self.ship_count == nil
       self.ship_count=0
@@ -194,12 +193,12 @@ class User < ActiveRecord::Base
       if self.ship_count>1
         if !has_enough_resources(200000,100000,0)
           return
-        end  
+        end
         remove_resources_from_current_ship(200000, 100000, 0)
       end
       s = self.ships.build(ship_name)
-      self.user_ships.build(user: self, ship: s)  
-    end  
+      self.user_ships.build(user: self, ship: s)
+    end
     return s
   end
 

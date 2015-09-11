@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910125746) do
+ActiveRecord::Schema.define(version: 20150910132641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20150910125746) do
     t.integer  "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time     "start_time"
   end
 
   add_index "ships_stations", ["ship_id"], name: "index_ships_stations_on_ship_id", using: :btree
@@ -133,12 +134,14 @@ ActiveRecord::Schema.define(version: 20150910125746) do
     t.integer  "costMineral"
     t.integer  "costCristal"
     t.integer  "costFuel"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "initial_level"
     t.integer  "tier"
     t.string   "icon"
-    t.integer  "condition"
+    t.string   "condition"
+    t.integer  "station_condition_id"
+    t.integer  "duration"
   end
 
   create_table "trades", force: :cascade do |t|
