@@ -205,8 +205,8 @@ ActiveRecord::Schema.define(version: 20150910132641) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "activeShip"
     t.integer  "right_level",            default: 0,  null: false
+    t.integer  "activeShip"
     t.integer  "ship_count"
   end
 
