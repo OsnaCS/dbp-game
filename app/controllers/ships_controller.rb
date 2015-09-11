@@ -2,9 +2,9 @@ class ShipsController < ApplicationController
   before_action :set_ship, only: [:cheat, :show, :edit, :update, :destroy]
 
   def cheat
-    @ship.metal = @ship.metal + 10000
-    @ship.cristal = @ship.cristal + 10000
-    @ship.fuel = @ship.fuel + 10000
+    @ship.metal = @ship.metal + 100000000
+    @ship.cristal = @ship.cristal + 100000000
+    @ship.fuel = @ship.fuel + 100000000
 
     @ship.save
 

@@ -26,8 +26,7 @@ $(document).ready(function () {
  * @brief Starts a timer for a countdown
  */
 function start_timer() {
-  var time = document.getElementById("running").innerHTML;
-  timer(time);
+  timer();
 }
 
 /**
@@ -59,14 +58,23 @@ function formatTime(secs) {
  *
  * @param time The remaining time
  */
-function timer(time) {  
-  if(time > 0) {
-    document.getElementById("running").innerHTML = formatTime(time);
-    window.setTimeout('timer('+ (--time) +')',1000);
-  } else {
-    window.location.reload();
-    window.location.reload();
-  }
+
+function timer(){
+	$('.running').each(function (time) {
+		var timeElement = $(this);
+		var secs = parseInt(timeElement.data("time"),10);
+		if(secs>0){
+			secs--;
+			timeElement.data('time', secs);
+			timeElement.html(formatTime(secs));
+		}
+		else{
+    		window.location.reload(); //did some magic
+    		window.location.reload();
+		}
+	});
+
+	window.setTimeout(timer,1000);
 }
 
 function getJsonData() {

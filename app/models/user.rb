@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 
 
   # Include default devise modules. Others available are:
-
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   devise :database_authenticatable, :registerable,
@@ -49,8 +48,26 @@ class User < ActiveRecord::Base
     return true
   end
 
-  def cheat
-    current_user.remove_resources(-10000, -10000, -10000)
+  def get_science_instance(science)
+    return ScienceInstance.find_by(:user_id => self.id, :science_id => science.id)
+  end
+
+  def can_research(science, level)
+    condition = self.check_condition(science.condition) 
+    is_researching = !self.is_researching
+
+    metal = science.get_metal_cost(level) 
+    crystal = science.get_crystal_cost(level) 
+    fuel = science.get_fuel_cost(level)
+
+    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    science_instance = self.get_science_instance(science)
+
+    return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)   
+  end
+
+  def has_min_science_level(science, level)
+    return self.get_science_instance(science).level >= level.to_i
   end
 
   def get_metal()
@@ -95,7 +112,6 @@ class User < ActiveRecord::Base
     end
     return true
   end
-
 
   def has_enough_fuel(fuel)
     ship_fuel = self.get_fuel
