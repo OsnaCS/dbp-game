@@ -18,7 +18,7 @@
   </thead>
 
   <tbody>
-    <% Ship.find_by(id: current_user.activeShip).ships_stations.sort_by{|instance| instance.station.station_condition_id}.each do |ships_station| %>
+    <% @ship.ships_stations.sort_by{|instance| instance.station.station_condition_id}.each do |ships_station| %>
      <% inactive = nil %>
      <% if(ships_station.start_time.nil?) %>
        <tr id="inactive">
