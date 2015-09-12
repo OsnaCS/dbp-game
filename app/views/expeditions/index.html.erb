@@ -1,0 +1,28 @@
+<p id="notice" style='color:green'><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
+
+<h1>Laufende Expeditionen</h1>
+
+<table id="table_expedition">
+  <thead>
+    <tr id="table">
+      <th>Dauer</th>
+      <th>Ankunft</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expeditions.sort_by(&:arrival_time).each do |exp| %>
+      <tr>
+        <td><%= exp.explore_time %> Stunde(n)</td>
+        <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
+        <td><%= link_to 'Flotte einsehen', exp %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'neue Expedition Starten', new_expedition_path %>

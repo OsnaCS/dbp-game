@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
 
+  resources :facility_instances do
+    member do
+      get 'build'
+      get 'cancel_build'
+      get 'instant_build'
+    end
+  end
+
+  resources :expedition_instances
+
+  get 'notification_view/index'
   resources :units
   resources :damage_types
   resources :fighting_fleets do
     resources :ship_groups
-    resources :fights 
+    resources :fights
   end
-  resources :sciences
+
   resources :science_instances do
     member do
       get 'research'
@@ -15,28 +26,40 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_ships
-  resources :notifications
-  resources :messages
-  resources :stations
-  resources :science
-  resources :ranks
-  resources :user_icons
-  resources :ships
-  resources :ships_station  
-
-  resources :trades do
-    member do
-      get 'buy'
-    end
-  end
-
-    #nesting resources ships --> ships_stations
   resources :ships do
     member do
       get 'cheat'
     end
     resources :ships_stations
+  end
+
+  resources :ships_stations do
+    member do
+      get 'upgrade'
+      get 'cancel_upgrade'
+      get 'instant_upgrade'
+    end
+  end
+
+  resources :user_ships
+  resources :notifications
+  resources :messages
+  resources :stations
+<<<<<<< HEAD
+  resources :sciences
+  resources :facilities
+=======
+  resources :expeditions
+  resources :science
+>>>>>>> 4f401cd154b1aebf47f439ac1e5a4a00036c59d0
+  resources :ranks
+  resources :user_icons
+  resources :ships
+
+  resources :trades do
+    member do
+      get 'buy'
+    end
   end
 
   get 'home/index'

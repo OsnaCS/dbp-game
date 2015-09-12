@@ -5,7 +5,132 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-	science0=Science.create(
+=======
+
+Facility.create([
+	{
+		id: 3013,
+		cost1: 0,
+		cost2: 2,
+		cost3: 1,
+		duration: 120 * 8,
+		condition: 'g:6:2,f:1:2',
+		name: 'Solarpanel',
+		facility_condition_id: 13,
+		icon: 'solar.png'
+	},
+	{
+		id: 3014,
+		cost1: 2,
+		cost2: 0,
+		cost3: 0,
+		duration: 120 * 2,
+		condition: 'g:6:2',
+		name: 'Raketenturm',
+		facility_condition_id: 14,
+		icon: 'rocket.png'
+	},
+	{
+		id: 3015,
+		cost1: 3,
+		cost2: 1,
+		cost3: 0,
+		duration: 120 * 5,
+		condition: 'g:6:4,f:2:4',
+		name: 'Kleines Lasergeschütz',
+		facility_condition_id: 15,
+		icon: 'laser_small.png'
+	},
+	{
+		id: 3016,
+		cost1: 12,
+		cost2: 4,
+		cost3: 0,
+		duration: 120 * 20,
+		condition: 'g:6:8,f:2:8',
+		name: 'Großes Lasergeschütz',
+		facility_condition_id: 16,
+		icon: 'laser_big.png'
+	},
+	{
+		id: 3017,
+		cost1: 2,
+		cost2: 3,
+		cost3: 0,
+		duration: 120 * 8,
+		condition: 'g:6:6,f:5:4',
+		name: 'Kleiner Ionenbeschleuniger',
+		facility_condition_id: 17,
+		icon: 'ion_small.png'
+	},
+	{
+		id: 3018,
+		cost1: 8,
+		cost2: 12,
+		cost3: 0,
+		duration: 120 * 32,
+		condition: 'g:6:8,f:5:8',
+		name: 'Großer Ionenbeschleuniger',
+		facility_condition_id: 18,
+		icon: 'ion_big.png'
+	},
+	{
+		id: 3019,
+		cost1: 80,
+		cost2: 20,
+		cost3: 0,
+		duration: 120 * 120,
+		condition: 'g:6:10,f:8:4',
+		name: 'Massenbeschleuniger',
+		facility_condition_id: 19,
+		icon: 'mac.png'
+	},
+	{
+		id: 3020,
+		cost1: 1000,
+		cost2: 0,
+		cost3: 200,
+		duration: 120 * 1800,
+		condition: 'g:6:12,f:8:10',
+		name: 'Orbitale Waffenplattform',
+		facility_condition_id: 20,
+		icon: 'orbital.png'
+	},
+	{
+		id: 3021,
+		cost1: 0,
+		cost2: 500,
+		cost3: 1000,
+		duration: 120 * 5000,
+		condition: 'g:6:16,f:9:6,f:10:8',
+		name: 'Kuhtapult',
+		facility_condition_id: 21,
+		icon: 'udder.png'
+	},
+	{
+		id: 3022,
+		cost1: 50,
+		cost2: 100,
+		cost3: 0,
+		duration: 120 * 250,
+		condition: 'g:6:6,f:6:2',
+		name: 'Kleiner Schild',
+		facility_condition_id: 22,
+		icon: 'shield_small.png'
+	},
+	{
+		id: 3023,
+		cost1: 200,
+		cost2: 400,
+		cost3: 0,
+		duration: 120 * 1000,
+		condition: 'g:6:8,f:6:6',
+		name: 'Großer Schild',
+		facility_condition_id: 23,
+		icon: 'shield_big.png'
+	}])
+
+science0=Science.create(
 	{
 		id: 4001,
 		cost1: 10,
@@ -18,6 +143,7 @@
 		tier: 1,
 		science_condition_id: 1,
 		icon: 'huelle.png'
+		level_cap: nil
 	})
 	science1=Science.create({
 		id: 4002,
@@ -31,6 +157,7 @@
 		tier: 1,
 		science_condition_id: 2,
 		icon: 'laser.png'
+		level_cap: nil
 	})
 	science2=Science.create({
 		id: 4003,
@@ -44,6 +171,7 @@
 		tier: 1,
 		science_condition_id: 3,
 		icon: 'spionage.png'
+		level_cap: nil
 	})
 	science3=Science.create({
 		id: 4004,
@@ -57,6 +185,7 @@
 		tier: 2,
 		science_condition_id: 4,
 		icon: 'triebwerke.png'
+		level_cap: nil
 	})
 	science4=Science.create({
 		id: 4005,
@@ -70,8 +199,10 @@
 		tier: 2,
 		science_condition_id: 5,
 		icon: 'ionen.png'
+		level_cap: nil
 	})
 	science5=Science.create({
+		icon: 'ionen.png',
 		id: 4006,
 		cost1: 0,
 		cost2: 6,
@@ -83,6 +214,7 @@
 		tier: 2,
 		science_condition_id: 6,
 		icon: 'schilde.png'
+		level_cap: nil
 	})
 	science6=Science.create({
 		id: 4007,
@@ -96,6 +228,7 @@
 		tier: 3,
 		science_condition_id: 7,
 		icon: 'pilotentraining.png'
+		level_cap: 20
 	})
 	science7=Science.create({
 		id: 4008,
@@ -109,8 +242,10 @@
 		tier: 4,
 		science_condition_id: 10,
 		icon: 'netzwerk.png'
+		level_cap: 8
 	})
 	science8=Science.create({
+		icon: 'netzwerk.png',
 		id: 4009,
 		cost1: 320,
 		cost2: 0,
@@ -122,6 +257,7 @@
 		tier: 4,
 		science_condition_id: 9,
 		icon: 'pioniersausbildung.png'
+		level_cap: 6
 	})
 	science9=Science.create({
 		id: 4010,
@@ -135,8 +271,8 @@
 		tier: 3,
 		science_condition_id: 8,
 		icon: 'kinetik.png'
+		level_cap: nil
 	})
-
 
 #Creator for table Trades
 Trade.create([
@@ -163,8 +299,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 1,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Metallscanner.png'
+	  icon: 'metal-scanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2002,
@@ -173,8 +312,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 2,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Kristallscanner.png'
+	  icon: 'crystal-scanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2003,
@@ -183,8 +325,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
+	  station_condition_id: 3,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstoffscanner.png'
+	  icon: 'fuelscanner.png',
+	  duration: 120
 	},
 	{
 	  id: 2004,
@@ -193,9 +338,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 4,
+	  condition: 's:5:4',
 	  tier: 2,
-	  icon: 'Forschungsstation.png'
+	  icon: 'research-building.png',
+	  duration: 240
 	},
 	{
 	  id: 2005,
@@ -204,8 +351,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 5,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Baugebaeude.png'
+	  icon: 'construction-buildings.png',
+	  duration: 120
 	},
 	{
 	  id: 2006,
@@ -214,9 +364,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 6,
+	  condition: 's:5:2',
 	  tier: 2,
-	  icon: 'Werft.png'
+	  icon: 'dockyard.png',
+	  duration: 240
 	},
 	{
 	  id: 2007,
@@ -225,9 +377,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 2,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 7,
+	  condition: 's:5:10',
 	  tier: 3,
-	  icon: 'Erweiterungsplattform.png'
+	  icon: 'extension-platform.png',
+	  duration: 480
 	},
 	{
 	  id: 2008,
@@ -236,8 +390,11 @@ Station.create([
 	  costCristal: 1,
 	  costFuel: 0,
 	  initial_level: 0,
+	  station_condition_id: 8,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Metalllager.png'
+	  icon: 'metal-stock.png',
+	  duration: 120
 	},
 	{
       id: 2009,
@@ -246,8 +403,11 @@ Station.create([
       costCristal: 2,
       costFuel: 0,
       initial_level: 0,
+      station_condition_id: 9,
+      condition: '',
 	  tier: 1,
-	  icon: 'Kristalllager.png'
+	  icon: 'crystal-stock.png',
+	  duration: 120
 	},
 	{
 	  id: 2010,
@@ -256,8 +416,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
+	  station_condition_id: 10,
+	  condition: '',
 	  tier: 1,
-	  icon: 'Treibstofflager.png'
+	  icon: 'fuel-stock.png',
+	  duration: 120
 	},
 	{
 	  id: 2011,
@@ -266,8 +429,11 @@ Station.create([
 	  costCristal: 2,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99, tier: 2,
-	  icon: 'Metalltresor.png'
+	  station_condition_id: 11,
+	  condition: 's:8:4',
+	  tier: 2,
+	  icon: 'metal-safe.png',
+	  duration: 240
 	},
 	{
 	  id: 2012,
@@ -276,9 +442,11 @@ Station.create([
 	  costCristal: 4,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 12,
+	  condition: 's:9:4',
 	  tier: 2,
-	  icon: 'Kristalltresor.png'
+	  icon: 'crystal-safe.png',
+	  duration: 240
 	},
 	{
 	  id: 2013,
@@ -287,9 +455,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 2,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 13,
+	  condition: 's:10:4',
 	  tier: 2,
-	  icon: 'Treibstofftresor.png'
+	  icon: 'fuel-safe.png',
+	  duration: 240
 	},
 	{
 	  id: 2014,
@@ -298,8 +468,11 @@ Station.create([
       costCristal: 1,
       costFuel: 1,
       initial_level: 0,
+      station_condition_id: 14,
+      condition: '',
 	  tier: 1,
-	  icon: 'Energiegenerator.png'
+	  icon: 'energy-generator.png',
+	  duration: 120
 	},
 	{
 	  id: 2015,
@@ -308,9 +481,11 @@ Station.create([
 	  costCristal: 0,
 	  costFuel: 1,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 15,
+	  condition: 's:14:4',
 	  tier: 2,
-	  icon: 'Verbrennungsgenerator.png'
+	  icon: 'burn-generator.png',
+	  duration: 240
 	},
 	{
 	  id: 2016,
@@ -319,9 +494,11 @@ Station.create([
 	  costCristal: 4,
 	  costFuel: 0,
 	  initial_level: 0,
-	  condition: 99,
+	  station_condition_id: 16,
+	  condition: 's:5:8',
 	  tier: 3,
-	  icon: 'Reparaturgebaeude.png'
+	  icon: 'repair-building.png',
+	  duration: 480
 }])
 
 # Creator for Messages
@@ -403,7 +580,7 @@ Message.create([
 	  code:	3020
 	},
 	{
-	  mes: '???',
+	  mes: 'Muuuh!',
 	  code:	3021
 	},
 	{
@@ -414,6 +591,11 @@ Message.create([
 	  mes: 'Dienen zur Schildverteidigung des Mutterschiffes',
 	  code:	3023
 	},
+	{
+	  mes: '???',
+	  code:	3024
+	},
+
 
 	# Messages for Stations
 	{

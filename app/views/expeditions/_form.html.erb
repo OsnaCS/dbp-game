@@ -1,0 +1,45 @@
+<%= form_for(@expedition) do |f| %>
+   <% if @expedition.errors.any? %>
+      <div id="error_explanation">
+         <h2><%= pluralize(@expedition.errors.count, "error") %> prohibited this expedition from being saved:</h2>
+
+         <ul>
+            <% @expedition.errors.full_messages.each do |message| %>
+               <li><%= message %></li>
+            <% end %>
+         </ul>
+      </div>
+   <% end %>
+
+   <div class="field">
+   Expeditionszeit in Stunden:<br>
+   <%= number_field_tag(:exp_time, 1, within: 1...25) %>
+   <br><br>
+   <table>
+      <colgroup span=2></colgroup>
+      <tr>
+         <th></th>
+         <th>Einheit</th>
+         <th>stationierte Menge</th>
+         <th>zu schickende Anzahl</th>
+         <th>Treibstoffkosten pro Stunde</tr>
+      </tr>
+
+      <% Unit.all.each do |unit| %>
+         <tr>
+            <td></td>
+           <td align=left ><%= unit.name %></td>       
+           <td><%= Expedition.shipamount(unit.id) %></td>
+           <td><%= number_field_tag(unit.id, 0, min:0, max: Expedition.shipamount(unit.id)) %></td>
+           <td align=right ><%= ((unit.shell + unit.cargo)/@userFuelFactor).round %> pro Einheit</td>
+         </tr>
+
+      <% end %>
+
+            </table>
+   <br>
+
+   <div class="actions">
+      <%= f.submit %>
+   </div>
+<% end %>

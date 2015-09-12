@@ -5,8 +5,20 @@
 #table_ship_stations {
   margin: auto;
   position: relative;
-  width: 50%;
+  width: 80%;
   border: 5px;
   border-collapse: collapse;
   table-layout: fixed;
  }
+
+#active {
+	background: #1411fa;
+	border: 5px;
+	border-collapse: collapse;
+	font-weight: bold;
+}
+
+#inactive {
+	border: 5px;
+	border-collapse: collapse;
+}
