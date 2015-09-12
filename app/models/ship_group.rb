@@ -23,5 +23,9 @@ class ShipGroup < ActiveRecord::Base
   end
   def get_id
     return self.unit.id.to_i
+  end 
+
+  def get_name
+    return self.unit.name
   end
 end

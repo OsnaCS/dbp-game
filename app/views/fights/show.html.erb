@@ -2,7 +2,9 @@
 
 
 <p>
-  <%= @fight.fight %>
+  <% @fight.fight.each do |f| %>
+    <%= f  %><br>
+  <% end %>
 </p>
 
 
