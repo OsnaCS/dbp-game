@@ -1,26 +1,42 @@
 <p id="notice"><%= notice %></p>
-
-
-
-
-   <% if false %>
-   <%@report.each do |a| %> 
-   <a><%=a%> </a>
-   <%end%> 
-   <%else%>
-   <h2><%= @report[0] %></h2>
+<% if false %>
+  <%@report.each do |a| %> 
+  <a><%=a%> </a>
+  <%end%> 
+  <%else%>
+  <h2><%= @report[0] %></h2>
     <% i=1 %>
     <% while i<8 do %>
       <p><%= @report[i] %></p>
       <% i=i+1 %>
     <% end %>
-       
       <% @report[9].each do |r| %>
       <% r.each do |rr| %>
       <p><%= rr %></p>
       <%end %>
-      <%end %>
-    
-   <h2><%= @report[-2] %></h2>
-   <h2><%= @report[-1] %></h2>
-   <%end%>
+    <%end %>
+  <h2><%= @report[-4] %></h2>
+  <h2><%= @report[-3] %></h2>
+  <% i = -2 %>
+  <a>
+  <% while i < 0 %>
+    <table style="float:left;">
+      <tr>
+        <th>Typ<th>
+        <th>Geschickt<th>
+        <th>Verlust<th>
+        <th>Überlebende<th>
+      </tr>
+      <%@report[i].each do |r| %>
+        <tr>
+          <td><%=r[0]%></td>
+          <td><%=r[1]%></td>
+          <td><%=r[2]%></td>
+          <td><%=r[3]%></td>
+        </tr>
+      <% end %>
+    <% i = i + 1 %>
+    </table>
+  <% end %>
+  </a>
+<% end %>
