@@ -9,6 +9,7 @@ def index
   # GET /fights/1
   # GET /fights/1.json
   def show
+    @report=@fight.fight
   end
 
   # GET /fights/new

@@ -2,10 +2,12 @@ class Fight< ActiveRecord::Base
   belongs_to :user
   belongs_to :attacker, :class_name => 'User', :foreign_key => 'attacker_id', inverse_of: :attacks
   belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
+  belongs_to :ship
   has_one :fighting_fleet 
 
   def init_vars
     @report = []
+    @testout= []
     @round_reports = []
     @spy_science_id = 4007
     @pilot_science_id = 4003
@@ -39,6 +41,7 @@ class Fight< ActiveRecord::Base
   end
   
   def user_science_level(user, id)
+
     return user.science_instances.find_by(science_id: id).level
   end
 
@@ -61,7 +64,7 @@ class Fight< ActiveRecord::Base
 
   # Berechnet die Schwelle für einen geglückten EMP-Angriff
   def threshold_emp(user)
-      return (1- ( 1 / (1 + 0.5 * amount_of_ships(user, @emp_ship_id))))
+    return (1- ( 1 / (1 + 0.5 * amount_of_ships(user, @emp_ship_id))))
   end
 
   # Zufalls Zahl zwischen 1 und 0
@@ -70,21 +73,21 @@ class Fight< ActiveRecord::Base
   end 
   
   # Berechnet die maximale Zufallszahl für user (Treffer und welches Ziel)
-  def get_x_for_random(user1)
+  def get_x_for_random(user)
     array = @defender_level
     if user == @attacker
       array = @attacker_level
     end
-    tmp= (1.3 -(0.01 * array[5]))
-    if tmp < 1
-    tmp = 1
+    x = (1.3 - (0.01 * array[5].to_f))
+    if x < 1
+    x = 1
     end
-    return 1
+    return x
   end
 
   # Zufallszahl zwischen 0 und x
   def random_to_x(user)
-    return rand(get_x_for_random(user))
+    return (rand (0 .. (get_x_for_random(user).to_f)))
   end
 
   # Testet ob Spionage geklappt hat und leitet Bericht ein
@@ -108,13 +111,16 @@ class Fight< ActiveRecord::Base
   # Für die Ausgabe des Berichtes
   def spy_report(spy_start, spy_success)
     if spy_start
-      @report << "  Spionagebericht: "
+      @report << "Spionagebericht: "
       if spy_success
         @report << "Spionage erfolgreich! #{@defender.username} wurde ausspioniert."
         spy_event
       else
         @report << "Spionage fehlgeschlagen! Spionagedrohnen von #{@attacker.username} wurden zerstört"
       end
+    else 
+        @report << " "
+        @report << " "
     end
   end
 
@@ -169,15 +175,22 @@ class Fight< ActiveRecord::Base
         @report << "Der EMP war nicht erfolgreich. Schild von #{passiv.username} wurden nicht zerstört."
       end
     else 
+        @report << " "
+        @report << " "
     end  
   end
   
   # Testet, ob eine Flotte noch Schiffe hat
   def defeat(fleet)
     count_all_ships = 0
+    fleet_new = []
     fleet.each do |a|
       count_all_ships = count_all_ships + a[2]
+      if a[1] > 0
+        fleet_new << a[1]
+      end
     end
+    fleet=fleet_new
     return count_all_ships == 0
   end
 
@@ -249,21 +262,21 @@ class Fight< ActiveRecord::Base
   # -1 ist Schild
   # -2 ist Miss
   def hit(enemy_fleet_array, user)
-      if (@fight_shield < 0)
-      index = 0
-      hit_index = random_to_x(user)
-      if (hit_index <= 1)
-        enemy_fleet_array.each do |sg|
-          hit_index = hit_index - sg[-1]
-          if (hit_index < 0)
-            return index
-          end
-          index = index + 1
-        end    
+    index = 0
+    hit_index = random_to_x(user)
+    if (hit_index <= 1)
+      if (@fight_shield > 0)
+        return -1
       end
-      return -2
+      enemy_fleet_array.each do |sg|
+        hit_index = hit_index - sg[-1]
+        if (hit_index < 0)
+          return index
+        end
+        index = index + 1
+      end    
     end
-    return -1
+    return -2
   end
  
   # Bringt die Daten der Schiffsgruppe nach Angriff auf neusten Stand
@@ -271,11 +284,15 @@ class Fight< ActiveRecord::Base
     if group[-2] < 0
       group[-2] = 0
     end
+    amount_before = group[1]
     hp_one = Unit.find(group[0]).shell
     damage_one = Unit.find(group[0]).damage
     group[1] = (group[-2] / hp_one).ceil
     group[2] = group[1] * damage_one
-  end   
+    group[4] = amount_before - group[1]
+    
+  end
+
 
   # Berechnet das Schild von user
   # MUSS NOCH ANGEPASST WERDEN!!!!!!!!!!!!!!!!
@@ -285,7 +302,7 @@ class Fight< ActiveRecord::Base
     if (user == @defender)
       #add shield
     end
-    return amount * 5
+    return 10000
   end
   
   def build_level(user)
@@ -300,13 +317,14 @@ class Fight< ActiveRecord::Base
   end
   
   def battle
-    round = 0
+    round = -1
     continue = true
     turn_fleet = build_array(@attacker, @attacker_fleet)
     target_fleet = build_array(@defender, @defender_fleet)
-    turn_user = @atacker
+    turn_user = @attacker
     target_user = @defender
-    while (round < 10 && continue) do
+    while (round < 50 && continue  ) do
+      round = round + 1
       if target_user == @defender
         @fight_shield = @defender_shield
       else
@@ -314,8 +332,8 @@ class Fight< ActiveRecord::Base
       end
       shield = @fight_shield
       round_report = []
-      round_report << "Runde #{round}: "
-      round_report << "#{turn_user} ist am Zug."
+      round_report << "Runde #{round+1}: "
+      round_report << "#{turn_user.username} ist am Zug."
       if shield > 0
         round_report << "Schild von #{target_user.username} ist aktiv."
         round_report << "Schild hält noch #{shield} Schaden aus."
@@ -326,31 +344,40 @@ class Fight< ActiveRecord::Base
         round_report << " "
       end
       turn_fleet.each do |a|
-        round_report << "#{a[5]} trifft... "
+        round_report << "Die Gruppe #{a[5]} trifft... "
         target = hit(target_fleet, turn_user)
+          @testout << target
         #Falls Ionenwaffe
-        if(shield > 0)
-          if(target==-2)
-          end
+        if(target == -2)
+          round_report << "nicht. Der Angriff ging daneben. "
+          round_report << " "
+          round_report << " "
+        elsif(target==-1)
+          round_report << "das Schild. Der Schaden beträgt:  "
           mult = 1
           if a[3] == 2
             mult = 1.5
           end
           damage = a[2] * mult
+          round_report << "#{damage} "
+          round_report << " "
           @fight_shield = @fight_shield - damage
         else  
-        
           mult=1
           if(a[3]==1)
             mult=1.5
           end 
           victim=target_fleet[target]
+          round_report << "#{victim[5]}. Der Schaden beträgt:  "
           damage=a[2]*mult
+          round_report << "#{damage} "
           hit_points=victim[-2]
           victim[-2]=hit_points-damage
           update_ship_group(victim)
+          round_report << "#{victim[4]} Einheiten wurden zerstört. "
         end
       end 
+          @round_reports << round_report
       
       if (defeat(target_fleet))
         continue=false
@@ -363,7 +390,6 @@ class Fight< ActiveRecord::Base
         else
           @defender_shield=@fight_shield
         end
-          round = round + 1
           tmp_fleet=turn_fleet
           tmp_user=turn_user
           turn_fleet=target_fleet
@@ -371,8 +397,17 @@ class Fight< ActiveRecord::Base
           target_fleet=tmp_fleet
           target_user=tmp_user
       end
-      @report << round_report
+      @report << @round_reports
     end
+    if continue
+      @report << "Unentschieden! "
+      @report << "Es konnte kein Sieger ermittelt werden "
+    else 
+      @report << "Die Flotte von #{target_user.username} unterlag. "
+      @report << " #{turn_user.username} war siegreich! "
+    end
+   
+ # HIER KOMMT NOCH DIE VERLUSTRECHNUNG HIN!
   end
 
   def fight
@@ -382,6 +417,7 @@ class Fight< ActiveRecord::Base
     emp_phase(@attacker)
     emp_phase(@defender)
     battle
+    
     return @report
   end
 end
