@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Stationen</h1><br/>
-
+<% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
     <tr>
@@ -70,3 +70,4 @@
   </tbody>
      <%= javascript_tag "start_timer()" -%>
 </table>
+<%= link_to 'Back', ships_path %>
