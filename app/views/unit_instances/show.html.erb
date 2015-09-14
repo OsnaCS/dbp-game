@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Unit:</strong>
+  <%= @unit_instance.unit_id %>
+</p>
+
+<p>
+  <strong>Ship:</strong>
+  <%= @unit_instance.ship_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @unit_instance.amount %>
+</p>
+
+<%= link_to 'Edit', edit_unit_instance_path(@unit_instance) %> |
+<%= link_to 'Back', unit_instances_path %>

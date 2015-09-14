@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Unit Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Ship</th>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @unit_instances.each do |unit_instance| %>
+      <tr>
+        <td><%= unit_instance.unit_id %></td>
+        <td><%= unit_instance.ship_id %></td>
+        <td><%= unit_instance.amount %></td>
+        <td><%= link_to 'Show', unit_instance %></td>
+        <td><%= link_to 'Edit', edit_unit_instance_path(unit_instance) %></td>
+        <td><%= link_to 'Destroy', unit_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit instance', new_unit_instance_path %>
