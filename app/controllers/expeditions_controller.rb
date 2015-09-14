@@ -23,7 +23,7 @@ class ExpeditionsController < ApplicationController
   # GET /expeditions/new
   def new
     @expedition = Expedition.new
-    @userFuelFactor = 1 + (0.1 * current_user.science_instances.find_by(:science_id => 4004).level)
+    @userFuelFactor = 1 + (0.1 *current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
   end
 
   # GET /expeditions/1/edit
@@ -34,7 +34,6 @@ class ExpeditionsController < ApplicationController
   # POST /expeditions.json
   def create
     @expedition = Expedition.new(expedition_params)
-    @userEngineLevel = current_user.science_instances.find_by(:science_id => 4004).level
 
     if(params[Unit.find_by_name("Expeditionsschiff").id.to_s].to_i < 1)
       redirect_to expeditions_url, alert: 'Mindestens 1 Expeditionsschiff wird benötigt.'
@@ -47,9 +46,9 @@ class ExpeditionsController < ApplicationController
        fuelcost += (unit.shell + unit.cargo) * params[unit.id.to_s].to_i
     end
 
-    fuelcost = (fuelcost *
-       params[:exp_time].to_i/(1+(0.1*@userEngineLevel))).round
-    userShip = current_user.active_ship
+    fuelcost = (fuelcost * params[:exp_time].to_i/@userFuelFactor
+    userShip = Ship.find(current_user.activeShip)
+
     if(userShip.fuel < fuelcost)
       string = "Nicht genügend Treibstoff um diese
       FLotte loszuschicken. Benötigt wird: " + fuelcost.to_s + " Treibstoff"
