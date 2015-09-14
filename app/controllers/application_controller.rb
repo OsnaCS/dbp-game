@@ -8,11 +8,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_if_user_own_ship
-  	if user_signed_in? 
-	    if current_user.activeShip == nil 
-	      redirect_to new_ship_path
-	    end
-  	end
+    if user_signed_in? 
+      if current_user.activeShip == nil 
+        redirect_to new_ship_path
+      end
+    end
   end
 
   def configure_permitted_parameters
