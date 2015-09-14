@@ -35,7 +35,8 @@
         <td>
           <a>
             <img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon">
-          </a>
+          <span><%= unit.message.mes %></span></a>
+          <a>
         </td>
           <td><%= unit.name %></td>
           <td><%= unit.get_metal_cost %></td>
