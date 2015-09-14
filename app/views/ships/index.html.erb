@@ -11,7 +11,7 @@
     </tr>
 
   <tbody>
-   <% UserShip.where(:user_id => current_user.id).each do |usership| %>
+   <% current_user.user_ships.each do |usership| %>
       <tr id="ship_t1">
         <td id="ship_t2"><%= usership.ship.name %></td>
         <td id="ship_t2"><%= link_to 'Auswählen', ship_path(usership.ship) %></td>
