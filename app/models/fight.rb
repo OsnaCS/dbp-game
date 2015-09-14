@@ -9,6 +9,7 @@ class Fight< ActiveRecord::Base
   def init_vars
     # Array in dem alle Ausgeben gespeichert werden
     @report = []
+    @testout = []
     # Array für die einzelnden Runden
     @round_reports = []
     # IDs
@@ -377,13 +378,13 @@ class Fight< ActiveRecord::Base
   
   # Baut ein Array mit allen Forschungsleveln des Benutzers
   def build_level(user)
-    shell=user_science_level(user, @shell_science_id)
-    shield=user_science_level(user, @shield_science_id)
-    laser=user_science_level(user, @laser_science_id)
-    ionen=user_science_level(user, @ionen_science_id)
-    bomb=user_science_level(user, @bomb_science_id)
-    pilot=user_science_level(user, @pilot_science_id)
-    spy=user_science_level(user, @spy_science_id)
+    shell = user_science_level(user, @shell_science_id)
+    shield = user_science_level(user, @shield_science_id)
+    laser = user_science_level(user, @laser_science_id)
+    ionen = user_science_level(user, @ionen_science_id)
+    bomb = user_science_level(user, @bomb_science_id)
+    pilot = user_science_level(user, @pilot_science_id)
+    spy = user_science_level(user, @spy_science_id)
     return [shell, shield, laser, ionen, bomb, pilot, spy]
   end
 
@@ -441,12 +442,12 @@ class Fight< ActiveRecord::Base
       shield = @fight_shield
       # Für die Ausgabe der Runden-Berichte
       round_report = []
-      round_report << "Runde #{round+1}: "
+      round_report << "Runde #{round}: "
       round_report << "#{turn_user.username} ist am Zug."
       if shield > 0
         round_report << "Schild von #{target_user.username} ist aktiv."
         round_report << "Schild hält noch #{shield} Schaden aus."
-        round_report << "Alle Truppen schießen auf den Schildt!"
+        round_report << "Alle Truppen schießen auf den Schild!"
       else  
         round_report << "Schild von #{target_user.username} ist inaktiv."
         round_report << "Angriffe werden nicht abgewehrt!"
@@ -485,7 +486,7 @@ class Fight< ActiveRecord::Base
               end 
             # Bestimme welche Einheit getroffen wurde
             victim=target_fleet[target]
-           # round_report << "#{victim[5]}. Der Schaden beträgt:  "
+            round_report << "#{victim[5]}. Der Schaden beträgt:  "
             # Schadensberechnung
             damage=a[2]*mult
             round_report << "#{damage} "
@@ -497,30 +498,30 @@ class Fight< ActiveRecord::Base
             round_report << "#{victim[4]} Einheiten wurden zerstört. "
           end
         end 
-        # Füge Runden-Bericht ein
-       # @round_reports << round_report
       end
+          # Füge Runden-Bericht ein
+          @round_reports << round_report
       # Testet, ob Spieler noch Truppen besitzt
       if (defeat(target_fleet))
-        continue=false
+        continue = false
       else
         # Falls Schild unter 0, wird er auf 0 gesetzt
         if @fight_shield < 0
           @fight_shield = 0
         end
         # Kampf-Schild für nächste Runde
-        if target_user==@attacker
-          @attacker_shield=@fight_shield
+        if target_user == @attacker
+          @attacker_shield = @fight_shield
         else
-          @defender_shield=@fight_shield
+          @defender_shield = @fight_shield
         end
           # Tausche Rolle des Angreifers aus
-          tmp_fleet=turn_fleet
-          tmp_user=turn_user
-          turn_fleet=target_fleet
-          turn_user=target_user
-          target_fleet=tmp_fleet
-          target_user=tmp_user
+          tmp_fleet = turn_fleet
+          tmp_user = turn_user
+          turn_fleet = target_fleet
+          turn_user = target_user
+          target_fleet = tmp_fleet
+          target_user = tmp_user
       end
       # Füge alle Runden-Berichte hinzu
       @report << @round_reports
@@ -544,8 +545,10 @@ class Fight< ActiveRecord::Base
 
   # Hauptmethode. Navigiert durch den Kampf und gibt zum 
   # Schluss den Report zurück
+
   def fight
     init_vars
+    @testout << @defender
     report_start
     spy_phase
     emp_phase(@attacker)
