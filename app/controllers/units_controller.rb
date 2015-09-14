@@ -5,7 +5,6 @@ class UnitsController < ApplicationController
   # GET /units.json
   def index
     @units = Unit.all
-    puts 'test'
   end
 
   # GET /units/1
