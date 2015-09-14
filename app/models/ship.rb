@@ -16,7 +16,7 @@ class Ship < ActiveRecord::Base
 
     condition_split.each do |condition|
       condition_elements = condition.split(":")
-      if(condition_elements[0].eql? "g")
+      if(condition_elements[0].eql? "s")
         station = ShipsStation.find_by(:ship_id => self.id, :station_id => 2000 + condition_elements[1].to_i)
         if not (station.level >= condition_elements[2].to_i)
           return false
