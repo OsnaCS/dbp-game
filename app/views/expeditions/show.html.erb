@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<table id='table_expedition'>
+   <colgroup span=2></colgroup>
+   <tr>
+   	<th></th>
+      <th>Einheit</th>
+      <th>Anzahl</th>
+   </tr>
+   <% Unit.all.each do |unit| %>
+         <tr>
+         <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
+           <td align=left ><%= unit.name %></td>       
+           <td><%= @expedition.fighting_fleet.ship_groups.find_by_unit_id(unit.id).number %></td>
+         </tr>
+
+      <% end %>
+</table>
+<%= link_to 'Back', expeditions_path %>

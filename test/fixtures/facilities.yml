@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cost1: 
+  cost2: 
+  cost3: 
+  duration: 
+  name: MyString
+  facility_condition_id: 
+  icon: MyString
+
+two:
+  cost1: 
+  cost2: 
+  cost3: 
+  duration: 
+  name: MyString
+  facility_condition_id: 
+  icon: MyString
