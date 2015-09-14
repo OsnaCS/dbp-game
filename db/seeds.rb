@@ -325,7 +325,7 @@ Station.create([
 	  station_condition_id: 3,
 	  condition: '',
 	  tier: 1,
-	  icon: 'fuelscanner.png',
+	  icon: 'fuel-scanner.png',
 	  duration: 120
 	},
 	{
@@ -503,52 +503,52 @@ Message.create([
 	# Messages for Science
 	{
 	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
-	  :fullmes 'Eure Strukturierungen wurden verstärkt. Die Hülle jeder Einheit wurde um 10% verbessert.',
+	  fullmes: 'Eure Strukturierungen wurden verstärkt. Die Hülle jeder Einheit wurde um 10% verbessert.',
 	  code: 4001
 	},
 	{
 	  mes: 'Verbessert zusätzlich den Schaden der Laserwaffen um 10% pro Level, 50% effektiver gegen Hüllen',
-	  :fullmes 'Der Schaden durch Laserwaffen wurde um 10% erhöht. Die Effektivität gegen Hüllen ist um 50% gestiegen.',
+	  fullmes: 'Der Schaden durch Laserwaffen wurde um 10% erhöht. Die Effektivität gegen Hüllen ist um 50% gestiegen.',
       code: 4002
 	},
 	{
 	  mes: 'Verbessert erfolgreiche Spionage(-abwehr), Zusatzinformationen ab Level: 8,16',
-	  :fullmes 'Die Chance für eine erfolgreiche Spionage(-abwehr) ist gestiegen.',
+	  fullmes: 'Die Chance für eine erfolgreiche Spionage(-abwehr) ist gestiegen.',
 	  code: 4003
 	},
 	{
 	  mes: 'Verringert die Reisekosten',
-	  :fullmes 'Eure Reisekosten wurden gesenkt.',
+	  fullmes: 'Eure Reisekosten wurden gesenkt.',
 	  code: 4004
 	},
 	{
 	  mes: 'Verbessert den Schaden der Ionenkanonen um 10% pro Level, Ionen machen 50% mehr Schaden an Schilden',
-	  :fullmes 'Der Schaden durch Ionenkanonen wurde um 10% erhöht. Ionen richten nun 50% mehr Schaden an Schilden an.',
+	  fullmes: 'Der Schaden durch Ionenkanonen wurde um 10% erhöht. Ionen richten nun 50% mehr Schaden an Schilden an.',
 	  code: 4005
 	},
 	{
 	  mes: 'Verbessert Schildgeneratoren um 10% pro Level',
-	  :fullmes 'Eure Schildgeneratoren wurden um 10% verbessert.',
+	  fullmes: 'Eure Schildgeneratoren wurden um 10% verbessert.',
 	  code: 4006
 	},
 	{
 	  mes: 'Verringert die Missrate der Piloten',
-	  :fullmes 'Die Missrate Eurer Piloten ist verringert worden.',
+	  fullmes: 'Die Missrate Eurer Piloten ist verringert worden.',
 	  code: 4007
 	},
 	{
 	  mes: 'Ermöglicht die Forschungzusammenarbeit mehrerer Mutterschiffe',
-	  :fullmes 'Die Forschungzusammenarbeit mehrerer Mutterschiffe ist nun möglich.',
+	  fullmes: 'Die Forschungzusammenarbeit mehrerer Mutterschiffe ist nun möglich.',
 	  code: 4008
 	},
 	{
 	  mes: 'Gestattet ein zusätzliches Mutterschiff je Level',
-	  :fullmes 'Eure Flottenkapazität wurde erhöht.',
+	  fullmes: 'Eure Flottenkapazität wurde erhöht.',
 	  code: 4009
 	},
 	{
 	  mes: 'Verbessert Kinetikwaffen um 10% pro Level, ausgeglichener Schaden',
-	  :fullmes 'Eure Kinetikwaffen sind um 10% verstärkt worden.',
+	  fullmes: 'Eure Kinetikwaffen sind um 10% verstärkt worden.',
 	  code: 4010
 	},
 
@@ -654,82 +654,82 @@ Message.create([
 	# Messages for Stations
 	{
 	  mes: 'Dient zur kontinuierlichen Metallgewinnung',
-	  :fullmes 'Eure Metallgewinnung wurde erhöht.',
+	  fullmes: 'Eure Metallgewinnung wurde erhöht.',
 	  code: 2001
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Kristallgewinnung',
-	  :fullmes 'Eure Kristallgewinnung wurde erhöht.',
+	  fullmes: 'Eure Kristallgewinnung wurde erhöht.',
 	  code: 2002
 	},
 	{
 	  mes: 'Dient zur kontinuierlichen Treibstoffgewinnung',
-	  :fullmes 'Eure Treibstoffgewinnung wurde erhöht.',
+	  fullmes: 'Eure Treibstoffgewinnung wurde erhöht.',
 	  code: 2003
 	},
 	{
 	  mes: 'Dient zur Erforschung neuer Technologien',
-	  :fullmes 'Neue Technologien können nun erforscht werden.',
+	  fullmes: 'Neue Technologien können nun erforscht werden.',
 	  code: 2004
 	},
 	{
 	  mes: 'Baut Gebäude',
-	  :fullmes 'Die Bauzeit Eurer Stationen wurde verringert.',
+	  fullmes: 'Die Bauzeit Eurer Stationen wurde verringert.',
 	  code: 2005
 	},
 	{
 	  mes: 'Baut defensive und offensive Einheiten',
-	  :fullmes 'Eure Einheiten können nun schneller erzeugt werden.',
+	  fullmes: 'Eure Einheiten können nun schneller erzeugt werden.',
 	  code: 2006
 	},
 	{
 	  mes: 'Erweitert die Grundfläche des Mutterschiffes',
-	  :fullmes 'Die Grundfläche Eures Mutterschiffes wurde vergrößert.',
+	  fullmes: 'Die Grundfläche Eures Mutterschiffes wurde vergrößert.',
 	  code: 2007
 	},
 	{
 	  mes: 'Lagert Metall',
-	  :fullmes 'Die Kapazität Eures Metalllagers wurde erhöht.',
+	  fullmes: 'Die Kapazität Eures Metalllagers wurde erhöht.',
 	  code: 2008
 	},
 	{
 	  mes: 'Lagert Kristall',
-	  :fullmes 'Die Kapazität Eures Kristalllagers wurde erhöht.',
+	  fullmes: 'Die Kapazität Eures Kristalllagers wurde erhöht.',
 	  code: 2009
 	},
 	{
 	  mes: 'Lagert Treibstoff',
-	  :fullmes 'Die Kapazität Eures Treibstofflagers wurde erhöht.',
+	  fullmes: 'Die Kapazität Eures Treibstofflagers wurde erhöht.',
 	  code: 2010
 	},
 	{
 	  mes: 'Sicheres Metalllager',
-	  :fullmes 'Ihr Metalltresor hat nun eine höhere Kapazität.',
+	  fullmes: 'Ihr Metalltresor hat nun eine höhere Kapazität.',
 	  code: 2011
 	},
 	{
 	  mes: 'Sicheres Kristalllager',
-	  :fullmes 'Ihr Kristalltresor hat nun eine höhere Kapazität.',
+	  fullmes: 'Ihr Kristalltresor hat nun eine höhere Kapazität.',
 	  code: 2012
 	},
 	{
 	  mes: 'Sicheres Treibstofflager',
-	  :fullmes 'Ihr Treibstofftresor hat nun eine höhere Kapazität.',
+	  fullmes: 'Ihr Treibstofftresor hat nun eine höhere Kapazität.',
 	  code: 2013
 	},
 	{
 	  mes: 'Erzeugt Energie',
-	  :fullmes 'Ihr erzeugt nun mehr Energie.',
+	  fullmes: 'Ihr erzeugt nun mehr Energie.',
 	  code: 2014
 	},
 	{
 	  mes: 'Verbraucht Treibstoff zur Energiegewinnung',
-	  :fullmes 'Eure Energiegewinnung ist gestiegen.',
+	  fullmes: 'Eure Energiegewinnung ist gestiegen.',
 	  code: 2015
 	},
 	{
 	  mes: 'Repariert defensive Einheiten',
-	  :fullmes 'Die Reparaturzeit Eurer Einheiten wurde verringert.',
+	  fullmes: 'Die Reparaturzeit Eurer Einheiten wurde verringert.',
 	  code: 2016
 	},
 
