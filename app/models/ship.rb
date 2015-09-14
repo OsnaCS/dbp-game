@@ -110,9 +110,7 @@ class Ship < ActiveRecord::Base
       else
         return ressource
       end
-    else    
-      return ressource
-    
+      
   end
   private
   def get_collect_difference(level, id, last_update)
