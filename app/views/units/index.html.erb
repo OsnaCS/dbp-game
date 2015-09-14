@@ -20,7 +20,7 @@
 
   <tbody>
     <% @units.sort_by{|u| u.condition_id}.each do |unit| %>
-      <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
+      <% current_ship = current_user.active_ship %>
       <% instance = current_ship.get_unit_instance(unit)%></td>
       <% inactive = nil %>
       <% max_units = unit.get_max_units_to_buy(current_user) %>

@@ -9,7 +9,7 @@
    </tr>
    <% Unit.all.each do |unit| %>
          <tr>
-         <td>icon<!--unit.icon, benötigt Funktion der Unit--></td>
+         <td align=right><img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon"></td>
            <td align=left ><%= unit.name %></td>       
            <td><%= @expedition.fighting_fleet.ship_groups.find_by_unit_id(unit.id).number %></td>
          </tr>

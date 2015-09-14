@@ -25,12 +25,6 @@ class Expedition < ActiveRecord::Base
       end
    end
 
-   def self.shipamount(shiptype)
-         #user.active_ship).#Befehl um stationierte Schiffe abzufragen
-         return amount=1
-   end
-
-
    def occurance
       occ = rand(100)
       case occ
