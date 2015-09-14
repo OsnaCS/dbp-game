@@ -22,12 +22,16 @@ class Fight< ActiveRecord::Base
     @emp_ship_id = find_id_unit ("EMP-Schiff")
     @spy_ship_id = find_id_unit ("Spionagedrohne")
     @shield_ship_id = find_id_unit ("Mobiler Schild")
+    @small_shield_id = find_id_facility ("Kleiner Schild")
+    @big_shield_id = find_id_facility ("Großer Schild")
+    @plattform_id = find_id_facility ("Orbitale Waffenplattform")
     # Speichert Angreifer und Verteidiger
-    @attacker = self.attacker
-    @defender = self.defender
+    @attacker = attacker
+    @defender = defender
     # Speichert Flotten
-    @attacker_fleet = self.fighting_fleet
-    @defender_fleet = FightingFleet.first # MUSS NOCH ANGEPASST WERDEN
+    @attacker_fleet = fighting_fleet
+    @defender_fleet = FighingFleet.first
+    @defender_facilities = build_defend_facilities(Ship.find(ship_defend_id)) # MUSS NOCH ANGEPASST WERDEN
     # Speichert alle notwendigen Forschungslevel
     @attacker_level = build_level(@attacker)
     @defender_level = build_level(@defender)
@@ -37,6 +41,13 @@ class Fight< ActiveRecord::Base
     @fight_shield = 0
   end
   
+  def build_defend_facilities(ship)
+    array = []
+    ship.facility_instances.each do |f|
+      array << f
+    end
+    return array
+  end
 
   def find_id_unit (name)
     return Unit.find_by(name: name)
@@ -44,6 +55,10 @@ class Fight< ActiveRecord::Base
 
   def find_id_science (name)
     return Science.find_by(name: name)
+  end
+
+  def find_id_facility (name)
+    return Facility.find_by(name: name)
   end
 
   # Lädt den Titel mit Agreifer und Verteidiger in den Kampfbericht 
@@ -222,8 +237,10 @@ class Fight< ActiveRecord::Base
   # Flotte fleet
   def build_array ( user, fleet )
     # Wählt Level-Array für jeweiligen Nutzer aus
+    defence true
     if ( user == @attacker )
       array = @attacker_level
+      defence false
     else
       array = @defender_level
     end
@@ -242,7 +259,26 @@ class Fight< ActiveRecord::Base
         lost_ships = 0
         name = sg.get_name 
         # Speichert alle Werte in Array
-        fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, hp_sum, hitchance]
+        fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
+      end
+    end
+    if(defence)
+      defender_facilities.each do|f|
+       
+        # Falls Gruppe leer, überspringe
+        amount = f.count
+        if (amount > 0)
+          id = f.id
+          #### AB HIER NOCH ERGÄNZEN
+          damage_sum = f. * amount
+          damage_type = sg.get_damage_type
+          hp_sum = sg.get_hp * amount * (1 + (0.1 * array[0])).to_i
+          hitchance = 0.0
+          damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
+          lost_ships = 0
+          name = sg.get_name 
+          # Speichert alle Werte in Array
+          fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
       end
     end
     # Sortiere Array und Berechne Trefferwahrscheinlichkeiten
