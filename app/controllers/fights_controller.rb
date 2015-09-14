@@ -10,6 +10,8 @@ def index
   # GET /fights/1.json
   def show
     @report=@fight.fight
+    @defender=@fight.defender.username
+    @attacker=@fight.attacker.username
   end
 
   # GET /fights/new

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Stationen</h1><br/>
-
+<% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
     <tr>
@@ -51,22 +51,43 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= ships_station.level %></td>
-
-        <% if availability %>
-          <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
-        <% else %>
-          <% if(inactive) %>
-            <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
+        <td><%= ships_station.level %></td>        
+        <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
+          <% if availability %>
+            <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
           <% else %>
-            <td><a><%= button_to 'Abbrechen', cancel_upgrade_ships_station_path(ships_station), method: :get %>
-                       <span><%= ships_station.get_refund %></span></a>
-            <td><%= button_to 'Sofort', instant_upgrade_ships_station_path(ships_station), method: :get %></td>
+            <% if(inactive) %>
+              <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
+            <% else %>
+              <td><a><%= button_to 'Abbrechen', cancel_upgrade_ships_station_path(ships_station), method: :get %>
+                  <span><%= ships_station.get_refund %></span></a>
+              <td><%= button_to 'Sofort', instant_upgrade_ships_station_path(ships_station), method: :get %></td>
+            <% end %>
           <% end %>
+          <% else %>
+            <% if ships_station.station_id == 2007 %>
+              <% if availability %>
+                <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
+              <% else %>
+                <% if(inactive) %>
+                  <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
+                <% else %>
+                  <td><a><%= button_to 'Abbrechen', cancel_upgrade_ships_station_path(ships_station), method: :get %>
+                  <span><%= ships_station.get_refund %></span></a>
+                  <td><%= button_to 'Sofort', instant_upgrade_ships_station_path(ships_station), method: :get %></td>
+                <% end %>
+              <% end %>
+            <% else %>
+              <td><a>Nicht verfügbar<span> Bitte Erweiterungsplattform ausbauen!</span></a></td>
+            <%end%>
         <% end %>
-       <% end %>
+        <% end %>
+        <% if ships_station.level>0 && availability%>
+          <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
+        <%end%>
       <% end %>
       </tr>
   </tbody>
      <%= javascript_tag "start_timer()" -%>
 </table>
+<%= link_to 'Back', ships_path %>

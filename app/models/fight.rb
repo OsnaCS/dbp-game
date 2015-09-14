@@ -30,7 +30,7 @@ class Fight< ActiveRecord::Base
     @defender = defender
     # Speichert Flotten
     @attacker_fleet = fighting_fleet
-    @defender_fleet = FighingFleet.first
+    @defender_fleet = FightingFleet.first
     @defender_facilities = build_defend_facilities(Ship.find(ship_defend_id)) # MUSS NOCH ANGEPASST WERDEN
     # Speichert alle notwendigen Forschungslevel
     @attacker_level = build_level(@attacker)
@@ -237,10 +237,10 @@ class Fight< ActiveRecord::Base
   # Flotte fleet
   def build_array ( user, fleet )
     # Wählt Level-Array für jeweiligen Nutzer aus
-    defence true
+    defence = true
     if ( user == @attacker )
       array = @attacker_level
-      defence false
+      defence = false
     else
       array = @defender_level
     end
@@ -263,23 +263,23 @@ class Fight< ActiveRecord::Base
       end
     end
     if(defence)
-      defender_facilities.each do|f|
+      @defender_facilities.each do|f|
        
         # Falls Gruppe leer, überspringe
-        amount = f.count
-        if (amount > 0)
-          id = f.id
-          #### AB HIER NOCH ERGÄNZEN
-          damage_sum = f. * amount
-          damage_type = sg.get_damage_type
-          hp_sum = sg.get_hp * amount * (1 + (0.1 * array[0])).to_i
-          hitchance = 0.0
-          damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
-          lost_ships = 0
-          name = sg.get_name 
-          # Speichert alle Werte in Array
-          fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
-        end
+#        amount = f.count
+#        if (amount > 0)
+#          id = f.id
+#          #### AB HIER NOCH ERGÄNZEN
+#          damage_sum = f. * amount
+#          damage_type = sg.get_damage_type
+#          hp_sum = sg.get_hp * amount * (1 + (0.1 * array[0])).to_i
+#          hitchance = 0.0
+#          damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
+#          lost_ships = 0
+#          name = sg.get_name 
+#          # Speichert alle Werte in Array
+#          fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
+#        end
       end
     end
     # Sortiere Array und Berechne Trefferwahrscheinlichkeiten

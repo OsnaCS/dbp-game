@@ -62,6 +62,17 @@
 						</p>
 					</td>
 					<td>
+					    <div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
+        				<% if current_user.activeShip!=nil%>
+				  			<p id="val-energy" class="val-resources">
+				  				<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
+				  				<%= Ship.find_by(id: current_user.activeShip).energy %>
+				  			</p>
+						<% else %>
+				  			<p>0</p>
+						<% end %>
+					</td>
+					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
         				<% if current_user.activeShip.present?%>
 				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %></p>
@@ -93,13 +104,14 @@
 	<div id="botm">
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
-				<br>
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<% if current_user.activeShip!=nil %>
 							<% Ship.find_by(id: current_user.activeShip).update_resources%>
+							<% Ship.find_by(id: current_user.activeShip).get_energy%>
+							<% Ship.find_by(id: current_user.activeShip).get_used_energy%>
 							<li><%= link_to "Forschung", sciences_path %></li>
 							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
