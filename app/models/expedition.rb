@@ -125,7 +125,8 @@ class Expedition < ActiveRecord::Base
       fuel_got = final_amount * fuel
       
       resi_id = rand(5401..5406)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id))
+      resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round + " Kristall: " + crystal_got.round + " Treibstoff: " + fuel_got.round
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id),resi_string)
       
       ship = self.expedition_instance.user.active_ship
       ship.metal += metal_got
@@ -161,7 +162,9 @@ class Expedition < ActiveRecord::Base
       end
       
 	  salvage_id = rand(5301..5307)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id))
+
+	  salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount + " Fregatte: " + fregatte_amount + " Kreuzer: " + kreuzer_amount+ " mobiler Schild: " + schild_amount
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id),salvage_string)
 
       fighting_fleet.ship_groups.all.each do |g|
          case g.unit.name
