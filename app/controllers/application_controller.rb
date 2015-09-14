@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
 
   def check_if_user_own_ship
   	if user_signed_in? 
-	  if current_user.activeShip == nil 
-	    redirect_to new_ship_path
-	  end
+	    if current_user.activeShip == nil 
+	      redirect_to new_ship_path
+	    end
   	end
   end
 

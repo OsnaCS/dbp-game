@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
-
   def get_json_data
   	if user_signed_in?
   		@ship = current_user.active_ship
