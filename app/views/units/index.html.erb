@@ -1,51 +1,92 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Units</h1>
+<h1>Einheiten</h1>
 
-<table>
+<table id="table_units">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
-      <th>Metal price</th>
-      <th>Crystal price</th>
-      <th>Fuel price</th>
-      <th>Total cost</th>
-      <th>Shell</th>
-      <th>Damage</th>
-      <th>Damage type</th>
-      <th>Cargo</th>
-      <th>Speed</th>
-      <th>Shipyard requirement</th>
-      <th>Research requirement one</th>
-      <th>Research requiement two</th>
-      <th colspan="3"></th>
+      <th>Metall</th>
+      <th>Kristall</th>
+      <th>Treibstoff</th>
+      <th>Dauer</th>
+      <th>Vorhanden</th>
+      <th>Maximum</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @units.each do |unit| %>
-      <tr>
-        <td><%= unit.name %></td>
-        <td><%= unit.metal_price %></td>
-        <td><%= unit.crystal_price %></td>
-        <td><%= unit.fuel_price %></td>
-        <td><%= unit.total_cost %></td>
-        <td><%= unit.shell %></td>
-        <td><%= unit.damage %></td>
-        <td><%= unit.damage_type %></td>
-        <td><%= unit.cargo %></td>
-        <td><%= unit.speed %></td>
-        <td><%= unit.shipyard_requirement %></td>
-        <td><%= unit.research_requirement_one %></td>
-        <td><%= unit.research_requiement_two %></td>
-        <td><%= link_to 'Show', unit %></td>
-        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
-        <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% Unit.all.each do |unit| %>
+      <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
+      <% instance = current_ship.get_unit_instance(unit)%></td>
+      <% inactive = nil %>
+      <% max_units = unit.get_max_units_to_buy(current_user) %>
+
+      <% if(instance.start_time.nil?) %>
+        <tr id="inactive">
+        <% inactive = true %>
+      <% else %>
+        <tr id="active">
+        <% inactive = false %>
+      <% end %>
+        <td>
+          <a>
+            <img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon">
+          </a>
+        </td>
+          <td><%= unit.name %></td>
+          <td><%= unit.get_metal_cost %></td>
+          <td><%= unit.get_crystal_cost %></td>
+          <td><%= unit.get_fuel_cost %></td>
+
+          <% if(inactive) %>
+            <td id = "not_running"><%= instance.update_time(true).to_s %></td>
+          <% else %>
+            <td class="running"
+              data-id="<%= instance.unit_id %>"
+              data-time="<%= instance.update_time(false) %>">
+            </td>
+          <% end %>
+          <td><%= instance.amount %></td>
+
+          <% availability = current_user.can_build_unit(unit, current_user.active_ship) %>
+
+          <% if (availability) %>
+
+            <td><%= max_units %></td>
+            <td>
+              <%= form_tag build_unit_path(unit), method: 'get' do %>
+                <%= hidden_field_tag :unit_id, unit.id %>
+                <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
+               
+                <%= number_field_tag(:amount, nil, placeholder: '0', min: 0, max: max_units) %>
+                <%= submit_tag 'Herstellen' %>
+              <% end %>
+            </td>
+          <% else %>
+
+            <% if (inactive) %>
+              <td>0<!-- Nicht möglich zu bauen --></td>
+              <td><a>Nicht verfügbar<span><%= instance.get_conditions() %></span></a></td>
+            <% else %>
+              <!-- Restlich zu bauende Truppen -->
+              <td><%= instance.build_amount %></td>
+              <td>
+                <a>
+                  <%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %>
+                  <span><%= instance.get_refund %></span>
+                </a>
+                <%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %>
+              </td>
+            <% end %>
+          <% end %>
+        </td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Unit', new_unit_path %>
+<%= javascript_tag "start_timer()" -%>

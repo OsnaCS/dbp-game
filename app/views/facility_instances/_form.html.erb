@@ -1,0 +1,37 @@
+<%= form_for(@facility_instance) do |f| %>
+  <% if @facility_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facility_instance.errors.count, "error") %> prohibited this facility_instance from being saved:</h2>
+
+      <ul>
+      <% @facility_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :facility_id %><br>
+    <%= f.number_field :facility_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ship_id %><br>
+    <%= f.number_field :ship_id %>
+  </div>
+  <div class="field">
+    <%= f.label :count %><br>
+    <%= f.number_field :count %>
+  </div>
+  <div class="field">
+    <%= f.label :create_count %><br>
+    <%= f.number_field :create_count %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -7,12 +7,16 @@ class User < ActiveRecord::Base
   has_one :rank, dependent: :destroy
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
+  has_many :unit_instances, dependent: :destroy
+  has_many :units, :through => :unit_instances
   has_many :user_ships
   has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
+  has_many :expedition_instances, dependent: :destroy
+  has_many :expeditions, :through => :expedition_instances
   after_initialize :init
-
+  belongs_to :active_ship, foreign_key: :activeShip, class: Ship
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -39,11 +43,17 @@ class User < ActiveRecord::Base
         if not (instance.level >= condition_elements[2].to_i)
           return false
         end
-      else
-        return false
       end
     end
     return true
+  end
+
+  def active_ship
+    return Ship.find_by(id: self.activeShip)
+  end
+  
+  def cheat
+    current_user.remove_resources(-10000, -10000, -10000)
   end
 
   def get_science_instance(science)
@@ -62,6 +72,18 @@ class User < ActiveRecord::Base
     science_instance = self.get_science_instance(science)
 
     return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)   
+  end
+  
+  def can_build_unit(unit, ship)
+    condition = self.check_condition(unit.conditions) 
+    not_building = ship.get_unit_instance(unit).start_time.nil?
+
+    metal = unit.get_metal_cost() 
+    crystal = unit.get_crystal_cost() 
+    fuel = unit.get_fuel_cost()
+
+    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    return condition && not_building && enough_resources 
   end
 
   def has_min_science_level(science, level)

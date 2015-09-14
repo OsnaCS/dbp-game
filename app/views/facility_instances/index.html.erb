@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Facility Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Facility</th>
+      <th>Ship</th>
+      <th>Count</th>
+      <th>Create count</th>
+      <th>Start time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facility_instances.each do |facility_instance| %>
+      <tr>
+        <td><%= facility_instance.facility_id %></td>
+        <td><%= facility_instance.ship_id %></td>
+        <td><%= facility_instance.count %></td>
+        <td><%= facility_instance.create_count %></td>
+        <td><%= facility_instance.start_time %></td>
+        <td><%= link_to 'Show', facility_instance %></td>
+        <td><%= link_to 'Edit', edit_facility_instance_path(facility_instance) %></td>
+        <td><%= link_to 'Destroy', facility_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Facility instance', new_facility_instance_path %>
