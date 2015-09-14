@@ -42,10 +42,7 @@ class Ship < ActiveRecord::Base
     return count
   end
 
-  def get_energy ()
-    energy = 
-    return energy
-  end
+
 
   def update_resources
   	last_checked = self.lastChecked
@@ -62,6 +59,9 @@ class Ship < ActiveRecord::Base
           self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
           #self.fuel=0
         end
+        if station.station_id == 2014
+          self.energy = 2 ** (station.level + 1)
+        end  
 	  end
 
     self.lastChecked = Time.now.getutc

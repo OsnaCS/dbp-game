@@ -64,7 +64,7 @@
 					<td>
 					    <div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
         				<% if current_user.activeShip!=nil%>
-				  			<p id="val-energy" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).energy 'Energieverbrauch' '/' 'Gesamtenergie' %></p>
+				  			<p id="val-energy" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).energy %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
