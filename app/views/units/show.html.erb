@@ -21,11 +21,6 @@
 </p>
 
 <p>
-  <strong>Total cost:</strong>
-  <%= @unit.total_cost %>
-</p>
-
-<p>
   <strong>Shell:</strong>
   <%= @unit.shell %>
 </p>
@@ -51,19 +46,11 @@
 </p>
 
 <p>
-  <strong>Shipyard requirement:</strong>
-  <%= @unit.shipyard_requirement %>
+  <strong>ConditionID:</strong>
+  <%= @unit.condition_id %>
 </p>
 
 <p>
-  <strong>Research requirement one:</strong>
-  <%= @unit.research_requirement_one %>
-</p>
-
-<p>
-  <strong>Research requiement two:</strong>
-  <%= @unit.research_requiement_two %>
-</p>
 
 <%= link_to 'Edit', edit_unit_path(@unit) %> |
 <%= link_to 'Back', units_path %>
