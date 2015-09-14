@@ -279,6 +279,7 @@ class Fight< ActiveRecord::Base
           name = sg.get_name 
           # Speichert alle Werte in Array
           fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
+        end
       end
     end
     # Sortiere Array und Berechne Trefferwahrscheinlichkeiten

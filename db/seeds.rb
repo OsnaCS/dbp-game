@@ -904,7 +904,6 @@ message4=Message.create(
 	})
 
 #Create DamageType and Units
-<<<<<<< HEAD
 damage_type1=DamageType.create({
 					"name"=>"laser",
 					"shell_mult"=>1.5,

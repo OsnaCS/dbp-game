@@ -29,17 +29,21 @@
 				<div>
 					<p class="userbutton"><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
 				</div>
+				 <% else %>
+ 			<div>
+			<p class="userbutton"><%= link_to "Kampf!", new_fighting_fleet_path(:defend_user => @user.id ) %></p>
+		</div>
 			<% end %>
 			<div>
 				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
+			
 			</div>
+       
 		<% end %>
 	<% else %>
 		<br>
 		<h1 class="userlabel">Benutzerprofil konne nicht gefunden werden!</h1>
 		<div>
-			<p class="userbutton"><%= link_to "Kampf!", new_fighting_fleet_path(:defend_user => @user.id ) %></p>
-		</div><div>
 			<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
 		</div>
 		
