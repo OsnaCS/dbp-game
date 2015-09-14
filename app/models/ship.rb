@@ -7,8 +7,8 @@ class Ship < ActiveRecord::Base
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
-  after_initialize :create_units
-  after_initialize :init
+  after_initialize :create_units, if: :new_record?
+  after_initialize :init, if: :new_record?
 
   def check_condition(conditions)
     condition_split = conditions.split(",")

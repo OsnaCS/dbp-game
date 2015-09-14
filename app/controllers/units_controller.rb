@@ -5,6 +5,7 @@ class UnitsController < ApplicationController
   # GET /units.json
   def index
     @units = Unit.all
+    puts 'test'
   end
 
   # GET /units/1
@@ -90,6 +91,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:name, :metal_price, :crystal_price, :fuel_price, :total_cost, :shell, :damage, :damage_type_id, :cargo, :speed, :shipyard_requirement, :research_requirement_one, :research_requiement_two)
+      params.require(:unit).permit(:name, :metal_price, :crystal_price, :fuel_price, :shell, :damage, :damage_type_id, :cargo, :speed, :duration)
     end
 end

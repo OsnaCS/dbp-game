@@ -19,7 +19,8 @@
   </thead>
 
   <tbody>
-    <% Unit.all.each do |unit| %>
+    <% @units.each do |unit| %>
+      <% puts 'OH MY GOD' %>
       <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
       <% instance = current_ship.get_unit_instance(unit)%></td>
       <% inactive = nil %>
