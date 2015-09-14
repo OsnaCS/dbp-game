@@ -91,6 +91,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:condition_id, :name, :metal_price, :crystal_price, :fuel_price, :shell, :damage, :damage_type_id, :cargo, :speed, :duration)
+      params.require(:unit).permit(:condition_id, :name, :metal_price, :crystal_price, :fuel_price, :shell, :damage, :damage_type_id, :cargo, :speed)
     end
 end
