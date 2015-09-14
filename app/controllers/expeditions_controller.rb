@@ -74,6 +74,10 @@ class ExpeditionsController < ApplicationController
       ship_group = @expedition.fighting_fleet.ship_groups.find_by(:unit_id => unit.id)
       ship_group.number = params[unit.id.to_s].to_i
       ship_group.save
+
+      instance = current_user.active_ship.get_unit_instance(unit)
+      instance.amount -= ship_group.number
+      instance.save
     end
     
     userShip.fuel -= fuelcost
