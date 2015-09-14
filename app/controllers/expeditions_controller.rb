@@ -12,7 +12,6 @@ class ExpeditionsController < ApplicationController
     		expi.destroy
     	end
     end
-
   end
 
   # GET /expeditions/1
@@ -46,7 +45,7 @@ class ExpeditionsController < ApplicationController
        fuelcost += (unit.shell + unit.cargo) * params[unit.id.to_s].to_i
     end
 
-    fuelcost = (fuelcost * params[:exp_time].to_i/@userFuelFactor
+    fuelcost = (fuelcost * params[:exp_time].to_i)/@userFuelFactor
     userShip = Ship.find(current_user.activeShip)
     if(userShip.fuel < fuelcost)
       string = "Nicht genügend Treibstoff um diese

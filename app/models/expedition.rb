@@ -45,15 +45,23 @@ class Expedition < ActiveRecord::Base
       end
    end
 
+   def welcome_home
+      fighting_fleet.ship_groups.all.each do |group|
+         unit_group = Unit_Instance.find_by(:unit_id => group.unit_id, :ship_id => self.expedition_instance.user.active_ship)
+         unit_group.amount += group.number
+         unit_group.save
+      end
+      fighting_fleet.destroy
+   end
+
    def nothing
    	nothing_id = rand(5001..5006)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id))
+      welcome_home
    end
 
    def destruction
-      fighting_fleet.ship_groups.all.each do |g|
-         g.number = 0
-      end
+      fighting_fleet.destroy
       destruction_id = rand(5201..5211)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id))
    end
@@ -96,6 +104,7 @@ class Expedition < ActiveRecord::Base
       #TODO Kampf starten
 
       gegner_flotte.destroy
+      welcome_home
    end
 
    def ressource
@@ -129,7 +138,7 @@ class Expedition < ActiveRecord::Base
       ship.cristal += crystal_got
       ship.fuel += fuel_got
       ship.save
-      
+      welcome_home
    end
 
    def salvage
@@ -174,6 +183,6 @@ class Expedition < ActiveRecord::Base
       end
 
       fighting_fleet.save
-
+      welcome_home
    end
 end
