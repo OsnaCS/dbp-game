@@ -10,15 +10,6 @@ class ShipsController < ApplicationController
 
     redirect_to ships_url
   end
-
-  def call_select_ship 
-    @ship.select_ship(:shipID)
-  end
-
-  def select_ship(shipID)
-    current_user.activeShip=shipID
-    current_user.save
-  end
   
   # GET /ships
   # GET /ships.json
