@@ -1,5 +1,0 @@
-class DeleteTimeAndReportFromFight < ActiveRecord::Migration
-  def change
-    remove_column :fights, :time
-  end
-end

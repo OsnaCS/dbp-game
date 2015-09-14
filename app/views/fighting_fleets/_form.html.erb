@@ -20,10 +20,6 @@
       <a><%= ff.label :defender_id %><br></a>
       <%= ff.collection_select  :defender_id, User.all, :id, :username %>
     </div>
-    <div class="field">
-      <a><%= ff.label :ship_id %><br></a>
-      <%= ff.collection_select :ship_id, Ship.all, :id, :name %>
-    </div>
 <% end %>
   <div class="field">
     <table>

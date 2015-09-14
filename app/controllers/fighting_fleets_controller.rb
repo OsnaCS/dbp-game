@@ -20,8 +20,6 @@ class FightingFleetsController < ApplicationController
   # GET /fighting_fleets/new
   def new
     @fighting_fleet = FightingFleet.new
-    
-
   end
 
   # GET /fighting_fleets/1/edit
@@ -31,7 +29,7 @@ class FightingFleetsController < ApplicationController
   # POST /fighting_fleets
   # POST /fighting_fleets.json
   def create
-    @fighting_fleets=FightingFleet.all
+    @fighting_fleets = FightingFleet.all
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
     @fighting_fleet.fight.attacker_id=current_user.id
     @fighting_fleet.user_id=current_user.id

@@ -2,7 +2,8 @@ class Fight< ActiveRecord::Base
   belongs_to :user
   belongs_to :attacker, :class_name => 'User', :foreign_key => 'attacker_id', inverse_of: :attacks
   belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
-  belongs_to :ship
+  belongs_to :ship_attack, :class_name => 'Ship', :foreign_key => 'fight_attack_id', inverse_of: 'fight_attacks'
+  belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'fight_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
 
   def init_vars
@@ -11,16 +12,16 @@ class Fight< ActiveRecord::Base
     # Array für die einzelnden Runden
     @round_reports = []
     # IDs
-    @spy_science_id = 4007
-    @pilot_science_id = 4003
-    @shell_science_id = 4001
-    @laser_science_id = 4002
-    @ionen_science_id = 4005
-    @shield_science_id = 4006
-    @bomb_science_id = 4010
-    @emp_ship_id = 11
-    @spy_ship_id = 4 
-    @shield_ship_id = 12
+    @spy_science_id = find_id_science ("Spionage")
+    @pilot_science_id = find_id_science ("Pilotentraining")
+    @shell_science_id = find_id_science ("Hülle")
+    @laser_science_id = find_id_science ("Laser")
+    @ionen_science_id = find_id_science ("Ionen")
+    @shield_science_id = find_id_science ("Schild")
+    @bomb_science_id = find_id_science ("Kinetik")
+    @emp_ship_id = find_id_unit ("EMP-Schiff")
+    @spy_ship_id = find_id_unit ("Spionagedrohne")
+    @shield_ship_id = find_id_unit ("Mobiler Schild")
     # Speichert Angreifer und Verteidiger
     @attacker = self.attacker
     @defender = self.defender
@@ -34,6 +35,15 @@ class Fight< ActiveRecord::Base
     @attacker_shield = shield_cal( @attacker)
     @defender_shield = shield_cal( @defender)
     @fight_shield = 0
+  end
+  
+
+  def find_id_unit (name)
+    return Unit.find_by(name: name)
+  end 
+
+  def find_id_science (name)
+    return Science.find_by(name: name)
   end
 
   # Lädt den Titel mit Agreifer und Verteidiger in den Kampfbericht 
@@ -310,6 +320,9 @@ class Fight< ActiveRecord::Base
     group[1] = (group[-2] / hp_one).ceil
     group[2] = group[1] * damage_one
     group[4] = amount_before - group[1]
+    if group[1] < 0
+      group[1] = 0
+    end
   end
 
 
@@ -320,6 +333,7 @@ class Fight< ActiveRecord::Base
     level_shield=user_science_level(user, @shield_science_id) 
     if (user == @defender)
       #add shield
+      # ANLAGEN NOCH EINBINDEN!!!!!!
     end
     return 10000
   end
@@ -370,20 +384,25 @@ class Fight< ActiveRecord::Base
 
   # Zum berechnen des Kampfes
   def battle
-    round = -1
+    # Runden auf 0 setzen, continue auf true (Für die Schleife)
+    round = 0
     continue = true
+    # Bilde Arrays mit allen nötigen Werten für den Kampf
     turn_fleet = build_array(@attacker, @attacker_fleet)
     target_fleet = build_array(@defender, @defender_fleet)
+    # Angreifer beginnt
     turn_user = @attacker
     target_user = @defender
-    while (round < 50 && continue  ) do
+    while (round < 1000 && continue  ) do
       round = round + 1
       if target_user == @defender
         @fight_shield = @defender_shield
       else
         @fight_shield = @attacker_shield
       end
+      # Damit alle Gruppen in einer Runde nur auf das Schild feuern können
       shield = @fight_shield
+      # Für die Ausgabe der Runden-Berichte
       round_report = []
       round_report << "Runde #{round+1}: "
       round_report << "#{turn_user.username} ist am Zug."
@@ -397,10 +416,13 @@ class Fight< ActiveRecord::Base
         round_report << " "
       end
       turn_fleet.each do |a|
+        # Nur Einheiten mit Anzahl > 0 und Schaden > 0 können kämpfen
         if a[1] > 0 && a[2] > 0   
           round_report << "Die Gruppe #{a[5]} trifft... "
+          # Bestimme Ziel anhand von id.
+          # -2 ist Miss
+          # -1 ist Schild
           target = hit(target_fleet, turn_user)
-            #Falls Ionenwaffe
           if(target == -2)
             round_report << "nicht. Der Angriff ging daneben. "
             round_report << " "
@@ -408,41 +430,54 @@ class Fight< ActiveRecord::Base
           elsif(target==-1)
             round_report << "das Schild. Der Schaden beträgt:  "
             mult = 1
+            # Falls Ionenwaffe, wird Schaden an Schild erhöht
             if a[3] == 2
               mult = 1.5
             end
             damage = a[2] * mult
             round_report << "#{damage} "
             round_report << " "
+            # Abzug des Schilds. Übernahme erst bei nächster Runde
             @fight_shield = @fight_shield - damage
             else
               mult=1
+              # Falls Laserwaffe, wird Schaden an Hülle erhöht
+              # TABELLE DAMAGETYPE EINFÜGEN
               if(a[3]==1)
                 mult=1.5
               end 
+            # Bestimme welche Einheit getroffen wurde
             victim=target_fleet[target]
-            round_report << "#{victim[5]}. Der Schaden beträgt:  "
+           # round_report << "#{victim[5]}. Der Schaden beträgt:  "
+            # Schadensberechnung
             damage=a[2]*mult
             round_report << "#{damage} "
+            # Berechne neue HP
             hit_points=victim[-2]
             victim[-2]=hit_points-damage
+            # Berechne Anzahl und Schaden neu
             update_ship_group(victim)
             round_report << "#{victim[4]} Einheiten wurden zerstört. "
           end
         end 
-        @round_reports << round_report
+        # Füge Runden-Bericht ein
+       # @round_reports << round_report
       end
+      # Testet, ob Spieler noch Truppen besitzt
       if (defeat(target_fleet))
         continue=false
       else
-        if @fight_shield<0
-          @fight_shield=0
+        # Falls Schild unter 0, wird er auf 0 gesetzt
+        if @fight_shield < 0
+          @fight_shield = 0
         end
+        # Kampf-Schild für nächste Runde
         if target_user==@attacker
           @attacker_shield=@fight_shield
         else
           @defender_shield=@fight_shield
         end
+          # Tausche Rolle des Angreifers aus
           tmp_fleet=turn_fleet
           tmp_user=turn_user
           turn_fleet=target_fleet
@@ -450,6 +485,7 @@ class Fight< ActiveRecord::Base
           target_fleet=tmp_fleet
           target_user=tmp_user
       end
+      # Füge alle Runden-Berichte hinzu
       @report << @round_reports
     end
     if continue
@@ -459,6 +495,7 @@ class Fight< ActiveRecord::Base
       @report << "Die Flotte von #{target_user.username} unterlag. "
       @report << " #{turn_user.username} war siegreich! "
     end
+    # Generiere Verlustrechnung
     if turn_user == @attacker
       lost_report(turn_fleet, @attacker) 
       lost_report(target_fleet, @defender) 
@@ -477,6 +514,7 @@ class Fight< ActiveRecord::Base
     emp_phase(@attacker)
     emp_phase(@defender)
     battle
+    # Verlustrechnung in Datenbank übernehmen
     return @report
   end
 end

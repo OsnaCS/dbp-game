@@ -1,9 +1,6 @@
 class ShipGroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_ship_group, only: [:show, :edit, :update, :destroy]
-  
-  
-  
 
   # GET /ship_groups
   # GET /ship_groups.json
@@ -19,9 +16,7 @@ class ShipGroupsController < ApplicationController
   # GET /ship_groups/new
   def new
     @ship_group = ShipGroup.new
-    
     end
-    
   end
 
   # GET /ship_groups/1/edit

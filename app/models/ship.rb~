@@ -1,6 +1,6 @@
 class Ship < ActiveRecord::Base
-  has_many :fight_attacks, class_name: 'Fight', :foreign_key => "ship_attack_id"
-  has_many :fight_defends, class_name: 'Fight', :foreign_key => "ship_defend_id"
+  has_many :fights
+  has_many :defends, class_name: 'Fight', :foreign_key => "defend_id"
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
   has_one :user_ship

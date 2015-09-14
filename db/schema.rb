@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913104008) do
+ActiveRecord::Schema.define(version: 20150914074524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,17 +79,19 @@ ActiveRecord::Schema.define(version: 20150913104008) do
   add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
 
   create_table "fights", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "attacker_id"
     t.integer  "defender_id"
     t.text     "report"
-    t.integer  "ship_id"
+    t.integer  "ship_attack_id"
+    t.integer  "ship_defend_id"
   end
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
-  add_index "fights", ["ship_id"], name: "index_fights_on_ship_id", using: :btree
+  add_index "fights", ["ship_attack_id"], name: "index_fights_on_ship_attack_id", using: :btree
+  add_index "fights", ["ship_defend_id"], name: "index_fights_on_ship_defend_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.text     "mes"
@@ -271,7 +273,6 @@ ActiveRecord::Schema.define(version: 20150913104008) do
   add_foreign_key "expeditions", "fighting_fleets"
   add_foreign_key "fighting_fleets", "fights"
   add_foreign_key "fighting_fleets", "users"
-  add_foreign_key "fights", "ships"
   add_foreign_key "notifications", "messages"
   add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
