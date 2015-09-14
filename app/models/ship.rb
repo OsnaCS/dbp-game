@@ -139,8 +139,14 @@ class Ship < ActiveRecord::Base
 		time = Time.now.getutc
 		start = start.to_f
 		elapsed_seconds = time - last_update
-		produktion = (start* (1.5 ** level))*(elapsed_seconds)
-		return produktion
+    if (self.used_energy > self.energy)
+      diff = 1/(self.used_energy - self.energy)
+      produktion = diff * (start* (1.5 ** level))*(elapsed_seconds)
+      return produktion
+    else
+		  produktion = (start* (1.5 ** level))*(elapsed_seconds)
+		  return produktion
+    end
   end
 
   def init
