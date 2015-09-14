@@ -66,8 +66,6 @@ class ShipsStation < ActiveRecord::Base
     leftCrystal = station.get_crystal_cost(self.level) - ship.cristal
     leftFuel = station.get_fuel_cost(self.level) - ship.fuel
 
-
-
     if(leftMetal > 0)
       back = back + "- Fehlendes Metall: " + leftMetal.to_s + "<br>"
     end
