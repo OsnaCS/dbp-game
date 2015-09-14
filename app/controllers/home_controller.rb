@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 
   def get_json_data
   	if user_signed_in?
-  		@ship = Ship.find_by_id(current_user.activeShip)
+  		@ship = current_user.active_ship
   		@notification_count = Notification.all.where(user_id: current_user.id).count
   		@ship.update_resources
 

@@ -26,11 +26,13 @@
       </tr>
 
       <% Unit.all.each do |unit| %>
+      <% instance = current_user.active_ship.get_unit_instance(unit) %>
          <tr>
-           <td><img src= "<%= image_url("entities/" + unit.icon)%>", width="50", height="50", id="icon"></td>
+
+           <td><img src= "<%= image_url(unit.icon)%>", width="35", height="35", id="icon"></td>
            <td align=left ><%= unit.name %></td>       
-           <td><%= Expedition.shipamount(unit.id) %></td>
-           <td><%= number_field_tag(unit.id, 0, min:0, max: Expedition.shipamount(unit.id)) %></td>
+           <td><%= instance.amount %></td>
+           <td><%= number_field_tag(unit.id, 0, min:0, max: instance.amount) %></td>
            <td align=right ><%= ((unit.shell + unit.cargo)/@userFuelFactor).round %> pro Einheit</td>
          </tr>
 

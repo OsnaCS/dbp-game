@@ -5,6 +5,7 @@ class ExpeditionsController < ApplicationController
   # GET /expeditions.json
   def index
     @expeditions = current_user.expedition_instances.map(&:expedition)
+    @userFuelFactor = 1 + (0.1 * current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
 
     @expeditions.each do |expi|
     	if(expi.arrival_time < (Time.now + 2.hours ))
@@ -22,7 +23,7 @@ class ExpeditionsController < ApplicationController
   # GET /expeditions/new
   def new
     @expedition = Expedition.new
-    @userFuelFactor = 1 + (0.1 *current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
+    @userFuelFactor = 1 + (0.1 * current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
   end
 
   # GET /expeditions/1/edit
@@ -33,10 +34,19 @@ class ExpeditionsController < ApplicationController
   # POST /expeditions.json
   def create
     @expedition = Expedition.new(expedition_params)
+    @userFuelFactor = 1 + (0.1 * current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
 
     if(params[Unit.find_by_name("Expeditionsschiff").id.to_s].to_i < 1)
       redirect_to expeditions_url, alert: 'Mindestens 1 Expeditionsschiff wird benötigt.'
       return
+    end
+
+    Unit.all.each do |unit|
+      instance = current_user.active_ship.get_unit_instance(unit)
+      if instance.amount < params[unit.id.to_s].to_i
+        redirect_to expeditions_url, alert: 'Nicht genügend Schiffe.'
+        return 
+      end
     end
 
     fuelcost = 0
@@ -45,8 +55,10 @@ class ExpeditionsController < ApplicationController
        fuelcost += (unit.shell + unit.cargo) * params[unit.id.to_s].to_i
     end
 
-    fuelcost = (fuelcost * params[:exp_time].to_i)/@userFuelFactor
+    fuelcost = (fuelcost * params[:exp_time].to_i/@userFuelFactor)
+    
     userShip = Ship.find(current_user.activeShip)
+
     if(userShip.fuel < fuelcost)
       string = "Nicht genügend Treibstoff um diese
       FLotte loszuschicken. Benötigt wird: " + fuelcost.to_s + " Treibstoff"

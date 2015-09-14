@@ -57,9 +57,15 @@
           <% if(inactive) %>
             <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
           <% else %>
-            <td><a><%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
-                       <span><%= science_instance.get_refund %></span></a>
-              <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
+            <td>
+              <a>
+                <%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
+                <span><%= science_instance.get_refund %></span>
+              </a>
+            </td>
+            <td>
+              <%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %>
+            </td>
           <% end %>
         <% end %>
       <% end %>

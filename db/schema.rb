@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911122032) do
+ActiveRecord::Schema.define(version: 20150914103648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "expedition_instances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "expedition_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "expeditions", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "explore_time"
+    t.datetime "arrival_time"
+    t.integer  "fighting_fleet_id"
+  end
+
+  add_index "expeditions", ["fighting_fleet_id"], name: "index_expeditions_on_fighting_fleet_id", using: :btree
 
   create_table "facilities", force: :cascade do |t|
     t.integer  "cost1"
@@ -48,23 +65,6 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "expedition_instances", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "expedition_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "expeditions", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "explore_time"
-    t.datetime "arrival_time"
-    t.integer  "fighting_fleet_id"
-  end
-
-  add_index "expeditions", ["fighting_fleet_id"], name: "index_expeditions_on_fighting_fleet_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.integer  "user_id"
@@ -195,23 +195,32 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "change_at"
   end
 
+  create_table "unit_instances", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "ship_id"
+    t.integer  "amount"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.time     "start_time"
+    t.integer  "build_amount"
+  end
+
   create_table "units", force: :cascade do |t|
     t.string   "name"
     t.integer  "metal_price"
     t.integer  "crystal_price"
     t.integer  "fuel_price"
-    t.integer  "total_cost"
     t.integer  "shell"
     t.integer  "damage"
     t.integer  "damage_type_id"
     t.integer  "cargo"
     t.integer  "speed"
-    t.integer  "shipyard_requirement"
-    t.integer  "research_requirement_one"
-    t.integer  "research_requirement_two"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "message_id"
+    t.string   "icon"
+    t.string   "conditions"
+    t.integer  "condition_id"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
