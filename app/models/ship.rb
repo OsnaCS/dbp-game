@@ -2,12 +2,13 @@ class Ship < ActiveRecord::Base
     
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
+  has_many :unit_instances, dependent: :destroy
+  has_many :units, :through => :unit_instances
   has_one :user_ship
   has_one :user, :through => :user_ship
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
-  after_initialize :create_units, if: :new_record?
   after_initialize :init, if: :new_record?
 
   def check_condition(conditions)
@@ -88,22 +89,6 @@ class Ship < ActiveRecord::Base
       return self.id
   end
 
-  def create_units
-    if(self.id.nil?)
-      return
-    else
-      Unit.all.each do |unit|
-        if not(UnitInstance.exists?(:unit_id => unit.id, :ship_id => self.id))
-          instance = UnitInstance.new
-          instance.unit_id = unit.id
-          instance.ship_id = self.id
-          instance.amount = 0;
-          instance.save
-        end
-      end
-    end
-  end
-
   private
   def get_collect_difference(level, id, last_update)
   	if id==2001 || id==2002
@@ -126,6 +111,11 @@ class Ship < ActiveRecord::Base
         facility_instances.build(facility: facility, count: 0)
       end
     end
-  end
 
+    Unit.all.each do |unit|
+      if not(unit_instances.exists?(:unit_id => unit.id, :ship_id => self.id))
+        unit_instances.build(unit: unit, amount: 0)
+      end
+    end
+  end
 end

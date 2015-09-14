@@ -19,7 +19,7 @@
   </thead>
 
   <tbody>
-    <% @units.sort_by{|u| u.id}.each do |unit| %>
+    <% @units.sort_by{|u| u.condition_id}.each do |unit| %>
       <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
       <% instance = current_ship.get_unit_instance(unit)%></td>
       <% inactive = nil %>
