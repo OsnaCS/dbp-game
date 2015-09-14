@@ -32,7 +32,7 @@ class NotificationViewController < ApplicationController
 	  			end
 	  		end
   		end
-   		@notes[index] = {note_id: note.id, message: Message.find_by_id(note.message_id).fullmes, timestamp: time, timetype: timetype}
+   		@notes[index] = {note_id: note.id, message: Message.find_by_id(note.message_id).fullmes, info: note.info, timestamp: time, timetype: timetype}
   	end
   end
 end
