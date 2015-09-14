@@ -195,23 +195,32 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "change_at"
   end
 
+  create_table "unit_instances", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "ship_id"
+    t.integer  "amount"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.time     "start_time"
+    t.integer  "build_amount"
+  end
+
   create_table "units", force: :cascade do |t|
     t.string   "name"
     t.integer  "metal_price"
     t.integer  "crystal_price"
     t.integer  "fuel_price"
-    t.integer  "total_cost"
     t.integer  "shell"
     t.integer  "damage"
     t.integer  "damage_type_id"
     t.integer  "cargo"
     t.integer  "speed"
-    t.integer  "shipyard_requirement"
-    t.integer  "research_requirement_one"
-    t.integer  "research_requirement_two"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "message_id"
+    t.string   "icon"
+    t.string   "conditions"
+    t.integer  "duration"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree

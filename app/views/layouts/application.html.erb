@@ -97,20 +97,18 @@
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
-                      <% if current_user.activeShip!=nil %>
-                        <%Ship.find_by(id: current_user.activeShip).update_resources%>
-                      <% end %>
 						<li><%= link_to "Schiffe", ships_path %></li>
-						<li><%= link_to "Forschung", sciences_path %></li>
-						<% if current_user.activeShip!=nil %>
-						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+                      	<% if current_user.activeShip!=nil %>
+                        	<% Ship.find_by(id: current_user.activeShip).update_resources%>
+                      		<li><%= link_to "Forschung", sciences_path %></li>
+							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+							<li><%= link_to "Anlagen", facilities_path %></li>
+							<li><%= link_to "Einheiten", units_path %></li>
+							<li><%= link_to "Handel", trades_path %></li>
+							<li><%= link_to "Expeditionen", expeditions_path %></li>
+							<li><%= link_to "Kampf",fighting_fleets_path %></li>
+							<li><%= link_to "Rangliste", ranks_path %></li>
 						<% end %>
-						<li><%= link_to "Anlagen", facilities_path %></li>
-						<li><%= link_to "Einheiten", root_path %></li>
-						<li><%= link_to "Handel", trades_path %></li>
-						<li><%= link_to "Expeditionen", expeditions_path %></li>
-						<li><%= link_to "Kampf",fighting_fleets_path %></li>
-						<li><%= link_to "Rangliste", ranks_path %></li>
 						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>
 					<% else %>
 						<li><%= link_to "Registrieren", new_user_registration_path %></li>
