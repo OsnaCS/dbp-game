@@ -4,10 +4,6 @@ class Unit < ActiveRecord::Base
   has_many :unit_instances, dependent: :destroy
   has_many :ships, :through => :unit_instances
 
-  def get_duration(amount, ship)
-  	return (self.duration * amount) / (1 + 0.1 * ShipsStation.find_by(:ship_id => ship.id, :station_id => 2006).level)
-  end
-
   def get_max_units_to_buy(user)
     amounts = []
 
@@ -22,6 +18,15 @@ class Unit < ActiveRecord::Base
     end
     
     return amounts.min
+  end
+  
+  def get_total_cost
+    return self.get_fuel_cost * 4 + self.get_crystal_cost * 2 + self.get_metal_cost
+  end
+
+  def get_duration(amount, ship)
+    factor = (1 + 0.1 * ShipsStation.find_by(:ship_id => ship.id, :station_id => 2006).level) 
+    return ((self.get_total_cost / 500) * 2 * amount) / factor
   end
 
   def get_metal_cost

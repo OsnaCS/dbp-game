@@ -19,7 +19,7 @@
   </thead>
 
   <tbody>
-    <% Unit.all.each do |unit| %>
+    <% @units.sort_by{|u| u.condition_id}.each do |unit| %>
       <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
       <% instance = current_ship.get_unit_instance(unit)%></td>
       <% inactive = nil %>
@@ -35,7 +35,8 @@
         <td>
           <a>
             <img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon">
-          </a>
+          <span><%= unit.message.mes %></span></a>
+          <a>
         </td>
           <td><%= unit.name %></td>
           <td><%= unit.get_metal_cost %></td>
@@ -55,7 +56,6 @@
           <% availability = current_user.can_build_unit(unit, current_user.active_ship) %>
 
           <% if (availability) %>
-
             <td><%= max_units %></td>
             <td>
               <%= form_tag build_unit_path(unit), method: 'get' do %>
@@ -73,7 +73,7 @@
               <td><a>Nicht verfügbar<span><%= instance.get_conditions() %></span></a></td>
             <% else %>
               <!-- Restlich zu bauende Truppen -->
-              <td><%= instance.build_amount %></td>
+              <td>In Auftrag: <%= instance.build_amount %></td>
               <td>
                 <a>
                   <%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %>
