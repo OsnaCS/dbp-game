@@ -3,13 +3,14 @@
 <h1>Schiffe</h1><br/>
 
 <table id="stationsite">
-
+  <thead>
     <tr id="ship_t1">
       <th>Name</th>
       <th>Auswahl</th>
       <th>Station</th>
     </tr>
-
+  </thead>
+  
   <tbody>
    <% UserShip.where(:user_id => current_user.id).each do |usership| %>
       <tr id="ship_t1">
