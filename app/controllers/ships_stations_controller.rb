@@ -1,5 +1,5 @@
 class ShipsStationsController < ApplicationController
-  before_action :set_ships_station, only: [:upgrade, :cancel_upgrade, :instant_upgrade, :show, :edit, :update, :destroy]
+  before_action :set_ships_station, only: [:upgrade, :downgrade, :cancel_upgrade, :instant_upgrade, :show, :edit, :update, :destroy]
 
   # GET /ships_stations
   # GET /ships_stations.json
@@ -48,6 +48,12 @@ class ShipsStationsController < ApplicationController
     fuel = @ships_station.station.get_fuel_cost(@ships_station.level)
 
     current_user.remove_resources_from_current_ship(metal, crystal, fuel)
+    redirect_to ship_ships_stations_url(@ships_station.ship)
+  end
+
+  def downgrade
+    @ships_station.level = @ships_station.level - 1
+    @ships_station.save
     redirect_to ship_ships_stations_url(@ships_station.ship)
   end
 
