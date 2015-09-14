@@ -1,5 +1,5 @@
 class Ship < ActiveRecord::Base
-    
+
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
   has_one :user_ship
@@ -40,6 +40,11 @@ class Ship < ActiveRecord::Base
       end
     end
     return count
+  end
+
+  def get_energy ()
+    energy = 
+    return energy
   end
 
   def update_resources
