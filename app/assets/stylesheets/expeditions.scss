@@ -2,10 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #table_expedition {
-  margin: auto;
-  position: relative;
-  width: 70%;
-  border: 5px;
-  border-collapse: collapse;
- table-layout: fixed;
- }
+	position: relative;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width: 70%;
+  	border: 5px;
+  	border-collapse: collapse;
+}
