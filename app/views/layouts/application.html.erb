@@ -93,7 +93,6 @@
 	<div id="botm">
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
-				<br>
 				<ul>
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
@@ -102,7 +101,7 @@
                       <% end %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
-						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+						<li><%= link_to "Stationen", root_path %></li>
 						<li><%= link_to "Anlagen", facilities_path %></li>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
@@ -135,7 +134,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<p>Universität Osnabrück &copy; 2015</p>
+		<p>University of Osnabrueck &copy; 2015</p>
 	</div>
 </div>
 </body>

@@ -26,6 +26,23 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "expedition_instances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "expedition_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "expeditions", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "explore_time"
+    t.datetime "arrival_time"
+    t.integer  "fighting_fleet_id"
+  end
+
+  add_index "expeditions", ["fighting_fleet_id"], name: "index_expeditions_on_fighting_fleet_id", using: :btree
+
   create_table "facilities", force: :cascade do |t|
     t.integer  "cost1"
     t.integer  "cost2"
@@ -48,23 +65,6 @@ ActiveRecord::Schema.define(version: 20150911122032) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "expedition_instances", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "expedition_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "expeditions", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "explore_time"
-    t.datetime "arrival_time"
-    t.integer  "fighting_fleet_id"
-  end
-
-  add_index "expeditions", ["fighting_fleet_id"], name: "index_expeditions_on_fighting_fleet_id", using: :btree
 
   create_table "fighting_fleets", force: :cascade do |t|
     t.integer  "user_id"
