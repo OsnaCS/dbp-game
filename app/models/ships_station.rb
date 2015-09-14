@@ -40,7 +40,7 @@ class ShipsStation < ActiveRecord::Base
   end
 
   def max_station_level(ship)
-    i = 5 + 10 * ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
+    i = 100 + 10 * ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
     return i
   end
 
