@@ -38,9 +38,9 @@ class UnitInstance < ActiveRecord::Base
     if not(self.ship.nil?)
       back = back + "Rückzahlung beim Abbruch [" + self.ship.name + "]: <br>"
     end
-    back = back + "- Metall: "+reMetal.to_i.to_s+"<br>"
-    back = back + "- Kristalle: "+reCrystal.to_i.to_s+"<br>"
-    back = back + "- Treibstoff: "+reFuel.to_i.to_s+"<br>"
+    back = back + "- Metall: "+reMetal.to_i.to_s + "<br>"
+    back = back + "- Kristalle: "+reCrystal.to_i.to_s + "<br>"
+    back = back + "- Treibstoff: "+reFuel.to_i.to_s + "<br>"
 
     return back.html_safe
   end
@@ -52,18 +52,25 @@ class UnitInstance < ActiveRecord::Base
     back = ""
 
   	conds.each do |cond|
-  		c_info = cond.split(":")
-  		typ = c_info[0]
+      c_info = cond.split(":")
+      typ = c_info[0]
+      id_geb = c_info[1].to_i
+      lvl = c_info[2]
 
-  		if(typ.eql? "f")
-	  		id_geb = c_info[1].to_i
-	  		lvl = c_info[2]
-	  		science = Science.find_by(:science_condition_id => id_geb)
+      case typ
+      when "f"
+        science = Science.find_by(:science_condition_id => id_geb)
 
-	      if not(user.has_min_science_level(science, lvl))
-	        back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
-	      end
-	    end
+        if not(user.has_min_science_level(science, lvl))
+          back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+        end
+      when "g"
+        station = Station.find_by(:station_condition_id => id_geb)
+
+        if not(user.has_min_station_level(station, lvl))
+          back = back+"- Gebäude: "+station.name+" "+lvl.to_s+"<br>"
+        end
+      end
   	end
 
     leftMetal = unit.get_metal_cost - user.get_metal
