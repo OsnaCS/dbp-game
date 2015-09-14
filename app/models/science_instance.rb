@@ -7,7 +7,7 @@ class ScienceInstance < ActiveRecord::Base
   end
 
   def get_research_ratio
-    duration = self.science.get_duration(self.level).to_f
+    duration = self.science.get_duration(self.level, user.active_ship).to_f
     past = self.get_time_since_research.to_f
     return 1.0 - (past/duration).to_f
   end
@@ -103,7 +103,7 @@ class ScienceInstance < ActiveRecord::Base
 
   def update_time(format)
     science = Science.find_by(id: self.science_id)
-    durationInSeconds = science.get_duration(self.level)
+    durationInSeconds = science.get_duration(self.level, user.active_ship)
 
     if(self.start_time)
       timeSinceResearch = self.get_time_since_research
