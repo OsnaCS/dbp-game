@@ -7,9 +7,15 @@
 	<td>
 		<p class="notificationlabel">
 			<%= note[:message] %>
-			<%= "vor" %>
-			<%= number_with_precision(note[:timestamp], precision: 0) %>
-			<%= note[:timetype] %>
+			<br>
+			<%= note[:info] %>
+		</p>
+	</td>
+	<td>
+		<p class="notificationlabel">
+				<%= " vor " %>
+				<%= number_with_precision(note[:timestamp], precision: 0) %>
+				<%= note[:timetype] %>
 		</p>
 	</td>
 	<td>
@@ -18,6 +24,11 @@
 			<br>
 		</p>
 	</td>
+	</tr>
+	<tr>
+		<td>
+			
+		</td>
 	</tr>
 	<% end %>
 </table>

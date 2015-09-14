@@ -33,7 +33,7 @@
        <% station = ships_station.station %>
         <td>
          <a>
-            <img src= "<%= image_url(ships_station.station.icon)%>", width="50", height="50", id="icon">
+            <img src= "<%= image_url("stations/" + ships_station.station.icon)%>", width="50", height="50", id="icon">
             <span><%= Message.find_by_code(ships_station.station.id).mes %></span>
          </a>
          </td>
