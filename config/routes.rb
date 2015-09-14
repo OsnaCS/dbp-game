@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :sciences
   resources :facilities
   resources :expeditions
+  resources :science
   resources :ranks
   resources :user_icons
   resources :ships

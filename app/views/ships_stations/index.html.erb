@@ -49,7 +49,7 @@
               data-id="<%= ships_station.station_id %>"
               data-time="<%= ships_station.update_time(false) %>"></td>
         <% end %>
-        <% availability = current_user.ships.find(current_user.activeShip).check_condition(station.condition) && !current_user.ships.find(current_user.activeShip).is_upgrading &&
+        <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
         <td><%= ships_station.level %></td>
 
