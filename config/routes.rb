@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       get 'upgrade'
       get 'cancel_upgrade'
       get 'instant_upgrade'
+      get 'downgrade'
     end
   end
 

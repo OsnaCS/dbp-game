@@ -12,11 +12,14 @@
   </thead>
   
   <tbody>
-   <% UserShip.where(:user_id => current_user.id).each do |usership| %>
-      <tr class="ship_t1">
-        <td class="ship_t2"><%= usership.ship.name %></td>
-        <td class="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
-        <td class="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+   <% current_user.user_ships.each do |usership| %>
+      <tr id="ship_t1">
+        <td id="ship_t2"><%= usership.ship.name %></td>
+        <td id="ship_t2"><%= link_to 'Auswählen', ship_path(usership.ship) %></td>
+        <td id="ship_t2"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></td>
+        <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+        <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
+        <% usership.ship.update_resources %>
       </tr>
     <% end %>
   </tbody>
