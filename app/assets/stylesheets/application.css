@@ -375,3 +375,8 @@ ul li {
 	float: left;
 	margin-left: 5px;
 }
+
+#coord_button {
+	margin-left: auto;
+	margin-right: auto;
+}
