@@ -50,7 +50,7 @@
               data-time="<%= instance.update_time(false) %>">
             </td>
           <% end %>
-          <td> <%= instance.amount %></td>
+          <td><%= instance.amount %></td>
 
           <% availability = current_user.can_build_unit(unit, current_user.active_ship) %>
 
@@ -59,10 +59,10 @@
             <td><%= max_units %></td>
             <td>
               <%= form_tag build_unit_path(unit), method: 'get' do %>
-                <%= hidden_field_tag :unit_id, unit.id%>
+                <%= hidden_field_tag :unit_id, unit.id %>
                 <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
                
-                <%= number_field_tag(:amount, nil ,placeholder: '0', min: 0, max: max_units) %>
+                <%= number_field_tag(:amount, nil, placeholder: '0', min: 0, max: max_units) %>
                 <%= submit_tag 'Herstellen' %>
               <% end %>
             </td>
