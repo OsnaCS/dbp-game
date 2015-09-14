@@ -51,13 +51,10 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.ships.find(current_user.activeShip).is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= ships_station.level %></td>
-
-        
+        <td><%= ships_station.level %></td>        
         <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
           <% if availability %>
             <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
-
           <% else %>
             <% if(inactive) %>
               <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
@@ -74,7 +71,6 @@
               <% else %>
                 <% if(inactive) %>
                   <td><a>Nicht verfügbar<span><%= ships_station.get_conditions() %></span></a></td>
-
                 <% else %>
                   <td><a><%= button_to 'Abbrechen', cancel_upgrade_ships_station_path(ships_station), method: :get %>
                   <span><%= ships_station.get_refund %></span></a>
@@ -86,7 +82,6 @@
             <%end%>
         <% end %>
         <% end %>
-
         <% if ships_station.level>0 && availability%>
           <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
         <%end%>

@@ -44,7 +44,6 @@ class ShipsStation < ActiveRecord::Base
     return i
   end
 
-
   def get_conditions()
   	info = self.station.condition
   	conds = info.split(",")
