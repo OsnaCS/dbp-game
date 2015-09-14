@@ -5,6 +5,8 @@ ruby "2.2.2"
 gem 'devise'
 # gem for file upload management
 gem 'paperclip'
+# gem for "global variable"
+gem 'figaro'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use pg as the database for Active Record
