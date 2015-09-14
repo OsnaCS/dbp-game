@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def get_metal()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def get_crystal()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   end
 
   def get_fuel()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
   end
 
   def remove_resources_from_current_ship(metal, crystal, fuel)
-    self.remove_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+    self.remove_resources(metal, crystal, fuel, active_ship)
   end
 
   def add_resources(metal, crystal, fuel, ship)
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   end
 
   def add_resources_to_current_ship(metal, crystal, fuel)
-    self.add_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+    self.add_resources(metal, crystal, fuel, active_ship)
   end
 
   def is_researching()
