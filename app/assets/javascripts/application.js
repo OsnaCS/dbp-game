@@ -67,9 +67,10 @@ function timer(){
 			secs--;
 			timeElement.data('time', secs);
 			timeElement.html(formatTime(secs));
+      return;
 		}
 		else{
-    		window.location.reload(); //did some magic
+        window.location.reload(); //did some magic
     		window.location.reload();
 		}
 	});
