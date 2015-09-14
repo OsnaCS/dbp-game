@@ -34,8 +34,12 @@ class UnitsController < ApplicationController
       fuel = unit.get_fuel_cost() * amount
       current_user.remove_resources_from_current_ship(metal, crystal, fuel)
 
-      instance.start_time = Time.now
-      instance.build_amount = params[:amount].to_i
+      if(instance.start_time.nil?)
+        instance.start_time = Time.now
+        instance.build_amount = params[:amount].to_i
+      else
+        instance.build_amount = params[:amount].to_i + instance.build_amount
+      end
 
       instance.save
     end
