@@ -153,14 +153,14 @@ ActiveRecord::Schema.define(version: 20150914131516) do
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "metal"
     t.integer  "cristal"
     t.integer  "fuel"
     t.datetime "lastChecked"
-    t.integer  "energy"
-    t.integer  "used_energy"
+    t.integer  "energy",      default: 0
+    t.integer  "used_energy", default: 0
   end
 
   create_table "ships_stations", force: :cascade do |t|
