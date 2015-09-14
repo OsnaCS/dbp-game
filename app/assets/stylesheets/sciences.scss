@@ -18,12 +18,6 @@
   border-collapse: collapse;
 }
 
-#text {
-  display: table;
-  margin-bottom: 30px;
-  border-collapse: collapse;
-}
-
 #active {
 	background: #1411fa;
 	border: 5px;
@@ -44,11 +38,6 @@ a span{
   font-weight: bold;
 	width:300px;
 	position: absolute;
-}
-
-canvas {
-    background: #eee;
-    position: relative;
 }
 
 a { display: inline-block;}

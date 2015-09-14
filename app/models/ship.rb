@@ -8,6 +8,7 @@ class Ship < ActiveRecord::Base
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
+  after_initialize :create_units
   after_initialize :init
 
   def check_condition(conditions)
@@ -61,7 +62,10 @@ class Ship < ActiveRecord::Base
 
     self.lastChecked = Time.now.getutc
     self.save
+  end
 
+  def get_unit_instance(unit)
+    return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
   end
 
   def is_upgrading()
@@ -83,6 +87,22 @@ class Ship < ActiveRecord::Base
       self.fuel=0
       self.lastChecked = Time.now.getutc
       return self.id
+  end
+
+  def create_units
+    if(self.id.nil?)
+      return
+    else
+      Unit.all.each do |unit|
+        if not(UnitInstance.exists?(:unit_id => unit.id, :ship_id => self.id))
+          instance = UnitInstance.new
+          instance.unit_id = unit.id
+          instance.ship_id = self.id
+          instance.amount = 0;
+          instance.save
+        end
+      end
+    end
   end
 
   private

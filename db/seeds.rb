@@ -877,9 +877,6 @@ message4=Message.create(
 	  code:	3012
 	})
 
-
-
-
 #Create DamageType and Units
 damage_type1=DamageType.create({
 					"name"=>"laser",
@@ -911,13 +908,6 @@ damage_type5=DamageType.create({
 					"shield_mult"=>0,
 					"station_mult"=>0,
 					"plattform_mult"=>0})
-
-
-
-
-
-
-
 Unit.create({ 
 				"name"=>"Expeditionsschiff", 
 				"metal_price"=>40, 
