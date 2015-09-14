@@ -15,10 +15,12 @@
   <% end %>
 
   <%= f.fields_for :fight do |ff| %>
-    
+        <%= ff.hidden_field :defender_id, :value => @defend_user  %>
+        <%= ff.hidden_field :ship_attack_id, :value => current_user.active_ship.id  %>
+
     <div class="field">
-      <a><%= ff.label :defender_id %><br></a>
-      <%= ff.collection_select  :defender_id, User.all, :id, :username %>
+      <a><%= ff.label :ship_defend_id %><br></a>
+      <%= ff.collection_select  :ship_defend_id, User.find(@defend_user).ships, :id, :name %>
     </div>
 <% end %>
   <div class="field">
@@ -30,7 +32,7 @@
         <th><a>Verschicken</a></th>
       </tr>
       <%= f.fields_for :ship_groups do |fs| %>
-        <tr>
+        <%if !(fs.object.unit.message == nil) %><tr>
           <td><a><img src= "<%= image_url(fs.object.unit.icon)%>", width="50", height="50", id="icon"><span><%= fs.object.unit.message.mes %></span></a> </td>
           <td><a><%= fs.object.unit.name%><span><%= fs.object.unit.message.mes %></span></a> </td>
           <td><a><%= fs.object.unit.id %></a></td>
@@ -38,6 +40,7 @@
         </tr>
         
         <%= fs.hidden_field :unit_id %>
+      <% end %>
       <% end %>
     </table>
     </div>

@@ -30,7 +30,10 @@
 			</div>
 		<% end %>
 		<div>
+			<p class="userbutton"><%= link_to "Kampf!", new_fighting_fleet_path(:defend_user => @user.id ) %></p>
+		</div><div>
 			<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
 		</div>
+		
 	<% end %>
 <% end %>
