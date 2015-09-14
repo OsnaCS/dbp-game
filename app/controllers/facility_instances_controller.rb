@@ -63,26 +63,27 @@ class FacilityInstancesController < ApplicationController
     s.fuel -= p * f.cost3 * resourcefactor
     s.save
     end
-    @facility_instance.start_time = Time.now
-    @facility_instance.create_count = p
-    @facility_instance.save
-
-    redirect_to facilities_url
+    if BuildList.find_by(instance_id: @facility_instance.id) != nil
+      @facility_instance.create_count += p
+      @facility_instance.save
+    else
+      @facility_instance.create_count = p
+      @facility_instance.save
+      BuildList.create(typeSign: 'f', ship_id: current_user.activeShip, instance_id: @facility_instance.id)
+    end
+    redirect_to :back
   end
 
   def cancel_build
-    @facility_instance.start_time = nil
-    @facility_instance.create_count = nil
-    @facility_instance.save
-    redirect_to facilities_url
+    @facility_instance.reset_build
+    redirect_to :back
   end
 
   def instant_build
     @facility_instance.count = @facility_instance.count + (@facility_instance.create_count || 0)
-    @facility_instance.start_time = nil
-    @facility_instance.create_count = nil
     @facility_instance.save
-    redirect_to facilities_url
+    @facility_instance.reset_build
+    redirect_to :back
   end
 
   # PATCH/PUT /facility_instances/1

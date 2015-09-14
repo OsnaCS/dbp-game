@@ -1,9 +1,14 @@
 class BuildListsController < ApplicationController
   before_action :set_build_list, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /build_lists
   # GET /build_lists.json
   def index
+    if current_user.activeShip == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     @build_lists = BuildList.all
   end
 
@@ -69,6 +74,6 @@ class BuildListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def build_list_params
-      params[:build_list]
+      params.require(:build_list).permit(:typeSign, :instance_id)
     end
 end

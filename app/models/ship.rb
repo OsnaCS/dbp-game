@@ -1,5 +1,6 @@
 class Ship < ActiveRecord::Base
     
+  has_many :build_lists, dependent: :destroy
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
   has_one :user_ship
@@ -24,21 +25,46 @@ class Ship < ActiveRecord::Base
     return true
   end
 
-  def building_capped()
-    if self.is_building >= 1
+  def update_builds(typeString = 'f,s,r,u')
+    type_split = typeString.split(",")
+    type_split.each do |typ|
+      build_lists.each do |build|
+        if (build.typeSign == typ)
+          if(typ == 'f')
+            facility_instance = FacilityInstance.find_by(id: build.instance_id)
+            facility_instance.start_time = Time.now
+            facility_instance.save
+          end
+          if(typ == 's')
+          end
+          if(typ == 'r')
+          end
+          if(typ == 'u')
+          end
+        end
+      end  
+    end
+  end
+
+  def build_list_count(typeString)
+    count = 0
+    build_lists.each do |instance|
+      if instance.typeSign == typeString
+        count += 1
+      end
+    end
+    return count
+  end
+
+  def capped_facilities()
+    if self.build_list_count('f') >= 2
       return true
     end
     return false
   end
 
-  def is_building()
-    count = 0
-    facility_instances.each do |instance|
-      if not(instance.start_time.nil?)
-        count += 1
-      end
-    end
-    return count
+  def is_building(instance)
+    return build_lists.find_by(instance_id: instance.id) != nil && instance.start_time != nil
   end
 
   def update_resources

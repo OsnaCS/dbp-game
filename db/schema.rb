@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911143109) do
+ActiveRecord::Schema.define(version: 20150914110515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20150911143109) do
   create_table "build_lists", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "type"
+    t.string   "typeSign"
     t.integer  "instance_id"
+    t.integer  "ship_id"
   end
 
   create_table "damage_types", force: :cascade do |t|
@@ -68,9 +69,9 @@ ActiveRecord::Schema.define(version: 20150911143109) do
     t.integer  "ship_id"
     t.integer  "count"
     t.integer  "create_count"
-    t.time     "start_time"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "start_time"
   end
 
   create_table "fighting_fleets", force: :cascade do |t|
