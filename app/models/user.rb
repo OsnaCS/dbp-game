@@ -39,8 +39,13 @@ class User < ActiveRecord::Base
     condition_split.each do |condition|
       condition_elements = condition.split(":")
       if(condition_elements[0].eql? "f")
-        instance = ScienceInstance.find_by(:user_id => self.id, :science_id => Science.find_by(:science_condition_id => condition_elements[1]).id)
-        if not (instance.level >= condition_elements[2].to_i)
+        science_instance = ScienceInstance.find_by(:user_id => self.id, :science_id => Science.find_by(:science_condition_id => condition_elements[1]).id)
+        if not (science_instance.level >= condition_elements[2].to_i)
+          return false
+        end
+      else
+        ship_station_instance = ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => Station.find_by(:station_condition_id => condition_elements[1]).id)
+        if not(ship_station_instance.level >= condition_elements[2].to_i)
           return false
         end
       end
@@ -88,6 +93,10 @@ class User < ActiveRecord::Base
 
   def has_min_science_level(science, level)
     return self.get_science_instance(science).level >= level.to_i
+  end
+
+  def has_min_station_level(station, level)
+    return ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => station.id).level >= level.to_i
   end
 
   def get_metal()
