@@ -103,7 +103,7 @@
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<li><%= link_to "Forschung", sciences_path %></li>
 						<% if current_user.activeShip != nil %>
-						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+						<li><%= link_to "Stationen", ship_ships_stations_path(current_user.activeShip) %></li>
 						<li><%= link_to "Anlagen", facilities_path %></li>
 						<% end %>
 						<li><%= link_to "Einheiten", root_path %></li>

@@ -1,4 +1,4 @@
-class ShipsStation < ActiveRecord::Base
+ class ShipsStation < ActiveRecord::Base
 
   belongs_to :ship
   belongs_to :station
