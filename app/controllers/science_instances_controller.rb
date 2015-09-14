@@ -39,7 +39,7 @@ class ScienceInstancesController < ApplicationController
 
   def research
     @science_instance.start_time = Time.now
-    @science_instance.research_ship = Ship.find_by(:id => current_user.activeShip).id
+    @science_instance.research_ship = current_user.active_ship.id
     @science_instance.save
 
     metal = @science_instance.science.get_metal_cost(@science_instance.level)
