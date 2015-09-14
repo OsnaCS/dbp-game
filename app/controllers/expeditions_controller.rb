@@ -48,6 +48,7 @@ class ExpeditionsController < ApplicationController
 
     fuelcost = (fuelcost * params[:exp_time].to_i/@userFuelFactor
     userShip = Ship.find(current_user.activeShip)
+
     if(userShip.fuel < fuelcost)
       string = "Nicht genügend Treibstoff um diese
       FLotte loszuschicken. Benötigt wird: " + fuelcost.to_s + " Treibstoff"

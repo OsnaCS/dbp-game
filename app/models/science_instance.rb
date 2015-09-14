@@ -59,12 +59,22 @@ class ScienceInstance < ActiveRecord::Base
   	conds.each do |cond|
   		c_info = cond.split(":")
   		typ = c_info[0]
-  		id_geb = c_info[1].to_i
-  		lvl = c_info[2]
-  		science = Science.find_by(:science_condition_id => id_geb)
+      id_geb = c_info[1].to_i
+      lvl = c_info[2]
 
-      if not(user.has_min_science_level(science, lvl))
-        back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+      case typ
+      when "f"
+    		science = Science.find_by(:science_condition_id => id_geb)
+
+        if not(user.has_min_science_level(science, lvl))
+          back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+        end
+      when "g"
+        station = Station.find_by(:station_condition_id => id_geb)
+
+        if not(user.has_min_station_level(station, lvl))
+          back = back+"- Gebäude: "+station.name+" "+lvl.to_s+"<br>"
+        end
       end
   	end
 

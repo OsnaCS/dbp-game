@@ -26,7 +26,7 @@ class Expedition < ActiveRecord::Base
    end
 
    def self.shipamount(shiptype)
-         #Ships.find(user.activeShip).#Befehl um stationierte Schiffe abzufragen
+         #user.active_ship).#Befehl um stationierte Schiffe abzufragen
          return amount=1
    end
 
@@ -124,7 +124,7 @@ class Expedition < ActiveRecord::Base
       resi_id = rand(5401..5406)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id))
       
-      ship = Ship.find(self.expedition_instance.user.activeShip)
+      ship = self.expedition_instance.user.active_ship
       ship.metal += metal_got
       ship.cristal += crystal_got
       ship.fuel += fuel_got

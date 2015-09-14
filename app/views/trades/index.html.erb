@@ -16,7 +16,7 @@
 
 <tbody>
     <tr>
-        <% s = Ship.find_by id: current_user.activeShip %>
+        <% s = current_user.active_ship %>
         <td class='tradecolumns'>
           <%= submit_tag "Calc", class: 'numfield' %>
         </td>

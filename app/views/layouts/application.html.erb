@@ -31,7 +31,7 @@
 			<% end %>
 		</div>
 		<div id="banner" class="content">
-			<p id="game_name">Lunency</p>
+			<p id="game_name"><%= ENV['game_name'] %></p>
 		</div>
 	</div>
 
@@ -50,11 +50,11 @@
 		</div>
 
 		<div id="resources" class="content">
-			<% if current_user!=nil %>
+			<% if current_user.present? %>
 				<table id="res-table"><tr>
 					<td>
 						<p title="Ausgewaehltes Schiff">Selected:
-							<% if current_user.activeShip!=nil%>
+							<% if current_user.activeShip.present?%>
 				  				<%=current_user.active_ship.name%>
 							<% else %>
 			    				kein Schiff ausgewählt!
@@ -63,24 +63,24 @@
 					</td>
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
-        				<% if current_user.activeShip!=nil%>
-				  			<p id="val-metal" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).metal %></p>
+        				<% if current_user.activeShip.present?%>
+				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
 					</td>
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
-        				<% if current_user.activeShip!=nil%>
-				  			<p id="val-crystal" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).cristal %></p>
+        				<% if current_user.activeShip.present?%>
+				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
 					</td>
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
-        				<% if current_user.activeShip!=nil %>
-				  			<p id="val-fuel" class="val-resources"><%= Ship.find_by(id: current_user.activeShip).fuel %></p>
+        				<% if current_user.activeShip.present? %>
+				  			<p id="val-fuel" class="val-resources"><%= current_user.active_ship.fuel %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -98,9 +98,9 @@
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
-                      	<% if current_user.activeShip!=nil %>
-                        	<% Ship.find_by(id: current_user.activeShip).update_resources%>
-                      		<li><%= link_to "Forschung", sciences_path %></li>
+						<% if current_user.activeShip!=nil %>
+							<% Ship.find_by(id: current_user.activeShip).update_resources%>
+							<li><%= link_to "Forschung", sciences_path %></li>
 							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
 							<li><%= link_to "Einheiten", units_path %></li>
