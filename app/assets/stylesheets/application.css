@@ -23,12 +23,13 @@ html,body {
 
 p {
 	font-family: 'space';
+	font-size: 14px;
 }
 
 a, a:visited {
 	color: #FFFF00;
 	font-family: 'space';
-	font-size: 12px;
+	font-size: 14px;
 }
 
 ul {
@@ -324,10 +325,7 @@ ul li {
 	font-weight: bold;
 	border: 2px solid red;
 	border-radius: 5px;
-}
-
-#notification-text[text=""] {
-	display: none;
+	visibility: hidden;
 }
 
 #game_name {
