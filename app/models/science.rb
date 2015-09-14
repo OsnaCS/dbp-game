@@ -33,7 +33,8 @@ class Science < ActiveRecord::Base
     return get_fuel_cost(level).to_f * ratio
   end
 
-  def get_duration(level)
-    return (self.duration * self.factor ** (level + 1))
+  def get_duration(level, ship)
+    research_station_level = ShipsStation.find_by(:ship_id => ship.id, :station_id => 2004).level
+    return (self.duration * self.factor ** (level + 1)) / (1 + 0.1 * research_station_level)
   end
 end
