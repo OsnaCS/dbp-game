@@ -43,6 +43,14 @@ class Ship < ActiveRecord::Base
     return count
   end
 
+  def get_used_energy
+    scan_metal = 2 ** (self.ships_stations.find_by(station_id: '2001').level)
+    scan_crystal = 2 ** (self.ships_stations.find_by(station_id: '2002').level)
+    scan_fuel = 2 ** (self.ships_stations.find_by(station_id: '2003').level)
+    self.used_energy = scan_metal + scan_crystal + scan_fuel
+    self.save
+  end
+
   def get_energy
     generator = 2 ** (self.ships_stations.find_by(station_id: '2014').level + 1)
     burn_generator = 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)
@@ -78,7 +86,7 @@ class Ship < ActiveRecord::Base
   def get_unit_instance(unit)
     return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
   end
-  
+
 
 
   def is_upgrading()
@@ -118,9 +126,9 @@ class Ship < ActiveRecord::Base
       else
         return ressource
       end
-    else    
+    else
       return ressource
-    
+
   end
   private
   def get_collect_difference(level, id, last_update)
