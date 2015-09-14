@@ -1,5 +1,5 @@
 class Ship < ActiveRecord::Base
-    
+
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
   has_many :unit_instances, dependent: :destroy
@@ -16,7 +16,7 @@ class Ship < ActiveRecord::Base
 
     condition_split.each do |condition|
       condition_elements = condition.split(":")
-      if(condition_elements[0].eql? "g")
+      if(condition_elements[0].eql? "s")
         station = ShipsStation.find_by(:ship_id => self.id, :station_id => 2000 + condition_elements[1].to_i)
         if not (station.level >= condition_elements[2].to_i)
           return false
@@ -41,6 +41,22 @@ class Ship < ActiveRecord::Base
       end
     end
     return count
+  end
+
+  def get_used_energy
+    scan_metal = 2 ** (self.ships_stations.find_by(station_id: '2001').level)
+    scan_crystal = 2 ** (self.ships_stations.find_by(station_id: '2002').level)
+    scan_fuel = 2 ** (self.ships_stations.find_by(station_id: '2003').level)
+    self.used_energy = scan_metal + scan_crystal + scan_fuel
+    self.save
+  end
+
+  def get_energy
+    generator = 2 ** (self.ships_stations.find_by(station_id: '2014').level + 1)
+    burn_generator = 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)
+    solarpanel = 4 * self.facility_instances.find_by(facility_id: 3013).count
+    self.energy = generator + burn_generator + solarpanel
+    self.save
   end
 
   def update_resources
@@ -70,7 +86,7 @@ class Ship < ActiveRecord::Base
   def get_unit_instance(unit)
     return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
   end
-  
+
 
 
   def is_upgrading()
@@ -110,9 +126,6 @@ class Ship < ActiveRecord::Base
       else
         return ressource
       end
-    else    
-      return ressource
-    
   end
   private
   def get_collect_difference(level, id, last_update)
@@ -126,8 +139,14 @@ class Ship < ActiveRecord::Base
 		time = Time.now.getutc
 		start = start.to_f
 		elapsed_seconds = time - last_update
-		produktion = (start* (1.5 ** level))*(elapsed_seconds)
-		return produktion
+    if (self.used_energy > self.energy)
+      diff = 1/(self.used_energy - self.energy)
+      produktion = diff * (start* (1.5 ** level))*(elapsed_seconds)
+      return produktion
+    else
+		  produktion = (start* (1.5 ** level))*(elapsed_seconds)
+		  return produktion
+    end
   end
 
   def init

@@ -9,7 +9,7 @@ class Expedition < ActiveRecord::Base
       @fleet_storeroom = 0
       @exp_storeroom = 0
       fighting_fleet.ship_groups.all.each do |g|
-        @value += g.unit.total_cost * g.number
+        @value += g.unit.get_total_cost * g.number
         @fleet_storeroom += g.unit.cargo * g.number
         if(g.unit.name == "Expeditionsschiff")
            @exp_storeroom += g.unit.cargo * g.number

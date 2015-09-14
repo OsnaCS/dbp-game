@@ -29,6 +29,10 @@ function start_timer() {
   timer();
 }
 
+function start_bar() {
+  bar();
+}
+
 /**
  * @brief Formats the timer format
  *
@@ -76,6 +80,22 @@ function timer(){
 	});
 
 	window.setTimeout(timer,1000);
+}
+
+function bar(){
+  $('.bar progress').each(function (time) {
+    var timeElement = $(this);
+    var par = timeElement.parent();
+    var passed = parseInt(par.data("time"),10);
+    var total = parseInt(par.data("total"),10);
+    if(passed < total){
+      passed++;
+      par.data("time", passed);
+      timeElement.val(passed);
+      timeElement.attr("max", total);
+    }
+  });
+  window.setTimeout(bar,1000);
 }
 
 function getJsonData() {

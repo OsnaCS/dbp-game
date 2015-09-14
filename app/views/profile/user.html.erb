@@ -1,36 +1,44 @@
 <% if user_signed_in? %>
-	<% if current_user.is_user %>
+	<% if !@user.blank? %>
+		<% if current_user.is_user %>
+			<br>
+			<h1 class="userlabel">Benutzerprofil von <%= @user.username %></h1>
+			<p><% if UserIcon.find_by_user_id(@user.id) != nil %>
+				<img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(@user.id).image.url) %>"><br>
+			</p>
+			<% else %>
+				<img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
+			<% end %>
+			<div>
+				<p class="userlabel">Benutzername: <%= @user.username %></p>
+			</div>
+			<% if current_user.is_moderator %>
+				<div>
+					<p class="userlabel">Emailadresse: <%= @user.email %></p>
+				</div>
+			<% end %>
+			<% if current_user.is_admin %>
+				<div><p class="userlabel">Rechtelevel: <%= @user.right_level %></p></div>
+				<div><p class="userlabel">Normaler Benutzer: <%= @user.is_user %></p></div>
+				<div><p class="userlabel">Premium Benutzer: <%= @user.is_premium_user %></p></div>
+				<div><p class="userlabel">Moderator: <%= @user.is_moderator %></p></div>
+				<div><p class="userlabel">Admin: <%= @user.is_admin %></p></div>
+				<div><p class="userlabel">Superadmin: <%= @user.is_superadmin %></p></div>
+			<% end %>
+			<% if current_user.id == @user.id %>
+				<div>
+					<p class="userbutton"><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
+				</div>
+			<% end %>
+			<div>
+				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
+			</div>
+		<% end %>
+	<% else %>
 		<br>
-		<h1 class="userlabel">Benutzerprofil von <%= @user.username %></h1>
-		<p><% if UserIcon.find_by_user_id(@user.id) != nil %>
-    		<img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(@user.id).image.url) %>"><br>
-    	</p>
-  		<% else %>
-    		<img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
-  		<% end %>
+		<h1 class="userlabel">Benutzerprofil konne nicht gefunden werden!</h1>
 		<div>
-			<p class="userlabel">Benutzername: <%= @user.username %></p>
-		</div>
-		<% if current_user.is_moderator %>
-			<div>
-				<p class="userlabel">Emailadresse: <%= @user.email %></p>
+				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
 			</div>
-		<% end %>
-		<% if current_user.is_admin %>
-			<div><p class="userlabel">Rechtelevel: <%= @user.right_level %></p></div>
-			<div><p class="userlabel">Normaler Benutzer: <%= @user.is_user %></p></div>
-			<div><p class="userlabel">Premium Benutzer: <%= @user.is_premium_user %></p></div>
-			<div><p class="userlabel">Moderator: <%= @user.is_moderator %></p></div>
-			<div><p class="userlabel">Admin: <%= @user.is_admin %></p></div>
-			<div><p class="userlabel">Superadmin: <%= @user.is_superadmin %></p></div>
-		<% end %>
-		<% if current_user.id == @user.id %>
-			<div>
-				<p class="userbutton"><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
-			</div>
-		<% end %>
-		<div>
-			<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
-		</div>
 	<% end %>
 <% end %>

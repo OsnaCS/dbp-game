@@ -47,7 +47,7 @@ class FacilityInstance < ActiveRecord::Base
   	if(ship.building_capped())
       back = back + "Aktuell werden schon " + ship.is_building().to_s + " Anlagentypen gebaut...<br>"
   	end;
-  	if (conds.length==0) 
+  	if (conds.length==0)
   	  return back.html_safe;
   	end
   	back = back + "Voraussetzung: <br>"

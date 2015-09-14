@@ -7,7 +7,7 @@ class ScienceInstance < ActiveRecord::Base
   end
 
   def get_research_ratio
-    duration = self.science.get_duration(self.level).to_f
+    duration = self.science.get_duration(self.level, user.active_ship).to_f
     past = self.get_time_since_research.to_f
     return 1.0 - (past/duration).to_f
   end
@@ -34,7 +34,7 @@ class ScienceInstance < ActiveRecord::Base
 
   def level_cap_reached
     lvl = self.level
-    cap =science.level_cap
+    cap = science.level_cap
 
     if cap.blank?
       return false
@@ -59,12 +59,22 @@ class ScienceInstance < ActiveRecord::Base
   	conds.each do |cond|
   		c_info = cond.split(":")
   		typ = c_info[0]
-  		id_geb = c_info[1].to_i
-  		lvl = c_info[2]
-  		science = Science.find_by(:science_condition_id => id_geb)
+      id_geb = c_info[1].to_i
+      lvl = c_info[2]
 
-      if not(user.has_min_science_level(science, lvl))
-        back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+      case typ
+      when "f"
+    		science = Science.find_by(:science_condition_id => id_geb)
+
+        if not(user.has_min_science_level(science, lvl))
+          back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+        end
+      when "g"
+        station = Station.find_by(:station_condition_id => id_geb)
+
+        if not(user.has_min_station_level(station, lvl))
+          back = back+"- Gebäude: "+station.name+" "+lvl.to_s+"<br>"
+        end
       end
   	end
 
@@ -93,7 +103,7 @@ class ScienceInstance < ActiveRecord::Base
 
   def update_time(format)
     science = Science.find_by(id: self.science_id)
-    durationInSeconds = science.get_duration(self.level)
+    durationInSeconds = science.get_duration(self.level, user.active_ship)
 
     if(self.start_time)
       timeSinceResearch = self.get_time_since_research
