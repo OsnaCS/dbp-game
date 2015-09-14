@@ -354,6 +354,10 @@ ul li {
 	height: 100%;
 }
 
+#res-energy{
+	background-image: url('resources/batteries.png');
+}
+
 #res-metal {
 	background-image: url('resources/metal.png');
 }
