@@ -78,7 +78,7 @@ class TradesController < ApplicationController
   end
 
   def buy
-    s = Ship.find_by id: current_user.activeShip
+    s = current_user.active_ship
     if s == nil 
       redirect_to :controller => 'ships', :action => 'new'
       return

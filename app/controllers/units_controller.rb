@@ -34,8 +34,12 @@ class UnitsController < ApplicationController
       fuel = unit.get_fuel_cost() * amount
       current_user.remove_resources_from_current_ship(metal, crystal, fuel)
 
-      instance.start_time = Time.now
-      instance.build_amount = params[:amount].to_i
+      if(instance.start_time.nil?)
+        instance.start_time = Time.now
+        instance.build_amount = params[:amount].to_i
+      else
+        instance.build_amount = params[:amount].to_i + instance.build_amount
+      end
 
       instance.save
     end
@@ -90,6 +94,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:name, :metal_price, :crystal_price, :fuel_price, :total_cost, :shell, :damage, :damage_type_id, :cargo, :speed, :shipyard_requirement, :research_requirement_one, :research_requiement_two)
+      params.require(:unit).permit(:condition_id, :name, :metal_price, :crystal_price, :fuel_price, :shell, :damage, :damage_type_id, :cargo, :speed)
     end
 end

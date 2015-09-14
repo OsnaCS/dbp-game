@@ -47,7 +47,7 @@ class FacilityInstancesController < ApplicationController
     if p <= 0
       p = 1
     end
-    s = Ship.find_by id: current_user.activeShip
+    s = current_user.active_ship
     if s == nil 
       redirect_to :controller => 'ships', :action => 'new'
       return
