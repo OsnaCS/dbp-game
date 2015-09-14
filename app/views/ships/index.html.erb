@@ -24,15 +24,18 @@
 <br>
 
 <% if current_user.ship_count < 9%>
-  <%if current_user.has_enough_resources(200000, 100000, 0)%>
-    <div id="coord_button"> 
-      <p class="userbutton"><%= link_to 'New Ship', new_ship_path %>   </p>      
-    </div>
-  <%else%>
-    <p class="ship_t1"> Nicht genug Rohstoffe für ein neues Schiff! </p>
-  <%end%>
+  <% if current_user.next_ship_allowed  == true %>
+    <%if current_user.has_enough_resources(200000, 100000, 0)%>
+      <div id="coord_button"> 
+        <p class="userbutton"><%= link_to 'New Ship', new_ship_path %>   </p>      
+      </div>
+    <%else%>
+      <p class="ship_t1"> Nicht genug Rohstoffe für ein neues Schiff! </p>
+    <%end%>
+  <% else %>
+    <p class="ship_t1"> Forsche Pioniersausbildung für ein zusätzliches Schiff </p>
+  <% end %>
 <%else %>
   <p class="ship_t1"> Du darfst nicht mehr als neun Schiffe besitzen! </p>
 <%end%>
-
 

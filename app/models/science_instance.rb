@@ -34,7 +34,7 @@ class ScienceInstance < ActiveRecord::Base
 
   def level_cap_reached
     lvl = self.level
-    cap =science.level_cap
+    cap = science.level_cap
 
     if cap.blank?
       return false
