@@ -31,7 +31,7 @@
 			<% end %>
 		</div>
 		<div id="banner" class="content">
-			<p id="game_name">Lunency</p>
+			<p id="game_name"><%= ENV['game_name'] %></p>
 		</div>
 	</div>
 
@@ -97,9 +97,9 @@
 					<li><%= link_to "Home", root_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
-                      	<% if current_user.activeShip!=nil %>
-                        	<% Ship.find_by(id: current_user.activeShip).update_resources%>
-                      		<li><%= link_to "Forschung", sciences_path %></li>
+						<% if current_user.activeShip!=nil %>
+							<% Ship.find_by(id: current_user.activeShip).update_resources%>
+							<li><%= link_to "Forschung", sciences_path %></li>
 							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
 							<li><%= link_to "Einheiten", units_path %></li>

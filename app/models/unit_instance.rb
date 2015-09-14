@@ -95,16 +95,31 @@ class UnitInstance < ActiveRecord::Base
     durationInSeconds = unit.get_duration(1, ship)
 
     if(self.start_time)
-      buildAmount =  self.build_amount
-      durationInSeconds = unit.get_duration(buildAmount, ship)
+      build_amount =  self.build_amount
       timeSinceBuild = self.get_time_since_build
       restTime = durationInSeconds - timeSinceBuild
+      delta = 1;
+
+      if(restTime + durationInSeconds < 0)
+        delta = -1 * (restTime / durationInSeconds);
+
+        if(build_amount < delta)
+          delta = build_amount
+        end
+      end
+      delta = delta.to_i
 
       if(restTime <= 0)
-        self.amount = self.amount + buildAmount
-        self.start_time = nil
-        self.build_amount = nil
+        self.amount = self.amount + delta;
+        self.build_amount = build_amount - delta
+        self.start_time = Time.now;
         self.save
+
+        if(build_amount - delta <= 0)
+          self.start_time = nil
+          self.build_amount = nil
+          self.save
+        end
 
         if not(format)
           return durationInSeconds;

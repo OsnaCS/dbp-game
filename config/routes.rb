@@ -59,7 +59,6 @@ Rails.application.routes.draw do
   resources :sciences
   resources :facilities
   resources :expeditions
-  resources :science
   resources :ranks
   resources :user_icons
   resources :ships
@@ -73,7 +72,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/get_json_data', defaults: {format: 'json'}
   get 'profile/index'
-  get 'profile/user'
+  get 'profile/:username', to: 'profile#user', as: 'profile'
   get 'home/index'
 
 
