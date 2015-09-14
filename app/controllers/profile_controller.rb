@@ -6,7 +6,7 @@ class ProfileController < ApplicationController
   end
 
   def user
-  	@user = User.find_by_username(params[:user])
+  	@user = User.find_by_username(params[:username])
   end
 
 end
