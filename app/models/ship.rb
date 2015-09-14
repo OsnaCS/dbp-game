@@ -1,11 +1,46 @@
 class Ship < ActiveRecord::Base
-
+    
+  has_many :facility_instances, dependent: :destroy
+  has_many :facilities, :through => :facility_instances
   has_one :user_ship
-  has_one :user, :through => :user_ships
+  has_one :user, :through => :user_ship
   has_many :ships_stations
   has_many :stations, :through => :ships_stations
   after_initialize :create_stations, if: :new_record?
   after_initialize :create_units
+  after_initialize :init
+
+  def check_condition(conditions)
+    condition_split = conditions.split(",")
+
+    condition_split.each do |condition|
+      condition_elements = condition.split(":")
+      if(condition_elements[0].eql? "g")
+        station = ShipsStation.find_by(:ship_id => self.id, :station_id => 2000 + condition_elements[1].to_i)
+        if not (station.level >= condition_elements[2].to_i)
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  def building_capped()
+    if self.is_building >= 1
+      return true
+    end
+    return false
+  end
+
+  def is_building()
+    count = 0
+    facility_instances.each do |instance|
+      if not(instance.start_time.nil?)
+        count += 1
+      end
+    end
+    return count
+  end
 
   def update_resources
   	last_checked = self.lastChecked
@@ -85,5 +120,12 @@ class Ship < ActiveRecord::Base
 		return produktion
   end
 
+  def init
+    Facility.all.each do |facility|
+      if not(facility_instances.exists?(:facility_id => facility.id, :ship_id => self.id))
+        facility_instances.build(facility: facility, count: 0)
+      end
+    end
+  end
 
 end

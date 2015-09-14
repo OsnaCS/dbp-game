@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Facility:</strong>
+  <%= @facility_instance.facility_id %>
+</p>
+
+<p>
+  <strong>Ship:</strong>
+  <%= @facility_instance.ship_id %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @facility_instance.count %>
+</p>
+
+<p>
+  <strong>Create count:</strong>
+  <%= @facility_instance.create_count %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @facility_instance.start_time %>
+</p>
+
+<%= link_to 'Edit', edit_facility_instance_path(@facility_instance) %> |
+<%= link_to 'Back', facility_instances_path %>

@@ -1,0 +1,23 @@
+<br>
+<h1 class="notificationlabel">Deine Benachrichtigungen</h1>
+<br>
+<table id="note-table">
+	<% @notes.each_value do |note| %>
+	<tr>
+	<td>
+		<p class="notificationlabel">
+			<%= note[:message] %>
+			<%= "vor" %>
+			<%= number_with_precision(note[:timestamp], precision: 0) %>
+			<%= note[:timetype] %>
+		</p>
+	</td>
+	<td>
+		<p class="notificationbutton">
+			<%= link_to 'als gelesen markieren', Notification.find_by_id(note[:note_id]), method: :delete %>
+			<br>
+		</p>
+	</td>
+	</tr>
+	<% end %>
+</table>

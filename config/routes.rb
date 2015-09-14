@@ -11,12 +11,24 @@ Rails.application.routes.draw do
       get 'build'
     end
   end
+
+  resources :facility_instances do
+    member do
+      get 'build'
+      get 'cancel_build'
+      get 'instant_build'
+    end
+  end
+
+  resources :expedition_instances
+
+  get 'notification_view/index'
   resources :damage_types
   resources :fighting_fleets do
     resources :ship_groups
     resources :fights
   end
-  resources :sciences
+
   resources :science_instances do
     member do
       get 'research'
@@ -44,7 +56,9 @@ Rails.application.routes.draw do
   resources :notifications
   resources :messages
   resources :stations
-  resources :science
+  resources :sciences
+  resources :facilities
+  resources :expeditions
   resources :ranks
   resources :user_icons
   resources :ships

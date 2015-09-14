@@ -18,10 +18,17 @@
 html,body {
 	margin: 0 auto;
 	background: url('ui/background.jpg');
+	font-family: 'space';
+}
+
+p {
+	font-family: 'space';
 }
 
 a, a:visited {
 	color: #FFFF00;
+	font-family: 'space';
+	font-size: 12px;
 }
 
 ul {
@@ -36,6 +43,13 @@ ul li {
 	background-position: 0px center;
 	background-size: 20px 20px;
 	margin: 30px 0 0 10px;
+}
+
+@font-face {
+    font-family: 'space';
+    src: url('space.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #wrapper {
@@ -188,6 +202,10 @@ ul li {
 	margin-right: auto;
 }
 
+#points {
+	font-weight: bold;
+}
+
 #user_icon {
 	position: relative;
 	width: 40px;
@@ -258,14 +276,12 @@ ul li {
 }
 
 .userbutton {
-	margin: auto;
-	margin-bottom: 5px;
-	margin-right: 5px;
-	margin-left: 5px;
+	margin: 2px 5px 2px 5px;
 	width: auto;
 	display: inline-block;
 	background-color: white;
 	font-weight: bold;
+	font-size: 10px;
 	padding: 5px;
 	border-radius: 5px;
 	border: 2px solid black;
@@ -299,11 +315,11 @@ ul li {
 	background-size: 100% 100%;
 }
 
-
 #notification-text {
 	position: absolute;
 	color: #FFF;
 	left: calc(50% - 5px);
+	top: 2px;
 	background-color: red;
 	font-weight: bold;
 	border: 2px solid red;
@@ -333,7 +349,6 @@ ul li {
 	left: 100px;
 	z-index: 2;
 }
-
 
 #res-table {
 	position: relative;
