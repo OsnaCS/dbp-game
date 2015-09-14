@@ -33,7 +33,7 @@
        <% station = ships_station.station %>
         <td>
          <a>
-            <img src= "<%= image_url(ships_station.station.icon)%>", width="50", height="50", id="icon">
+            <img src= "<%= image_url("stations/" + ships_station.station.icon)%>", width="50", height="50", id="icon">
             <span><%= Message.find_by_code(ships_station.station.id).mes %></span>
          </a>
          </td>
@@ -49,7 +49,7 @@
               data-id="<%= ships_station.station_id %>"
               data-time="<%= ships_station.update_time(false) %>"></td>
         <% end %>
-        <% availability = current_user.check_condition(station.condition) && !current_user.ships.find(current_user.activeShip).is_upgrading &&
+        <% availability = current_user.ships.find(current_user.activeShip).check_condition(station.condition) && !current_user.ships.find(current_user.activeShip).is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
         <td><%= ships_station.level %></td>
 

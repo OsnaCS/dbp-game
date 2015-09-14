@@ -325,7 +325,7 @@ Station.create([
 	  station_condition_id: 3,
 	  condition: '',
 	  tier: 1,
-	  icon: 'fuelscanner.png',
+	  icon: 'fuel-scanner.png',
 	  duration: 120
 	},
 	{

@@ -105,6 +105,7 @@
 						<% if current_user.activeShip != nil %>
 						<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
 						<li><%= link_to "Anlagen", facilities_path %></li>
+						<% end %>
 						<li><%= link_to "Einheiten", root_path %></li>
 						<li><%= link_to "Handel", trades_path %></li>
 						<li><%= link_to "Expeditionen", expeditions_path %></li>
