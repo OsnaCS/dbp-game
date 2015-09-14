@@ -46,14 +46,17 @@ class Ship < ActiveRecord::Base
 		self.ships_stations.each do |station|
         if station.station_id == 2001	#metal
           self.metal += get_collect_difference(station.level, station.station_id, last_checked)
+          self.metal=check_storage(2008,self.metal)
           #self.metal=0
         end
         if station.station_id == 2002	#cristal
           self.cristal += get_collect_difference(station.level, station.station_id, last_checked)
+          self.cristal=check_storage(2009,self.cristal)
           #self.cristal=0
         end
         if station.station_id == 2003	#fuel
           self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
+          self.fuel=check_storage(2010,self.fuel)
           #self.fuel=0
         end
 	  end
@@ -62,6 +65,8 @@ class Ship < ActiveRecord::Base
     self.save
 
   end
+  
+
 
   def is_upgrading()
     ships_stations.each do |station|
@@ -84,6 +89,26 @@ class Ship < ActiveRecord::Base
       return self.id
   end
 
+  private
+  def check_storage(id, ressource)
+
+    if id==2008 || id==2009
+      start = 10000.0
+    end
+    if(id==2010)
+      start = 5000.0
+    end
+      lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
+      value = start * 2**lvl
+      if value < ressource
+        return value
+      else
+        return ressource
+      end
+    else    
+      return ressource
+    
+  end
   private
   def get_collect_difference(level, id, last_update)
   	if id==2001 || id==2002
