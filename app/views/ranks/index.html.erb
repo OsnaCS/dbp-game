@@ -10,7 +10,7 @@
 			<% if rank.user.username == current_user.username %>
 				<td><%= link_to current_user.username, profile_index_path %></td>
 			<% else %>
-				<td><%= link_to rank.user.username, {:controller => "profile", :action => "user", :user => rank.user.username } %></td>
+				<td><%= link_to rank.user.username, profile_path(rank.user.username) %></td>
 			<% end %>
 			<td><%= rank.score %></td>
 		</tr>
