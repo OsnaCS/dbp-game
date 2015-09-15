@@ -14,6 +14,7 @@
       <th>Stufe</th>
       <th>Status</th>
       <th> </th>
+      <th>Energieverbrauch</th>
     </tr>
   </thead>
 
@@ -86,7 +87,41 @@
         <% end %>
         <% if ships_station.level>0 && availability%>
           <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
+        <% else %>
+          <td> </td>
         <%end%>
+        <% if (ships_station.station_id == 2001)%>
+          <td>
+            <input class="slider_format" id="metalSlider" type="range" min="0" max="100" value="100" />
+          </td>
+          <td>
+            <p class="note"> <span id="metalValue">0</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2002)%>
+          <td>
+            <input class="slider_format" id="crystalSlider" type="range" min="0" max="100" value="100" />
+          </td>
+          <td>
+            <p class="note"> <span id="crystalValue">0</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2003)%>
+          <td>
+            <input class="slider_format" id="fuelSlider" type="range" min="0" max="100" value="100" />
+          </td>
+          <td>
+            <p class="note"> <span id="fuelValue">0</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2014)%>
+          <td>
+            <input class="slider_format" id="generatorSlider" type="range" min="0" max="100" value="100" />
+          </td>
+          <td>
+            <p class="note"> <span id="generatorValue">0</span></p>
+          </td>
+        <% end %>
       <% end %>
       </tr>
   </tbody>
