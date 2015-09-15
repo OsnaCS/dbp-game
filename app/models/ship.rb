@@ -13,7 +13,6 @@ class Ship < ActiveRecord::Base
 
   def check_condition(conditions)
     condition_split = conditions.split(",")
-
     condition_split.each do |condition|
       condition_elements = condition.split(":")
       if(condition_elements[0].eql? "s")
@@ -78,7 +77,6 @@ class Ship < ActiveRecord::Base
           #self.fuel=0
         end
 	  end
-
     self.lastChecked = Time.now.getutc
     self.save
   end
@@ -86,8 +84,6 @@ class Ship < ActiveRecord::Base
   def get_unit_instance(unit)
     return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
   end
-
-
 
   def is_upgrading()
     ships_stations.each do |station|
@@ -99,7 +95,6 @@ class Ship < ActiveRecord::Base
   end
 
   def max_storage(id)
-
     if id==2008 || id==2009
       start = 10000.0
     end
@@ -108,10 +103,8 @@ class Ship < ActiveRecord::Base
     end
     lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
     value = start * 2**lvl
-    return value
-    
+    return value    
   end
-
 
   private
   def create_stations
@@ -127,7 +120,6 @@ class Ship < ActiveRecord::Base
 
   private
   def check_storage(id, ressource)
-
     if id==2008 || id==2009
       start = 10000.0
     end
@@ -142,6 +134,7 @@ class Ship < ActiveRecord::Base
         return ressource
       end
   end
+
   private
   def get_collect_difference(level, id, last_update)
   	if id==2001 || id==2002
@@ -170,7 +163,6 @@ class Ship < ActiveRecord::Base
         facility_instances.build(facility: facility, count: 0)
       end
     end
-
     Unit.all.each do |unit|
       if not(unit_instances.exists?(:unit_id => unit.id, :ship_id => self.id))
         unit_instances.build(unit: unit, amount: 0)
