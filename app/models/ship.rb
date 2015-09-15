@@ -88,22 +88,22 @@ class Ship < ActiveRecord::Base
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
         if station.station_id == 2001	#metal
-          self.metal += get_collect_difference(station.level, station.station_id, last_checked)
+          self.metal += get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
           self.metal=check_storage(2008,self.metal)
           #self.metal=0
         end
         if station.station_id == 2002	#cristal
-          self.cristal += get_collect_difference(station.level, station.station_id, last_checked)
+          self.cristal += get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
           self.cristal=check_storage(2009,self.cristal)
           #self.cristal=0
         end
         if station.station_id == 2003	#fuel
-          self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
+          self.fuel += get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
           self.fuel=check_storage(2010,self.fuel)
           #self.fuel=0
         end
         if station.station_id == 2015 #burn_generator
-          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked)          
+          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
         end
 	  end
     self.lastChecked = Time.now.getutc
@@ -165,7 +165,7 @@ class Ship < ActiveRecord::Base
   end
 
   private
-  def get_collect_difference(level, id, last_update)
+  def get_collect_difference(level, id, last_update, energy_usage)
   	if id==2001 || id==2002
   		start = 2000.0
     end
@@ -181,10 +181,10 @@ class Ship < ActiveRecord::Base
 		elapsed_seconds = time - last_update
     if (self.used_energy > self.energy)
       diff = 1/(self.used_energy - self.energy)
-      produktion = diff * (start* (1.5 ** level))*(elapsed_seconds)
+      produktion = energy_usage * diff * (start* (1.5 ** level))*(elapsed_seconds)
       return produktion
     else
-		  produktion = (start* (1.5 ** level))*(elapsed_seconds)
+		  produktion = energy_usage * (start * (1.5 ** level))*(elapsed_seconds)
 		  return produktion
     end
   end
