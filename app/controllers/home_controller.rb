@@ -1,14 +1,9 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
-  def index
-  	if current_user.activeShip == nil
-      redirect_to :controller => 'ships', :action => 'new'
-   	end
-  end
 
   def get_json_data
   	if user_signed_in?
-  		@ship = Ship.find_by_id(current_user.activeShip)
+  		@ship = current_user.active_ship
   		@notification_count = Notification.all.where(user_id: current_user.id).count
   		@ship.update_resources
 

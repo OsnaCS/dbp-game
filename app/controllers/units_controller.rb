@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  before_action :set_unit, only: [:show, :build, :edit, :update, :destroy]
 
   # GET /units
   # GET /units.json
@@ -19,6 +19,31 @@ class UnitsController < ApplicationController
 
   # GET /units/1/edit
   def edit
+  end
+
+  def build
+    ship = Ship.find_by(:id => params[:ship_id])
+    instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
+    unit = instance.unit
+
+    if not (params[:amount].nil? || params[:amount] == 0)
+      amount = params[:amount].to_i
+
+      metal = unit.get_metal_cost()* amount
+      crystal = unit.get_crystal_cost() * amount
+      fuel = unit.get_fuel_cost() * amount
+      current_user.remove_resources_from_current_ship(metal, crystal, fuel)
+
+      if(instance.start_time.nil?)
+        instance.start_time = Time.now
+        instance.build_amount = params[:amount].to_i
+      else
+        instance.build_amount = params[:amount].to_i + instance.build_amount
+      end
+
+      instance.save
+    end
+    redirect_to units_url
   end
 
   # POST /units
@@ -69,6 +94,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:name, :metal_price, :crystal_price, :fuel_price, :total_cost, :shell, :damage, :damage_type_id, :cargo, :speed, :shipyard_requirement, :research_requirement_one, :research_requiement_two)
+      params.require(:unit).permit(:condition_id, :name, :metal_price, :crystal_price, :fuel_price, :shell, :damage, :damage_type_id, :cargo, :speed)
     end
 end

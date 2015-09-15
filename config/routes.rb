@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :unit_instances do
+    member do
+      get 'cancel_build'
+      get 'instant_build'
+    end
+  end
+
+  resources :units do
+    member do
+      get 'build'
+    end
+  end
 
   resources :build_lists
 
@@ -13,7 +25,6 @@ Rails.application.routes.draw do
   resources :expedition_instances
 
   get 'notification_view/index'
-  resources :units
   resources :damage_types
   resources :fighting_fleets do
     resources :ship_groups
@@ -40,6 +51,7 @@ Rails.application.routes.draw do
       get 'upgrade'
       get 'cancel_upgrade'
       get 'instant_upgrade'
+      get 'downgrade'
     end
   end
 
@@ -53,6 +65,7 @@ Rails.application.routes.draw do
   resources :ranks
   resources :user_icons
   resources :ships
+  resources :ships_station
 
   resources :trades do
     member do
@@ -64,8 +77,8 @@ Rails.application.routes.draw do
   get 'home/get_json_data', defaults: {format: 'json'}
   get 'profile/index'
   get 'profile/user'
+  get 'profile/:username', to: 'profile#user', as: 'profile'
   get 'home/index'
-
 
   devise_for :users
   devise_scope :user do

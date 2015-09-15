@@ -14,7 +14,7 @@ class FacilityInstance < ActiveRecord::Base
   end
 
   def get_buy_amount()
-    s = Ship.find_by(:id => self.ship_id)
+    s = self.ship
     resourcenfactor = 500
     amount1 = amount2 = amount3 = nil
     if self.facility.cost1 != 0
@@ -47,7 +47,7 @@ class FacilityInstance < ActiveRecord::Base
   	if(ship.capped_facilities)
       back = back + "Aktuell werden schon zu viele Anlagentypen gebaut...<br>"
   	end;
-  	if (conds.length==0) 
+  	if (conds.length==0)
   	  return back.html_safe;
   	end
   	back = back + "Voraussetzung: <br>"

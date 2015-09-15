@@ -3,18 +3,20 @@
 <h1>Schiffe</h1><br/>
 
 <table id="stationsite">
-
+  <thead>
     <tr id="ship_t1">
       <th>Name</th>
       <th>Auswahl</th>
       <th>Station</th>
     </tr>
-
+  </thead>
+  
   <tbody>
-   <% UserShip.where(:user_id => current_user.id).each do |usership| %>
+   <% current_user.user_ships.each do |usership| %>
       <tr id="ship_t1">
         <td id="ship_t2"><%= usership.ship.name %></td>
-        <td id="ship_t2"><%= link_to 'Auswählen', usership.ship %></td>
+        <td id="ship_t2"><%= link_to 'Auswählen', ship_path(usership.ship) %></td>
+        <td id="ship_t2"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></td>
         <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
         <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>
@@ -24,15 +26,19 @@
 </table>
 <br>
 
-
-
-
 <% if current_user.ship_count < 9%>
-  <%if current_user.has_enough_resources(200000, 100000, 0)%>
-    <%= link_to 'New Ship', new_ship_path %>
-  <%else%>
-    <p> Nicht genug Rohstoffe für ein neues Schiff! </p>
-  <%end%>
+  <% if current_user.next_ship_allowed  == true %>
+    <%if current_user.has_enough_resources(200000, 100000, 0)%>
+      <div id="coord_button"> 
+        <p class="userbutton"><%= link_to 'New Ship', new_ship_path %>   </p>      
+      </div>
+    <%else%>
+      <p class="ship_t1"> Nicht genug Rohstoffe für ein neues Schiff! </p>
+    <%end%>
+  <% else %>
+    <p class="ship_t1"> Forsche Pioniersausbildung für ein zusätzliches Schiff </p>
+  <% end %>
 <%else %>
-  <p> Du darfst nicht mehr als neun Schiffe besitzen! </p>
+  <p class="ship_t1"> Du darfst nicht mehr als neun Schiffe besitzen! </p>
 <%end%>
+

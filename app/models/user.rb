@@ -7,14 +7,16 @@ class User < ActiveRecord::Base
   has_one :rank, dependent: :destroy
   has_many :science_instances, dependent: :destroy
   has_many :sciences, :through => :science_instances
+  has_many :unit_instances, dependent: :destroy
+  has_many :units, :through => :unit_instances
   has_many :user_ships
   has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
   has_many :expedition_instances, dependent: :destroy
   has_many :expeditions, :through => :expedition_instances
-  after_initialize :init
-
+  after_initialize :init, :if => :new_record?
+  belongs_to :active_ship, foreign_key: :activeShip, class: Ship
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -37,8 +39,13 @@ class User < ActiveRecord::Base
     condition_split.each do |condition|
       condition_elements = condition.split(":")
       if(condition_elements[0].eql? "f")
-        instance = ScienceInstance.find_by(:user_id => self.id, :science_id => Science.find_by(:science_condition_id => condition_elements[1]).id)
-        if not (instance.level >= condition_elements[2].to_i)
+        science_instance = ScienceInstance.find_by(:user_id => self.id, :science_id => Science.find_by(:science_condition_id => condition_elements[1]).id)
+        if not (science_instance.level >= condition_elements[2].to_i)
+          return false
+        end
+      else
+        ship_station_instance = ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => Station.find_by(:station_condition_id => condition_elements[1]).id)
+        if not(ship_station_instance.level >= condition_elements[2].to_i)
           return false
         end
       end
@@ -46,30 +53,65 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def active_ship
+    return Ship.find_by(id: self.activeShip)
+  end
+  
+  def cheat
+    current_user.remove_resources(-10000, -10000, -10000)
+  end
+
   def get_science_instance(science)
     return ScienceInstance.find_by(:user_id => self.id, :science_id => science.id)
   end
 
   def can_research(science, level)
-    condition = self.check_condition(science.condition) 
+    condition = self.check_condition(science.condition)
     is_researching = !self.is_researching
 
-    metal = science.get_metal_cost(level) 
-    crystal = science.get_crystal_cost(level) 
+    metal = science.get_metal_cost(level)
+    crystal = science.get_crystal_cost(level)
     fuel = science.get_fuel_cost(level)
 
     enough_resources = self.has_enough_resources(metal, crystal, fuel)
     science_instance = self.get_science_instance(science)
 
-    return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)   
+    return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)
+  end
+  
+  def can_build_unit(unit, ship)
+    condition = self.check_condition(unit.conditions) 
+    not_building = ship.get_unit_instance(unit).start_time.nil?
+
+    metal = unit.get_metal_cost() 
+    crystal = unit.get_crystal_cost() 
+    fuel = unit.get_fuel_cost()
+
+    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    return condition && not_building && enough_resources 
   end
 
   def has_min_science_level(science, level)
     return self.get_science_instance(science).level >= level.to_i
   end
+  
+  def next_ship_allowed
+    if ship_count < 3
+      return true
+    end
+    if self.ship_count > self.get_science_instance(Science.find_by(id: '4009')).level + 2
+      return false
+    else 
+      return true
+    end    
+  end
+
+  def has_min_station_level(station, level)
+    return ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => station.id).level >= level.to_i
+  end
 
   def get_metal()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -78,7 +120,7 @@ class User < ActiveRecord::Base
   end
 
   def get_crystal()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -87,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def get_fuel()
-     ship = Ship.find_by(:id => self.activeShip)
+     ship = active_ship
 
     if(ship.nil?)
       return -1;
@@ -140,7 +182,7 @@ class User < ActiveRecord::Base
   end
 
   def remove_resources_from_current_ship(metal, crystal, fuel)
-    self.remove_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+    self.remove_resources(metal, crystal, fuel, active_ship)
   end
 
   def add_resources(metal, crystal, fuel, ship)
@@ -152,7 +194,7 @@ class User < ActiveRecord::Base
   end
 
   def add_resources_to_current_ship(metal, crystal, fuel)
-    self.add_resources(metal, crystal, fuel, Ship.find_by(:id => self.activeShip))
+    self.add_resources(metal, crystal, fuel, active_ship)
   end
 
   def is_researching()

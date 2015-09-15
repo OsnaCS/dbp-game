@@ -26,9 +26,10 @@ class Expedition < ActiveRecord::Base
    end
 
    def self.shipamount(shiptype)
-         #Ships.find(user.activeShip).#Befehl um stationierte Schiffe abzufragen
+         #user.active_ship).#Befehl um stationierte Schiffe abzufragen
          return amount=1
    end
+
 
    def occurance
       occ = rand(100)
@@ -83,11 +84,11 @@ class Expedition < ActiveRecord::Base
          end
       end
 
-      gegner_flotte = FightingFleet.create(user: User.find_by_username("dummy"))
-      gegner_flotte.ship_groups.find_by(:unit_id => 7).number += kreuzer_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => 5).number += jaeger_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => 6).number += fregatte_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => 12).number += schild_amount
+      gegner_flotte = FightingFleet.create(:user => User.find_by_username("dummy"))
+      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Kreuzer").id).number += kreuzer_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Jäger").id).number += jaeger_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Fregatte").id).number += fregatte_amount
+      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "mobiler Schild").id).number += schild_amount
       gegner_flotte.save
 
       fight_id = rand(5101..5106)
@@ -123,7 +124,7 @@ class Expedition < ActiveRecord::Base
       resi_id = rand(5401..5406)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id))
       
-      ship = Ship.find(self.expedition_instance.user.activeShip)
+      ship = self.expedition_instance.user.active_ship
       ship.metal += metal_got
       ship.cristal += crystal_got
       ship.fuel += fuel_got
@@ -163,7 +164,6 @@ class Expedition < ActiveRecord::Base
          case g.unit.name
          when "Kreuzer"
             g.number += kreuzer_amount
-            kreuzer_amount = 0
          when "Fregatte"
             g.number += fregatte_amount
          when "mobiler Schild"
@@ -172,13 +172,6 @@ class Expedition < ActiveRecord::Base
             g.number += jaeger_amount
          end
       end
-
-
-      fighting_fleet = FightingFleet.create(user: User.find_by_username("dummy"))
-      fighting_fleet.ship_groups.find_by(:unit_id => 7).number += kreuzer_amount
-      fighting_fleet.ship_groups.find_by(:unit_id => 5).number += jaeger_amount
-      fighting_fleet.ship_groups.find_by(:unit_id => 6).number += fregatte_amount
-      fighting_fleet.ship_groups.find_by(:unit_id => 12).number += schild_amount
 
       fighting_fleet.save
 

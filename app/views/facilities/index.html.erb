@@ -23,7 +23,7 @@
 
   <tbody>
     <% resourcefactor = 500 %>
-    <% current_user.ships.find(current_user.activeShip).facility_instances.sort_by{|instance| instance.facility.facility_condition_id}.each do |facility_instance| %>
+    <% current_user.active_ship.facility_instances.sort_by{|instance| instance.facility.facility_condition_id}.each do |facility_instance| %>
      <% inactive = nil %>
      <% if(!current_user.ships.find(current_user.activeShip).is_building(facility_instance)) %>
        <tr id="inactive">
@@ -64,7 +64,7 @@
               data-id="<%= facility_instance.facility_id %>"
               data-time="<%= Facility.update_time(facility_instance, false).to_s %>"></td>
         <% end %>
-        <% availability =  facility_instance.check_conditions && !current_user.ships.find(current_user.activeShip).capped_facilities%>
+        <% availability =  facility_instance.check_conditions && !current_user.active_ship.capped_facilities%>
         <td><%= facility_instance.count %></td>
         <td><%= facility_instance.create_count || 0 %></td>
         <% if !availability %>

@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 	
-<p>
+<p id="ship_t1">
   <strong>Name:</strong>
   <% current_user.select_ship(@ship.user_ship.ship_id) %>
   <%= @ship.name %>
   ist ausgewählt
 </p>
 
-<%= link_to 'Edit', edit_ship_path(@ship) %> |
-<%= link_to 'Back', ships_path %>
+<table id="coord_button"> 
+	<tr>
+		<td class="userbutton"> <%= link_to 'Back', ships_path %> </td>
+	</tr>
+</table>
