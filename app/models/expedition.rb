@@ -9,11 +9,11 @@ class Expedition < ActiveRecord::Base
       @fleet_storeroom = 0
       @exp_storeroom = 0
       fighting_fleet.ship_groups.all.each do |g|
-        @value += g.unit.get_total_cost * g.number
-        @fleet_storeroom += g.unit.cargo * g.number
-        if(g.unit.name == "Expeditionsschiff")
-           @exp_storeroom += g.unit.cargo * g.number
-        end
+         @value += g.unit.get_total_cost * g.number
+         @fleet_storeroom += g.unit.cargo * g.number
+         if(g.unit.name == "Expeditionsschiff")
+            @exp_storeroom += g.unit.cargo * g.number
+         end
       end
       event = rand(100)
       happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
@@ -49,7 +49,7 @@ class Expedition < ActiveRecord::Base
    end
 
    def nothing
-   	nothing_id = rand(5001..5006)
+      nothing_id = rand(5001..5006)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id))
       welcome_home
    end
@@ -123,11 +123,11 @@ class Expedition < ActiveRecord::Base
       metal_got = final_amount * metal
       crystal_got = final_amount * crystal
       fuel_got = final_amount * fuel
-      
+
       resi_id = rand(5401..5406)
       resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round + " Kristall: " + crystal_got.round + " Treibstoff: " + fuel_got.round
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
-      
+
       ship = self.expedition_instance.user.active_ship
       ship.metal += metal_got
       ship.cristal += crystal_got
@@ -160,10 +160,10 @@ class Expedition < ActiveRecord::Base
             jaeger_amount += 1
          end
       end
-      
-	  salvage_id = rand(5301..5307)
 
-	  salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount + " Fregatte: " + fregatte_amount + " Kreuzer: " + kreuzer_amount+ " mobiler Schild: " + schild_amount
+      salvage_id = rand(5301..5307)
+
+      salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount + " Fregatte: " + fregatte_amount + " Kreuzer: " + kreuzer_amount+ " mobiler Schild: " + schild_amount
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id), info: salvage_string)
 
       fighting_fleet.ship_groups.all.each do |g|
