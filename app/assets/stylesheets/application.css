@@ -331,14 +331,6 @@ ul li {
 
 }
 
-#error_explanation {
-	position: absolute;
-	color: #000;
-	top: 100px;
-	left: 100px;
-	z-index: 2;
-}
-
 #res-table {
 	position: relative;
 	width: 100%;
