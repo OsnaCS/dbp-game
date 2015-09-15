@@ -52,6 +52,8 @@ class Fight< ActiveRecord::Base
       @attacker_ship = find_ship_by_ship_id(ship_attack_id)
       @defender_ship = find_ship_by_ship_id(ship_defend_id)
       @defender_facilities = build_defend_facilities(@defender_ship)
+      @defender_origin_facility = safe_origin_facility_amount (@defender_facilities)
+      @defender
       @fight_shield = 0
       @allready_done = true
    end    
@@ -105,11 +107,19 @@ class Fight< ActiveRecord::Base
   # Berechnet die Anzahl der Schiffe mit der unit_id vom Spieler user
   def amount_of_ships(user, unit_id)
       return @attacker_fleet.ship_groups.find_by(unit_id: unit_id).number
-   if (user == @defender)
-      # MUSS NOCH ANGEPASST WERDEN!!!!!!!!!EINSELF
-      # HIER NOCH ANLAGEN EINBINDEN
-      return @defender_fleet.ship_groups.find_by(unit_id: unit_id).number
+  end
+
+  def amount_of_facilities(facility_id)
+    amount = 0
+    if  (@defender_facilities.nil?)
+      return 0
     end
+    @defender_facilities.each do |f|
+      if f.facility_id == facility_id
+        amount = f.count
+      end
+    end 
+    return amount
   end
 
   # Berechnet die Schwelle für einen geglückten EMP-Angriff
@@ -395,13 +405,17 @@ class Fight< ActiveRecord::Base
   # Berechnet das Schild von user
   # MUSS NOCH ANGEPASST WERDEN!!!!!!!!!!!!!!!!
   def shield_cal(user)
-    amount = amount_of_ships(user, @shield_ship_id)
-    level_shield=user_science_level(user, @shield_science_id) 
+    shield_mobile = amount_of_ships(user, @shield_ship_id) * 5
+    level_shield = user_science_level(user, @shield_science_id) 
+    shield_defend = 0
     if (user == @defender)
       #add shield
       # ANLAGEN NOCH EINBINDEN!!!!!!
+      shield_big = amount_of_facilities(@big_shield_id ) * 500
+      shield_small = amount_of_facilities(@smal_shield_id ) * 100
+      shield_defend = shield_big + shield_small
     end
-    return 5
+    return (shield_mobile + shield_defend) * (1 + 0.1 * level_shield)
   end
   
   # Baut ein Array mit allen Forschungsleveln des Benutzers
@@ -622,7 +636,6 @@ class Fight< ActiveRecord::Base
     if turn_user == @attacker
       lost_report(turn_fleet, @attacker) 
       lost_report(target_fleet, @defender) 
-
       attacker_fleet_ary = turn_fleet
       deffender_fleet_ary = target_fleet
 
@@ -648,11 +661,30 @@ class Fight< ActiveRecord::Base
         exsisting_fleet.ship_groups.find_by(:unit_id => a[0]).update(:number => a[1])
       else
         repair = @defender_station_level[-1]
-        @defender_ship.facility_instances.find_by(:facility_id => a[0]).update(:count => a[1])
-      end    
-    end
-  end     
+        lost = 0
+        restore = 0
+        @defender_origin_facility.each do |o|
+          if (a[0] == o[0])
+            lost = o[1] - a[1]
+            total_cost_one =  get_total_cost_by_facility (Facility.find(o[0]))
+            total_cost_all = total_cost_one * lost
+            restore = (total_cost_all / total_cost_one).floor.to_i
+          end
+          
+          @defender_ship.facility_instances.find_by(:facility_id => a[0]).update(:count => restore)
+        end    
+      end
+    end     
+  end
 
+  def safe_origin_facility_amount (facilities)
+    array = []
+    facilities.each do |f|
+      array << [f.facility.id, f.count]
+    end
+    return array
+  end
+ 
   def get_user_by_fleet_id(fleet_id)
     return FightingFleet.find(fleet_id).user
   end
