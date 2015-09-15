@@ -198,8 +198,8 @@ class Ship < ActiveRecord::Base
 		start = start.to_f
 		elapsed_seconds = time - last_update
     if (self.used_energy > self.energy)
-      diff = 1/(self.used_energy - self.energy)
-      produktion = energy_usage * diff * (start* (1.5 ** level))*(elapsed_seconds)
+      diff = 1/(self.used_energy - self.energy).to_f
+      produktion = (energy_usage * diff * (start* (1.5 ** level))*(elapsed_seconds)).to_i
       return produktion
     else
 		  produktion = energy_usage * (start * (1.5 ** level))*(elapsed_seconds)
