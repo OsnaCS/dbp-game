@@ -105,7 +105,7 @@
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
 				<ul>
-					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Home", newsfeeds_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<% if current_user.activeShip!=nil %>
