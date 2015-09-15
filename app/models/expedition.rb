@@ -41,7 +41,7 @@ class Expedition < ActiveRecord::Base
 
    def welcome_home
       fighting_fleet.ship_groups.all.each do |group|
-         unit_group = Unit_Instance.find_by(:unit_id => group.unit_id, :ship_id => self.expedition_instance.user.active_ship)
+         unit_group = UnitInstance.find_by(:unit_id => group.unit_id, :ship_id => self.expedition_instance.user.active_ship)
          unit_group.amount += group.number
          unit_group.save
       end
@@ -50,14 +50,14 @@ class Expedition < ActiveRecord::Base
 
    def nothing
       nothing_id = rand(5001..5006)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id), info: "")
       welcome_home
    end
 
    def destruction
       fighting_fleet.destroy
       destruction_id = rand(5201..5211)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id),info: "")
    end
 
    def fight
@@ -94,7 +94,7 @@ class Expedition < ActiveRecord::Base
       gegner_flotte.save
 
       fight_id = rand(5101..5106)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id), info: "")
       #TODO Kampf starten
 
       gegner_flotte.destroy
@@ -125,7 +125,7 @@ class Expedition < ActiveRecord::Base
       fuel_got = final_amount * fuel
 
       resi_id = rand(5401..5406)
-      resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round + " Kristall: " + crystal_got.round + " Treibstoff: " + fuel_got.round
+      resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
 
       ship = self.expedition_instance.user.active_ship
@@ -163,7 +163,7 @@ class Expedition < ActiveRecord::Base
 
       salvage_id = rand(5301..5307)
 
-      salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount + " Fregatte: " + fregatte_amount + " Kreuzer: " + kreuzer_amount+ " mobiler Schild: " + schild_amount
+      salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount.to_s + " Fregatte: " + fregatte_amount.to_s + " Kreuzer: " + kreuzer_amount.to_s + " mobiler Schild: " + schild_amount.to_s
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id), info: salvage_string)
 
       fighting_fleet.ship_groups.all.each do |g|
