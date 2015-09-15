@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Stationen</h1><br/>
+<h1 class="userlabel">Stationen</h1><br/>
+
 <% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
@@ -14,6 +15,7 @@
       <th>Stufe</th>
       <th>Status</th>
       <th> </th>
+      <th>Energieverbrauch</th>
     </tr>
   </thead>
 
@@ -51,9 +53,11 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= ships_station.level %></td>        
+        <td><%= ships_station.level %></td>
         <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
           <% if availability %>
+              <% Ship.find_by(id: current_user.activeShip).get_energy%>
+              <% Ship.find_by(id: current_user.activeShip).get_used_energy%>
             <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
           <% else %>
             <% if(inactive) %>
@@ -84,7 +88,53 @@
         <% end %>
         <% if ships_station.level>0 && availability%>
           <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
+        <% else %>
+          <td> </td>
         <%end%>
+        <% if (ships_station.station_id == 2001)%>
+          <td>
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'metalSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
+          </td>
+          <td>
+            <p class="note"> <span id="metalValue">100</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2002)%>
+          <td>
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'crystalSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
+          </td>
+          <td>
+            <p class="note"> <span id="crystalValue">100</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2003)%>
+          <td>
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'fuelSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
+          </td>
+          <td>
+            <p class="note"> <span id="fuelValue">100</span></p>
+          </td>
+        <% end %>
+        <% if (ships_station.station_id == 2015)%>
+          <td>
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'generatorSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
+          </td>
+          <td>
+            <p class="note"> <span id="generatorValue">100</span></p>
+          </td>
+        <% end %>
       <% end %>
       </tr>
   </tbody>
