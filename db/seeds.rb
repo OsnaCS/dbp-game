@@ -970,3 +970,6 @@ Unit.create({"icon" => "entities/destroyer.png", "name"=>"Zerstörer", "metal_pr
 Unit.create({"icon" => "entities/bomb-teleporter.png", "name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "conditions"=>"f:8:12,f:4:10,g:6:12","message"=>message10, "condition_id" => 10})
 Unit.create({"icon" => "entities/emp-ship.png", "name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "conditions"=>"f:5:12,f:4:10,g:6:10","message"=>message11, "condition_id" => 11})
 Unit.create({"icon" => "entities/mobile-shield-generator.png", "name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "conditions"=>"f:6:10,f:4:10,g:6:10", "message"=>message12, "condition_id" => 12})
+
+user = User.create({"email" => "dummy@dummy.dummy", "username" => "dummy", "password" => "dummdumm"})
+user.create_ship({"name" => "Dummy-Schiff"})

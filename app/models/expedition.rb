@@ -150,9 +150,9 @@ class Expedition < ActiveRecord::Base
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
 
       ship = self.expedition_instance.user.active_ship
-      ship.metal += metal_got
-      ship.cristal += crystal_got
-      ship.fuel += fuel_got
+      ship.update_metal(metal_got)
+      ship.update_cristal(crystal_got)
+      ship.update_fuel(fuel_got)
       ship.save
       welcome_home
    end

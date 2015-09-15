@@ -15,6 +15,10 @@ class ExpeditionsController < ApplicationController
          end
       end
       @expeditions = current_user.expedition_instances.map(&:expedition)
+      @current_progress = Hash.new
+      @expeditions.each do |exp|
+         @current_progress[exp.id] = ((Time.now + 2.hours) - exp.arrival_time + exp.explore_time.hours)
+      end
    end
 
    # GET /expeditions/1
