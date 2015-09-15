@@ -320,6 +320,7 @@ ul li {
 }
 
 #game_name {
+	font-size: 50px;
 	position: absolute;
 	bottom: 25px;
 	left: 50px;
@@ -329,14 +330,6 @@ ul li {
 	margin-left: auto;
 	margin-right: auto;
 
-}
-
-#error_explanation {
-	position: absolute;
-	color: #000;
-	top: 100px;
-	left: 100px;
-	z-index: 2;
 }
 
 #res-table {

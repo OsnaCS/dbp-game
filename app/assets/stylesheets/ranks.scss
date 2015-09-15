@@ -2,13 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#rank_table {
+#rank-table {
 	margin: 1% auto 1% auto;
 	table-layout: fixed;
 	width: 90%;
 }
 
-#rank_table th {
+#rank-table th {
 	padding: 5px;
 	border: 2px solid white;
 	border-radius: 5px;
@@ -16,10 +16,14 @@
 	color: white;
 }
 
-#rank_table td {
-	padding: 10px;
+.rank-table-td {
 	border: 2px solid white;
 	border-radius: 5px;
 	background-color: #CC0000;
 	color: white;
+}
+
+.rank-col {
+	width: 100%;
+	table-layout: fixed;
 }

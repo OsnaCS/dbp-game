@@ -102,6 +102,9 @@ class Ship < ActiveRecord::Base
           self.fuel=check_storage(2010,self.fuel)
           #self.fuel=0
         end
+        if station.station_id == 2015 #burn_generator
+          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked)          
+        end
 	  end
     self.lastChecked = Time.now.getutc
     self.save
@@ -169,6 +172,9 @@ class Ship < ActiveRecord::Base
   	if(id==2003)
   		start = 1000.0
 		end
+    if(id==2015)
+      start= 500.0
+    end
 		start /= 3600.0
 		time = Time.now.getutc
 		start = start.to_f
