@@ -320,6 +320,7 @@ ul li {
 }
 
 #game_name {
+	font-size: 50px;
 	position: absolute;
 	bottom: 25px;
 	left: 50px;
