@@ -1,5 +1,9 @@
-<h1>New Newsfeed</h1>
+<% if user_signed_in? %> 
+  	<% if current_user.is_moderator %>
+		<h1>New Newsfeed</h1>
 
-<%= render 'form' %>
+		<%= render 'form' %>
 
-<%= link_to 'Back', newsfeeds_path %>
+		<%= link_to 'Back', newsfeeds_path %>
+	<% end %>
+<% end %>
