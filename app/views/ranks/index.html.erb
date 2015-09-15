@@ -9,33 +9,24 @@
 			<td class="rank-table-td">
 				<p><%= pos %>.</p>
 			</td>
-			<% if rank.user.username == current_user.username %>
-				<td class="rank-table-td">
-					<table class="rank-col"><tr>
-						<td>
+			<td class="rank-table-td">
+				<table class="rank-col"><tr>
+					<td>
+						<% if UserIcon.find_by_user_id(rank.user.id).blank? %>
+							<img class="rank-icon" width="25px" height="25px" src="<%= image_url('ui/default.png') %>">
+						<% else %>
 							<img class="rank-icon" width="25px" height="25px" src="<%= image_url(UserIcon.find_by_user_id(rank.user.id).image.url) %>">
-						</td>
-						<td>
+						<% end %>
+					</td>
+					<td>
+						<% if rank.user.username == current_user.username %>
 							<%= link_to current_user.username, profile_index_path %>
-						</td>
-					</tr></table>
-				</td>
-			<% else %>
-				<td class="rank-table-td">
-					<table class="rank-col"><tr>
-						<td>
-							<% if UserIcon.find_by_user_id(rank.user.id).blank? %>
-								<img class="rank-icon" width="25px" height="25px" src="<%= image_url('ui/default.png') %>">
-							<% else %>
-								<img class="rank-icon" width="25px" height="25px" src="<%= image_url(UserIcon.find_by_user_id(rank.user.id).image.url) %>">
-							<% end %>
-						</td>
-						<td>
+						<% else %>
 							<%= link_to rank.user.username, profile_path(rank.user.username) %>
-						</td>
-					</tr></table>
-				</td>
-			<% end %>
+						<% end %>
+					</td>
+				</tr></table>
+			</td>
 			<td class="rank-table-td">
 				<p><%= rank.score %></p>
 			</td>
