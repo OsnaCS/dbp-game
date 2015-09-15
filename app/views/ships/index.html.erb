@@ -3,27 +3,27 @@
 <h1>Schiffe</h1><br/>
 
 <table id="stationsite">
-  <thead>
-    <tr id="ship_t1">
-      <th>Name</th>
+
+    <tr class="test123">
+      <th>Schiffsname</th>
       <th>Auswahl</th>
       <th>Name ändern</th>
       <th>Station</th>
     </tr>
-  </thead>
+
   
-  <tbody>
+
    <% current_user.user_ships.each do |usership| %>
-      <tr id="ship_t1">
-        <td id="ship_t2"><%= usership.ship.name %></td>
-        <td id="ship_t2"><%= link_to 'Auswählen', ship_path(usership.ship) %></td>
-        <td id="ship_t2"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></td>
-        <td id="ship_t2"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></td>
+      <tr class="test123">
+        <th><%= usership.ship.name %></th>
+        <td><p class="userbutton"><%= link_to 'Auswählen', ship_path(usership.ship) %></p></td>
+        <td><p class="userbutton"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></p></td>
+        <td><p class="userbutton"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></p></td>
         <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>
       </tr>
     <% end %>
-  </tbody>
+
 </table>
 <br>
 
