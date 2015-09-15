@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :build_lists
+
   resources :facility_instances do
     member do
       get 'build'
