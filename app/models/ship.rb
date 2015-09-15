@@ -88,26 +88,41 @@ class Ship < ActiveRecord::Base
   	last_checked = self.lastChecked
 		self.ships_stations.each do |station|
         if station.station_id == 2001	#metal
-          self.metal += get_collect_difference(station.level, station.station_id, last_checked)
-          self.metal=check_storage(2008,self.metal)
+          update_metal(get_collect_difference(station.level, station.station_id, last_checked))
           #self.metal=0
         end
         if station.station_id == 2002	#cristal
-          self.cristal += get_collect_difference(station.level, station.station_id, last_checked)
-          self.cristal=check_storage(2009,self.cristal)
+          update_cristal(get_collect_difference(station.level, station.station_id, last_checked))
           #self.cristal=0
         end
         if station.station_id == 2003	#fuel
-          self.fuel += get_collect_difference(station.level, station.station_id, last_checked)
-          self.fuel=check_storage(2010,self.fuel)
+          self.fuel = update_fuel(get_collect_difference(station.level, station.station_id, last_checked))
           #self.fuel=0
         end
         if station.station_id == 2015 #burn_generator
-          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked)          
+          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked)      
         end
 	  end
     self.lastChecked = Time.now.getutc
     self.save
+  end
+
+  def update_metal(value)
+    self.metal+=value
+    self.metal=check_storage(2008,self.metal)
+    return self.metal
+  end
+
+  def update_cristal(value)
+    self.cristal+=value
+    self.cristal=check_storage(2009,self.cristal)
+    return self.cristal
+  end
+
+  def update_fuel(value)
+    self.fuel+=value    
+    self.fuel=check_storage(2010,self.fuel)
+    return self.fuel
   end
 
   def get_unit_instance(unit)
