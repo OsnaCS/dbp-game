@@ -75,7 +75,7 @@
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
         				<% if current_user.activeShip.present?%>
-				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %></p>
+				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %>/<%= current_user.active_ship.max_storage(2008).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -83,7 +83,7 @@
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
         				<% if current_user.activeShip.present?%>
-				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal %></p>
+				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal %>/<%= current_user.active_ship.max_storage(2009).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -91,7 +91,7 @@
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
         				<% if current_user.activeShip.present? %>
-				  			<p id="val-fuel" class="val-resources"><%= current_user.active_ship.fuel %></p>
+				  			<p id="val-fuel" class="val-resources"><%= current_user.active_ship.fuel %>/<%= current_user.active_ship.max_storage(2010).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>

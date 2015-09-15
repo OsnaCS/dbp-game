@@ -98,6 +98,21 @@ class Ship < ActiveRecord::Base
     return false
   end
 
+  def max_storage(id)
+
+    if id==2008 || id==2009
+      start = 10000.0
+    end
+    if(id==2010)
+      start = 5000.0
+    end
+    lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
+    value = start * 2**lvl
+    return value
+    
+  end
+
+
   private
   def create_stations
     Station.all.each do |station|
