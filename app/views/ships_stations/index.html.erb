@@ -51,9 +51,11 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= ships_station.level %></td>        
+        <td><%= ships_station.level %></td>
         <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
           <% if availability %>
+              <% Ship.find_by(id: current_user.activeShip).get_energy%>
+              <% Ship.find_by(id: current_user.activeShip).get_used_energy%>
             <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
           <% else %>
             <% if(inactive) %>

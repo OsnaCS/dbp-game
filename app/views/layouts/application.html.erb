@@ -62,19 +62,26 @@
 						</p>
 					</td>
 					<td>
-					    <div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
-        				<% if current_user.activeShip!=nil%>
-				  			<p id="val-energy" class="val-resources">
-				  				<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
-				  				<%= Ship.find_by(id: current_user.activeShip).energy %>
-				  			</p>
+						<div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
+							<% if current_user.activeShip!=nil%>
+							<% if (Ship.find_by(id: current_user.activeShip).used_energy > Ship.find_by(id: current_user.activeShip).energy) %>
+								<p id="val-energy" style="color:red" class="val-resources">
+								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
+								<%= Ship.find_by(id: current_user.activeShip).energy %>
+								</p>
+							<% else %>
+							<p id="val-energy" class="val-resources">
+								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
+								<%= Ship.find_by(id: current_user.activeShip).energy %>
+							</p>
+							<% end %>
 						<% else %>
-				  			<p>0</p>
+							<p>0</p>
 						<% end %>
 					</td>
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
-        				<% if current_user.activeShip.present?%>
+						<% if current_user.activeShip.present?%>
 				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %></p>
 						<% else %>
 				  			<p>0</p>
@@ -82,7 +89,7 @@
 					</td>
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
-        				<% if current_user.activeShip.present?%>
+						<% if current_user.activeShip.present?%>
 				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal %></p>
 						<% else %>
 				  			<p>0</p>
@@ -147,7 +154,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<p>Universität Osnabrück &copy; 2015</p>
+		#<p>Universität Osnabrück &copy; 2015</p>
 	</div>
 </div>
 </body>
