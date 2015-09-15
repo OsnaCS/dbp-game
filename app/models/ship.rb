@@ -158,9 +158,9 @@ class Ship < ActiveRecord::Base
     Station.all.each do |station|
       self.ships_stations.build(ship: self, station: station, level: station.initial_level)
       end
-      self.metal=0
-      self.cristal=0
-      self.fuel=0
+      self.metal=4000
+      self.cristal=4000
+      self.fuel=2000
       self.lastChecked = Time.now.getutc
       return self.id
   end
