@@ -3,6 +3,7 @@ class FightsController < ApplicationController
   before_action :set_fight, only: [:show, :edit, :update, :destroy]
   
 def index
+    @target = User.find_by(:id => params[:user_id])
     @fights = Fight.all
   end
 

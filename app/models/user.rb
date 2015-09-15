@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :sciences, :through => :science_instances
   has_many :unit_instances, dependent: :destroy
   has_many :units, :through => :unit_instances
-  has_many :user_ships
+  has_many :user_ships, dependent: :destroy
   has_many :ships, :through => :user_ships
   has_many :notifications
   has_many :messages, through: :notifications
@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
       end
     end
     return true
+  end
+
+  def distance_to(user)
+    return 10
   end
 
   def active_ship
@@ -104,6 +108,10 @@ class User < ActiveRecord::Base
     else 
       return true
     end    
+  end
+
+  def user_ships
+    return UserShip.all.where(:user_id => self.id)
   end
 
   def has_min_station_level(station, level)

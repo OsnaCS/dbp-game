@@ -1,49 +1,78 @@
 
 <% if user_signed_in? %>
 	<% if current_user.is_user %>
-<%= form_for(@fighting_fleet) do |f| %>
-  <% if @fighting_fleet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:</h2>
+    <%= form_for(@fighting_fleet) do |f| %>
+      <% if @fighting_fleet.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:
+          </h2>
 
-      <ul>
-      <% @fighting_fleet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+            <% @fighting_fleet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      
+      <%= "Ziel: " + @target.username %>
+      <%= f.fields_for :user do |ff| %>
+        <div class="field">
+          <%= ff.label :Schiff %><br>
+          <%= ff.collection_select  :Schiff,  UserShip.where(:user_id => @target.id).to_a, :id, :name %>
+        </div>
+      <% end %>
 
-  <%= f.fields_for :fight do |ff| %>
-    
-    <div class="field">
-      <%= ff.label :defender_id %><br>
-      <%= ff.collection_select  :defender_id, User.all, :id, :username %>
-    </div>
-<% end %>
-  <div class="field">
-    <table>
-      <tr>
-        <th>Einheit</th>
-        <th>Besitzt</th>
-        <th>Verschicken</th>
-      </tr>
-      <%= f.fields_for :ship_groups do |fs| %>
+      <div class="field">
+        <%= f.label :mission %><br>
+        <%= f.collection_select  :mission, FightingFleet.mission,:first ,:last %>
+      </div>
+
+      <div class="field">
+        <table>
+          <colgroup span=2></colgroup>
+          <thead>
+            <tr>
+              <td>Metall</td>
+              <td>Kristall</td>
+              <td>Treibstoff</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= number_field_tag(:metal_cargo, 0, min:0) %></td>
+              <td><%= number_field_tag(:crystal_cargo, 0, min:0) %></td>
+              <td><%= number_field_tag(:fuel_cargo, 0, min:0) %></td>
+            </tr>
+          </tbody>
+        </table>
+      <table>
+        <colgroup span=2></colgroup>
         <tr>
-          <td><%=fs.object.unit.name %></td>
-          <td><%= fs.object.unit.id %></td>
-          <td><%=fs.number_field :number, min: 0, max: 50 %></td>
-        </tr>
-        
-        <%= fs.hidden_field :unit_id %>
-      <% end %>
-    </table>
-    </div>
-  <div class="actions">
-    
-    <%= f.submit %>
-  </div>
-<% end %>
+          <th></th>
+           <th>Einheit</th>
+           <th>stationierte Menge</th>
+           <th>zu schickende Anzahl</th>
+           <th>Treibstoffkosten pro Stunde</tr>
+          </tr>
 
+          <% Unit.all.each do |unit| %>
+            <tr>
+            <td></td>
+              <td align=left ><%= unit.name %></td>       
+              <% amount = current_user.active_ship.get_unit_instance(unit).amount %>
+              <td><%=  amount %></td>
+              <td><%= number_field_tag(unit.id, 0, min:0, max: amount) %></td>
+              <td align=right >x pro Einheit</td>
+            </tr>
+          <% end %>
+        </table>
+       <br>
+     </div>
+     <div class="actions">
+        <%= f.submit %>
+     </div>
+    <% end %>
   <% end %>
-  <% end %>
+<% end %>
