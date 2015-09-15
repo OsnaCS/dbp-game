@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="userlabel">Management</h1>
+
+<table  id="table_builds">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @build_lists.each do |build_list| %>
+      <% found = false %>
+
+
+      <% if build_list.typeSign == 'f' %>
+        <% facility_instance = FacilityInstance.find_by(id: build_list.instance_id) %>
+        <% if facility_instance != nil %>
+          <% facility = facility_instance.facility %>
+          <% mesId = facility.facility_condition_id+3000 %>
+          <% iconPath = "facility_icons/" + facility.icon %>
+          <% found = true %>
+          <% inactive = nil %>
+          <% if(!current_user.ships.find(current_user.activeShip).is_building(facility_instance)) %>
+            <tr id="inactive">
+            <% inactive = true %>
+          <% else %>
+            <tr id="active">
+            <% inactive = false %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+
+      <% if found %>
+        <% mes = Message.find_by_code(mesId).mes %>
+        <td>
+          <a>
+            <img src= "<%= image_url(iconPath)%>", width="50", height="50", id="icon">
+            <span><%= mes %></span>
+          </a>
+        </td>
+        <td>
+            <%= facility.name %>
+        </td>
+        <% if(inactive) %>
+          <td id = "not_running"><%= Facility.update_time(facility_instance, true).to_s %></td>
+        <% else %>
+          <td class="running"
+            data-id="<%= facility_instance.facility_id %>"
+            data-time="<%= build_list.getDurationF.to_s %>">
+          </td>
+        <%end %>
+        <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %>
+        <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
+        <td><%= link_to 'Show', build_list %></td>
+        <td><%= link_to 'Edit', edit_build_list_path(build_list) %></td>
+        <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% else %>
+        <td>Damaged Build:&nbsp; </td>
+        <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Build list', new_build_list_path %>
+
+<%= javascript_tag "start_timer()" -%>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :newsfeeds
+
   resources :unit_instances do
     member do
       get 'cancel_build'
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
       get 'build'
     end
   end
+
+  resources :build_lists
 
   resources :facility_instances do
     member do
@@ -81,10 +85,10 @@ Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
     authenticated :user do
-      root :to => 'home#index'
+      root :to => 'newsfeeds#index'
     end
     unauthenticated :user do
-      root :to => 'home#index', as: :unauthenticated_root
+      root :to => 'newsfeeds#index', as: :unauthenticated_root
     end
   end
 

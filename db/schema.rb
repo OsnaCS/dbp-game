@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915135339) do
+ActiveRecord::Schema.define(version: 20150915132347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "build_lists", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "typeSign"
+    t.integer  "instance_id"
+    t.integer  "ship_id"
+  end
 
   create_table "damage_types", force: :cascade do |t|
     t.string   "name"
@@ -61,9 +69,9 @@ ActiveRecord::Schema.define(version: 20150915135339) do
     t.integer  "ship_id"
     t.integer  "count"
     t.integer  "create_count"
-    t.time     "start_time"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "start_time"
   end
 
   create_table "fighting_fleets", force: :cascade do |t|
@@ -99,6 +107,13 @@ ActiveRecord::Schema.define(version: 20150915135339) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "fullmes"
+  end
+
+  create_table "newsfeeds", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -158,14 +173,14 @@ ActiveRecord::Schema.define(version: 20150915135339) do
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "metal"
-    t.integer  "cristal"
-    t.integer  "fuel"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.float    "metal"
+    t.float    "cristal"
+    t.float    "fuel"
     t.datetime "lastChecked"
-    t.integer  "energy"
-    t.integer  "used_energy"
+    t.integer  "energy",      default: 0
+    t.integer  "used_energy", default: 0
   end
 
   create_table "ships_stations", force: :cascade do |t|

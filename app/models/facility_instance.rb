@@ -44,8 +44,8 @@ class FacilityInstance < ActiveRecord::Base
   	conds = info.split(",")
 
     back = ""
-  	if(ship.building_capped())
-      back = back + "Aktuell werden schon " + ship.is_building().to_s + " Anlagentypen gebaut...<br>"
+  	if(ship.capped_facilities)
+      back = back + "Aktuell werden schon zu viele Anlagentypen gebaut...<br>"
   	end;
   	if (conds.length==0)
   	  return back.html_safe;
@@ -69,6 +69,22 @@ class FacilityInstance < ActiveRecord::Base
   	return back.html_safe
   end
 
+  def reset_build
+    update = true
+    if self.start_time == nil
+      update = false
+    end
+    self.start_time = nil
+    self.create_count = nil
+    self.save
+    b = BuildList.find_by(instance_id: self.id)
+    if b != nil
+      b.destroy
+    end
+    if update
+      ship.update_builds('f')
+    end
+  end
 
 
 

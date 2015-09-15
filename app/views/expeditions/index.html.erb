@@ -1,7 +1,7 @@
 <p id="notice" style='color:green'><%= notice %></p>
 <p id="alert" style='color:red'><%= alert %></p>
 
-<h1>Laufende Expeditionen</h1>
+<h1 class="userlabel">Laufende Expeditionen</h1>
 
 <table id="table_expedition">
   <thead>
@@ -18,11 +18,15 @@
         <td><%= exp.explore_time %> Stunde(n)</td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
         <td><%= link_to 'Flotte einsehen', exp %></td>
+        <td class="bar"
+            data-time="<%= ((Time.now + 2.hours) - exp.arrival_time + exp.explore_time.hours) %>"
+            data-total="<%= exp.explore_time*3600 %>">
+              <progress class="progressbar" value= 0 max= 1 ></progress></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<%= javascript_tag "start_bar()" -%>
 <%= link_to 'neue Expedition Starten', new_expedition_path %>

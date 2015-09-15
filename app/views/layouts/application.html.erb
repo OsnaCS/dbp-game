@@ -75,7 +75,7 @@
 					<td>
 						<div id="res-metal" class="tooltip" data-tooltip="Verfügbare Metall-Resourcen"></div>
         				<% if current_user.activeShip.present?%>
-				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal %></p>
+				  			<p id="val-metal" class="val-resources"><%= current_user.active_ship.metal.to_i %>/<%= current_user.active_ship.max_storage(2008).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -83,7 +83,7 @@
 					<td>
 						<div id="res-crystal" class="tooltip" data-tooltip="Verfügbare Kristall-Resourcen"></div>
         				<% if current_user.activeShip.present?%>
-				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal %></p>
+				  			<p id="val-crystal" class="val-resources"><%= current_user.active_ship.cristal.to_i %>/<%= current_user.active_ship.max_storage(2009).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -91,7 +91,7 @@
 					<td>
 						<div id="res-fuel" class="tooltip" data-tooltip="Verfügbare Treibstoff-Resourcen"></div>
         				<% if current_user.activeShip.present? %>
-				  			<p id="val-fuel" class="val-resources"><%= current_user.active_ship.fuel %></p>
+				  			<p id="val-fuel" class="val-resources"><%= current_user.active_ship.fuel.to_i %>/<%= current_user.active_ship.max_storage(2010).to_int %></p>
 						<% else %>
 				  			<p>0</p>
 						<% end %>
@@ -105,15 +105,16 @@
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
 				<ul>
-					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Home", newsfeeds_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<% if current_user.activeShip!=nil %>
-							<% Ship.find_by(id: current_user.activeShip).update_resources%>
-							<% Ship.find_by(id: current_user.activeShip).get_energy%>
-							<% Ship.find_by(id: current_user.activeShip).get_used_energy%>
+							<% current_user.active_ship.update_resources%>
+							<% current_user.active_ship.get_energy%>
+							<% current_user.active_ship.get_used_energy%>
+							<li><%= link_to "Management", build_lists_path %></li>
 							<li><%= link_to "Forschung", sciences_path %></li>
-							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+							<li><%= link_to "Stationen", ship_ships_stations_path(current_user.active_ship) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
 							<li><%= link_to "Einheiten", units_path %></li>
 							<li><%= link_to "Handel", trades_path %></li>
@@ -145,9 +146,6 @@
 		<div id="game" class="content">
 			<%= yield %>
 		</div>
-	</div>
-	<div id="footer">
-		<p>Universität Osnabrück &copy; 2015</p>
 	</div>
 </div>
 </body>

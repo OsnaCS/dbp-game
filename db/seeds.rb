@@ -736,169 +736,205 @@ Message.create([
 	# Messages for Event: nothing
 	{
 	  mes: 'Eure Einheiten haben nur die Weite des Weltraumes gesehen und kamen zurück.',
+	  fullmes: 'Eure Einheiten haben nur die Weite des Weltraumes gesehen und kamen zurück.',
 	  code: 5001
 	},
 	{
 	  mes: 'Eure Einheiten haben ein Dokument gefunden,
 	  	    allerdings ist es mit Milch durchweicht wodurch es unleserlich wurde.',
+	 fullmes: 'Eure Einheiten haben ein Dokument gefunden, allerdings ist es mit Milch durchweicht wodurch es unleserlich wurde.',
 	  code: 5002
 	},
 	{
 	  mes: 'Eure Einheiten haben einen kleinen Stop bei SpaceBurger gemacht und kamen gesättigt zurück.',
+	  fullmes: 'Eure Einheiten haben einen kleinen Stop bei SpaceBurger gemacht und kamen gesättigt zurück.',
 	  code: 5003
 	},
 	{
 	  mes: 'Eure Einheiten bewunderten einige exotische Planeten.',
+	  fullmes: 'Eure Einheiten bewunderten einige exotische Planeten.',
 	  code: 5004
 	},
 	{
 	  mes: 'Eure Einheiten haben einige friedliche Schiffe entdeckt und kamen unversehrt zurück.',
+	  fullmes: 'Eure Einheiten haben einige friedliche Schiffe entdeckt und kamen unversehrt zurück.',
 	  code: 5005
 	},
 	{
 	  mes: 'Eure Einheiten haben einen Kaffe getrunken im Restaurant am Ende des Universiums.',
+	  fullmes: 'Eure Einheiten haben einen Kaffe getrunken im Restaurant am Ende des Universiums.',
 	  code: 5006
 	},
 
 	# Messages for Event: combat
 	{
 	  mes: 'Auf seiner Reise fiel Eure Expedition in die Hände berüchtigter Weltraumpiraten.',
+	  fullmes: 'Auf seiner Reise fiel Eure Expedition in die Hände berüchtigter Weltraumpiraten.',
 	  code: 5101
 	},
 	{
 	  mes: 'Eure Einheiten landeten auf ihrer Reise im Orbit eines unbekannten Planeten,
 	        auf dem sie Eingeborene trafen. Aufgrund eines kulturellen Missverständnisses
 	        kam es zu einer Schlacht zwischen den Parteien.',
+	  fullmes: 'Eure Einheiten landeten auf ihrer Reise im Orbit eines unbekannten Planeten, auf dem sie Eingeborene trafen. Aufgrund eines kulturellen Missverständnisses kam es zu einer Schlacht zwischen den Parteien.',
 	  code: 5102
 	},
 	{
 	  mes: 'Eure Einheiten trafen auf ein Volk, dass aufgrund eines traumatischen Erlebnisses darüber erzürnt war,
 	        dass die Crew Milch bei sich hatte. Es kam zur Schlacht.',
+	  fullmes: 'Eure Einheiten trafen auf ein Volk, dass aufgrund eines traumatischen Erlebnisses darüber erzürnt war, dass die Crew Milch bei sich hatte. Es kam zur Schlacht.',
 	  code: 5103
 	},
 	{
 	  mes: 'Eure Einheiten trafen auf eine Crew eines verfeindeten Mutterschiffes. Es kam zur Auseinandersetzung.',
+	  fullmes: 'Eure Einheiten trafen auf eine Crew eines verfeindeten Mutterschiffes. Es kam zur Auseinandersetzung.',
 	  code: 5104
 	},
 	{
 	  mes: 'Eure Einheiten kamen in eine intergalaktische Bar und haben sich unfreiwillig mit einer
 	        Weltraum-Motorrad-Gang angelegt.',
+	  fullmes: 'Eure Einheiten kamen in eine intergalaktische Bar und haben sich unfreiwillig mit einer Weltraum-Motorrad-Gang angelegt.',
 	  code: 5105
 	},
 	{
 	  mes: 'Der Expeditionstrupp wurde von einem gigantischen grünlich leuchtenden Würfel angegriffen.',
+	  fullmes: 'Der Expeditionstrupp wurde von einem gigantischen grünlich leuchtenden Würfel angegriffen.',
 	  code: 5106
 	},
 
 	# Messages for Event: destruction
 	{
 	  mes: 'Keine Eurer Einheiten kamen zurück, es wurden lediglich Trümmer gefunden.',
+	  fullmes: 'Keine Eurer Einheiten kamen zurück, es wurden lediglich Trümmer gefunden.',
 	  code: 5201
 	},
 	{
 	  mes: 'Eure Einheiten haben einen katastrophalen Unfall gehabt ... vielleicht Wildwechsel?',
+	  fullmes: 'Eure Einheiten haben einen katastrophalen Unfall gehabt ... vielleicht Wildwechsel?',
 	  code: 5202
 	},
 	{
 	  mes: 'Eure Einheiten haben einen Verkehrsunfall gehabt. Ihnen wurde die Vorfahrt genommen ...
 	        wobei jeder weiß, dass man Vorfahrt hat, wenn man nett lächelt und winkt.',
+	  fullmes: 'Eure Einheiten haben einen Verkehrsunfall gehabt. Ihnen wurde die Vorfahrt genommen ... wobei jeder weiß, dass man Vorfahrt hat, wenn man nett lächelt und winkt.',
 	  code: 5203
 	},
 	{
 	  mes: 'Eure Einheiten haben bekanntschaft mit einem Asteroiden gemacht ... von nahem.',
+	  fullmes: 'Eure Einheiten haben bekanntschaft mit einem Asteroiden gemacht ... von nahem.',
 	  code: 5204
 	},
 	{
 	  mes: 'Eure Einheiten wurden von einem SpaceShark gefressen,
 	        leider hört man im luftleeren Raum das JawsTheme nicht.',
+	  fullmes: 'Eure Einheiten wurden von einem SpaceShark gefressen, leider hört man im luftleeren Raum das JawsTheme nicht.',
 	  code: 5205
 	},
 	{
 	  mes: 'Eure Einheiten wurden ausgebeutet und ohne Treibstoff zurück gelassen ...
 	        dabei hatten diese nichtmal eine Freibeuterlizenz dabei.',
+	  fullmes: 'Eure Einheiten wurden ausgebeutet und ohne Treibstoff zurück gelassen ... dabei hatten diese nichtmal eine Freibeuterlizenz dabei.',
 	  code: 5206
 	},
 	{
 	  mes: 'Eure Einheiten flogen in ein schwarzes Loch.',
+	  fullmes: 'Eure Einheiten flogen in ein schwarzes Loch.',
 	  code: 5207
 	},
 	{
 	  mes: 'Es gibt keine Informationen über Eure Einheiten.',
+	  fullmes: 'Es gibt keine Informationen über Eure Einheiten.',
 	  code: 5208
 	},
 	{
 	  mes: 'Eure Einheiten verloren ihr Leben bei einem Trip per Anhalter durch die Galaxis.',
+	  fullmes: 'Eure Einheiten verloren ihr Leben bei einem Trip per Anhalter durch die Galaxis.',
 	  code: 5209
 	},
 	{
 	  mes: 'Eure Einheiten kamen ums Leben, du hast Ihnen kein Handtuch mitgegeben.',
+	  fullmes: 'Eure Einheiten kamen ums Leben, du hast Ihnen kein Handtuch mitgegeben.',
 	  code: 5210
 	},
 	{
 	  mes: 'Das rote T-Shirt brachte wohl kein Glück.',
+	  fullmes: 'Das rote T-Shirt brachte wohl kein Glück.',
 	  code: 5211
 	},
 
 	# Messages for Event: salvage
 	{
 	  mes: 'Eure Einheiten fanden eine verlassene Zivilisation. Sie nahmen Schiffe und goldene Tierstatuen mit.',
+	  fullmes: 'Eure Einheiten fanden eine verlassene Zivilisation. Sie nahmen Schiffe und goldene Tierstatuen mit.',
 	  code: 5301
 	},
 	{
 	  mes: 'Eure Einheiten nahmen an einer intergalaktischen Auktion teil und haben ein paar Schiffe ersteigert.
 	        Zum Glück waren Steine die örtliche Währung.',
+	  fullmes: 'Eure Einheiten nahmen an einer intergalaktischen Auktion teil und haben ein paar Schiffe ersteigert. Zum Glück waren Steine die örtliche Währung.',
 	  code: 5302
 	},
 	{
 	  mes: 'Eure Einheiten fanden ein verlassenes Mutterschiff. Sie nahmen die brauchbaren Schiffe mit.',
+	  fullmes: 'Eure Einheiten fanden ein verlassenes Mutterschiff. Sie nahmen die brauchbaren Schiffe mit.',
 	  code: 5303
 	},
 	{
 	  mes: 'Eure Einheiten schlossen sich einem Krieg gegen einen Imperator an und gewannen.
 	        Aus Dankbarkeit erhielten sie Schiffe.',
+	  fullmes: 'Eure Einheiten schlossen sich einem Krieg gegen einen Imperator an und gewannen. Aus Dankbarkeit erhielten sie Schiffe.',
 	  code: 5304
 	},
 	{
 	  mes: 'Eure Einheiten fanden ein verlassenes Schiffslager und plünderten es.',
+	  fullmes: 'Eure Einheiten fanden ein verlassenes Schiffslager und plünderten es.',
 	  code: 5305
 	},
 	{
 	  mes: 'Eure Einheiten haben aus Langeweile aus den geborgenen Ressourcen neue Schiffe erbaut.',
+	  fullmes: 'Eure Einheiten haben aus Langeweile aus den geborgenen Ressourcen neue Schiffe erbaut.',
 	  code: 5306
 	},
 	{
 	  mes: 'Eure Truppen haben ihren Unwahrscheinlichkeitsdrive benutzt. Sie kamen in der Nähe eines Planeten aus,
 	        welcher sich urplötzlich in unbesetzte Schiffe umwandelte.',
+	  fullmes: 'Eure Truppen haben ihren Unwahrscheinlichkeitsdrive benutzt. Sie kamen in der Nähe eines Planeten aus, welcher sich urplötzlich in unbesetzte Schiffe umwandelte.',
 	  code: 5307
 	},
 
 	# Messages for Event: ressources
 	{
 	  mes: 'Eure Einheiten durchkämmten die Wüste (mit einem Kamm) und fanden dabei einige lohnende Ressourcen.',
+	  fullmes: 'Eure Einheiten durchkämmten die Wüste (mit einem Kamm) und fanden dabei einige lohnende Ressourcen.',
 	  code: 5401
 	},
 	{
 	  mes: 'Eure Einheiten fanden einen unbewohnten Planten mit vielen Ressourcen.',
+	  fullmes: 'Eure Einheiten fanden einen unbewohnten Planten mit vielen Ressourcen.',
 	  code: 5402
 	},
 	{
 	  mes: 'Eure Einheiten flogen mit Gold los, um neue Güter zu ertauschen, und erhielten zuerst Pferde,
 	        welche sie dann weiter eintauschten, Schweine erhielten sie aber nicht.',
+	  fullmes: 'Eure Einheiten flogen mit Gold los, um neue Güter zu ertauschen, und erhielten zuerst Pferde, welche sie dann weiter eintauschten, Schweine erhielten sie aber nicht.',
 	  code: 5403
 	},
 	{
 	  mes: 'Eure Einheiten kamen an einem intergalaktischen Kirmes vorbei und gewannen bei dem Spiel
 	        "Wirf die Ringe um den Saturn einige wertvolle Ressourcen."',
+	  fullmes: 'Eure Einheiten kamen an einem intergalaktischen Kirmes vorbei und gewannen bei dem Spiel "Wirf die Ringe um den Saturn einige wertvolle Ressourcen."',
 	  code: 5404
 	},
 	{
 	  mes: 'Eure Einheiten trafen auf ein Transportschiff und beuteten dieses aus ...
 	        sie fühlten sich dabei schlecht, da sie ihre Freibeuterlizenz nicht dabei hatten.',
+	  fullmes: 'Eure Einheiten trafen auf ein Transportschiff und beuteten dieses aus ... sie fühlten sich dabei schlecht, da sie ihre Freibeuterlizenz nicht dabei hatten.',
 	  code: 5405
 	},
 	{
 	  mes: 'Eure Einheiten haben einen seltsamen großen Würfel gefunden, der plötzlich klein wurde.
 	        Sie nahmen diesen Würfel und verkauften ihn an eine mechanoide Rasse.',
+	  fullmes: 'Eure Einheiten haben einen seltsamen großen Würfel gefunden, der plötzlich klein wurde. Sie nahmen diesen Würfel und verkauften ihn an eine mechanoide Rasse.',
 	  code: 5406
 	}
 ])
@@ -934,3 +970,5 @@ Unit.create({"icon" => "entities/destroyer.png", "name"=>"Zerstörer", "metal_pr
 Unit.create({"icon" => "entities/bomb-teleporter.png", "name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "conditions"=>"f:8:12,f:4:10,g:6:12","message"=>message10, "condition_id" => 10})
 Unit.create({"icon" => "entities/emp-ship.png", "name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "conditions"=>"f:5:12,f:4:10,g:6:10","message"=>message11, "condition_id" => 11})
 Unit.create({"icon" => "entities/mobile-shield-generator.png", "name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "conditions"=>"f:6:10,f:4:10,g:6:10", "message"=>message12, "condition_id" => 12})
+
+Newsfeed.create({"title" => "Lunancy Release nahe", "body" => "Demnächst wird Lunancy die Beta verlassen und für alle spielbar sein. Weitere Infos werden folgen."})
