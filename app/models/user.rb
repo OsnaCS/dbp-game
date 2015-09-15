@@ -249,6 +249,13 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def incr_user_rank(points)
+    if points.is_a? Numeric
+      self.rank.score += points
+      self.rank.save
+    end
+  end
+
   def is_user
     return right_level >= 0
   end
