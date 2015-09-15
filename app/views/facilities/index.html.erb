@@ -13,7 +13,10 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Anzahl</th>
+      <th>In Bau</th>
       <th>Status</th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -22,7 +25,7 @@
     <% resourcefactor = 500 %>
     <% current_user.active_ship.facility_instances.sort_by{|instance| instance.facility.facility_condition_id}.each do |facility_instance| %>
      <% inactive = nil %>
-     <% if(facility_instance.start_time.nil?) %>
+     <% if(!current_user.ships.find(current_user.activeShip).is_building(facility_instance)) %>
        <tr id="inactive">
        <% inactive = true %>
      <% else %>
@@ -61,27 +64,28 @@
               data-id="<%= facility_instance.facility_id %>"
               data-time="<%= Facility.update_time(facility_instance, false).to_s %>"></td>
         <% end %>
-        <% availability =  facility_instance.check_conditions && !current_user.active_ship.building_capped %>
-        <td><%= facility_instance.count %>
 
-        <% if availability %>
+        <% availability =  facility_instance.check_conditions && !current_user.active_ship.capped_facilities%>
+        <td><%= facility_instance.count %></td>
+        <td><%= facility_instance.create_count || 0 %></td>
+        <% if !availability %>
+          <td><a>Nicht verfügbar<span><%= facility_instance.get_conditions() %></span></a></td>
+        <% else %>
           <% Ship.find_by(id: current_user.activeShip).get_energy%>
           <% Ship.find_by(id: current_user.activeShip).get_used_energy%>
           <td>
-          <a>
-          <%= form_tag build_facility_instance_path(facility_instance), method: 'get' do %>
-            <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0, max: facility_instance.get_buy_amount()) %>
-            <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
-          <% end %>
-          <span><%= 'Maximale Bauanzahl: ' + facility_instance.get_buy_amount().to_s.html_safe %></span></a>
+            <a>
+              <%= form_tag build_facility_instance_path(facility_instance), method: 'get' do %>
+                <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0, max: facility_instance.get_buy_amount()) %>
+                <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
+              <% end %>
+              <span><%= 'Maximale Bauanzahl: ' + facility_instance.get_buy_amount().to_s.html_safe %></span>
+            </a>
           </td>
-        <% else %>
-          <% if(inactive) %>
-            <td><a>Nicht verfügbar<span><%= facility_instance.get_conditions() %></span></a></td>
-          <% else %>
-            <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %>
-            <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
-          <% end %>
+        <% end %>
+        <% if(current_user.ships.find(current_user.activeShip).build_lists.find_by(instance_id: facility_instance.id) != nil) %>
+          <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %></td>
+          <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
         <% end %>
       <% end %>
     <% end %>

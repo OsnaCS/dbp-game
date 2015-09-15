@@ -19,19 +19,25 @@ class Facility < ActiveRecord::Base
     return instance.count
   end
 
-  def self.update_time(instance, format)
+  def self.get_duration(instance)
     facility = Facility.find_by(id: instance.facility_id)
-    durationInSeconds = facility.duration * (instance.create_count || 1) / (1 + 0.1 * ShipsStation.find_by(:ship_id => instance.ship_id, :station_id => 2006).level)
+    return facility.duration / (1 + 0.1 * ShipsStation.find_by(:ship_id => instance.ship_id, :station_id => 2006).level)
+  end
 
-    if(instance.start_time)
-      timeSinceResearch = (Time.now - instance.updated_at).to_i
+  def self.update_time(instance, format)
+    durationInSeconds = self.get_duration(instance)
+    if(instance.start_time != nil)
+      timeSinceResearch = (Time.now - instance.start_time).to_i
       restTime = durationInSeconds - timeSinceResearch
 
       if(restTime <= 0)
-        instance.count = instance.count + (instance.create_count || 1)
-        instance.create_count = nil
-        instance.start_time = nil
+        instance.create_count -= 1 
+        instance.count += 1
+        instance.start_time = Time.now
         instance.save
+        if(instance.create_count <= 0)
+          instance.reset_build
+        end
 
         if not(format)
           return durationInSeconds;
