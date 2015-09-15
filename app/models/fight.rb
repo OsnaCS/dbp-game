@@ -26,6 +26,10 @@ class Fight< ActiveRecord::Base
     @small_shield_id = find_id_facility ("Kleiner Schild")
     @big_shield_id = find_id_facility ("Großer Schild")
     @plattform_id = find_id_facility ("Orbitale Waffenplattform")
+    # Faktoren
+    @shell_mult = 100
+    @damage_mult = 1
+    @cargo_mult = 100
     # Speichert Angreifer und Verteidiger
     @attacker = attacker
     @defender = defender
@@ -246,43 +250,31 @@ class Fight< ActiveRecord::Base
       array = @defender_level
     end
     fleet_array = []
-    # Sammelt nötige Werte und speichert diese als Array in Array
-    fleet.ship_groups.each do |sg|
-      # Falls Gruppe leer, überspringe
-      amount = sg.get_number
-      if (amount > 0)
-        id = sg.get_id
-        damage_sum = sg.get_damage * amount
-        damage_type = sg.get_damage_type
-        hp_sum = sg.get_hp * amount * (1 + (0.1 * array[0])).to_i
-        hitchance = 0.0
-        damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
-        lost_ships = 0
-        name = sg.get_name 
-        # Speichert alle Werte in Array
-        fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
+#    if(defence)
+      # Sammelt nötige Werte und speichert diese als Array in Array
+      fleet.ship_groups.each do |sg|
+        # Falls Gruppe leer, überspringe
+        amount = sg.get_number
+        if (amount > 0)
+          id = sg.get_id
+          damage_sum = sg.get_damage * amount * @damage_mult
+          damage_type = sg.get_damage_type
+          hp_sum = (sg.get_hp * amount * (1 + (0.1 * array[0])).to_i) * @shell_mult
+          hitchance = 0.0
+          damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
+          lost_ships = 0
+          name = sg.get_name 
+          cargo = sg.get_cargo * @cargo_mult
+          # Speichert alle Werte in Array
+          fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, cargo, hp_sum, hitchance]
+        end
       end
-    end
-    if(defence)
+#    else
       @defender_facilities.each do|f|
        
-        # Falls Gruppe leer, überspringe
-#        amount = f.count
-#        if (amount > 0)
-#          id = f.id
-#          #### AB HIER NOCH ERGÄNZEN
-#          damage_sum = f. * amount
-#          damage_type = sg.get_damage_type
-#          hp_sum = sg.get_hp * amount * (1 + (0.1 * array[0])).to_i
-#          hitchance = 0.0
-#          damage_sum = damage_sum*(1 + (0.1 * mult_weapon_level(damage_type, user)))
-#          lost_ships = 0
-#          name = sg.get_name 
-#          # Speichert alle Werte in Array
-#          fleet_array << [id, amount, damage_sum, damage_type, lost_ships, name, true, hp_sum, hitchance]
-#        end
+
       end
-    end
+#    end
     # Sortiere Array und Berechne Trefferwahrscheinlichkeiten
     return get_hitchances(sort_by_damage(fleet_array))
   end
@@ -353,8 +345,8 @@ class Fight< ActiveRecord::Base
       group[-2] = 0
     end
     amount_before = group[1]
-    hp_one = Unit.find(group[0]).shell
-    damage_one = Unit.find(group[0]).damage
+    hp_one = Unit.find(group[0]).shell * @shell_mult
+    damage_one = Unit.find(group[0]).damage * @damage_mult
     group[1] = (group[-2] / hp_one).ceil
     group[2] = group[1] * damage_one
     group[4] = amount_before - group[1]

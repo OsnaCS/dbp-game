@@ -28,4 +28,8 @@ class ShipGroup < ActiveRecord::Base
   def get_name
     return self.unit.name
   end
+
+  def get_cargo
+    return self.unit.cargo
+  end
 end
