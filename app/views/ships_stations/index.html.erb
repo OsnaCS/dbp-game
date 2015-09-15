@@ -83,7 +83,7 @@
         <% end %>
         <% end %>
         <% if ships_station.level>0 && availability%>
-          <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
+          <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), data: { confirm: 'Are you sure?' }, method: :get %></td>
         <%end%>
       <% end %>
       </tr>
