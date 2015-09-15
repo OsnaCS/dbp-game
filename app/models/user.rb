@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
 
   validates :username,
   :presence => true,
+  :length => {
+    :minimum => 3,
+    :maximum => 12,
+    :message => "Username must be between 3 and 12 characters"
+  },
   :uniqueness => {
     :case_sensitive => false
   }
