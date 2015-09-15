@@ -110,6 +110,24 @@ class Ship < ActiveRecord::Base
     self.save
   end
 
+  def update_metal(value)
+    self.metal+=value
+    self.metal=check_storage(2008,self.metal)
+    return self.metal
+  end
+
+  def update_cristal(value)
+    self.cristal+=value
+    self.cristal=check_storage(2009,self.cristal)
+    return self.cristal
+  end
+
+  def update_fuel(value)
+    self.fuel+=value
+    self.fuel=check_storage(2010,self.fuel)
+    return self.fuel
+  end
+
   def get_unit_instance(unit)
     return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
   end
