@@ -12,17 +12,57 @@
   <tbody>
     <% @build_lists.each do |build_list| %>
       <% found = false %>
-
+      <% ship = current_user.ships.find(current_user.activeShip) %>
 
       <% if build_list.typeSign == 'f' %>
-        <% facility_instance = FacilityInstance.find_by(id: build_list.instance_id) %>
-        <% if facility_instance != nil %>
-          <% facility = facility_instance.facility %>
-          <% mesId = facility.facility_condition_id+3000 %>
-          <% iconPath = "facility_icons/" + facility.icon %>
+        <% instance = FacilityInstance.find_by(id: build_list.instance_id) %>
+        <% if instance != nil %>
+          <% main = instance.facility %>
+          <% mesId = main.facility_condition_id+3000 %>
+          <% iconPath = "facility_icons/" + main.icon %>
+          <% class_main = Facility %>
           <% found = true %>
           <% inactive = nil %>
-          <% if(!current_user.ships.find(current_user.activeShip).is_building(facility_instance)) %>
+          <% if(!ship.is_building(instance)) %>
+            <tr id="inactive">
+            <% inactive = true %>
+          <% else %>
+            <tr id="active">
+            <% inactive = false %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+
+      <% if build_list.typeSign == 'u' %>
+        <% instance = UnitInstance.find_by(id: build_list.instance_id) %>
+        <% if instance != nil %>
+          <% main = instance.unit %>
+          <% mesId = main.message.mes.code %>
+          <% iconPath = main.icon %>
+          <% class_main = Unit %>
+          <% found = true %>
+          <% inactive = nil %>
+          <% if(!ship.is_building(instance)) %>
+            <tr id="inactive">
+            <% inactive = true %>
+          <% else %>
+            <tr id="active">
+            <% inactive = false %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% if build_list.typeSign == 'r' %>
+        <% instance = ScienceInstance.find_by(id: build_list.instance_id) %>
+        <% if instance != nil %>
+          <% main = instance.science %>
+          <% mesId = main.id %>
+          <% iconPath = "science_icons/" + main.icon %>
+          <% class_main = Science %>
+          <% found = true %>
+          <% inactive = nil %>
+          <% if(!current_user.is_researching(instance)) %>
             <tr id="inactive">
             <% inactive = true %>
           <% else %>
@@ -34,6 +74,9 @@
 
 
       <% if found %>
+
+
+
         <% mes = Message.find_by_code(mesId).mes %>
         <td>
           <a>
@@ -42,20 +85,49 @@
           </a>
         </td>
         <td>
-            <%= facility.name %>
+            <%= main.name %>
         </td>
         <% if(inactive) %>
-          <td id = "not_running"><%= Facility.update_time(facility_instance, true).to_s %></td>
+          <td id = "not_running"><%= class_main.update_time(instance, true).to_s %></td>
         <% else %>
           <td class="running"
-            data-id="<%= facility_instance.facility_id %>"
-            data-time="<%= build_list.getDurationF.to_s %>">
+            data-id="<%= main.id %>"
+            data-time="<%= build_list.getDuration.to_s %>">
           </td>
         <%end %>
-        <td><%= facility_instance.count %></td>
-        <td><%= facility_instance.create_count %></td>
-        <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %>
-        <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
+
+
+        <% if build_list.typeSign == 'f' %>
+          <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(instance), method: :get %>
+          <td><%= button_to 'Sofort', instant_build_facility_instance_path(instance), method: :get %></td>
+          <td><%= instance.count %></td>
+          <td><%= instance.create_count || 0 %></td>
+        <% end %>
+
+        <% if build_list.typeSign == 'u' %>
+          <td><%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %>
+          <td><%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %></td>
+          <td><%= instance.amount %></td>
+          <td><%= instance.build_amount || 0 %></td>
+        <% end %>
+
+        <% if build_list.typeSign == 'r' %>
+          <td>
+            <a>
+              <%= button_to 'Abbrechen', cancel_research_science_instance_path(instance), method: :get %>
+              <span><%= instance.get_refund %></span>
+            </a>
+          </td>
+          <td>
+            <%= button_to 'Sofort', instant_research_science_instance_path(instance), method: :get %>
+          </td>
+          <td><%= Ship.find_by(id: instance.research_ship).name %></td>
+        <% end %>
+
+
+
+
+
         <td><%= link_to 'Show', build_list %></td>
         <td><%= link_to 'Edit', edit_build_list_path(build_list) %></td>
         <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>

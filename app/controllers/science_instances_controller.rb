@@ -1,5 +1,6 @@
 class ScienceInstancesController < ApplicationController
   before_action :set_science_instance, only: [:cheat, :research, :cancel_research, :instant_research, :show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /science_instances
   # GET /science_instances.json
@@ -38,16 +39,37 @@ class ScienceInstancesController < ApplicationController
   end
 
   def research
-    @science_instance.start_time = Time.now
-    @science_instance.research_ship = current_user.active_ship.id
-    @science_instance.save
-
-    metal = @science_instance.science.get_metal_cost(@science_instance.level)
-    crystal = @science_instance.science.get_crystal_cost(@science_instance.level)
-    fuel = @science_instance.science.get_fuel_cost(@science_instance.level)
-
-    current_user.remove_resources_from_current_ship(metal, crystal, fuel)
-    redirect_to sciences_url
+    ship = current_user.active_ship
+    if ship == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
+    science = @science_instance.science
+    lvl = @science_instance.level
+    if @science_instance.level_cap_reached
+      redirect_to :back, alert: 'Research was cancelled! Cap reached.'
+      # Network Abfrage ToDo!!!!!!!!!!!!!!!!!!!!!!
+      return
+    end
+    
+    if BuildList.find_by(typeSign: 'r', instance_id: @science_instance.id) != nil
+      redirect_to :back, alert: 'Research was cancelled! Already researching.'
+      # Network Abfrage ToDo!!!!!!!!!!!!!!!!!!!!!!
+      return
+    else
+      if(ship.metal < science.get_metal_cost(lvl) || ship.cristal < science.get_crystal_cost(lvl) || ship.fuel < science.get_fuel_cost(lvl))
+        redirect_to :back, alert: 'Research was cancelled! Not enough resources.'
+        return
+      else
+        ship.metal -= science.get_metal_cost(lvl)
+        ship.cristal -= science.get_crystal_cost(lvl)
+        ship.fuel -= science.get_fuel_cost(lvl)
+        ship.save
+        BuildList.create(typeSign: 'r', ship_id: current_user.activeShip, instance_id: @science_instance.id)
+      end
+    end
+    
+    redirect_to :back
   end
 
   def cancel_research
@@ -63,18 +85,17 @@ class ScienceInstancesController < ApplicationController
       current_user.add_resources(reMetal, reCrystal, reFuel, Ship.find_by(:id => @science_instance.research_ship))
     end
 
-    @science_instance.start_time = nil
-    @science_instance.save
-    redirect_to sciences_url
+    @science_instance.reset_build
+    redirect_to :back
   end
 
 
 
   def instant_research
     @science_instance.level = @science_instance.level + 1
-    @science_instance.start_time = nil
     @science_instance.save
-    redirect_to sciences_url
+    @science_instance.reset_build
+    redirect_to :back
   end
 
   # PATCH/PUT /science_instances/1

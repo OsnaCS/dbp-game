@@ -74,7 +74,7 @@
             </a>
           </td>
         <% end %>
-        <% if(ship.build_lists.find_by(instance_id: instance.id) != nil) %>
+        <% if(ship.build_lists.find_by(typeSign: 'u', instance_id: instance.id) != nil) %>
           <td><%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %></td>
           <td><%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %></td>
         <% end %>

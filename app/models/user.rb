@@ -65,20 +65,30 @@ class User < ActiveRecord::Base
     return science_instances.find_by(:science_id => science.id)
   end
 
-  def can_research(science, level)
-    condition = self.check_condition(science.condition)
-    is_researching = !self.is_researching
+  def can_research(instance, level)
+    condition = instance.check_conditions()
 
-    metal = science.get_metal_cost(level)
-    crystal = science.get_crystal_cost(level)
-    fuel = science.get_fuel_cost(level)
+    metal = instance.science.get_metal_cost(level)
+    crystal = instance.science.get_crystal_cost(level)
+    fuel = instance.science.get_fuel_cost(level)
 
     enough_resources = self.has_enough_resources(metal, crystal, fuel)
-    science_instance = self.get_science_instance(science)
 
-    return condition && is_researching && enough_resources && !(science_instance.level_cap_reached)
+
+
+    return condition && !self.is_researching(instance) && enough_resources && !(instance.level_cap_reached) && research_count_control
   end
   
+  def research_count_control
+    back = true
+    science_instances.each do |instance|
+      if(instance.research_ship == self.activeShip)
+        back = false
+      end
+    end
+    return back
+  end
+
   def can_build_unit(unit, ship)
     condition = self.check_condition(unit.conditions) 
     not_building = ship.get_unit_instance(unit).start_time.nil?
@@ -193,13 +203,9 @@ class User < ActiveRecord::Base
     self.add_resources(metal, crystal, fuel, active_ship)
   end
 
-  def is_researching()
-    science_instances.each do |instance|
-      if not(instance.start_time.nil?)
-        return true
-      end
-    end
-    return false
+  def is_researching(instance)
+    ship = Ship.find_by(:id => instance.research_ship || self.activeShip)
+    return ship.build_lists.find_by(typeSign: 'r', instance_id: instance.id) != nil && instance.start_time != nil
   end
 
   def self.find_for_database_authentication(warden_conditions)

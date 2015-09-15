@@ -74,14 +74,15 @@
           <td>
             <a>
               <%= form_tag build_facility_instance_path(instance), method: 'get' do %>
-                <%= number_field_tag(:create_amount, :build_number, placeholder: '0', min: 0, max: instance.get_max_buy_amount()) %>
+                <%= number_field_tag(:create_amount, nil, placeholder: '0', min: 0, max: instance.get_max_buy_amount()) %>
                 <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
               <% end %>
               <span><%= 'Maximale Bauanzahl: ' + instance.get_max_buy_amount().to_s.html_safe %></span>
             </a>
           </td>
         <% end %>
-        <% if(ship.build_lists.find_by(instance_id: instance.id) != nil) %>
+        
+        <% if(ship.build_lists.find_by(typeSign: 'f',instance_id: instance.id) != nil) %>
           <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(instance), method: :get %></td>
           <td><%= button_to 'Sofort', instant_build_facility_instance_path(instance), method: :get %></td>
         <% end %>

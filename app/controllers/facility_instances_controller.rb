@@ -62,7 +62,7 @@ class FacilityInstancesController < ApplicationController
     s.fuel -= f.get_fuel_cost_ratio(p)
     s.save
     end
-    if BuildList.find_by(instance_id: @facility_instance.id) != nil
+    if BuildList.find_by(typeSign: 'f', instance_id: @facility_instance.id) != nil
       @facility_instance.create_count += p
       @facility_instance.save
     else

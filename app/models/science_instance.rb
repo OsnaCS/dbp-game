@@ -2,14 +2,29 @@ class ScienceInstance < ActiveRecord::Base
   belongs_to :science
   belongs_to :user
 
-  def get_time_since_research
-    return (Time.now - self.updated_at).to_i
+  def check_conditions
+    ship = Ship.find_by(:id => research_ship || user.activeShip)
+    return user.check_condition(self.science.condition) && ship.check_condition(self.science.condition)
   end
 
   def get_research_ratio
-    duration = self.science.get_duration(self.level, user.active_ship).to_f
-    past = self.get_time_since_research.to_f
-    return 1.0 - (past/duration).to_f
+    if self.start_time == nil
+      return 1.0
+    else
+      duration = self.get_duration(self.level).to_f
+      past = Time.now - self.start_time
+      ratio = 1.0 - (past / duration)
+      if(ratio >= 0.1)
+        return ratio
+      else
+        return 0.0
+      end
+    end
+  end
+
+  def get_duration(level)
+    research_station_level = ShipsStation.find_by(:ship_id => research_ship || user.activeShip, :station_id => 2004).level
+    return (self.science.duration * self.science.factor ** (level + 1)) / (1 + 0.1 * research_station_level)
   end
 
   def get_refund
@@ -52,7 +67,7 @@ class ScienceInstance < ActiveRecord::Base
   	conds = info.split(",")
 
     back = ""
-  	if(user.is_researching())
+  	if(user.is_researching(self) || !user.research_count_control)
       back = back + "Aktuell wird geforscht...<br>"
   	end
 
@@ -72,7 +87,7 @@ class ScienceInstance < ActiveRecord::Base
       when "g"
         station = Station.find_by(:station_condition_id => id_geb)
 
-        if not(user.has_min_station_level(station, lvl))
+        if not(user.active_ship.has_min_station_level(station, lvl))
           back = back+"- Gebäude: "+station.name+" "+lvl.to_s+"<br>"
         end
       end
@@ -101,37 +116,14 @@ class ScienceInstance < ActiveRecord::Base
   	return back.html_safe
   end
 
-  def update_time(format)
-    science = Science.find_by(id: self.science_id)
-    durationInSeconds = science.get_duration(self.level, user.active_ship)
-
-    if(self.start_time)
-      timeSinceResearch = self.get_time_since_research
-      restTime = durationInSeconds - timeSinceResearch
-
-      if(restTime <= 0)
-        self.level = self.level + 1
-        self.start_time = nil
-        self.save
-
-        if not(format)
-          return durationInSeconds;
-        else
-          return format_count_time(durationInSeconds)
-        end
-      else
-        if not(format)
-          return restTime;
-        else
-          return format_count_time(restTime)
-        end
-      end
-    else
-      if not(format)
-        return durationInSeconds;
-      else
-        return format_count_time(durationInSeconds)
-      end
+  def reset_build
+    self.start_time = nil
+    self.research_ship = nil
+    self.save
+    b = BuildList.find_by(typeSign: 'r', instance_id: self.id)
+    if b != nil
+      b.destroy
     end
   end
+
 end

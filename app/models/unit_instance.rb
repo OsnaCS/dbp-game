@@ -110,12 +110,12 @@ class UnitInstance < ActiveRecord::Base
     self.start_time = nil
     self.create_count = nil
     self.save
-    b = BuildList.find_by(instance_id: self.id)
+    b = BuildList.find_by(typeSign: 'u', instance_id: self.id)
     if b != nil
       b.destroy
     end
     if update
-      ship.update_builds('f')
+      ship.update_builds('u')
     end
   end
 

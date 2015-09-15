@@ -46,7 +46,7 @@ class UnitInstancesController < ApplicationController
     s.fuel -= unit.get_fuel_cost_ratio(p)
     s.save
     end
-    if BuildList.find_by(instance_id: @unit_instance.id) != nil
+    if BuildList.find_by(typeSign: 'u', instance_id: @unit_instance.id) != nil
       @unit_instance.create_count += p
       @unit_instance.save
     else

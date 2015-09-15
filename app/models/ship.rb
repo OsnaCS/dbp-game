@@ -44,8 +44,14 @@ class Ship < ActiveRecord::Base
           if(typ == 's')
           end
           if(typ == 'r')
+            science_instance = ScienceInstance.find_by(id: build.instance_id)
+            science_instance.start_time = Time.now
+            science_instance.save
           end
           if(typ == 'u')
+            unit_instance = UnitInstance.find_by(id: build.instance_id)
+            unit_instance.start_time = Time.now
+            unit_instance.save
           end
         end
       end  
@@ -77,7 +83,14 @@ class Ship < ActiveRecord::Base
   end
 
   def is_building(instance)
-    return build_lists.find_by(instance_id: instance.id) != nil && instance.start_time != nil
+    typ = ''
+    if(instance.is_a? UnitInstance)
+      typ = 'u'
+    end
+    if(instance.is_a? FacilityInstance)
+      typ = 'f'
+    end
+    return build_lists.find_by(typeSign: typ, instance_id: instance.id) != nil && instance.start_time != nil
   end
 
   def get_used_energy
