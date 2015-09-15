@@ -64,12 +64,15 @@
               data-id="<%= facility_instance.facility_id %>"
               data-time="<%= Facility.update_time(facility_instance, false).to_s %>"></td>
         <% end %>
+
         <% availability =  facility_instance.check_conditions && !current_user.active_ship.capped_facilities%>
         <td><%= facility_instance.count %></td>
         <td><%= facility_instance.create_count || 0 %></td>
         <% if !availability %>
           <td><a>Nicht verfügbar<span><%= facility_instance.get_conditions() %></span></a></td>
         <% else %>
+          <% Ship.find_by(id: current_user.activeShip).get_energy%>
+          <% Ship.find_by(id: current_user.activeShip).get_used_energy%>
           <td>
             <a>
               <%= form_tag build_facility_instance_path(facility_instance), method: 'get' do %>
