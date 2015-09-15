@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :fights
   end
 
+  resources :fights
   resources :science_instances do
     member do
       get 'research'

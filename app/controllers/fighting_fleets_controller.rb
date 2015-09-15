@@ -42,7 +42,7 @@ class FightingFleetsController < ApplicationController
     @fighting_fleet.user_id=current_user.id
     respond_to do |format|
       if @fighting_fleet.save
-        format.html { redirect_to fighting_fleet_fight_path(id: @fighting_fleet.fight.id, fighting_fleet_id: @fighting_fleet.id), notice: 'Fighting fleet was successfully created.' }
+        format.html { redirect_to fight_path(id: @fighting_fleet.fight.id), notice: 'Fighting fleet was successfully created.' }
         format.json { render :index, status: :created, location: @fighting_fleet }
       else
         format.html { render :new }
