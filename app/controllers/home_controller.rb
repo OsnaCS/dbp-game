@@ -7,9 +7,9 @@ class HomeController < ApplicationController
   		@notification_count = Notification.all.where(user_id: current_user.id).count
   		@ship.update_resources
 
-  		@metal_count = @ship.metal
-  		@crystal_count = @ship.cristal
-  		@fuel_count = @ship.fuel
+  		@metal_count = @ship.metal.to_i
+  		@crystal_count = @ship.cristal.to_i
+  		@fuel_count = @ship.fuel.to_i
       @metal_storage_cap = @ship.max_storage(2008).to_i
       @crystal_storage_cap = @ship.max_storage(2009).to_i
       @fuel_storage_cap = @ship.max_storage(2010).to_i
