@@ -19,15 +19,9 @@ var counter = 1;
 
 $(document).ready(function () {
   getJsonData();
- 	setInterval(getJsonData, 5000);
+  setInterval(getJsonData, 5000);
+  setInterval(timer, 1000);
 });
-
-/**
- * @brief Starts a timer for a countdown
- */
-function start_timer() {
-  timer();
-}
 
 /**
  * @brief Formats the timer format
@@ -63,19 +57,18 @@ function timer(){
 	$('.running').each(function (time) {
 		var timeElement = $(this);
 		var secs = parseInt(timeElement.data("time"),10);
-		if(secs>0){
+		if(secs > 0) {
 			secs--;
 			timeElement.data('time', secs);
 			timeElement.html(formatTime(secs));
       return;
 		}
-		else{
+		else {
         window.location.reload(); //did some magic
     		window.location.reload();
+        return;
 		}
 	});
-
-	window.setTimeout(timer,1000);
 }
 
 function getJsonData() {
