@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Stationen</h1><br/>
+
 <% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
@@ -92,7 +93,10 @@
         <%end%>
         <% if (ships_station.station_id == 2001)%>
           <td>
-            <input class="slider_format" id="metalSlider" type="range" min="0" max="100" value="100" />
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'metalSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
           </td>
           <td>
             <p class="note"> <span id="metalValue">0</span></p>
@@ -100,7 +104,10 @@
         <% end %>
         <% if (ships_station.station_id == 2002)%>
           <td>
-            <input class="slider_format" id="crystalSlider" type="range" min="0" max="100" value="100" />
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'crystalSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
           </td>
           <td>
             <p class="note"> <span id="crystalValue">0</span></p>
@@ -108,15 +115,21 @@
         <% end %>
         <% if (ships_station.station_id == 2003)%>
           <td>
-            <input class="slider_format" id="fuelSlider" type="range" min="0" max="100" value="100" />
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'fuelSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
           </td>
           <td>
             <p class="note"> <span id="fuelValue">0</span></p>
           </td>
         <% end %>
-        <% if (ships_station.station_id == 2014)%>
+        <% if (ships_station.station_id == 2015)%>
           <td>
-            <input class="slider_format" id="generatorSlider" type="range" min="0" max="100" value="100" />
+            <%= form_for ships_station do |f| %>
+              <%= f.range_field :energy_usage, id: 'generatorSlider', class: 'slider_format' %>
+              <%= f.submit 'Aktualisieren' %>
+            <% end %>
           </td>
           <td>
             <p class="note"> <span id="generatorValue">0</span></p>

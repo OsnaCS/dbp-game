@@ -1,5 +1,5 @@
 class Ship < ActiveRecord::Base
-   
+
   has_many :build_lists, dependent: :destroy
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
@@ -43,7 +43,7 @@ class Ship < ActiveRecord::Base
           if(typ == 'u')
           end
         end
-      end  
+      end
     end
   end
 
@@ -69,16 +69,16 @@ class Ship < ActiveRecord::Base
   end
 
   def get_used_energy
-    scan_metal = 2 ** (self.ships_stations.find_by(station_id: '2001').level)
-    scan_crystal = 2 ** (self.ships_stations.find_by(station_id: '2002').level)
-    scan_fuel = 2 ** (self.ships_stations.find_by(station_id: '2003').level)
+    scan_metal = ((self.ships_stations.find_by(station_id: '2001').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2001').level)).to_i
+    scan_crystal = ((self.ships_stations.find_by(station_id: '2002').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2002').level)).to_i
+    scan_fuel = ((self.ships_stations.find_by(station_id: '2003').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2003').level)).to_i
     self.used_energy = scan_metal + scan_crystal + scan_fuel
     self.save
   end
 
   def get_energy
     generator = 2 ** (self.ships_stations.find_by(station_id: '2014').level + 1)
-    burn_generator = 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)
+    burn_generator = ((self.ships_stations.find_by(station_id: '2015').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
     solarpanel = 4 * self.facility_instances.find_by(facility_id: 3013).count
     self.energy = generator + burn_generator + solarpanel
     self.save
@@ -129,7 +129,7 @@ class Ship < ActiveRecord::Base
     end
     lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
     value = start * 2**lvl
-    return value    
+    return value
   end
 
   private
