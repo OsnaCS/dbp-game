@@ -112,6 +112,7 @@
 							<% Ship.find_by(id: current_user.activeShip).update_resources%>
 							<% Ship.find_by(id: current_user.activeShip).get_energy%>
 							<% Ship.find_by(id: current_user.activeShip).get_used_energy%>
+							<li><%= link_to "Management", build_lists_path %></li>
 							<li><%= link_to "Forschung", sciences_path %></li>
 							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
