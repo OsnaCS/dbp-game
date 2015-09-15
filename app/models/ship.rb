@@ -1,6 +1,6 @@
 class Ship < ActiveRecord::Base
-  has_many :fight_attacks, class_name: 'Fight', :foreign_key => 'ship_attack_id', inverse_of: 'ship_attack'
-  has_many :fight_defends, class_name: 'Fight', :foreign_key => 'ship_defend_id', inverse_of: 'ship_defend'
+  has_many :fight_attacks, class_name: 'Fight', :foreign_key => 'fight_attack_id', inverse_of: 'ship_attack'
+  has_many :fight_defends, class_name: 'Fight', :foreign_key => 'fight_defend_id', inverse_of: 'ship_defend'
    
   has_many :build_lists, dependent: :destroy
   has_many :facility_instances, dependent: :destroy

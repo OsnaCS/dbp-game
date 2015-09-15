@@ -2,8 +2,8 @@ class Fight< ActiveRecord::Base
   belongs_to :user
   belongs_to :attacker, :class_name => 'User', :foreign_key => 'attacker_id', inverse_of: :attacks
   belongs_to :defender, :class_name => 'User', :foreign_key => 'defender_id', inverse_of: :defends
-  belongs_to :ship_attack, :class_name => 'Ship', :foreign_key => 'fight_attack_id', inverse_of: 'fight_attacks'
-  belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'fight_attack_id', inverse_of: 'fight_defends'
+  belongs_to :ship_attack, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_attacks'
+  belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
 
   def init_vars
