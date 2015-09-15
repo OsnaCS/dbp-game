@@ -10,9 +10,11 @@ class ExpeditionsController < ApplicationController
       @expeditions.each do |expi|
          if(expi.arrival_time < (Time.now + 2.hours ))
             expi.explore
+            expi.expedition_instance.destroy
             expi.destroy
          end
       end
+      @expeditions = current_user.expedition_instances.map(&:expedition)
    end
 
    # GET /expeditions/1
