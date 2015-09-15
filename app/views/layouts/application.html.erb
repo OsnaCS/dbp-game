@@ -109,12 +109,12 @@
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<% if current_user.activeShip!=nil %>
-							<% Ship.find_by(id: current_user.activeShip).update_resources%>
-							<% Ship.find_by(id: current_user.activeShip).get_energy%>
-							<% Ship.find_by(id: current_user.activeShip).get_used_energy%>
+							<% current_user.active_ship.update_resources%>
+							<% current_user.active_ship.get_energy%>
+							<% current_user.active_ship.get_used_energy%>
 							<li><%= link_to "Management", build_lists_path %></li>
 							<li><%= link_to "Forschung", sciences_path %></li>
-							<li><%= link_to "Stationen", ship_ships_stations_path(Ship.find(current_user.activeShip)) %></li>
+							<li><%= link_to "Stationen", ship_ships_stations_path(current_user.active_ship) %></li>
 							<li><%= link_to "Anlagen", facilities_path %></li>
 							<li><%= link_to "Einheiten", units_path %></li>
 							<li><%= link_to "Handel", trades_path %></li>

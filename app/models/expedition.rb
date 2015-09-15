@@ -9,11 +9,11 @@ class Expedition < ActiveRecord::Base
       @fleet_storeroom = 0
       @exp_storeroom = 0
       fighting_fleet.ship_groups.all.each do |g|
-        @value += g.unit.total_cost * g.number
-        @fleet_storeroom += g.unit.cargo * g.number
-        if(g.unit.name == "Expeditionsschiff")
-           @exp_storeroom += g.unit.cargo * g.number
-        end
+         @value += g.unit.get_total_cost * g.number
+         @fleet_storeroom += g.unit.cargo * g.number
+         if(g.unit.name == "Expeditionsschiff")
+            @exp_storeroom += g.unit.cargo * g.number
+         end
       end
       event = rand(100)
       happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
@@ -24,12 +24,6 @@ class Expedition < ActiveRecord::Base
          return nothing
       end
    end
-
-   def self.shipamount(shiptype)
-         #user.active_ship).#Befehl um stationierte Schiffe abzufragen
-         return amount=1
-   end
-
 
    def occurance
       occ = rand(100)
@@ -45,17 +39,25 @@ class Expedition < ActiveRecord::Base
       end
    end
 
+   def welcome_home
+      fighting_fleet.ship_groups.all.each do |group|
+         unit_group = UnitInstance.find_by(:unit_id => group.unit_id, :ship_id => self.expedition_instance.user.active_ship)
+         unit_group.amount += group.number
+         unit_group.save
+      end
+      fighting_fleet.destroy
+   end
+
    def nothing
-   	nothing_id = rand(5001..5006)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id))
+      nothing_id = rand(5001..5006)
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(nothing_id), info: "")
+      welcome_home
    end
 
    def destruction
-      fighting_fleet.ship_groups.all.each do |g|
-         g.number = 0
-      end
+      fighting_fleet.destroy
       destruction_id = rand(5201..5211)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(destruction_id),info: "")
    end
 
    def fight
@@ -92,10 +94,11 @@ class Expedition < ActiveRecord::Base
       gegner_flotte.save
 
       fight_id = rand(5101..5106)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id))
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id), info: "")
       #TODO Kampf starten
 
       gegner_flotte.destroy
+      welcome_home
    end
 
    def ressource
@@ -120,16 +123,17 @@ class Expedition < ActiveRecord::Base
       metal_got = final_amount * metal
       crystal_got = final_amount * crystal
       fuel_got = final_amount * fuel
-      
+
       resi_id = rand(5401..5406)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id))
-      
+      resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
+
       ship = self.expedition_instance.user.active_ship
       ship.metal += metal_got
       ship.cristal += crystal_got
       ship.fuel += fuel_got
       ship.save
-      
+      welcome_home
    end
 
    def salvage
@@ -156,9 +160,11 @@ class Expedition < ActiveRecord::Base
             jaeger_amount += 1
          end
       end
-      
-	  salvage_id = rand(5301..5307)
-      self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id))
+
+      salvage_id = rand(5301..5307)
+
+      salvage_string = "Erhaltene Schiffe: Jäger: " + jaeger_amount.to_s + " Fregatte: " + fregatte_amount.to_s + " Kreuzer: " + kreuzer_amount.to_s + " mobiler Schild: " + schild_amount.to_s
+      self.expedition_instance.user.notifications.create(message: Message.find_by_code(salvage_id), info: salvage_string)
 
       fighting_fleet.ship_groups.all.each do |g|
          case g.unit.name
@@ -174,6 +180,6 @@ class Expedition < ActiveRecord::Base
       end
 
       fighting_fleet.save
-
+      welcome_home
    end
 end

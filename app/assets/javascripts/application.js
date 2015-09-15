@@ -24,6 +24,13 @@ $(document).ready(function () {
 });
 
 /**
+ * @brief Starts a timer for a countdown
+ */
+function start_bar() {
+  bar();
+}
+
+/**
  * @brief Formats the timer format
  *
  * The new format is: <dd:hh:mm:ss>
@@ -69,6 +76,22 @@ function timer(){
         return;
 		}
 	});
+}
+
+function bar(){
+  $('.bar progress').each(function (time) {
+    var timeElement = $(this);
+    var par = timeElement.parent();
+    var passed = parseInt(par.data("time"),10);
+    var total = parseInt(par.data("total"),10);
+    if(passed < total){
+      passed++;
+      par.data("time", passed);
+      timeElement.val(passed);
+      timeElement.attr("max", total);
+    }
+  });
+  window.setTimeout(bar,1000);
 }
 
 function getJsonData() {
