@@ -4,6 +4,10 @@ class UnitInstancesController < ApplicationController
   # GET /unit_instances
   # GET /unit_instances.json
   def index
+    if current_user.activeShip == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     @unit_instances = UnitInstance.all
   end
 
@@ -21,38 +25,58 @@ class UnitInstancesController < ApplicationController
   def edit
   end
 
-  def cancel_build
-    if not (@unit_instance.start_time.nil?)
-      unit = @unit_instance.unit
-      amount = @unit_instance.build_amount
-
-      ratio = @unit_instance.get_unit_ratio
-      reMetal = unit.get_metal_cost_ratio(ratio) * amount
-      reCrystal = unit.get_crystal_cost_ratio(ratio) * amount
-      reFuel = unit.get_fuel_cost_ratio(ratio) * amount
-
-      if not(@unit_instance.ship.nil?)
-        current_user.add_resources(reMetal, reCrystal, reFuel, @unit_instance.ship)
-      end
-
-      @unit_instance.start_time = nil
-      @unit_instance.build_amount = nil;
-      @unit_instance.save
-      redirect_to units_url
+    def build
+    p = params[:create_amount].to_i
+    if p <= 0
+      p = 1
     end
+    s = current_user.active_ship
+    if s == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
+
+    unit = @unit_instance.unit
+    if(s.metal < unit.get_metal_cost_ratio(p) || s.cristal < unit.get_crystal_cost_ratio(p) || s.fuel < unit.get_fuel_cost_ratio(p))
+      redirect_to :back, alert: 'Build was cancelled! Not enough resources.'
+      return
+    else
+    s.metal -= unit.get_metal_cost_ratio(p)
+    s.cristal -= unit.get_crystal_cost_ratio(p)
+    s.fuel -= unit.get_fuel_cost_ratio(p)
+    s.save
+    end
+    if BuildList.find_by(instance_id: @unit_instance.id) != nil
+      @unit_instance.create_count += p
+      @unit_instance.save
+    else
+      @unit_instance.create_count = p
+      @unit_instance.save
+      BuildList.create(typeSign: 'u', ship_id: current_user.activeShip, instance_id: @unit_instance.id)
+    end
+    redirect_to :back
+  end
+
+  def cancel_build
+    unit = @unit_instance.unit
+    amount = @unit_instance.build_amount
+
+    ratio = @unit_instance.get_ratio
+    reMetal = unit.get_metal_cost_ratio(ratio + amount - 1)
+    reCrystal = unit.get_crystal_cost_ratio(ratio + amount - 1) 
+    reFuel = unit.get_fuel_cost_ratio(ratio + amount - 1)
+
+    current_user.add_resources(reMetal, reCrystal, reFuel, @unit_instance.ship)
+
+    @unit_instance.reset_build
+    redirect_to :back
   end
 
   def instant_build
-    if not (@unit_instance.start_time.nil?)
-      @unit_instance.start_time = nil
-      
-      amount = @unit_instance.build_amount
-      @unit_instance.amount = @unit_instance.amount + amount
-      @unit_instance.build_amount = nil
-
-      @unit_instance.save
-      redirect_to units_url
-    end
+    @unit_instance.count = @unit_instance.count + (@unit_instance.build_amount || 0)
+    @unit_instance.save
+    @unit_instance.reset_build
+    redirect_to :back
   end
 
   # POST /unit_instances

@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def get_science_instance(science)
-    return ScienceInstance.find_by(:user_id => self.id, :science_id => science.id)
+    return science_instances.find_by(:science_id => science.id)
   end
 
   def can_research(science, level)
@@ -104,10 +104,6 @@ class User < ActiveRecord::Base
     else 
       return true
     end    
-  end
-
-  def has_min_station_level(station, level)
-    return ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => station.id).level >= level.to_i
   end
 
   def get_metal()

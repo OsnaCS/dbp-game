@@ -27,6 +27,10 @@ class Ship < ActiveRecord::Base
     return true
   end
 
+  def has_min_station_level(station, level)
+    return ships_stations.find_by(:station_id => station.id).level >= level.to_i
+  end
+
   def update_builds(typeString = 'f,s,r,u')
     type_split = typeString.split(",")
     type_split.each do |typ|
@@ -60,6 +64,13 @@ class Ship < ActiveRecord::Base
 
   def capped_facilities()
     if self.build_list_count('f') >= 2
+      return true
+    end
+    return false
+  end
+
+    def capped_units()
+    if self.build_list_count('u') >= 2
       return true
     end
     return false
@@ -108,12 +119,6 @@ class Ship < ActiveRecord::Base
     self.lastChecked = Time.now.getutc
     self.save
   end
-
-  def get_unit_instance(unit)
-    return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
-  end
-
-
 
   def is_upgrading()
     ships_stations.each do |station|

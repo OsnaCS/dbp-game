@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
 <h1>Einheiten</h1>
 
@@ -11,9 +12,10 @@
       <th>Kristall</th>
       <th>Treibstoff</th>
       <th>Dauer</th>
-      <th>Vorhanden</th>
-      <th>Maximum</th>
-      <th>Im Auftrag</th>
+      <th>Anzahl</th>
+      <th>In Auftrag</th>
+      <th>Status</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -21,81 +23,68 @@
 
   <tbody>
     <% @units.sort_by{|u| u.condition_id}.each do |unit| %>
-      <% current_ship = Ship.find_by(:id => current_user.activeShip) %>
-      <% instance = current_ship.get_unit_instance(unit)%></td>
-      <% inactive = nil %>
-      <% max_units = unit.get_max_units_to_buy(current_user) %>
+      <% ship = current_user.active_ship %>
+      <% instance = ship.unit_instances.find_by(:unit_id => unit.id)%>
 
-      <% if(instance.start_time.nil?) %>
+      <% inactive = nil %>
+
+
+      <% if(!ship.is_building(instance)) %>
         <tr id="inactive">
-        <% inactive = true %>
+          <% inactive = true %>
       <% else %>
         <tr id="active">
-        <% inactive = false %>
+          <% inactive = false %>
       <% end %>
+
+      <% if(instance.id) %>
         <td>
           <a>
             <img src= "<%= image_url(unit.icon)%>", width="50", height="50", id="icon">
-          <span><%= unit.message.mes %></span></a>
-          <a>
+            <span><%= unit.message.mes %></span>
+          </a>
         </td>
-          <td><%= unit.name %></td>
-          <td><%= unit.get_metal_cost %></td>
-          <td><%= unit.get_crystal_cost %></td>
-          <td><%= unit.get_fuel_cost %></td>
+        <td><%= unit.name %></td>
+        <td><%= unit.get_metal_cost %></td>
+        <td><%= unit.get_crystal_cost %></td>
+        <td><%= unit.get_fuel_cost %></td>
 
-          <% if(inactive) %>
-            <td id = "not_running"><%= instance.update_time(true).to_s %></td>
-          <% else %>
-            <td class="running"
-              data-id="<%= instance.unit_id %>"
-              data-time="<%= instance.update_time(false) %>">
-            </td>
-          <% end %>
-          <td><%= instance.amount %></td>
-          <% availability = current_user.can_build_unit(unit, current_user.active_ship) %>
-          <% build_amount = instance.build_amount %>
-          <% max_units = unit.get_max_units_to_buy(current_user)%>
-
-          <td>Max: <%= availability || !inactive ? max_units : 0%></td>
-          <td><%= build_amount.nil? ? 0 : build_amount %></td>
-          <% if (availability) %>
-            <td>
-              <%= form_tag build_unit_path(unit), method: 'get' do %>
-                <%= hidden_field_tag :unit_id, unit.id %>
-                <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
-               
-                <%= number_field_tag(:amount, nil, placeholder: '0', min: 0, max: max_units) %>
-                <%= submit_tag 'Herstellen' %>
+        <% if(inactive) %>
+          <td id = "not_running"><%= Unit.update_time(instance, true).to_s %></td>
+        <% else %>
+          <td class="running"
+            data-id="<%= instance.unit_id %>"
+            data-time="<%= Unit.update_time(instance, false) %>">
+          </td>
+        <% end %>
+        <% availability = instance.check_conditions && !ship.capped_units %>
+        <td><%= instance.amount %></td>
+        <td><%= instance.build_amount || 0 %></td>
+        <% if !availability %>
+          <td><a>Nicht verfügbar<span><%= instance.get_conditions() %></span>
+          </a></td>
+        <% else %>
+          <td>
+            <a>
+              <%= form_tag build_unit_path(instance), method: 'get' do %>    
+                <%= number_field_tag(:create_amount, nil, placeholder: '0', min: 0, max: instance.get_max_buy_amount()) %>
+                <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
               <% end %>
-            </td>
-          <% else %>
-            <% if (inactive) %>
-              <td><a>Nicht verfügbar<span><%= instance.get_conditions() %></span></a></td>
-            <% else %>
-              <td>
-                <%= form_tag build_unit_path(unit), method: 'get' do %>
-                  <%= hidden_field_tag :unit_id, unit.id %>
-                  <%= hidden_field_tag :ship_id, current_user.active_ship.id %>
-                 
-                  <%= number_field_tag(:amount, nil, placeholder: '0', min: 0, max: max_units) %>
-                  <%= submit_tag 'Herstellen' %>
-                <% end %>
-              </td>
-
-              <td>
-                <a>
-                  <%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %>
-                  <span><%= instance.get_refund %></span>
-                </a>
-                <%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %>
-              </td>
-            <% end %>
-          <% end %>
-        </td>
-        <td></td>
-      </tr>
+              <span><%= 'Maximale Bauanzahl: ' + instance.get_max_buy_amount().to_s.html_safe %></span>
+            </a>
+          </td>
+        <% end %>
+        <% if(ship.build_lists.find_by(instance_id: instance.id) != nil) %>
+          <td><%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %></td>
+          <td><%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %></td>
+        <% end %>
+      <% end %>
     <% end %>
+    </tr>
   </tbody>
 </table>
+<br>
+<%= link_to 'New Unit', new_unit_path %>
+<%= link_to 'LevelCheat', unit_instances_path %>
+
 <%= javascript_tag "start_timer()" -%>

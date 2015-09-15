@@ -52,15 +52,14 @@ class FacilityInstancesController < ApplicationController
       redirect_to :controller => 'ships', :action => 'new'
       return
     end
-    resourcefactor = 500
     f = @facility_instance.facility
-    if(s.metal < p * f.cost1 * resourcefactor || s.cristal < p * f.cost2 * resourcefactor || s.fuel < p * f.cost3 * resourcefactor)
-      redirect_to facilities_url, alert: 'Build was cancelled! Not enough resources.'
+    if(s.metal < f.get_metal_cost_ratio(p) || s.cristal < f.get_crystal_cost_ratio(p) || s.fuel < f.get_fuel_cost_ratio(p))
+      redirect_to :back, alert: 'Build was cancelled! Not enough resources.'
       return
     else
-    s.metal -= p * f.cost1 * resourcefactor
-    s.cristal -= p * f.cost2 * resourcefactor
-    s.fuel -= p * f.cost3 * resourcefactor
+    s.metal -= f.get_metal_cost_ratio(p)
+    s.cristal -= f.get_crystal_cost_ratio(p)
+    s.fuel -= f.get_fuel_cost_ratio(p)
     s.save
     end
     if BuildList.find_by(instance_id: @facility_instance.id) != nil
@@ -75,6 +74,16 @@ class FacilityInstancesController < ApplicationController
   end
 
   def cancel_build
+    f = @facility_instance.facility
+    amount = @facility_instance.create_count
+
+    ratio = @facility_instance.get_ratio
+    reMetal = f.get_metal_cost_ratio(ratio + amount - 1)
+    reCrystal = f.get_crystal_cost_ratio(ratio + amount - 1) 
+    reFuel = f.get_fuel_cost_ratio(ratio + amount - 1)
+
+    current_user.add_resources(reMetal, reCrystal, reFuel, @facility_instance.ship)
+
     @facility_instance.reset_build
     redirect_to :back
   end

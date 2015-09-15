@@ -52,6 +52,8 @@
             data-time="<%= build_list.getDurationF.to_s %>">
           </td>
         <%end %>
+        <td><%= facility_instance.count %></td>
+        <td><%= facility_instance.create_count %></td>
         <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %>
         <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
         <td><%= link_to 'Show', build_list %></td>
