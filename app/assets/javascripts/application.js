@@ -19,7 +19,7 @@ var counter = 1;
 
 $(document).ready(function () {
   getJsonData();
- 	setInterval(getJsonData, 5000);
+  setInterval(getJsonData, 5000);
   setInterval(timer, 1000);
 });
 
