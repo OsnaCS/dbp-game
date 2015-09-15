@@ -15,23 +15,26 @@ class FightingFleetsController < ApplicationController
   # GET /fighting_fleets/1
   # GET /fighting_fleets/1.json
   def show
+   
   end
 
   # GET /fighting_fleets/new
   def new
     @fighting_fleet = FightingFleet.new
       @defend_user = params[:defend_user]
+     
   end
 
   # GET /fighting_fleets/1/edit
   def edit
+
   end
 
   # POST /fighting_fleets
   # POST /fighting_fleets.json
   def create
   
-  
+    current_user.active_ship
     @fighting_fleets = FightingFleet.all
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
     @fighting_fleet.fight.attacker_id = current_user.id

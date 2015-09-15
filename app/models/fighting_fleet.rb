@@ -1,8 +1,8 @@
 class FightingFleet < ActiveRecord::Base
-  belongs_to :user
   belongs_to :expedition
   belongs_to :fight, dependent: :destroy
   has_many :ship_groups, dependent: :destroy
+  belongs_to :user
 
  
   validates :id, uniqueness: true

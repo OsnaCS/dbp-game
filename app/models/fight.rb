@@ -7,48 +7,51 @@ class Fight< ActiveRecord::Base
   has_one :fighting_fleet 
 
   def init_vars
-    # Array in dem alle Ausgeben gespeichert werden
-    @report = []
-    @testout = []
-    # Array für die einzelnden Runden
-    @round_reports = []
-    # IDs
-    @spy_science_id = find_id_science ("Spionage")
-    @pilot_science_id = find_id_science ("Pilotentraining")
-    @shell_science_id = find_id_science ("Hülle")
-    @laser_science_id = find_id_science ("Laser")
-    @ionen_science_id = find_id_science ("Ionen")
-    @shield_science_id = find_id_science ("Schild")
-    @bomb_science_id = find_id_science ("Kinetik")
-    @emp_ship_id = find_id_unit ("EMP-Schiff")
-    @spy_ship_id = find_id_unit ("Spionagedrohne")
-    @shield_ship_id = find_id_unit ("Mobiler Schild")
-    @small_shield_id = find_id_facility ("Kleiner Schild")
-    @big_shield_id = find_id_facility ("Großer Schild")
-    @plattform_id = find_id_facility ("Orbitale Waffenplattform")
-    @metal_vault_id =find_id_station ("Ressourcentresor Metall")
-    @crystal_vault_id =find_id_station ("Ressourcentresor Kristall")
-    @fuel_vault_id =find_id_station ("Ressourcentresor Treibstoff")
-    @repair_id =find_id_station ("Reparaturgebäude")
-    # Faktoren
-    @shell_mult = 100
-    @damage_mult = 1
-    @cargo_mult = 100
-    # Speichert Angreifer und Verteidiger
-    @attacker = attacker
-    @defender = defender
-    # Speichert Flotten
-    @attacker_fleet = fighting_fleet
-    @defender_fleet = FightingFleet.first
-    @defender_facilities = build_defend_facilities(Ship.find(ship_defend_id)) # MUSS NOCH ANGEPASST WERDEN
-    # Speichert alle notwendigen Forschungslevel
-    @attacker_level = build_level(@attacker)
-    @defender_level = build_level(@defender)
-    @defender_station_level = build_station_level
-    # Speichert die Schilde
-    @attacker_shield = shield_cal( @attacker)
-    @defender_shield = shield_cal( @defender)
-    @fight_shield = 0
+    if(!@allready_done)
+      # Array in dem alle Ausgeben gespeichert werden
+      @report = []
+      @testout = []
+      # Array für die einzelnden Runden
+      @round_reports = []
+      # IDs
+      @spy_science_id = find_id_science ("Spionage")
+      @pilot_science_id = find_id_science ("Pilotentraining")
+      @shell_science_id = find_id_science ("Hülle")
+      @laser_science_id = find_id_science ("Laser")
+      @ionen_science_id = find_id_science ("Ionen")
+      @shield_science_id = find_id_science ("Schild")
+      @bomb_science_id = find_id_science ("Kinetik")
+      @emp_ship_id = find_id_unit ("EMP-Schiff")
+      @spy_ship_id = find_id_unit ("Spionagedrohne")
+      @shield_ship_id = find_id_unit ("Mobiler Schild")
+      @small_shield_id = find_id_facility ("Kleiner Schild")
+     @big_shield_id = find_id_facility ("Großer Schild")
+      @plattform_id = find_id_facility ("Orbitale Waffenplattform")
+      @metal_vault_id =find_id_station ("Ressourcentresor Metall")
+      @crystal_vault_id =find_id_station ("Ressourcentresor Kristall")
+      @fuel_vault_id =find_id_station ("Ressourcentresor Treibstoff")
+      @repair_id =find_id_station ("Reparaturgebäude")
+      # Faktoren
+      @shell_mult = 100
+      @damage_mult = 1
+      @cargo_mult = 100
+      # Speichert Angreifer und Verteidiger
+      @attacker = attacker
+      @defender = defender
+      # Speichert Flotten
+      @attacker_fleet = fighting_fleet
+      @defender_fleet = fighting_fleet
+      @defender_facilities = build_defend_facilities(Ship.find(ship_defend_id)) # MUSS NOCH ANGEPASST WERDEN
+      # Speichert alle notwendigen Forschungslevel
+      @attacker_level = build_level(@attacker)
+      @defender_level = build_level(@defender)
+      @defender_station_level = build_station_level
+      # Speichert die Schilde
+      @attacker_shield = shield_cal( @attacker)
+      @defender_shield = shield_cal( @defender)
+      @fight_shield = 0
+      @allready_done = true
+   end    
   end
   
   def build_defend_facilities(ship)
@@ -373,7 +376,7 @@ class Fight< ActiveRecord::Base
       #add shield
       # ANLAGEN NOCH EINBINDEN!!!!!!
     end
-    return 10000
+    return 5
   end
   
   # Baut ein Array mit allen Forschungsleveln des Benutzers
@@ -390,12 +393,16 @@ class Fight< ActiveRecord::Base
 
   def  build_station_level
     ship = Ship.find(ship_defend_id)
-    #metal_save = ship.
-    return 0
+    metal_save = 2000 * (2 ** ship.ships_stations.find_by(station_id: @metal_vault_id).level)
+    crystal_save = 2000 * (2 **  ship.ships_stations.find_by(station_id: @crystal_vault_id).level)
+    fuel_save =2000 * (2 **  ship.ships_stations.find_by(station_id: @fuel_vault_id).level)
+    repair = (0.5 - (0.5/(1+ 0.1 * ship.ships_stations.find_by(station_id: @repair_id).level)))
+    return [metal_save, crystal_save, fuel_save, repair]
   end
 
   # Für den Verlust-Report nach der Schlacht
   def lost_report (fleet_array, user)
+
     if (user == @attacker)
       origin = @attacker_fleet
     else
@@ -427,20 +434,28 @@ class Fight< ActiveRecord::Base
   end
 
   def battle_id(fleet_id, ship_id_deffender)
+      init_vars
+
       attk = get_user_by_fleet_id(fleet_id)
       deff = UserShip.find_by(:ship_id => ship_id_deffender).user
 
-      return battle(attk, deff)
+      return battle(attk, deff, ship_id_deffender)
   end
 
   # Zum berechnen des Kampfes
-  def battle(attk,  deff)
+  def battle(attk,  deff, deffender_ship_id)
     # Runden auf 0 setzen, continue auf true (Für die Schleife)
     round = 0
     continue = true
+
+    @defender_fleet = get_fleet_by_ship(deffender_ship_id)
+
     # Bilde Arrays mit allen nötigen Werten für den Kampf
     turn_fleet = build_array(@attacker, @attacker_fleet)
     target_fleet = build_array(@defender, @defender_fleet)
+
+    emp_phase(attk)
+    emp_phase(deff)
 
     # Angreifer beginnt
     turn_user = attk
@@ -570,16 +585,19 @@ class Fight< ActiveRecord::Base
 
     update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
     update_fighting_fleet(@defender_fleet, deffender_fleet_ary)
-
+    # ANLAGEN NOCH EINFÜGEN
     ary = [@attacker_fleet, @defender_fleet]   
 
     return ary
   end
 
   def update_fighting_fleet(exsisting_fleet, array_of_fleet)
+    num = 0
     array_of_fleet.each do |a|  
       if a[6]
-        exsisting_fleet.ship_groups.find_by(:unit_id => a[0]).number = a[1]
+        num+=1
+        #byebug
+        exsisting_fleet.ship_groups.find_by(:unit_id => a[0]).update(:number => a[1])
       end    
     end
   end     
@@ -588,18 +606,103 @@ class Fight< ActiveRecord::Base
     return FightingFleet.find(fleet_id).user
   end
 
+  def get_ship_by_ship_id(ship_id_user)
+    return UserShip.find_by(:ship_id => ship_id_user).ship
+  end
+
+  def get_user_by_ship_id(ship_id_user)
+    return UserShip.find_by(:ship_id => ship_id_user).user
+  end
   # Hauptmethode. Navigiert durch den Kampf und gibt zum 
   # Schluss den Report zurück
+  
+  def get_total_points_by_fleet_id(fleet_id)
+    return get_total_points_fleet(FightingFleet.find(fleet_id))
+  end
+
+  def get_fleet_by_ship(ship_id_deffender)
+    abc = FightingFleet.create(user: get_user_by_ship_id(ship_id_deffender))
+    abc.ship_groups.each do |group|
+      instance = Ship.find_by(:id => ship_id_deffender).get_unit_instance(group.unit)
+      group.number = instance.amount
+      group.save
+    end
+    abc.save
+    return abc
+  end
+
+  def get_total_points_fleet(fleet)
+    points = 0
+    fleet.ship_groups.each do |group|
+      amount = group.number
+      points+=group.unit.get_total_cost*amount
+    end
+    return points/500
+  end  
+
+  def get_total_points_facilities_by_ship_id(ship_id_player)
+    return get_total_points_facilities_by_ship(get_ship_by_ship_id(ship_id_player))
+  end
+
+  def get_total_points_facilities_by_ship(ship)
+    points = 0
+    ship.facility_instances.each do |facility_instance|
+      points+= get_total_cost_by_facility(facility_instance.facility)*facility_instance.count
+    end
+    return points/500
+  end
+
+  def get_total_cost_by_facility (facility)
+    metal = facility.cost1 
+    crystal = facility.cost2 * 2
+    fuel = facility.cost3 * 4
+    return metal + crystal + fuel
+  end  
 
   def fight(attacker_fleet_id, deffender_ship_id)
     init_vars
     @testout << @defender
     report_start
     spy_phase
-    emp_phase(@attacker)
-    emp_phase(@defender)
-    battle_id(attacker_fleet_id, deffender_ship_id)
+    
+    battle_with_points(attacker_fleet_id, deffender_ship_id)
+
     # Verlustrechnung in Datenbank übernehmen
     return @report
+  end
+
+  def battle_with_points(attacker_fleet_id, deffender_ship_id)
+    init_vars
+
+    points_for_defender_before = get_total_points_by_fleet_id(attacker_fleet_id)
+    
+    
+    defender_fleet_before = get_fleet_by_ship(deffender_ship_id)
+    points_for_attaker_before = get_total_points_fleet(defender_fleet_before)
+    points_for_attaker_before += get_total_points_facilities_by_ship_id(deffender_ship_id)
+    defender_fleet_before.destroy
+
+
+    battle_id(attacker_fleet_id, deffender_ship_id)
+
+
+    points_for_defender_after = get_total_points_by_fleet_id(attacker_fleet_id)
+    
+    points_for_attaker_after = get_total_points_facilities_by_ship_id(deffender_ship_id)
+    fleet_after = get_fleet_by_ship(deffender_ship_id)
+    points_for_attaker_after += get_total_points_fleet(fleet_after)
+    fleet_after.destroy
+
+    points_for_defender = points_for_defender_before-points_for_defender_after
+    points_for_attaker = points_for_attaker_before-points_for_attaker_after
+
+    update_points(get_user_by_ship_id(deffender_ship_id), points_for_defender) 
+    update_points(get_user_by_fleet_id(attacker_fleet_id), points_for_attaker) 
+  end
+
+  def update_points(user, points)
+    points_of_user = user.rank.score 
+    user.rank.update(:score => points_of_user+points)
+    #user.incr_user_rank(points)
   end
 end

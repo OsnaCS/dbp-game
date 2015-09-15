@@ -35,8 +35,8 @@
         <%if !(fs.object.unit.message == nil) %><tr>
           <td><a><img src= "<%= image_url(fs.object.unit.icon)%>", width="50", height="50", id="icon"><span><%= fs.object.unit.message.mes %></span></a> </td>
           <td><a><%= fs.object.unit.name%><span><%= fs.object.unit.message.mes %></span></a> </td>
-          <td><a><%= fs.object.unit.id %></a></td>
-          <td><a><%=fs.number_field :number, min:0, max: 50 %></a></td>
+          <td><a><%= current_user.active_ship.get_unit_instance(fs.object.unit).amount %></a></td>
+          <td><a><%=fs.number_field :number, min:0, max: current_user.active_ship.get_unit_instance(fs.object.unit).amount %></a></td>
         </tr>
         
         <%= fs.hidden_field :unit_id %>
