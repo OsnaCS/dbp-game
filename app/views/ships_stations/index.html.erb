@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="userlabel">Stationen</h1><br/>
+<h1 class="userlabel">Stationen</h1><br/><br/>
+<h2> Bauplätze <%= @ship.sum_level%> / <%=@ship.max_station_level %> belegt</h2>
+
+<br/>
 <% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
@@ -52,7 +55,7 @@
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
         <td><%= ships_station.level %></td>        
-        <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
+        <% if @ship.sum_level < @ship.max_station_level %>
           <% if availability %>
             <td><%= button_to 'Upgrade', upgrade_ships_station_path(ships_station), method: :get %></td>
           <% else %>

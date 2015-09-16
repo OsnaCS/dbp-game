@@ -31,19 +31,6 @@ class ShipsStation < ActiveRecord::Base
     return back.html_safe
   end
 
-  def sum_level(ship)
-    sum=0
-    ShipsStation.where(:ship_id => ship.id).each do |station|
-      sum+=station.level
-    end  
-    return sum - ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
-  end
-
-  def max_station_level(ship)
-    i = 100 + 10 * ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
-    return i
-  end
-
   def get_conditions()
   	info = self.station.condition
   	conds = info.split(",")
