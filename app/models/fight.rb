@@ -35,14 +35,21 @@ class Fight< ActiveRecord::Base
       @shell_mult = 100
       @damage_mult = 1
       @cargo_mult = 100
+
       @defender_ship = Ship.find(defender_ship_id)
+      @defender = @defender_ship.user
+      @defender_fleet = get_fleet_by_ship(@defender_ship)
+
+
       # Speichert Flotten
       @attacker_fleet = FightingFleet.find(attacker_fleet_id)
       # Speichert Angreifer und Verteidiger
       @attacker = @attacker_fleet.user
-      @defender = @defender_ship.user
       @attacker_ship = ship_attack
-      @defender_fleet = get_fleet_by_ship(@defender_ship)
+      
+
+
+
        # MUSS NOCH ANGEPASST WERDEN
       # Speichert alle notwendigen Forschungslevel
       @attacker_level = build_level(@attacker)
@@ -55,6 +62,8 @@ class Fight< ActiveRecord::Base
       @defender_origin_facility = safe_origin_facility_amount (@defender_facilities)
       @fight_shield = 0
       @allready_done = true 
+      @attacker_lost = []
+      @defender_lost = []
     end    
   end
   
@@ -63,6 +72,8 @@ class Fight< ActiveRecord::Base
   end  
 
   
+
+
   def build_defend_facilities(ship)
     array = []
     ship.facility_instances.each do |f|
@@ -453,24 +464,35 @@ class Fight< ActiveRecord::Base
   end
  
   # Bringt die Daten der Schiffsgruppe nach Angriff auf neusten Stand
-  def update_ship_group(group_array)
+  def update_ship_group(group_array, user)
+     if ( user == @attacker )
+      array = @attacker_level
+    else
+      array = @defender_level
+    end
     if group_array[-2] < 0
       group_array[-2] = 0
     end
     if (group_array[6])
-      hp_one = Unit.find(group_array[0]).shell * @shell_mult
-      damage_one = Unit.find(group_array[0]).damage * @damage_mult
+      hp_one = Unit.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
+      damage_one = Unit.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))
       
     else
-      hp_one = Facility.find(group_array[0]).shell * @shell_mult
-      damage_one = Facility.find(group_array[0]).damage * @damage_mult
-    end  
-      amount_before = group_array[1]
-      group_array[1] = (group_array[-2] / hp_one).ceil
-      group_array[2] = group_array[1] * damage_one
-      group_array[4] = amount_before - group_array[1]
+      hp_one = Facility.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
+      damage_one = Facility.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))
+    end
+      if group_array[1] > 0  
+        amount_before = group_array[1]
+        group_array[1] = (group_array[-2] / hp_one).ceil
+      
+        group_array[2] = group_array[1] * damage_one
+        group_array[4] = amount_before - group_array[1]
+      end  
     if group_array[1] < 0
        group_array[1] = 0
+    end
+    if group_array[-2] < 0
+      group_array[-2] = 0
     end
   end
 
@@ -517,9 +539,11 @@ class Fight< ActiveRecord::Base
 
     if (user == @attacker)
       origin = @attacker_fleet
+      lost_array = @attacker_lost
     else
       origin = @defender_fleet
       facilities = @defender_facilities
+      lost_array = @defender_lost
     end
     lost_report = []
     origin.ship_groups.each do |o|
@@ -538,8 +562,10 @@ class Fight< ActiveRecord::Base
       unit_report << o.unit.name
       unit_report << o.number
       if found
+        lost_array << [o.unit, lost, true]
         unit_report << lost
         unit_report << (o.number - lost)
+
       else 
         unit_report << o.number
         unit_report << 0
@@ -558,6 +584,7 @@ class Fight< ActiveRecord::Base
           end
           
         end
+        lost_array << [o.facility, lost, false]
         unit_report << o.facility.name
         unit_report << o.count
         if found
@@ -651,18 +678,19 @@ class Fight< ActiveRecord::Base
               end
               if fleet[3] == 4 and fleet[0] == @plattform_id
               mult = DamageType.find(fleet[3]).plattform_mult
-              end  
+            end  
             # Bestimme welche Einheit getroffen wurde
             victim = target_fleet[target]
             round_report << "#{victim[5]}. Der Schaden beträgt:  "
             # Schadensberechnung
-            damage =fleet[2]*mult
+            damage = fleet[2] * mult
+            
             round_report << "#{damage} "
             # Berechne neue HP
             hit_points = victim[-2]
             victim[-2] = hit_points-damage
             # Berechne Anzahl und Schaden neu
-            update_ship_group(victim)
+            update_ship_group(victim, target_user)
             round_report << "#{victim[4]} Einheiten wurden zerstört. "
           end
         end 
@@ -724,7 +752,8 @@ class Fight< ActiveRecord::Base
       defender_fleet_ary = turn_fleet
     end
 
-    update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
+    fleet = update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
+    byebug
     update_fighting_fleet(@defender_fleet, defender_fleet_ary)
     # ANLAGEN NOCH EINFÜGEN:
     ary = [@attacker_fleet, @defender_fleet]   
@@ -765,25 +794,40 @@ class Fight< ActiveRecord::Base
   end
 
   def update_fighting_fleet(exsisting_fleet, array_of_fleet)
+    max = array_of_fleet.length
     array_of_fleet.each do |a|  
       if a[6]
-        exsisting_fleet.ship_groups.find_by(:unit_id => a[0]).update(:number => a[1])
+        unit = exsisting_fleet.ship_groups.find_by(:unit_id => a[0])
+        if(unit.present?)
+          unit.update(:number => a[1])
+          #exsisting_fleet.ship_groups.find_by(unit_id => a[0]).update(:number => a[1])
+          exsisting_fleet.save
+        end
       else
         repair = @defender_station_level[-1]
         lost = 0
+        before = 0
         restore = 0
         @defender_origin_facility.each do |o|
           if (a[0] == o[0])
-            lost = o[1] - a[1]
-            total_cost_one =  get_total_cost_by_facility (Facility.find(o[0]))
+            before = o[1]
+            lost = before - a[1]
+            total_cost_one =  get_total_cost_by_facility(Facility.find(o[0])) * repair
             total_cost_all = total_cost_one * lost
-            restore = (total_cost_all / total_cost_one).floor.to_i
+            if(total_cost_one==0) 
+              restore = a[1]
+            else
+              restore = a[1] + (total_cost_all / total_cost_one).to_i 
+            end
           end
           
           @defender_ship.facility_instances.find_by(:facility_id => a[0]).update(:count => restore)
         end    
       end
-    end     
+    end
+    #exsisting_fleet.save
+    byebug
+    return exsisting_fleet     
   end
 
   def safe_origin_facility_amount (facilities)
@@ -801,9 +845,15 @@ class Fight< ActiveRecord::Base
   def get_user_by_ship_id(ship_id_user)
     return UserShip.find_by(:ship_id => ship_id_user).user
   end
-  # Hauptmethode. Navigiert durch den Kampf und gibt zum 
-  # Schluss den Report zurück
-  
+
+  def get_total_cost_by_facility (facility)
+    metal = facility.cost1 
+    crystal = facility.cost2 * 2
+    fuel = facility.cost3 * 4
+    return metal + crystal + fuel
+  end  
+
+
 
   def get_fleet_by_ship(ship_id_defender)
     fleet = FightingFleet.create(user: get_user_by_ship_id(ship_id_defender))
@@ -815,6 +865,19 @@ class Fight< ActiveRecord::Base
     fleet.save
     return fleet
   end
+
+  def get_total_points(array)
+    points = 0
+    array.each do |a|
+      if a[2]
+        points = points + (a[0].get_total_cost * a[1])
+      else
+        points = points + (get_total_cost_by_facility(a[0]) * a[1])
+      end   
+    end  
+    return points/500
+  end
+  
 
   def get_total_points_fleet(fleet)
     points = 0
@@ -833,32 +896,24 @@ class Fight< ActiveRecord::Base
     return points/500
   end
 
-  def get_total_cost_by_facility (facility)
-    metal = facility.cost1 
-    crystal = facility.cost2 * 2
-    fuel = facility.cost3 * 4
-    return metal + crystal + fuel
-  end  
-
-  def fight(attacker_fleet_id, defender_ship_id)
-    init_vars(attacker_fleet_id, defender_ship_id)
-    report_start
-    spy_phase
-        # Verlustrechnung in Datenbank übernehmen
-    return battle_with_points(attacker_fleet_id, defender_ship_id)
-  end
 
   def battle_with_points(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
-    points_for_defender_before = get_total_points_fleet(@attacker_fleet)
-    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
+   
+    #points_for_defender_before = get_total_points_fleet(@attacker_fleet)
+
+    #points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
     report = battle_id(attacker_fleet_id, defender_ship_id)
+
+
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
-    points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
-    points_for_attacker_after += get_total_points_fleet(@defender_fleet)
-    points_for_defender = points_for_defender_before-points_for_defender_after
-    points_for_attacker = points_for_attacker_before-points_for_attacker_after
+    #points_for_defender = points_for_defender_before-points_for_defender_after
+
+    #oints_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
+    #points_for_attacker_after += get_total_points_fleet(@defender_fleet)
+    #points_for_attacker = points_for_attacker_before-points_for_attacker_after
+
     update_points(@defender, points_for_defender) 
     update_points(@attacker, points_for_attacker) 
     return report
@@ -868,5 +923,19 @@ class Fight< ActiveRecord::Base
     points_of_user = user.rank.score 
     user.rank.update(:score => points_of_user+points)
     #user.incr_user_rank(points)
+  end
+
+  def update_points(user, points)
+    user.incr_user_rank(points)
+  end
+
+  # Hauptmethode. Navigiert durch den Kampf und gibt zum 
+  # Schluss den Report zurück
+  def fight(attacker_fleet_id, defender_ship_id)
+    init_vars(attacker_fleet_id, defender_ship_id)
+    report_start
+    spy_phase
+        # Verlustrechnung in Datenbank übernehmen
+    return battle_with_points(attacker_fleet_id, defender_ship_id)
   end
 end

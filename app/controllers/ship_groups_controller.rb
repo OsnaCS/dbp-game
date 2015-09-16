@@ -16,7 +16,6 @@ class ShipGroupsController < ApplicationController
   # GET /ship_groups/new
   def new
     @ship_group = ShipGroup.new
-    end
   end
 
   # GET /ship_groups/1/edit
