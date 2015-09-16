@@ -15,6 +15,7 @@ class Expedition < ActiveRecord::Base
             @exp_storeroom += g.unit.cargo * g.number
          end
       end
+      @value = @value/500.0
       event = rand(100)
       happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
       happen = happen * 100
@@ -141,9 +142,9 @@ class Expedition < ActiveRecord::Base
       relative_amount = rand(30..200)
       absolute_amount = @exp_storeroom * relative_amount/10000.0
       final_amount = [absolute_amount, @fleet_storeroom].min
-      metal_got = final_amount * metal
-      crystal_got = final_amount * crystal
-      fuel_got = final_amount * fuel
+      metal_got = final_amount * metal * 500
+      crystal_got = final_amount * crystal * 500
+      fuel_got = final_amount * fuel * 500
 
       resi_id = rand(5401..5406)
       resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
@@ -168,16 +169,16 @@ class Expedition < ActiveRecord::Base
          ship_got = rand(100)
          case ship_got
          when 0..10
-            gain += 100
+            gain += 100.0
             kreuzer_amount += 1
          when 10..30
-            gain += 40
+            gain += 40.0
             fregatte_amount += 1
          when 30..60
-            gain += 8
+            gain += 8.0
             schild_amount += 1
          when 60..100
-            gain += 4
+            gain += 4.0
             jaeger_amount += 1
          end
       end
@@ -198,6 +199,7 @@ class Expedition < ActiveRecord::Base
          when "Jäger"
             g.number += jaeger_amount
          end
+         g.save
       end
 
       fighting_fleet.save
