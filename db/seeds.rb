@@ -379,6 +379,12 @@ Station.create([
 
 # Creator for Messages
 Message.create([
+	# Battle Messages
+	{
+		mes: 'Es gab eine verheerende Schlacht',
+		fullmes: 'Es hat eine verheerende Schlacht stattgefunden',
+		code: 1000
+	},
 	# Messages for Science
 	{
 	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',

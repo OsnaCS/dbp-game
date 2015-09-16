@@ -752,8 +752,8 @@ class Fight< ActiveRecord::Base
       defender_fleet_ary = turn_fleet
     end
 
-    fleet = update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
-   # update_fighting_fleet(@defender_fleet, defender_fleet_ary)
+    update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
+    update_fighting_fleet(@defender_fleet, defender_fleet_ary)
     # ANLAGEN NOCH EINFÜGEN:
     ary = [@attacker_fleet, @defender_fleet]   
 
@@ -799,30 +799,23 @@ class Fight< ActiveRecord::Base
         unit = exsisting_fleet.ship_groups.find_by(:unit_id => a[0])
         if(unit.present?)
           unit.update(number: a[1])
-       #  exsisting_fleet.ship_groups.find_by(unit_id => a[0]).update(:number => a[1])
+          if exsisting_fleet.user == @defender
+            instance = @defender_ship.get_unit_instance(unit.unit)
+            instance.amount = a[1]
+            instance.save
+          end
         end
       else
         repair = @defender_station_level[-1]
-        lost = 0
-        before = 0
-        restore = 0
         @defender_origin_facility.each do |o|
-          if (a[0] == o[0])
-            before = o[1]
-            lost = before - a[1]
-            total_cost_one =  get_total_cost_by_facility(Facility.find(o[0])) * repair
-            total_cost_all = total_cost_one * lost
-            if(total_cost_one==0) 
-              restore = a[1]
-            else
-              restore = a[1] + (total_cost_all / total_cost_one).to_i 
-            end
+          if a[0] == o[0]
+            a[1] += ((o[1] - a[1]) * repair).floor
+            @defender_ship.facility_instances.find_by(:facility_id => a[0]).update(:count => a[1])
           end
-          
-          @defender_ship.facility_instances.find_by(:facility_id => a[0]).update(:count => restore)
         end    
       end
     end
+
     exsisting_fleet.save
     return exsisting_fleet     
   end
@@ -903,7 +896,7 @@ class Fight< ActiveRecord::Base
    
     points_for_defender_before = get_total_points_fleet(@attacker_fleet)
 
-    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_before = get_total_points_fleet(@defender_fleet)#+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
     report = battle_id(attacker_fleet_id, defender_ship_id)
 
@@ -911,8 +904,8 @@ class Fight< ActiveRecord::Base
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
     points_for_defender = points_for_defender_before-points_for_defender_after
 
-    points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
-    points_for_attacker_after += get_total_points_fleet(@defender_fleet)
+    #points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_after = get_total_points_fleet(@defender_fleet)
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
 
     update_points(@defender, points_for_defender) 
@@ -927,6 +920,8 @@ class Fight< ActiveRecord::Base
   end
 
   def update_points(user, points)
+    id = user.id 
+    user = User.find(id)
     user.incr_user_rank(points)
   end
 
@@ -936,6 +931,9 @@ class Fight< ActiveRecord::Base
     init_vars(attacker_fleet_id, defender_ship_id)
     report_start
     spy_phase
+
+    @defender.notifications.create(info: "Du hast einen Kampf gegen " + @attacker.username + " geführt")
+    @attacker.notifications.create(info: "Du hast einen Kampf gegen " + @defender.username + " geführt")
         # Verlustrechnung in Datenbank übernehmen
     return battle_with_points(attacker_fleet_id, defender_ship_id)
   end
