@@ -15,6 +15,18 @@ class Ship < ActiveRecord::Base
   after_initialize :create_stations, if: :new_record?
   after_initialize :init, if: :new_record?
 
+  def sum_level
+    sum=0
+    ShipsStation.where(:ship_id => self.id).each do |station|
+      sum+=station.level
+    end  
+    return sum - ShipsStation.find_by(ship_id: self.id, station_id: 2007).level
+  end
+
+  def max_station_level
+    i = 100 + 10 * ShipsStation.find_by(ship_id: self.id, station_id: 2007).level
+    return i
+  end
   def check_condition(conditions)
     condition_split = conditions.split(",")
     condition_split.each do |condition|
@@ -202,10 +214,10 @@ class Ship < ActiveRecord::Base
 		elapsed_seconds = time - last_update
     if (self.used_energy > self.energy)
       diff = 1/(self.used_energy - self.energy).to_f
-      produktion = (energy_usage * diff * (start* (1.5 ** level))*(elapsed_seconds)).to_i
+      produktion = (energy_usage / 100)  * diff * (start* (1.5 ** level))*(elapsed_seconds)
       return produktion
     else
-		  produktion = energy_usage * (start * (1.5 ** level))*(elapsed_seconds)
+		  produktion = (energy_usage / 100) * (start * (1.5 ** level))*(elapsed_seconds)
 		  return produktion
     end
   end
