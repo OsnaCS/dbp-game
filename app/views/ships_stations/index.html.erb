@@ -13,9 +13,8 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Stufe</th>
-      <th>Status</th>
-      <th> </th>
-      <th>Energieverbrauch</th>
+      <th colspan="2" >Status</th>
+      <th colspan="2" >Energieverbrauch</th>
     </tr>
   </thead>
 
@@ -95,7 +94,7 @@
           <td>
             <%= form_for ships_station do |f| %>
               <%= f.range_field :energy_usage, id: 'metalSlider', class: 'slider_format' %>
-              <%= f.submit 'Aktualisieren' %>
+              <%= f.submit 'Aktualisieren', class: 'button_format' %>
             <% end %>
           </td>
           <td>
@@ -106,7 +105,7 @@
           <td>
             <%= form_for ships_station do |f| %>
               <%= f.range_field :energy_usage, id: 'crystalSlider', class: 'slider_format' %>
-              <%= f.submit 'Aktualisieren' %>
+              <%= f.submit 'Aktualisieren', class: 'button_format' %>
             <% end %>
           </td>
           <td>
@@ -117,7 +116,7 @@
           <td>
             <%= form_for ships_station do |f| %>
               <%= f.range_field :energy_usage, id: 'fuelSlider', class: 'slider_format' %>
-              <%= f.submit 'Aktualisieren' %>
+              <%= f.submit 'Aktualisieren', class: 'button_format' %>
             <% end %>
           </td>
           <td>
@@ -128,7 +127,7 @@
           <td>
             <%= form_for ships_station do |f| %>
               <%= f.range_field :energy_usage, id: 'generatorSlider', class: 'slider_format' %>
-              <%= f.submit 'Aktualisieren' %>
+              <%= f.submit 'Aktualisieren', class: 'button_format' %>
             <% end %>
           </td>
           <td>
