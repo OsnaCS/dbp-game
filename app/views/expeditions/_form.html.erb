@@ -23,7 +23,6 @@
          <th width="25%">zu schickende Anzahl</th>
          <th width="20%">Treibstoffkosten pro Stunde</th> 
       </tr>
-
      
       <% Unit.all.each do |unit| %>
       <% instance = current_user.active_ship.get_unit_instance(unit) %>

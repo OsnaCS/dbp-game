@@ -12,7 +12,6 @@ class Ship < ActiveRecord::Base
   after_initialize :create_stations, if: :new_record?
   after_initialize :init, if: :new_record?
 
-
   def sum_level
     sum=0
     ShipsStation.where(:ship_id => self.id).each do |station|
