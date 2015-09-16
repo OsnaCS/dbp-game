@@ -731,7 +731,7 @@ class Fight< ActiveRecord::Base
       calc_raid(attacker_fleet_ary)
     end
 
-    return ary
+    return @report
   end
   
   def calc_raid(attacker_fleet_array)
@@ -846,7 +846,7 @@ class Fight< ActiveRecord::Base
     battle_with_points(attacker_fleet_id, defender_ship_id)
 
     # Verlustrechnung in Datenbank übernehmen
-    return @testout
+    return battle_with_points(attacker_fleet_id, defender_ship_id)
   end
 
   def battle_with_points(attacker_fleet_id, defender_ship_id)
@@ -854,7 +854,7 @@ class Fight< ActiveRecord::Base
     points_for_defender_before = get_total_points_fleet(@attacker_fleet)
     points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
-    battle_id(attacker_fleet_id, defender_ship_id)
+    report = battle_id(attacker_fleet_id, defender_ship_id)
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
     points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
     points_for_attacker_after += get_total_points_fleet(@defender_fleet)
@@ -864,6 +864,7 @@ class Fight< ActiveRecord::Base
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
     update_points(@defender, points_for_defender) 
     update_points(@attacker, points_for_attacker) 
+    return battle
   end
 
   def update_points(user, points)
