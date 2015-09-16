@@ -4,14 +4,11 @@ class FightingFleet < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :expedition
-  belongs_to :fight, dependent: :destroy
+  belongs_to :fight 
   has_many :ship_groups, dependent: :destroy
-  belongs_to :user
 
- 
   validates :id, uniqueness: true
-
-  validate :validates_groups_exist
+ 
 #  validates :number, :numericality => { :greater_than_or_equal_to =>0 }
   accepts_nested_attributes_for :fight
   accepts_nested_attributes_for :ship_groups
@@ -19,10 +16,10 @@ class FightingFleet < ActiveRecord::Base
   after_initialize :initialize_units, if: :new_record?
 #  before_create :create_units
 
-  def initialize_units    
-    if self.fight.nil? 
-      self.build_fight  
-    end
+  def initialize_units
+    if self.new_record? 
+      self.build_fight
+    end  
     if self.ship_groups.empty?
       Unit.all.each do|u| 
         self.ship_groups.build  unit: u, number: 0
@@ -37,14 +34,14 @@ class FightingFleet < ActiveRecord::Base
   def self.static_flight_duration(start_ship, end_ship, total_speed)
     distance = start_ship.user.distance_to(end_ship.user)
 
-    time = 20 + (distance / (total_speed * 10))
+    time = 1#20 + (distance / (total_speed * 10))
     return time.to_i
   end
 
   def flight_duration(start_ship, end_ship)
     distance = start_ship.user.distance_to(end_ship.user)
 
-    time = 20 + (distance / (self.get_total_speed * 10))
+    time = 1#20 + (distance / (self.get_total_speed * 10))
     return time.to_i
   end
 
@@ -158,19 +155,7 @@ class FightingFleet < ActiveRecord::Base
     return back.html_safe
   end
 
-  def amount_of_groups
-    tmp=0
-      self.ship_groups.each do |a|
-        if a.number >0
-          tmp+=1
-        end
-      end
-    return tmp
-  end  
-  def validates_groups_exist
-    if (amount_of_groups==0)
-      errors.add(:base, "Keine Einheiten ausgewählt!") 
-    end
+  def create_units
   end
 
   def update_time(format)
@@ -182,7 +167,8 @@ class FightingFleet < ActiveRecord::Base
         if(self.state == 1)
           case self.mission
             when 1
-              ##Kampf
+              self.fight.update(ship_attack: fight.attacker.active_ship)
+              self.fight.fight(self.id, self.get_target_ship.id)
             when 2
               #Wenn Resourcenlimit erreicht, dann kein Transfer => Bug
               target_ship = self.get_target_ship

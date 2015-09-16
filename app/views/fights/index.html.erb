@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
+
+
+<h2>Kämpfe</h2>
+<table id="table_fighting_fleet">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <% if @fights_attacks.present? %>
+          <table>
+            <tr>
+              <th>Angriff: </th>
+              <th>Angreifer: </th>
+              <th>Verteidiger: </th>
+              <th>Zeit: </th>
+            <tr/>
+            <% @fights_attacks.each do |fight| %>
+              <tr>
+                <td><%= link_to("Zum Kampf", fight_path(fight.id)) %> </td> 
+                <td><%= link_to(fight.attacker.username, profile_path(fight.attacker.username))  %> </td> 
+                <td><%= link_to(fight.defender.username, profile_path(fight.defender.username))  %> </td> 
+                <td><%= fight.time %> </td> 
+              </tr> 
+            <% end %>
+          </table>
+        <% end %>
+        <% if @fights_defends.present? %>
+          <table>
+            <tr>
+              <th>Verteidigung: </th>
+              <th>Angreifer: </th>
+              <th>Verteidiger: </th>
+              <th>Zeit: </th>
+            <tr/>
+            <% @fights_defends.each do |fight| %>
+              <tr>
+                <td><%= link_to("Zum Kampf", fight_path(fight.id)) %> </td> 
+                <td><%= link_to(fight.attacker.username, profile_path(fight.attacker.username))  %> </td> 
+                <td><%= link_to(fight.defender.username, profile_path(fight.defender.username))  %> </td> 
+                <td><%= fight.time %> </td> 
+              </tr> 
+            <% end %>
+          </table>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -5,7 +5,10 @@ class FightsController < ApplicationController
 def index
     @target = User.find_by(:id => params[:user_id])
     @fights = Fight.all
+    @fights_attacks = Fight.where(attacker: User.last)
+    @fights_defends = Fight.where(defender: User.last)
   end
+
 
   # GET /fights/1
   # GET /fights/1.json
@@ -13,8 +16,15 @@ def index
     
     @defender=@fight.defender.username
     @attacker=@fight.attacker.username
-
-    @report=@fight.fight(@fight.fighting_fleet.id, @fight.ship_defend_id)
+    @report = @fight.report.tr('"', '').tr(']', '').split("[").reject {|r| r.empty?} 
+    @report.pop
+    @report_start = @report[0].split(',').reject {|r| r.empty?}
+    @report.shift
+    @spy_report = @fight.spy_report.tr('"','').tr('[','').tr(']','').split('|').reject {|r| r.empty?} 
+    @spy_start = @spy_report[0].tr(',','') 
+    @spy_report.shift
+    @first = Unit.count -1
+    @second = Facility.count + 2 * @first + 1
   end
 
   # GET /fights/new

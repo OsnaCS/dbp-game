@@ -6,13 +6,14 @@ class Fight< ActiveRecord::Base
   belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
 
+  
+
   def init_vars (attacker_fleet_id, defender_ship_id)
     if(!@allready_done)
       # Array in dem alle Ausgeben gespeichert werden
       @report = []
-      @testout = []
+      @spy_report = []
       # Array für die einzelnden Runden
-      @round_reports = []
       # IDs
       @spy_science_id = find_id_science ("Spionage")
       @pilot_science_id = find_id_science ("Pilotentraining")
@@ -35,35 +36,36 @@ class Fight< ActiveRecord::Base
       @shell_mult = 100
       @damage_mult = 1
       @cargo_mult = 100
-
+      #Defender:
       @defender_ship = Ship.find(defender_ship_id)
       @defender = @defender_ship.user
-      @defender_fleet = get_fleet_by_ship(@defender_ship)
 
-
-      # Speichert Flotten
       @attacker_fleet = FightingFleet.find(attacker_fleet_id)
-      # Speichert Angreifer und Verteidiger
       @attacker = @attacker_fleet.user
-      @attacker_ship = ship_attack
-      
-
-
-
-       # MUSS NOCH ANGEPASST WERDEN
-      # Speichert alle notwendigen Forschungslevel
-      @attacker_level = build_level(@attacker)
+      @defender_fleet = get_fleet_by_ship(@defender_ship)
       @defender_level = build_level(@defender)
       @defender_station_level = build_station_level
-      # Speichert die Schilde
-      @attacker_shield = shield_cal( @attacker)
       @defender_shield = shield_cal( @defender)
       @defender_facilities = build_defend_facilities(@defender_ship)
-      @defender_origin_facility = safe_origin_facility_amount (@defender_facilities)
-      @fight_shield = 0
-      @allready_done = true 
-      @attacker_lost = []
+      @defender_origin_facility = safe_origin_facility_amount(@defender_facilities)
       @defender_lost = []
+      self.defender = User.first
+      self.defender_id = @defender.id
+      self.ship_defend = @ship_defend
+      self.ship_defend_id = defender_ship_id
+      # Attacker:
+      @attacker_fleet = FightingFleet.find(attacker_fleet_id)
+      @attacker = @attacker_fleet.user
+      @attacker_ship = ship_attack
+      @attacker_level = build_level(@attacker)
+      @attacker_shield = shield_cal( @attacker)
+      @attacker_lost = []
+      self.attacker = @attacker
+      self.attacker_id = @attacker.id
+      @fight_shield = 0
+      @allready_done = true
+      self.save!     
+       
     end    
   end
   
@@ -98,11 +100,6 @@ class Fight< ActiveRecord::Base
     return Facility.find_by(name: name)
   end
 
-  # Lädt den Titel mit Agreifer und Verteidiger in den Kampfbericht 
-  def report_start
-   @report << "Kampfbericht:" 
-   @report << " Angreifer: #{self.attacker.username} Verteidiger: #{self.defender.username} "
-  end
   
   # Fragt Forschungslevel des Spielers ab
   def user_science_level(user, id)
@@ -116,6 +113,7 @@ class Fight< ActiveRecord::Base
  
   # Berechnet die Anzahl der Schiffe mit der unit_id vom Spieler user
   def amount_of_ships(user, unit_id)
+       
       return @attacker_fleet.ship_groups.find_by(unit_id: unit_id).number
   end
 
@@ -172,30 +170,28 @@ class Fight< ActiveRecord::Base
       # SPY_EVENT wird gestartet
       if threshold_spy > random_to_one
         #Spyprobes leave battle!!
-        spy_report(true, true)
+        spy_report_make(true, true)
         #STARTE EVENT
       else 
         #Spionage gescheitert
-        spy_report(true, false)
+        spy_report_make(true, false)
       end
     else    #Spionage nicht gestartet
-        spy_report(false, false)
+        spy_report_make(false, false)
     end
   end
   
   # Für die Ausgabe des Berichtes
-  def spy_report(spy_start, spy_success)
+  def spy_report_make(spy_start, spy_success)
     if spy_start
-      @report << "Spionagebericht: "
       if spy_success
-        @report << "Spionage erfolgreich! #{@defender.username} wurde ausspioniert."
+        @spy_report << "Spionage erfolgreich! #{@defender.username} wurde ausspioniert."
         spy_event
       else
-        @report << "Spionage fehlgeschlagen! Spionagedrohnen von #{@attacker.username} wurden zerstört"
+        @spy_report << "Spionage fehlgeschlagen! Spionagedrohnen von #{@attacker.username} wurden zerstört"
       end
     else 
-        @report << " "
-        @report << " "
+        @spy_report << "Keine Spionagedrohnen verschickt. "
     end
   end
 
@@ -204,28 +200,29 @@ class Fight< ActiveRecord::Base
   def spy_event
     spy_level = user_science_level(@attacker, @spy_science_id)
     if spy_level >= 2
-     @report << spy_report_level_two
+     @spy_report << spy_report_level_two
       if spy_level >= 8
-        @report << spy_report_level_eight
+        @spy_report << spy_report_level_eight
         if spy_level >= 16
-          @report << spy_report_level_sixteen
+          @spy_report << spy_report_level_sixteen
         end
       end
       else
       #Spionagelevel zu niedrig.
+      @spy_report << []
     end
   end
 
   def spy_report_level_two
-    return ["Spionagebericht: ", [" #{@defender.username} besitzt im Schiff #{@defender_ship.name}: #{get_sum_defender_ressources} Ressourcen, #{get_sum_defender_units} Einheiten und #{get_sum_defender_facilities} Anlagen." ]] 
+    return ["|", [" #{@defender.username} besitzt im Schiff #{@defender_ship.name}: #{get_sum_defender_ressources} Ressourcen, #{get_sum_defender_units} Einheiten und #{get_sum_defender_facilities} Anlagen." ]] 
   end
   
   def spy_report_level_eight
-    return ["Spionagebericht: ", get_list_defender_ressources, get_list_defender_units, get_list_defender_facilities]
+    return ["|", get_list_defender_ressources,"|", get_list_defender_units,"|", get_list_defender_facilities]
   end
 
   def spy_report_level_sixteen
-    return ["Spionagebericht: ",get_list_defender_ressources, get_list_defender_units, get_list_defender_facilities, get_list_defender_sciences]
+    return ["|",get_list_defender_ressources,"|", get_list_defender_units,"|", get_list_defender_facilities,"|", get_list_defender_sciences]
   end
 
   def get_list_defender_ressources
@@ -294,40 +291,14 @@ class Fight< ActiveRecord::Base
     if amount_of_ships(user, @emp_ship_id) > 0
       # Glückt EMP?   
       if threshold_emp(user) > random_to_one
-        emp_report(user, true, true)
         # Passe Schilde an
-        if user==@attacker
+        if user == @attacker
           @defender_shield = 0
         else
           @attacker_shield = 0
         end
-      else
-        emp_report(user, true, false)
       end
-    else 
-      emp_report(user, false, false)
     end
-  end
-
-  # Bericht bei geglücktem EMP
-  def emp_report (user, emp_start, emp_success)
-    activ = @defender
-    passiv = @attacker
-    if(user == @attacker)
-      activ = @attacker
-      passiv = @defender
-    end
-    if emp_start
-        @report << "  Emp-Phase von #{activ.username}:  "
-      if emp_success
-        @report << "Der EMP war erfolgreich!! Schild von #{passiv.username} wurde deaktiviert "
-      else
-        @report << "Der EMP war nicht erfolgreich. Schild von #{passiv.username} wurden nicht zerstört."
-      end
-    else 
-        @report << " "
-        @report << " "
-    end  
   end
   
   # Testet, ob eine Flotte noch Schiffe hat und löscht leere Schiffsgruppen
@@ -526,7 +497,7 @@ class Fight< ActiveRecord::Base
   end
 
   def  build_station_level
-    ship = Ship.find(ship_defend_id)
+    ship = Ship.find(@defender_ship)
     metal_save = 2000 * (2 ** ship.ships_stations.find_by(station_id: @metal_vault_id).level)
     crystal_save = 2000 * (2 **  ship.ships_stations.find_by(station_id: @crystal_vault_id).level)
     fuel_save =2000 * (2 **  ship.ships_stations.find_by(station_id: @fuel_vault_id).level)
@@ -629,41 +600,24 @@ class Fight< ActiveRecord::Base
       # Damit alle Gruppen in einer Runde nur auf das Schild feuern können
       shield = @fight_shield
       # Für die Ausgabe der Runden-Berichte
-      round_report = []
-      round_report << "Runde #{round}: "
-      round_report << "#{turn_user.username} ist am Zug."
-      if shield > 0
-        round_report << "Schild von #{target_user.username} ist aktiv."
-        round_report << "Schild hält noch #{shield} Schaden aus."
-        round_report << "Alle Truppen schießen auf den Schild!"
-      else  
-        round_report << "Schild von #{target_user.username} ist inaktiv."
-        round_report << "Angriffe werden nicht abgewehrt!"
-        round_report << " "
-      end
+      
+      
+      
       turn_fleet.each do |fleet|
         # Nur Einheiten mit Anzahl > 0 und Schaden > 0 können kämpfen
         if fleet[1] > 0 && fleet[2] > 0   
-          round_report << "Die Gruppe #{fleet[5]} trifft... "
+          
           # Bestimme Ziel anhand von id.
           # -2 ist Miss
           # -1 ist Schild
           target = hit(target_fleet, turn_user)
-          if(target == -2)
-            round_report << "nicht. Der Angriff ging daneben. "
-            round_report << " "
-            round_report << " "
-          elsif(target==-1)
-            round_report << "das Schild. Der Schaden beträgt:  "
+          if(target==-1)
             mult = 1
             # Falls Ionenwaffe, wird Schaden an Schild erhöht
             if fleet[3] == 2
               mult = DamageType.find(fleet[3]).shield_mult
             end
-
             damage = fleet[2] * mult
-            round_report << "#{damage} "
-            round_report << " "
             # Abzug des Schilds. Übernahme erst bei nächster Runde
             @fight_shield = @fight_shield - damage
             else
@@ -681,22 +635,17 @@ class Fight< ActiveRecord::Base
             end  
             # Bestimme welche Einheit getroffen wurde
             victim = target_fleet[target]
-            round_report << "#{victim[5]}. Der Schaden beträgt:  "
             # Schadensberechnung
             damage = fleet[2] * mult
-            
-            round_report << "#{damage} "
             # Berechne neue HP
             hit_points = victim[-2]
             victim[-2] = hit_points-damage
             # Berechne Anzahl und Schaden neu
             update_ship_group(victim, target_user)
-            round_report << "#{victim[4]} Einheiten wurden zerstört. "
           end
         end 
       end
           # Füge Runden-Bericht ein
-          @round_reports << round_report
       # Testet, ob Spieler noch Truppen besitzt
       if (defeat(target_fleet))
         continue = false
@@ -723,7 +672,7 @@ class Fight< ActiveRecord::Base
           target_user = tmp_user
       end
       # Füge alle Runden-Berichte hinzu
-      @report << @round_reports
+
     end
     if continue
       @report << "Unentschieden! "
@@ -761,7 +710,7 @@ class Fight< ActiveRecord::Base
       calc_raid(attacker_fleet_ary)
     end
 
-    return @report
+    return [@report, @spy_report]
   end
   
   def calc_raid(attacker_fleet_array)
@@ -786,9 +735,9 @@ class Fight< ActiveRecord::Base
     if faktor > 1
       faktor = 1
     end
-    @testout << @attacker_fleet.metal = max_raid[0] *  faktor
-    @testout << @attacker_fleet.crystal = max_raid[1] *  faktor
-    @testout << @attacker_fleet.fuel = max_raid[2] *  faktor
+    @attacker_fleet.metal = max_raid[0] *  faktor
+    @attacker_fleet.crystal = max_raid[1] *  faktor
+    @attacker_fleet.fuel = max_raid[2] *  faktor
     @attacker_fleet.save
   end
 
@@ -929,12 +878,15 @@ class Fight< ActiveRecord::Base
   # Schluss den Report zurück
   def fight(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
-    report_start
     spy_phase
-
-    @defender.notifications.create(info: "Du hast einen Kampf gegen " + @attacker.username + " geführt")
-    @attacker.notifications.create(info: "Du hast einen Kampf gegen " + @defender.username + " geführt")
+    @defender.notifications.create(message: Message.find_by_code(1000),info: "Ihr Schiff "+@defender_ship.name+" wurde angegriffen von: " + @attacker.username)
+    @attacker.notifications.create(message: Message.find_by_code(1000),info: "Ihre Truppen sind bei Schiff "+@defender_ship.name+" eingetroffen. Kampf gegen " + @defender.username + "!")
         # Verlustrechnung in Datenbank übernehmen
-    return battle_with_points(attacker_fleet_id, defender_ship_id)
+        battle_with_points(attacker_fleet_id, defender_ship_id)
+        Fight.find(self.id).update(report: @report.to_s)        
+        Fight.find(self.id).update(spy_report: @spy_report.to_s)        
+        Fight.find(self.id).update(time: DateTime.now)        
+        self.save        
+    return @report
   end
 end
