@@ -16,24 +16,22 @@
    <%= number_field_tag(:exp_time, 1, within: 1...25) %>
    <br><br>
    <table>
-      <colgroup span=2></colgroup>
       <tr>
-         <th></th>
-         <th>Einheit</th>
-         <th>stationierte Menge</th>
-         <th>zu schickende Anzahl</th>
-         <th>Treibstoffkosten pro Stunde</th>
+         <th width="10%"></th>
+         <th width="20%">Einheit</th>
+         <th width="10%">stationierte Menge</th>
+         <th width="25%">zu schickende Anzahl</th>
+         <th width="20%">Treibstoffkosten pro Stunde</th> 
       </tr>
-
      
       <% Unit.all.each do |unit| %>
       <% instance = current_user.active_ship.get_unit_instance(unit) %>
       <tr>
            <td><img src= "<%= image_url(unit.icon)%>", width="35", height="35", id="icon"></td>
-           <td align=left ><%= unit.name %></td>       
-           <td><%= instance.amount %></td>
+           <td align=center><p><%= unit.name %></p></td>       
+           <td><p><%= instance.amount %></p></td>
            <td><%= number_field_tag(unit.id, 0, min:0, max: instance.amount) %></td>
-           <td align=right ><%= ((unit.shell + unit.cargo)/@userFuelFactor).round %> pro Einheit</td>
+           <td align=center><p><%= ((unit.shell + unit.cargo)/@userFuelFactor).round %> pro Einheit</p></td>
       </tr>
 
       <% end %>
