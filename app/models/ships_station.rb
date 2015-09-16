@@ -97,7 +97,7 @@ class ShipsStation < ActiveRecord::Base
     end
 
     if(back.length != 0)
-      back = "Voraussetzung: <br>"+back
+      back = "Voraussetzung: <br>" + back
     end
 
     if(!ship.enough_space(self))

@@ -60,9 +60,31 @@ class User < ActiveRecord::Base
     return science_instances.find_by(:science_id => science.id)
   end
 
-  def is_researching(instance)
+  def is_elsewhere_researching(instance)
     ship = Ship.find_by(:id => instance.research_ship || self.activeShip)
     return ship.build_lists.find_by(typeSign: 'r', instance_id: instance.id) != nil && instance.start_time != nil
+  end
+
+  def is_researching(instance)
+    ship = Ship.find_by(:id => instance.research_ship || self.activeShip)
+    return (!enough_network(instance, ship) || self.active_ship.build_lists.find_by(typeSign: 'n', instance_id: instance.id) != nil) && ship.build_lists.find_by(typeSign: 'r', instance_id: instance.id) != nil && instance.start_time != nil
+  end
+
+  def enough_network(instance, ship)
+    if ship == self.active_ship
+      return false
+    else
+      dummylists = BuildList.where(typeSign: 'n', instance_id: instance.id)
+      dummycount = 0
+      if (dummylists!= nil)
+        dummycount = dummylists.count
+      end
+      if(dummycount >= instance.user.science_instances.find_by(:science_id => 4008).level)
+        return false
+      else
+        return true
+      end
+    end
   end
 
   def can_research(instance)
@@ -74,6 +96,9 @@ class User < ActiveRecord::Base
     fuel = instance.science.get_fuel_cost(level)
 
     enough_resources = self.has_enough_resources(metal, crystal, fuel)
+    if self.is_elsewhere_researching(instance) && !self.is_researching(instance)
+      enough_resources = true
+    end
 
     return condition && !self.is_researching(instance) && enough_resources && !(instance.level_cap_reached) && research_count_control
   end
@@ -82,6 +107,9 @@ class User < ActiveRecord::Base
     back = true
     science_instances.each do |instance|
       if(instance.research_ship == self.activeShip)
+        back = false
+      end
+      if(self.active_ship.build_lists.find_by(typeSign: 'n', instance_id: instance.id) != nil)
         back = false
       end
     end
@@ -267,7 +295,7 @@ class User < ActiveRecord::Base
     def init
       Science.all.each do |science|
         if not(science_instances.exists?(:science_id => science.id, :user_id => self.id))
-          science_instances.build(science: science, level: 0)
+          science_instances.build(science: science, level: 0, research_amount: 0)
         end
       end
     end

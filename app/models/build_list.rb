@@ -27,6 +27,7 @@ def startBuild
 		station_instance = ShipsStation.find_by(id: self.instance_id)
     	station_instance.start_time = Time.now
 		station_instance.save	
+	when 'n'	
 	end
 end
 
@@ -40,6 +41,8 @@ def getDuration
 		return getDurationR
 	when 's'
 		return getDurationS
+	when 'n'
+		return 0
 	end
 end
 

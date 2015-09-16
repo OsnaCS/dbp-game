@@ -24,6 +24,9 @@ class ScienceInstance < ActiveRecord::Base
 
   def get_duration(level)
     research_station_level = ShipsStation.find_by(:ship_id => research_ship || user.activeShip, :station_id => 2004).level
+    if(self.research_amount != 0)
+      research_station_level = self.research_amount
+    end
     return (self.science.duration * self.science.factor ** (level + 1)) / (1 + 0.1 * research_station_level)
   end
 
@@ -107,7 +110,7 @@ class ScienceInstance < ActiveRecord::Base
     end
 
     if(back.length != 0)
-      back = back + "Voraussetzung: <br>"
+      back = "Voraussetzung: <br>" + back
     end
 
     if(user.is_researching(self) || !user.research_count_control)
@@ -120,7 +123,11 @@ class ScienceInstance < ActiveRecord::Base
   def reset_build
     self.start_time = nil
     self.research_ship = nil
+    self.research_amount = 0
     self.save
+    BuildList.where(typeSign: 'n', instance_id: self.id).each do |b|
+      b.destroy
+    end
     b = BuildList.find_by(typeSign: 'r', instance_id: self.id)
     if b != nil
       b.destroy

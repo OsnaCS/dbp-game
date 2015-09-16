@@ -72,7 +72,7 @@
             <% class_main = Science %>
             <% found = true %>
             <% inactive = nil %>
-            <% if(!current_user.is_researching(instance)) %>
+            <% if(!current_user.is_elsewhere_researching(instance)) %>
               <tr id="inactive">
               <% inactive = true %>
             <% else %>
@@ -178,8 +178,10 @@
             <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         <% else %>
-          <td>Damaged Build:&nbsp; </td>
-          <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if current_user.is_admin %>
+            <td>Damaged Build:&nbsp; </td>
+            <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         <% end %>
         </tr>
       <% end %>

@@ -21,7 +21,7 @@
   <tbody>
     <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
       <% inactive = nil %>
-      <% if(!current_user.is_researching(science_instance)) %>
+      <% if(!current_user.is_elsewhere_researching(science_instance)) %>
         <tr id="inactive">
         <% inactive = true %>
       <% else %>
@@ -53,13 +53,13 @@
 
         <% if availability %>
           <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
-        <% else %>
+        <% end %>
 
-          <% if(inactive) %>
-            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
-          <% else %>
-          
-            <td>
+        <% if(inactive && !availability) %>
+          <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
+        <% end %>
+        <% if(!inactive) %>
+          <td>
               <a>
                 <%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
                 <span><%= science_instance.get_refund %></span>
@@ -68,8 +68,6 @@
             <td>
               <%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %>
             </td>
-          <% end %>
-
         <% end %>
 
       <% end %>

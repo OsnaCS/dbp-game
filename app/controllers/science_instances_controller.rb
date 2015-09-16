@@ -48,14 +48,24 @@ class ScienceInstancesController < ApplicationController
     lvl = @science_instance.level
     if @science_instance.level_cap_reached
       redirect_to :back, alert: 'Research was cancelled! Cap reached.'
-      # Network Abfrage ToDo!!!!!!!!!!!!!!!!!!!!!!
       return
     end
     
-    if BuildList.find_by(typeSign: 'r', instance_id: @science_instance.id) != nil
-      redirect_to :back, alert: 'Research was cancelled! Already researching.'
-      # Network Abfrage ToDo!!!!!!!!!!!!!!!!!!!!!!
-      return
+    first_instance = BuildList.find_by(typeSign: 'r', instance_id: @science_instance.id)
+    if first_instance != nil
+      dummylists = BuildList.where(typeSign: 'n', instance_id: @science_instance.id)
+      dummycount = 0
+      if (dummylists!= nil)
+        dummycount = dummylists.count
+      end
+      if(dummycount >= @science_instance.user.science_instances.find_by(:science_id => 4008).level)
+        redirect_to :back, alert: 'Research was cancelled! Already researching.'
+        return
+      else
+        @science_instance.research_amount += ship.ships_stations.find_by(:station_id => 2004).level
+        @science_instance.save
+        BuildList.create(typeSign: 'n', ship_id: current_user.activeShip, instance_id: @science_instance.id)
+      end
     else
       if(ship.metal < science.get_metal_cost(lvl) || ship.cristal < science.get_crystal_cost(lvl) || ship.fuel < science.get_fuel_cost(lvl))
         redirect_to :back, alert: 'Research was cancelled! Not enough resources.'
@@ -65,6 +75,8 @@ class ScienceInstancesController < ApplicationController
         ship.cristal -= science.get_crystal_cost(lvl)
         ship.fuel -= science.get_fuel_cost(lvl)
         ship.save
+        @science_instance.research_amount = ship.ships_stations.find_by(:station_id => 2004).level
+        @science_instance.save
         BuildList.create(typeSign: 'r', ship_id: current_user.activeShip, instance_id: @science_instance.id)
       end
     end

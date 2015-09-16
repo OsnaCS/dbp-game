@@ -336,7 +336,7 @@ Station.create([
 	  costFuel: 1,
 	  initial_level: 0,
 	  station_condition_id: 4,
-	  condition: 's:5:4',
+	  condition: 'g:5:4',
 	  tier: 2,
 	  icon: 'research-building.png',
 	  duration: 240
@@ -362,7 +362,7 @@ Station.create([
 	  costFuel: 1,
 	  initial_level: 0,
 	  station_condition_id: 6,
-	  condition: 's:5:2',
+	  condition: 'g:5:2',
 	  tier: 2,
 	  icon: 'dockyard.png',
 	  duration: 240
@@ -375,7 +375,7 @@ Station.create([
 	  costFuel: 2,
 	  initial_level: 0,
 	  station_condition_id: 7,
-	  condition: 's:5:10',
+	  condition: 'g:5:10',
 	  tier: 3,
 	  icon: 'extension-platform.png',
 	  duration: 480
@@ -427,7 +427,7 @@ Station.create([
 	  costFuel: 0,
 	  initial_level: 0,
 	  station_condition_id: 11,
-	  condition: 's:8:4',
+	  condition: 'g:8:4',
 	  tier: 2,
 	  icon: 'metal-safe.png',
 	  duration: 240
@@ -440,7 +440,7 @@ Station.create([
 	  costFuel: 0,
 	  initial_level: 0,
 	  station_condition_id: 12,
-	  condition: 's:9:4',
+	  condition: 'g:9:4',
 	  tier: 2,
 	  icon: 'crystal-safe.png',
 	  duration: 240
@@ -453,7 +453,7 @@ Station.create([
 	  costFuel: 2,
 	  initial_level: 0,
 	  station_condition_id: 13,
-	  condition: 's:10:4',
+	  condition: 'g:10:4',
 	  tier: 2,
 	  icon: 'fuel-safe.png',
 	  duration: 240
@@ -479,7 +479,7 @@ Station.create([
 	  costFuel: 1,
 	  initial_level: 0,
 	  station_condition_id: 15,
-	  condition: 's:14:4',
+	  condition: 'g:14:4',
 	  tier: 2,
 	  icon: 'burn-generator.png',
 	  duration: 240
@@ -492,7 +492,7 @@ Station.create([
 	  costFuel: 0,
 	  initial_level: 0,
 	  station_condition_id: 16,
-	  condition: 's:5:8',
+	  condition: 'g:5:8',
 	  tier: 3,
 	  icon: 'repair-building.png',
 	  duration: 480

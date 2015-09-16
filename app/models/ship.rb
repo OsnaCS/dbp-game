@@ -138,7 +138,7 @@ class Ship < ActiveRecord::Base
   end
 
   def is_upgrading(instance)
-    return self.build_lists.find_by(typeSign: 's', instance_id: instance.id) != nil && instance.start_time != nil
+    return instance.ship.build_lists.find_by(typeSign: 's', instance_id: instance.id) != nil && instance.start_time != nil
   end
 
   def get_used_energy
