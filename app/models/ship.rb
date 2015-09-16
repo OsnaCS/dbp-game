@@ -170,6 +170,7 @@ class Ship < ActiveRecord::Base
     if(id==2010)
       start = 5000.0
     end
+
     lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
     value = start * 2**lvl
     return value
@@ -219,6 +220,12 @@ class Ship < ActiveRecord::Base
 		time = Time.now.getutc
 		start = start.to_f
 		elapsed_seconds = time - last_update
+    #if (self.used_energy > self.energy)
+      #diff = 1/(self.used_energy - self.energy)
+     # produktion = diff * (start* (1.5 ** level))*(elapsed_seconds)
+      #return produktion
+    #else
+		  produktion = (start* (1.5 ** level))*(elapsed_seconds)
     if (self.used_energy > self.energy)
       diff = 1/(self.used_energy - self.energy).to_f
       produktion = (energy_usage / 100)  * diff * (start* (1.5 ** level))*(elapsed_seconds)

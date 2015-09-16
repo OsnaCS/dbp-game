@@ -10,7 +10,6 @@
          </ul>
       </div>
    <% end %>
-
   <div class="field">
    Expeditionszeit in Stunden:<br>
    <%= number_field_tag(:exp_time, 1, within: 1...25) %>
@@ -41,5 +40,5 @@
   </div>
   <div class="actions">
       <%= f.submit %>
-  </div>
+   </div>
 <% end %>
