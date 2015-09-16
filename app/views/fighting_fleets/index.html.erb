@@ -1,35 +1,46 @@
 <p id="notice"><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
-<h1 class="userlabel">Listing Fighting Fleets</h1>
-  <% @fighting_fleets.each do |fighting_fleet| %>
-      <table>
+<h1>Flottenbewegungen</h1>
+
+<% if not(@fighting_fleets.empty?) %>
+  <h2>Aktive Flottenbewegungen</h2>
+
+  <table id="table_fighting_fleet">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Aktion</th>
+        <th>Mission</th>
+        <th>Ziel</th>
+        <th>Schiff</th>
+        <th>Dauer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fighting_fleets.each do |fighting_fleet| %>
         <tr>
-          <th>Angreifer: </th>
-          <th><%=fighting_fleet.fight.attacker.username%></th>
-          <th>Verteidiger: </th>
-          <th><%=fighting_fleet.fight.defender.username%></th>
-        </tr>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Schiffe</th>
-            <th >Anzahl</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% fighting_fleet.ship_groups.each do |s|  %>
-            <tr>
-              <td><%= s.unit.name%> </td>
-              <td><%= s.number%> </td>
-            </tr>
-          <% end %>
-          <tr>
+          <% if(fighting_fleet.user_id == current_user.id) %>
+            <td>
+              <a>
+                <img src= "<%= image_url("facility_icons/shield_big.png")%>", width="50", height="50", id="icon">
+                <span><%= fighting_fleet.info %></span>
+              </a>
+            </td>
+            <td><%= fighting_fleet.get_state %></td>
+            <td><%= fighting_fleet.get_mission %></td>
+            <td><%= fighting_fleet.fight.defender.username %></td>
+            <td><%= fighting_fleet.get_target_ship.name %></td>
+
+            <td class="running"
+              data-id="<%= fighting_fleet.id %>"
+              data-time="<%= fighting_fleet.update_time(false) %>">
+            </td>
             <td colspan="2"><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-          <tr>
-            <td colspan="2"> <%= button_to 'Neue Flotte', new_fighting_fleet_path, method: :get %></td> 
-          </tr>
-        </tbody>
-      </table>
-  <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    <%= javascript_tag "start_timer()" -%>
+  </table>
+<% end %>

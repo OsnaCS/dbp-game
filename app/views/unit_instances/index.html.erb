@@ -13,19 +13,15 @@
   </thead>
 
   <tbody>
+    <% current_ship = current_user.active_ship %>
     <% @unit_instances.each do |unit_instance| %>
-      <tr>
-        <td><%= unit_instance.unit_id %></td>
-        <td><%= unit_instance.ship_id %></td>
-        <td><%= unit_instance.amount %></td>
-        <td><%= link_to 'Show', unit_instance %></td>
-        <td><%= link_to 'Edit', edit_unit_instance_path(unit_instance) %></td>
-        <td><%= link_to 'Destroy', unit_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if(unit_instance.ship_id == current_ship.id) %>
+        <tr>
+          <td><%= Unit.find_by(:id => unit_instance.unit_id).name %></td>
+          <td><%= unit_instance.amount %></td>
+          <td><%= link_to 'Edit', edit_unit_instance_path(unit_instance) %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Unit instance', new_unit_instance_path %>
