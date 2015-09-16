@@ -17,6 +17,9 @@
       <% end %>
       
       <%= "Ziel: " + @target.username %>
+      <br>
+      <% distance = current_user.distance_to(@target) %>
+      <%= "Distanz: " + distance.to_s %>
       <%= f.fields_for :user do |ff| %>
         <div class="field">
           <%= ff.label :Schiff %><br>
@@ -41,9 +44,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= number_field_tag(:metal_cargo, 0, min:0) %></td>
-              <td><%= number_field_tag(:crystal_cargo, 0, min:0) %></td>
-              <td><%= number_field_tag(:fuel_cargo, 0, min:0) %></td>
+              <td><%= number_field_tag(:metal_cargo, 0, min:0, max: @max_metal) %></td>
+              <td><%= number_field_tag(:crystal_cargo, 0, min:0, max: @max_crystal) %></td>
+              <td><%= number_field_tag(:fuel_cargo, 0, min:0, max: @max_fuel) %></td>
             </tr>
           </tbody>
         </table>
@@ -54,7 +57,8 @@
            <th>Einheit</th>
            <th>stationierte Menge</th>
            <th>zu schickende Anzahl</th>
-           <th>Treibstoffkosten pro Stunde</tr>
+           <th>Treibstoffkosten pro Stunde</th>
+           <th>Geschwindigkeit</th>
           </tr>
 
           <% Unit.all.each do |unit| %>
@@ -64,7 +68,8 @@
               <% amount = current_user.active_ship.get_unit_instance(unit).amount %>
               <td><%=  amount %></td>
               <td><%= number_field_tag(unit.id, 0, min:0, max: amount) %></td>
-              <td align=right >x pro Einheit</td>
+              <td align=left ><%= @fuelcost[unit.id]%> pro Einheit</td>
+              <td align=left ><%= unit.speed %></td>
             </tr>
           <% end %>
         </table>

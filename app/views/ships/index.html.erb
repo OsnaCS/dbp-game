@@ -19,8 +19,8 @@
         <td><p class="userbutton"><%= link_to 'Auswählen', ship_path(usership.ship) %></p></td>
         <td><p class="userbutton"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></p></td>
         <td><p class="userbutton"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></p></td>
-        <% if not(current_user.active_ship) %>
-          <td><p class="userbutton"><%= link_to 'Flotte Verschicken', ship_ships_stations_path(usership) %></p></td>
+        <% if not(current_user.active_ship.id == usership.ship.id) %>
+          <td><p class="userbutton"><%= link_to 'Flotte Verschicken', new_fighting_fleet_path(:user_id => current_user.id) %></p></td>
         <% end %>
         <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>

@@ -211,7 +211,7 @@ class Ship < ActiveRecord::Base
     else
 		  produktion = energy_usage * (start * (1.5 ** level))*(elapsed_seconds)
 		  return produktion
-    #end
+    end
   end
 
   def init

@@ -59,7 +59,18 @@ class User < ActiveRecord::Base
   end
 
   def distance_to(user)
-    return 10
+    offset = 20
+    factor = 10
+    end_score = user.rank.score
+    start_score = self.rank.score
+
+    distance = factor * (offset + (start_score - end_score))
+
+    if(distance < 0)
+      return -1 * distance
+    else
+      return distance
+    end
   end
 
   def active_ship
