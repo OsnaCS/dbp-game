@@ -158,7 +158,7 @@ class Expedition < ActiveRecord::Base
    end
 
    def salvage
-      threshold = ((rand(50)+40)/100)*@value/10.0
+      threshold = @value/10.0
       gain = 0.0
       kreuzer_amount = 0
       jaeger_amount = 0
