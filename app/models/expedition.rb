@@ -28,11 +28,11 @@ class Expedition < ActiveRecord::Base
    def occurance
       occ = rand(100)
       case occ
-      when 0..20
+      when 0..10
          return destruction
-      when 20..40
+      when 10..30
          return fight
-      when 40..80
+      when 30..80
          return ressource
       when 80..100
          return salvage
@@ -158,7 +158,7 @@ class Expedition < ActiveRecord::Base
    end
 
    def salvage
-      threshold = @value/10.0
+      threshold = ((rand(50)+40)/100)*@value/10.0
       gain = 0.0
       kreuzer_amount = 0
       jaeger_amount = 0
