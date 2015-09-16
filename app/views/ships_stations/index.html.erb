@@ -54,7 +54,7 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-        <td><%= ships_station.level %></td>        
+        <td><%= ships_station.level %></td>
         <% if @ship.sum_level < @ship.max_station_level %>
           <% if availability %>
               <% Ship.find_by(id: current_user.activeShip).get_energy%>
@@ -89,6 +89,7 @@
         <% end %>
         <% if ships_station.level>0 && availability%>
           <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), data: { confirm: 'Are you sure?' }, method: :get %></td>
+        <% else %> <th> </th>  
         <%end%>
         <% if (ships_station.station_id == 2001)%>
           <td>
@@ -140,4 +141,3 @@
      <%= javascript_tag "start_timer()" -%>
 </table>
 <p class="userbutton"><%= link_to 'Back', ships_path %></p>
-
