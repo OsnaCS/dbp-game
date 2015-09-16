@@ -1,14 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<<<<<<< HEAD
+
 <h1 class="userlabel">Stationen</h1><br/><br/>
 <h2> Bauplätze <%= @ship.sum_level%> / <%=@ship.max_station_level %> belegt</h2>
-
 <br/>
-=======
-<h1 class="userlabel">Stationen</h1><br/>
-
->>>>>>> 0f4f2975450e7259eba9f5aa554d5cc8ee70996b
 <% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
@@ -60,13 +55,8 @@
         <% end %>
         <% availability = current_user.check_condition(station.condition) && !current_user.active_ship.is_upgrading &&
           current_user.has_enough_resources(metal, crystal, fuel) %>
-<<<<<<< HEAD
         <td><%= ships_station.level %></td>        
         <% if @ship.sum_level < @ship.max_station_level %>
-=======
-        <td><%= ships_station.level %></td>
-        <% if ships_station.sum_level(@ship) < ships_station.max_station_level(@ship) %>
->>>>>>> 0f4f2975450e7259eba9f5aa554d5cc8ee70996b
           <% if availability %>
               <% Ship.find_by(id: current_user.activeShip).get_energy%>
               <% Ship.find_by(id: current_user.activeShip).get_used_energy%>
@@ -99,13 +89,7 @@
         <% end %>
         <% end %>
         <% if ships_station.level>0 && availability%>
-<<<<<<< HEAD
           <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), data: { confirm: 'Are you sure?' }, method: :get %></td>
-=======
-          <td><%= button_to 'Downgrade', downgrade_ships_station_path(ships_station), method: :get %></td>
-        <% else %>
-          <td> </td>
->>>>>>> 0f4f2975450e7259eba9f5aa554d5cc8ee70996b
         <%end%>
         <% if (ships_station.station_id == 2001)%>
           <td>
@@ -156,8 +140,5 @@
   </tbody>
      <%= javascript_tag "start_timer()" -%>
 </table>
-<<<<<<< HEAD
 <p class="userbutton"><%= link_to 'Back', ships_path %></p>
-=======
-<%= link_to 'Back', ships_path %>
->>>>>>> 0f4f2975450e7259eba9f5aa554d5cc8ee70996b
+
