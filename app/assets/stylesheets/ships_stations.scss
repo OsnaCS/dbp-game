@@ -5,7 +5,7 @@
 #table_ship_stations {
   margin: auto;
   position: relative;
-  width: 80%;
+  width: 100%;
   border: 5px;
   border-collapse: collapse;
   table-layout: fixed;
@@ -24,10 +24,23 @@
 }
 
 .slider_format {
-	float: left;
+	margin: auto;
+	position: relative;
 	width: 110%;
 }
 
 .slider_value {
-	float: left;
+	margin: auto;
+	position: relative;
+}
+
+.button_format {
+	margin: auto;
+	position: relative;
+	width: 115%;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: transparent;
 }
