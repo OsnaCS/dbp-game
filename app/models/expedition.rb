@@ -28,11 +28,11 @@ class Expedition < ActiveRecord::Base
    def occurance
       occ = rand(100)
       case occ
-      when 0..20
+      when 0..10
          return destruction
-      when 20..40
+      when 10..30
          return fight
-      when 40..80
+      when 30..80
          return ressource
       when 80..100
          return salvage
