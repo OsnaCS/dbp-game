@@ -34,14 +34,14 @@ class FightingFleet < ActiveRecord::Base
   def self.static_flight_duration(start_ship, end_ship, total_speed)
     distance = start_ship.user.distance_to(end_ship.user)
 
-    time = 1#20 + (distance / (total_speed * 10))
+    time = 20 + (distance / (total_speed * 10))
     return time.to_i
   end
 
   def flight_duration(start_ship, end_ship)
     distance = start_ship.user.distance_to(end_ship.user)
 
-    time = 1#20 + (distance / (self.get_total_speed * 10))
+    time = 20 + (distance / (self.get_total_speed * 10))
     return time.to_i
   end
 
