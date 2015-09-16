@@ -5,7 +5,7 @@ class ShipsStationsController < ApplicationController
   # GET /ships_stations.json
   def index
     #Wenn Schiffe existieren
-    @ship = Ship.find(params[:ship_id])
+    @ship = current_user.active_ship
     @ships_stations = @ship.ships_stations
   end
 
@@ -40,21 +40,46 @@ class ShipsStationsController < ApplicationController
   end
 
   def upgrade
-    @ships_station.start_time = Time.now
-    @ships_station.save
+    ship = @ships_station.ship
+    if ship == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
+    station = @ships_station.station
+    lvl = @ships_station.level
+    if @ships_station.level_cap_reached
+      redirect_to :back, alert: 'Building was cancelled! Cap reached.'
+      return
+    end
+    
+    if BuildList.find_by(typeSign: 's', instance_id: @ships_station.id) != nil
+      redirect_to :back, alert: 'Building was cancelled! Already building.'
+      return
+    else
+      if(ship.metal < station.get_metal_cost(lvl) || ship.cristal < station.get_crystal_cost(lvl) || ship.fuel < station.get_fuel_cost(lvl))
+        redirect_to :back, alert: 'Building was cancelled! Not enough resources.'
+        return
+      else
+        ship.metal -= station.get_metal_cost(lvl)
+        ship.cristal -= station.get_crystal_cost(lvl)
+        ship.fuel -= station.get_fuel_cost(lvl)
+        ship.save
+        BuildList.create(typeSign: 's', ship_id: ship.id, instance_id: @ships_station.id)
+      end
+    end
 
-    metal = @ships_station.station.get_metal_cost(@ships_station.level)
-    crystal = @ships_station.station.get_crystal_cost(@ships_station.level)
-    fuel = @ships_station.station.get_fuel_cost(@ships_station.level)
-
-    current_user.remove_resources_from_current_ship(metal, crystal, fuel)
-    redirect_to ship_ships_stations_url(@ships_station.ship)
+    redirect_to :back
   end
 
   def downgrade
-    @ships_station.level = @ships_station.level - 1
-    @ships_station.save
-    redirect_to ship_ships_stations_url(@ships_station.ship)
+    if(@ships_station.level > 0)
+      @ships_station.level = @ships_station.level - 1
+      @ships_station.save
+    else
+      redirect_to :back, alert: 'Downgrade was cancelled! Already Level 0.'
+      return
+    end
+    redirect_to :back
   end
 
   def cancel_upgrade
@@ -68,18 +93,17 @@ class ShipsStationsController < ApplicationController
 
     current_user.add_resources_to_current_ship(reMetal, reCrystal, reFuel)
 
-    @ships_station.start_time = nil
-    @ships_station.save
-    redirect_to ship_ships_stations_url(@ships_station.ship)
+    @ships_station.reset_build
+    redirect_to :back
   end
 
 
 
   def instant_upgrade
     @ships_station.level = @ships_station.level + 1
-    @ships_station.start_time = nil
     @ships_station.save
-    redirect_to ship_ships_stations_url(@ships_station.ship)
+    @ships_station.reset_build
+    redirect_to :back
   end
 
   # PATCH/PUT /ships_stations/1

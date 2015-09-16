@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   has_many :sciences, :through => :science_instances
   has_many :unit_instances, dependent: :destroy
   has_many :units, :through => :unit_instances
-  has_many :user_ships
+  has_many :user_ships, dependent: :destroy
   has_many :ships, :through => :user_ships
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
   has_many :messages, through: :notifications
   has_many :expedition_instances, dependent: :destroy
   has_many :expeditions, :through => :expedition_instances
@@ -43,11 +43,6 @@ class User < ActiveRecord::Base
         if not (science_instance.level >= condition_elements[2].to_i)
           return false
         end
-      else
-        ship_station_instance = ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => Station.find_by(:station_condition_id => condition_elements[1]).id)
-        if not(ship_station_instance.level >= condition_elements[2].to_i)
-          return false
-        end
       end
     end
     return true
@@ -65,7 +60,13 @@ class User < ActiveRecord::Base
     return science_instances.find_by(:science_id => science.id)
   end
 
-  def can_research(instance, level)
+  def is_researching(instance)
+    ship = Ship.find_by(:id => instance.research_ship || self.activeShip)
+    return ship.build_lists.find_by(typeSign: 'r', instance_id: instance.id) != nil && instance.start_time != nil
+  end
+
+  def can_research(instance)
+    level = instance.level
     condition = instance.check_conditions()
 
     metal = instance.science.get_metal_cost(level)
@@ -73,8 +74,6 @@ class User < ActiveRecord::Base
     fuel = instance.science.get_fuel_cost(level)
 
     enough_resources = self.has_enough_resources(metal, crystal, fuel)
-
-
 
     return condition && !self.is_researching(instance) && enough_resources && !(instance.level_cap_reached) && research_count_control
   end
@@ -89,27 +88,35 @@ class User < ActiveRecord::Base
     return back
   end
 
-  def can_build_unit(unit, ship)
-    condition = self.check_condition(unit.conditions) 
-    not_building = ship.get_unit_instance(unit).start_time.nil?
-
-    metal = unit.get_metal_cost() 
-    crystal = unit.get_crystal_cost() 
-    fuel = unit.get_fuel_cost()
-
-    enough_resources = self.has_enough_resources(metal, crystal, fuel)
-    return condition && not_building && enough_resources 
-  end
+#  def can_build_unit(unit, ship)
+#    condition = self.check_condition(unit.conditions) 
+#    not_building = ship.get_unit_instance(unit).start_time.nil?
+#
+#    metal = unit.get_metal_cost() 
+#    crystal = unit.get_crystal_cost() 
+#    fuel = unit.get_fuel_cost()
+#
+#    enough_resources = self.has_enough_resources(metal, crystal, fuel)
+#    return condition && not_building && enough_resources 
+#  end
 
   def has_min_science_level(science, level)
     return self.get_science_instance(science).level >= level.to_i
   end
+
+  def ship_counter
+    count = 0
+    user_ships.each do
+      count += 1
+    end
+    return count
+  end
   
   def next_ship_allowed
-    if ship_count < 3
+    if ship_counter < 3
       return true
     end
-    if self.ship_count > self.get_science_instance(Science.find_by(id: '4009')).level + 2
+    if ship_counter > self.get_science_instance(Science.find_by(id: '4009')).level + 3
       return false
     else 
       return true
@@ -203,11 +210,6 @@ class User < ActiveRecord::Base
     self.add_resources(metal, crystal, fuel, active_ship)
   end
 
-  def is_researching(instance)
-    ship = Ship.find_by(:id => instance.research_ship || self.activeShip)
-    return ship.build_lists.find_by(typeSign: 'r', instance_id: instance.id) != nil && instance.start_time != nil
-  end
-
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)
@@ -226,18 +228,8 @@ class User < ActiveRecord::Base
   end
 
   def create_ship(ship_name)
-    if self.ship_count == nil
-      self.ship_count=0
-      self.save
-    end
-
-    if self.ship_count < 9
-      self.ship_count+=1
-      self.save
-      if self.ship_count>1
-        if !has_enough_resources(200000,100000,0)
-          return
-        end
+    if self.ship_counter < 9
+      if self.ship_counter>1 && has_enough_resources(200000,100000,0)
         remove_resources_from_current_ship(200000, 100000, 0)
       end
       s = self.ships.build(ship_name)

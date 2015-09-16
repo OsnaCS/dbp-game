@@ -66,7 +66,7 @@
         <% else %>
           <td>
             <a>
-              <%= form_tag build_unit_path(instance), method: 'get' do %>    
+              <%= form_tag build_unit_instance_path(instance), method: 'get' do %>    
                 <%= number_field_tag(:create_amount, nil, placeholder: '0', min: 0, max: instance.get_max_buy_amount()) %>
                 <%= submit_tag 'Herstellen', data: { confirm: 'Are you sure?' }, method: :get %>
               <% end %>

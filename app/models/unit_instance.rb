@@ -9,8 +9,8 @@ class UnitInstance < ActiveRecord::Base
   end
 
   def get_duration()
-    factor = (1 + 0.1 * ShipsStation.find_by(:ship_id => ship_id, :station_id => 2006).level) 
-    return ((self.unit.get_total_cost / 500) * 2) / factor
+    factor = (1 + 0.1 * ship.ships_stations.find_by(:station_id => 2006).level) 
+    return ((self.unit.get_total_cost / 500) * 120) / factor
   end
 
   def get_max_buy_amount()
@@ -108,7 +108,7 @@ class UnitInstance < ActiveRecord::Base
       update = false
     end
     self.start_time = nil
-    self.create_count = nil
+    self.build_amount = nil
     self.save
     b = BuildList.find_by(typeSign: 'u', instance_id: self.id)
     if b != nil

@@ -24,6 +24,9 @@ def startBuild
     	science_instance.start_time = Time.now
 		science_instance.save	
 	when 's'
+		station_instance = ShipsStation.find_by(id: self.instance_id)
+    	station_instance.start_time = Time.now
+		station_instance.save	
 	end
 end
 
@@ -44,8 +47,8 @@ def getDurationF(instance = FacilityInstance.find_by(id: self.instance_id))
 	return Facility.update_time(instance, false)
 end
 
-def getDurationS
-
+def getDurationS(instance = ShipsStation.find_by(id: self.instance_id))
+	return Station.update_time(instance, false)
 end
 
 def getDurationR(instance = ScienceInstance.find_by(id: self.instance_id))

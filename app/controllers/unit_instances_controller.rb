@@ -1,5 +1,6 @@
 class UnitInstancesController < ApplicationController
-  before_action :set_unit_instance, only: [:instant_build, :cancel_build, :show, :edit, :update, :destroy]
+  before_action :set_unit_instance, only: [:build, :instant_build, :cancel_build, :show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /unit_instances
   # GET /unit_instances.json
@@ -25,7 +26,7 @@ class UnitInstancesController < ApplicationController
   def edit
   end
 
-    def build
+  def build
     p = params[:create_amount].to_i
     if p <= 0
       p = 1
@@ -46,13 +47,13 @@ class UnitInstancesController < ApplicationController
     s.fuel -= unit.get_fuel_cost_ratio(p)
     s.save
     end
-    if BuildList.find_by(typeSign: 'u', instance_id: @unit_instance.id) != nil
-      @unit_instance.create_count += p
+    if BuildList.find_by(typeSign: 'u', ship_id: @unit_instance.ship.id, instance_id: @unit_instance.id) != nil
+      @unit_instance.build_amount += p
       @unit_instance.save
     else
-      @unit_instance.create_count = p
+      @unit_instance.build_amount = p
       @unit_instance.save
-      BuildList.create(typeSign: 'u', ship_id: current_user.activeShip, instance_id: @unit_instance.id)
+      BuildList.create(typeSign: 'u', ship_id: @unit_instance.ship.id, instance_id: @unit_instance.id)
     end
     redirect_to :back
   end

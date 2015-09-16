@@ -1,16 +1,29 @@
 class ShipsStation < ActiveRecord::Base
-
   belongs_to :ship
   belongs_to :station
 
-  def get_time_since_upgrade
-    return (Time.now - self.updated_at).to_i
+  def check_conditions
+    return ship.user.check_condition(station.condition) && ship.check_condition(station.condition)
   end
 
   def get_upgrade_ratio
-    duration = self.station.get_duration(self.level).to_f
-    past = self.get_time_since_upgrade.to_f
-    return 1.0 - (past/duration).to_f
+    if self.start_time == nil
+      return 1.0
+    else
+      duration = self.get_duration(self.level).to_f
+      past = Time.now - self.start_time
+      ratio = 1.0 - (past / duration)
+      if(ratio >= 0.1)
+        return ratio
+      else
+        return 0.0
+      end
+    end
+  end
+
+  def get_duration(level)
+    build_station_level = ShipsStation.find_by(:ship_id => ship.id, :station_id => 2005).level
+    return (self.station.duration * 2 ** (level)) / (1 + 0.1 * build_station_level)
   end
 
   def get_refund
@@ -23,7 +36,7 @@ class ShipsStation < ActiveRecord::Base
     reFuel = station.get_fuel_cost_ratio(currentLevel, ratio)
 
     back = ""
-    back = back + "Refund: <br>"
+    back = back + "Rückzahlung beim Abbruch [" + ship.name + "]: <br>"
     back = back+"- Metal: "+reMetal.to_i.to_s+"<br>"
     back = back+"- Crystal: "+reCrystal.to_i.to_s+"<br>"
     back = back+"- Fuel: "+reFuel.to_i.to_s+"<br>"
@@ -31,35 +44,40 @@ class ShipsStation < ActiveRecord::Base
     return back.html_safe
   end
 
-  def sum_level(ship)
-    sum=0
-    ShipsStation.where(:ship_id => ship.id).each do |station|
-      sum+=station.level
-    end  
-    return sum - ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
-  end
-
-  def max_station_level(ship)
-    i = 100 + 10 * ShipsStation.find_by(ship_id: ship.id, station_id: 2007).level
-    return i
+  def level_cap_reached
+    return false
   end
 
   def get_conditions()
+    if(self.level_cap_reached)
+      return "Level Max<br>".html_safe
+    end
+
   	info = self.station.condition
   	conds = info.split(",")
 
     back = ""
-  	if(ship.is_upgrading())
-      back = back + "Aktuell wird eine Station ausgebaut ...<br>"
-  	end
-  	back = back + "Voraussetzung: <br>"
+
   	conds.each do |cond|
   		c_info = cond.split(":")
   		typ = c_info[0]
   		id_geb = c_info[1].to_i
   		lvl = c_info[2]
-  		name = Station.find_by(:station_condition_id => id_geb).name
-  		back = back+"- Station: "+name+" "+lvl.to_s+"<br>"
+  		
+      case typ
+      when "f"
+        science = Science.find_by(:science_condition_id => id_geb)
+
+        if not(ship.user_ship.user.has_min_science_level(science, lvl))
+          back = back+"- Forschung: "+science.name+" "+lvl.to_s+"<br>"
+        end
+      when "g"
+        station = Station.find_by(:station_condition_id => id_geb)
+
+        if not(ship.has_min_station_level(station, lvl))
+          back = back+"- Gebäude: "+station.name+" "+lvl.to_s+"<br>"
+        end
+      end
   	end
 
     leftMetal = station.get_metal_cost(self.level) - ship.metal
@@ -77,40 +95,29 @@ class ShipsStation < ActiveRecord::Base
     if(leftFuel > 0)
       back = back + "- Fehlender Treibstoff: " + leftFuel.to_s + "<br>"
     end
+
+    if(back.length != 0)
+      back = "Voraussetzung: <br>"+back
+    end
+
+    if(!ship.enough_space(self))
+      back = "Es werden mehr Ausbauplätze benötigt!<br>" + back
+    end
+
+    if(!ship.build_count_control)
+      back = "Aktuell wird eine Station ausgebaut ...<br>" + back
+    end
+
   	return back.html_safe
   end
 
-  def update_time(format)
-    station = Station.find_by(id: self.station_id)
-    durationInSeconds = station.get_duration(self.level)
-
-    if(self.start_time)
-      timeSinceUpgrade = self.get_time_since_upgrade
-      restTime = durationInSeconds - timeSinceUpgrade
-
-      if(restTime <= 0)
-        self.level = self.level + 1
-        self.start_time = nil
-        self.save
-
-        if not(format)
-          return durationInSeconds;
-        else
-          return format_count_time(durationInSeconds)
-        end
-      else
-        if not(format)
-          return restTime;
-        else
-          return format_count_time(restTime)
-        end
-      end
-    else
-      if not(format)
-        return durationInSeconds;
-      else
-        return format_count_time(durationInSeconds)
-      end
+  def reset_build
+    self.start_time = nil
+    self.save
+    b = BuildList.find_by(typeSign: 's', instance_id: self.id)
+    if b != nil
+      b.destroy
     end
   end
+
 end

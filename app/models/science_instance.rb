@@ -67,9 +67,6 @@ class ScienceInstance < ActiveRecord::Base
   	conds = info.split(",")
 
     back = ""
-  	if(user.is_researching(self) || !user.research_count_control)
-      back = back + "Aktuell wird geforscht...<br>"
-  	end
 
   	conds.each do |cond|
   		c_info = cond.split(":")
@@ -110,7 +107,11 @@ class ScienceInstance < ActiveRecord::Base
     end
 
     if(back.length != 0)
-      back = "Voraussetzung: <br>"+back
+      back = back + "Voraussetzung: <br>"
+    end
+
+    if(user.is_researching(self) || !user.research_count_control)
+      back = "Aktuell wird geforscht...<br>" + back
     end
 
   	return back.html_safe
