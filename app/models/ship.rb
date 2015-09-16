@@ -1,5 +1,5 @@
 class Ship < ActiveRecord::Base
-   
+
   has_many :build_lists, dependent: :destroy
   has_many :facility_instances, dependent: :destroy
   has_many :facilities, :through => :facility_instances
@@ -11,9 +11,20 @@ class Ship < ActiveRecord::Base
   has_many :stations, :through => :ships_stations
   after_initialize :init, if: :new_record?
 
+  def sum_level
+    sum=0
+    ShipsStation.where(:ship_id => self.id).each do |station|
+      sum+=station.level
+    end
+    return sum - ShipsStation.find_by(ship_id: self.id, station_id: 2007).level
+  end
+
+  def max_station_level
+    i = 100 + 10 * ShipsStation.find_by(ship_id: self.id, station_id: 2007).level
+    return i
+  end
   def check_condition(conditions)
     condition_split = conditions.split(",")
-
     condition_split.each do |condition|
       condition_elements = condition.split(":")
       if(condition_elements[0].eql? "g")
@@ -68,7 +79,7 @@ class Ship < ActiveRecord::Base
             unit_instance.save
           end
         end
-      end  
+      end
     end
   end
 
@@ -142,16 +153,22 @@ class Ship < ActiveRecord::Base
   end
 
   def get_used_energy
-    scan_metal = 2 ** (self.ships_stations.find_by(station_id: '2001').level)
-    scan_crystal = 2 ** (self.ships_stations.find_by(station_id: '2002').level)
-    scan_fuel = 2 ** (self.ships_stations.find_by(station_id: '2003').level)
+    scan_metal = ((self.ships_stations.find_by(station_id: '2001').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2001').level)).to_i
+    scan_crystal = ((self.ships_stations.find_by(station_id: '2002').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2002').level)).to_i
+    scan_fuel = ((self.ships_stations.find_by(station_id: '2003').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2003').level)).to_i
     self.used_energy = scan_metal + scan_crystal + scan_fuel
     self.save
   end
 
   def get_energy
     generator = 2 ** (self.ships_stations.find_by(station_id: '2014').level + 1)
-    burn_generator = 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)# Generator effizienz multiplizieren
+    burner = self.ships_stations.find_by(station_id: '2015')
+    if (self.fuel > 500 * (1.5 ** burner.level || 0))
+      burn_generator = ((burner.energy_usage.to_f / 100.0) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
+    else
+      burn_generator = 0
+    end
+
     solarpanel = 4 * self.facility_instances.find_by(facility_id: 3013).count
     self.energy = generator + burn_generator + solarpanel
     self.save
@@ -161,19 +178,25 @@ class Ship < ActiveRecord::Base
     start = 0.0
     id = instance.station_id
     level = instance.level
+    energy_usage = instance.energy_usage
     if id==2001 || id==2002
       start = 2000.0
     end
     if(id==2003)
       start = 1000.0
+      burn_start = 500.0
+    end
+    if(id==2015)
+      start = -500.0
     end
     start /= 3600.0
     time = Time.now.getutc
     elapsed_seconds = time - last_update
 
-    difference = (start* (1.5 ** level))*(elapsed_seconds)
+    difference = (start * (1.5 ** level))*(elapsed_seconds) * (energy_usage / 100.0)
+
     if (self.used_energy > self.energy)
-      ratio = self.energy / self.used_energy
+      ratio = self.energy.to_f / self.used_energy.to_f
       return ratio * difference
     else
       return difference
@@ -197,15 +220,53 @@ class Ship < ActiveRecord::Base
           self.fuel = check_storage(2010,self.fuel)
           #self.fuel=0
         end
+        if station_instance.station_id == 2015  #fuel
+          self.fuel += get_collect_difference(station_instance, lastChecked)
+          self.fuel = check_storage(2010,self.fuel)
+          #self.fuel=0
+        end
 	  end
-
     self.lastChecked = Time.now.getutc
     self.save
   end
 
+  def update_metal(value)
+    self.metal+=value
+    self.metal=check_storage(2008,self.metal)
+    return self.metal
+  end
+
+  def update_cristal(value)
+    self.cristal+=value
+    self.cristal=check_storage(2009,self.cristal)
+    return self.cristal
+  end
+
+  def update_fuel(value)
+    self.fuel+=value
+    self.fuel=check_storage(2010,self.fuel)
+    return self.fuel
+  end
+
+  def get_unit_instance(unit)
+    return UnitInstance.find_by(:unit_id => unit.id, :ship_id => self.id)
+  end
+
+  def max_storage(id)
+    if id==2008 || id==2009
+      start = 10000.0
+    end
+    if(id==2010)
+      start = 5000.0
+    end
+
+    lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
+    value = start * 2**lvl
+    return value
+  end
+
   private
   def check_storage(id, ressource)
-
     if id==2008 || id==2009
       start = 10000.0
     end
@@ -217,14 +278,18 @@ class Ship < ActiveRecord::Base
       if value < ressource
         return value
       else
-        return ressource
+        if ressource < 0
+          return 0
+        else
+          return ressource
+        end
       end
   end
 
   def init
-    self.metal = 0
-    self.cristal = 0
-    self.fuel = 0
+    self.metal = 4000
+    self.cristal = 4000
+    self.fuel = 2000
     self.lastChecked = Time.now.getutc
 
     Station.all.each do |station|
@@ -238,7 +303,6 @@ class Ship < ActiveRecord::Base
         facility_instances.build(facility: facility, count: 0)
       end
     end
-
     Unit.all.each do |unit|
       if not(unit_instances.exists?(:unit_id => unit.id, :ship_id => self.id))
         unit_instances.build(unit: unit, amount: 0)

@@ -110,13 +110,8 @@ class ShipsStationsController < ApplicationController
   # PATCH/PUT /ships_stations/1.json
   def update
     respond_to do |format|
-      if @ships_station.update(ships_station_params)
-        format.html { redirect_to @ships_station, notice: 'Ships station was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ships_station }
-      else
-        format.html { render :edit }
-        format.json { render json: @ships_station.errors, status: :unprocessable_entity }
-      end
+      @ships_station.update(ships_station_params)
+      format.html { redirect_to :back, notice: 'Ihr Energieverbrauch wurde angepasst' }
     end
   end
 
@@ -138,6 +133,6 @@ class ShipsStationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ships_station_params
-      params.require(:ships_station).permit(:ships_id, :stations_id, :level)
+      params.require(:ships_station).permit(:ships_id, :stations_id, :level, :energy_usage)
     end
 end

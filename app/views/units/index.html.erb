@@ -2,7 +2,8 @@
 <p id="alert" style='color:red'><%= alert %></p>
 
 <h1>Einheiten</h1>
-
+<%= button_to 'UnitCheat', unit_instances_path, method: :get %>
+<h1 class="userlabel">Einheiten</h1>
 <table id="table_units">
   <thead>
     <tr>
@@ -27,7 +28,6 @@
       <% instance = ship.unit_instances.find_by(:unit_id => unit.id)%>
 
       <% inactive = nil %>
-
 
       <% if(!ship.is_building(instance)) %>
         <tr id="inactive">

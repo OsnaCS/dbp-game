@@ -1,0 +1,40 @@
+<% if user_signed_in? %> 
+  <% if current_user.is_moderator %>
+    <p class="userbutton"><%= link_to 'Create new Newsfeed', new_newsfeed_path %></p>
+    <br>
+  <% end %>
+<% else %>
+  <br>
+<% end %>
+
+<h1 class="userlabel">Lunancy News</h1>
+<table>
+  <tbody>
+    <% @newsfeeds.each do |newsfeed| %>
+      <tr>
+        <table>
+        <tr>
+        <br>
+        <h3 class="userlabel"><%= newsfeed.title %></h3>
+        </tr>
+        <tr>
+          <br>
+          <p class="userlabel"><%= newsfeed.body %></p>
+        </tr>
+        <tr>
+          <br>
+          <p class="userlabel">
+            vom <%= newsfeed.created_at.day %>.<%= newsfeed.created_at.mon %>.<%= newsfeed.created_at.year %> 
+            um <%= newsfeed.created_at.hour %>&nbsp;:
+            <% if newsfeed.created_at.min < 10 %>
+              0<%= newsfeed.created_at.min %>
+            <% else %>
+              <%= newsfeed.created_at.min %>
+            <% end %>
+            Uhr
+          </p>
+        </tr>
+        </table>
+    <% end %>
+  </tbody>
+</table>

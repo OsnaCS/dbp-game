@@ -1,8 +1,107 @@
 <p id="notice"><%= notice %></p>
 <p id="alert" style='color:red'><%= alert %></p>
 
-<h1>Management</h1>
+<h1 class="userlabel">Management</h1>
 
+<table id="table_energy">
+  <thead>
+    <tr>
+      <th>Metall Scanner</th>
+      <th>Kristall Scanner</th>
+      <th>Treibstoff Scanner</th>
+      <th>Verbrennungsgenerator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_user.active_ship.get_energy%>
+    <% current_user.active_ship.get_used_energy%>
+    <% metal_scan = current_user.active_ship.ships_stations.find_by(station_id: 2001) %>
+    <% crystal_scan = current_user.active_ship.ships_stations.find_by(station_id: 2002) %>
+    <% fuel_scan = current_user.active_ship.ships_stations.find_by(station_id: 2003) %>
+    <% burner = current_user.active_ship.ships_stations.find_by(station_id: 2015) %>
+
+    <tr>
+      <% station = metal_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + metal_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = crystal_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + crystal_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = fuel_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + fuel_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = burner.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + burner.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p class="note"><%= metal_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= crystal_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= fuel_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= burner.energy_usage %>%</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= form_for metal_scan do |f| %>
+          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: metal_scan.energy_usage, min: 0, max: 100) %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+      <td>
+        <%= form_for crystal_scan do |f| %>
+          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: crystal_scan.energy_usage, min: 0, max: 100) %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+
+      <td>
+        <%= form_for fuel_scan do |f| %>
+          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: fuel_scan.energy_usage, min: 0, max: 100) %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+
+      <td>
+        <%= form_for burner do |f| %>
+          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: burner.energy_usage, min: 0, max: 100) %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
 <table  id="table_builds">
   <thead>
     <tr>

@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 <p id="alert" style='color:red'><%= alert %></p>
 
-<h1>Stationen</h1><br/>
+
+<h1 class="userlabel">Stationen</h1><br/><br/>
+<h2> Bauplätze <%= @ship.sum_level%> / <%=@ship.max_station_level %> belegt</h2>
+<br/>
 <% current_user.select_ship(@ship.user_ship.ship_id) %>
 <table id="table_ship_stations">
   <thead>
@@ -13,25 +16,24 @@
       <th>Treibstoff</th>
       <th>Dauer</th>
       <th>Stufe</th>
-      <th>Status</th>
-      <th> </th>
+      <th colspan="2" >Status</th>
     </tr>
   </thead>
 
   <tbody>
     <% @ships_stations.sort_by{|instance| instance.station.station_condition_id}.each do |station_instance| %>
-     <% inactive = nil %>
-     <% if(!@ship.is_upgrading(station_instance)) %>
-       <tr id="inactive">
-       <% inactive = true %>
-     <% else %>
-       <tr id="active">
-       <% inactive = false %>
-     <% end %>
+      <% inactive = nil %>
+      <% if(!@ship.is_upgrading(station_instance)) %>
+        <tr id="inactive">
+        <% inactive = true %>
+      <% else %>
+        <tr id="active">
+        <% inactive = false %>
+      <% end %>
 
 
-     <% if(station_instance.id) %>
-       <% station = station_instance.station %>
+      <% if(station_instance.id) %>
+        <% station = station_instance.station %>
         <td>
          <a>
             <img src= "<%= image_url("stations/" + station_instance.station.icon)%>", width="50", height="50", id="icon">
@@ -50,6 +52,7 @@
               data-id="<%= station_instance.station_id %>"
               data-time="<%= Station.update_time(station_instance, false) %>"></td>
         <% end %>
+
         <% availability = @ship.can_build(station_instance) %>
         <td><%= station_instance.level %></td>
 
@@ -59,7 +62,6 @@
               <td><%= button_to 'Downgrade', downgrade_ships_station_path(station_instance), data: { confirm: 'Are you sure?' }, method: :get %></td>
               <% end %>
         <% else %>
-
             <% if(inactive) %>
               <td><a>Nicht verfügbar<span><%= station_instance.get_conditions() %></span></a></td>
             <% else %>
@@ -76,12 +78,12 @@
             <% end %>
 
         <% end %>
-
       <% end %>
       </tr>
     <% end %>
   </tbody>
-     <%= javascript_tag "start_timer()" -%>
+  <%= javascript_tag "start_timer()" -%>
 </table>
 <br>
-<%= link_to 'Back', :back %>
+<p class="userbutton"><%= link_to 'Back', :back %></p>
+

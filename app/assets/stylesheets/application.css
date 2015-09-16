@@ -12,7 +12,7 @@
  *
  *= require_tree .
  *= require_self
- */
+ */ 
 
  /** Main - Settings **/
 html,body {
@@ -148,15 +148,6 @@ ul li {
 	overflow-y: scroll;
 }
 
-#footer {
-	position: relative;
-	width: 100%;
-	height: 5%;
-	bottom: 0;
-	text-align: center;
-	z-index: 3;
-}
-
 .content {
 	position: relative;
 	display: table;
@@ -176,12 +167,32 @@ ul li {
 	margin-bottom: 5px;
 }
 
+.tooltip_selected {
+	position: relative;
+	float: center;
+	background-size: contain;
+}
+
+.tooltip_selected:hover:after {
+	position: absolute;
+	background: #333;
+	border-radius: 5px;
+	width: 220px;
+	bottom: 25px;
+	left: 20%;
+	padding: 5px 15px;
+	z-index: 1;
+	content: attr(data-tooltip);
+}
+
 .tooltip {
 	position: relative;
 	float: left;
 	width: 40px;
 	height: 40px;
 	background-size: contain;
+	font-family: 'space';
+	font-size: 14px;
 }
 
 .tooltip:hover:after {
@@ -246,6 +257,25 @@ ul li {
 	padding: 5px;
 	border-radius: 5px;
 	border: 2px solid black;
+}
+
+.bar progress{
+	color: black;
+	background-color: #000066;
+	border: 2px solid gray;
+	border-radius: 5px;
+}
+
+.bar progress::-webkit-progress-value {
+    background: #1411fa  none repeat scroll 0% 0%;
+}
+
+.bar progress::-moz-progress-bar { 
+    background: #1411fa  none repeat scroll 0% 0%;	
+}
+
+.bar progress[aria-valuenow]:before{
+	background-color: black;
 }
 
 .usertextfield {
@@ -329,6 +359,7 @@ ul li {
 }
 
 #game_name {
+	font-size: 50px;
 	position: absolute;
 	bottom: 25px;
 	left: 50px;
@@ -338,14 +369,6 @@ ul li {
 	margin-left: auto;
 	margin-right: auto;
 
-}
-
-#error_explanation {
-	position: absolute;
-	color: #000;
-	top: 100px;
-	left: 100px;
-	z-index: 2;
 }
 
 #res-table {

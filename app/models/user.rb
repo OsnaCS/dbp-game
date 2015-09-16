@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
 
   validates :username,
   :presence => true,
+  :length => {
+    :minimum => 3,
+    :maximum => 12,
+    :message => "Username must be between 3 and 12 characters"
+  },
   :uniqueness => {
     :case_sensitive => false
   }
@@ -46,6 +51,21 @@ class User < ActiveRecord::Base
       end
     end
     return true
+  end
+
+  def distance_to(user)
+    offset = 20
+    factor = 10
+    end_score = user.rank.score
+    start_score = self.rank.score
+
+    distance = factor * (offset + (start_score - end_score))
+
+    if(distance < 0)
+      return -1 * distance
+    else
+      return distance
+    end
   end
 
   def active_ship
@@ -149,6 +169,14 @@ class User < ActiveRecord::Base
     else 
       return true
     end    
+  end
+
+  def user_ships
+    return UserShip.all.where(:user_id => self.id)
+  end
+
+  def has_min_station_level(station, level)
+    return ShipsStation.find_by(:ship_id => self.active_ship.id, :station_id => station.id).level >= level.to_i
   end
 
   def get_metal()
@@ -269,6 +297,13 @@ class User < ActiveRecord::Base
   def select_ship(shipID)
     self.activeShip=shipID
     self.save
+  end
+
+  def incr_user_rank(points)
+    if points.is_a? Numeric
+      self.rank.score += points
+      self.rank.save
+    end
   end
 
   def is_user

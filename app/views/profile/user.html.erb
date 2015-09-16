@@ -29,6 +29,8 @@
 				<div>
 					<p class="userbutton"><%= link_to "Benutzerprofil bearbeiten", edit_user_registration_path %></p>
 				</div>
+			<% else %>
+				<p class="userbutton"><%= link_to "Flotte versenden", new_fighting_fleet_path(:user_id => @user.id) %>
 			<% end %>
 			<div>
 				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>

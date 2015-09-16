@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916142826) do
+ActiveRecord::Schema.define(version: 20150916125415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.string   "typeSign"
     t.integer  "instance_id"
     t.integer  "ship_id"
-    t.integer  "link_ship"
   end
 
   create_table "damage_types", force: :cascade do |t|
@@ -81,6 +80,12 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.datetime "updated_at",    null: false
     t.integer  "fight_id"
     t.integer  "expedition_id"
+    t.datetime "start_time"
+    t.integer  "state"
+    t.integer  "mission"
+    t.text     "data"
+    t.integer  "target_ship"
+    t.integer  "start_ship"
   end
 
   add_index "fighting_fleets", ["expedition_id"], name: "index_fighting_fleets_on_expedition_id", using: :btree
@@ -103,6 +108,13 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "fullmes"
+  end
+
+  create_table "newsfeeds", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -130,8 +142,8 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "research_ship"
-    t.datetime "start_time"
     t.integer  "research_amount"
+    t.datetime "start_time"
   end
 
   create_table "sciences", force: :cascade do |t|
@@ -165,9 +177,9 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.string   "name"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "metal"
-    t.integer  "cristal"
-    t.integer  "fuel"
+    t.float    "metal"
+    t.float    "cristal"
+    t.float    "fuel"
     t.datetime "lastChecked"
     t.integer  "energy",      default: 0
     t.integer  "used_energy", default: 0
@@ -177,8 +189,9 @@ ActiveRecord::Schema.define(version: 20150916142826) do
     t.integer  "ship_id"
     t.integer  "station_id"
     t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "energy_usage", default: 100
     t.datetime "start_time"
   end
 

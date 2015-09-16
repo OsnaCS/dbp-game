@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <p id="alert" style='color:red'><%= alert %></p>
 
-<h1>Forschung</h1>
+<h1 class="userlabel">Forschung</h1>
 
 <table id="table_sciences">
   <thead>
@@ -74,7 +74,6 @@
       </tr>
     <% end %>
   </tbody>
-   <%= javascript_tag "start_timer()" -%>
 </table>
 <br>
 <%= link_to 'New Science', new_science_path %>

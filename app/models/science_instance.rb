@@ -93,9 +93,9 @@ class ScienceInstance < ActiveRecord::Base
       end
   	end
 
-    leftMetal = science.get_metal_cost(self.level) - user.get_metal
-    leftCrystal = science.get_crystal_cost(self.level) - user.get_crystal
-    leftFuel = science.get_fuel_cost(self.level) - user.get_fuel
+    leftMetal = science.get_metal_cost(self.level) - user.get_metal.to_i
+    leftCrystal = science.get_crystal_cost(self.level) - user.get_crystal.to_i
+    leftFuel = science.get_fuel_cost(self.level) - user.get_fuel.to_i
 
     if(leftMetal > 0)
       back = back + "- Fehlendes Metall: " + leftMetal.to_s + "<br>"

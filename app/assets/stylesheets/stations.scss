@@ -1,6 +1,12 @@
 // Place all the styles related to the stations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.test123 {
+	position: relative;
+	width: 100%;
+}
+
 #stationsite {
  border-collapse: collapse;
  margin: auto;
@@ -26,5 +32,15 @@
 }
 
 .ship_t2 {
-	width: 100px
+	margin: 2px 5px 2px 5px;
+	width: 150;
+	display: inline-block;
+	background-color: white;
+	font-weight: bold;
+	font-size: 10px;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+	color: black;
 }
+

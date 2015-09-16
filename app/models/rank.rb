@@ -7,14 +7,15 @@ class Rank < ActiveRecord::Base
 
     User.all.each do |u|
       currentRank = Rank.find_by(user_id: u.id)
-
-      if not currentRank
-        currentRank = Rank.new
-        currentRank.user_id = u.id
-        currentRank.score = 0
-        Rank.create(:user_id => u.id, :score => 0)
+        if not currentRank
+          currentRank = Rank.new
+          currentRank.user_id = u.id
+          currentRank.score = 0
+          Rank.create(:user_id => u.id, :score => 0)
+        end
+      if(u.username != "dummy")
+        allRanks << currentRank
       end
-      allRanks << currentRank
     end
     allRanks = allRanks.sort_by{|rank| rank.score}.reverse
 
