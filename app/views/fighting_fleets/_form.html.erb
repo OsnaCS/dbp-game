@@ -33,8 +33,7 @@
       </div>
 
       <div class="field">
-        <table>
-          <colgroup span=2></colgroup>
+        <table id="table_fighting_fleet">
           <thead>
             <tr>
               <td>Metall</td>
@@ -50,30 +49,30 @@
             </tr>
           </tbody>
         </table>
-      <table>
-        <colgroup span=2></colgroup>
-        <tr>
-          <th></th>
-           <th>Einheit</th>
-           <th>stationierte Menge</th>
-           <th>zu schickende Anzahl</th>
-           <th>Treibstoffkosten pro Stunde</th>
-           <th>Geschwindigkeit</th>
-          </tr>
-
-          <% Unit.all.each do |unit| %>
+        <br>
+        <table id="table_content_fighting_fleet">
+          <thead>
             <tr>
-            <td></td>
-              <td align=left ><%= unit.name %></td>       
-              <% amount = current_user.active_ship.get_unit_instance(unit).amount %>
-              <td><%=  amount %></td>
-              <td><%= number_field_tag(unit.id, 0, min:0, max: amount) %></td>
-              <td align=left ><%= @fuelcost[unit.id]%> pro Einheit</td>
-              <td align=left ><%= unit.speed %></td>
+             <th>Einheit</th>
+             <th>stationierte Menge</th>
+             <th>zu schickende Anzahl</th>
+             <th>Treibstoffverbrauch</th>
+             <th>Geschwindigkeit</th>
             </tr>
-          <% end %>
+          </thead>
+          <tbody>
+            <% Unit.all.each do |unit| %>
+              <tr>
+                <td><%= unit.name %></td>       
+                <% amount = current_user.active_ship.get_unit_instance(unit).amount %>
+                <td><%=  amount %></td>
+                <td><%= number_field_tag(unit.id, 0, min:0, max: amount) %></td>
+                <td><%= @fuelcost[unit.id]%> pro Einheit</td>
+                <td><%= unit.speed.to_s + " Unit" + (unit.speed == 1 ? "" : "s").to_s%></td>
+              </tr>
+            <% end %>
+          </tbody>
         </table>
-       <br>
      </div>
      <div class="actions">
         <%= f.submit %>

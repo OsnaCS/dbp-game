@@ -5,6 +5,15 @@
 #table_fighting_fleet {
   margin: auto;
   position: relative;
+  width: 40%;
+  border: 5px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#table_content_fighting_fleet{
+  margin: auto;
+  position: relative;
   width: 70%;
   border: 5px;
   border-collapse: collapse;
