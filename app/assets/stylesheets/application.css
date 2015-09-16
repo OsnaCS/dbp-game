@@ -259,6 +259,25 @@ ul li {
 	border: 2px solid black;
 }
 
+.bar progress{
+	color: black;
+	background-color: #000066;
+	border: 2px solid gray;
+	border-radius: 5px;
+}
+
+.bar progress::-webkit-progress-value {
+    background: #1411fa  none repeat scroll 0% 0%;
+}
+
+.bar progress::-moz-progress-bar { 
+    background: #1411fa  none repeat scroll 0% 0%;	
+}
+
+.bar progress[aria-valuenow]:before{
+	background-color: black;
+}
+
 .usertextfield {
 	margin: auto;
 	margin-bottom: 5px;

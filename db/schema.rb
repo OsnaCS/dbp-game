@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915094654) do
+ActiveRecord::Schema.define(version: 20150915132347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,13 @@ ActiveRecord::Schema.define(version: 20150915094654) do
     t.text     "fullmes"
   end
 
+  create_table "newsfeeds", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "message_id"
@@ -175,9 +182,10 @@ ActiveRecord::Schema.define(version: 20150915094654) do
     t.integer  "ship_id"
     t.integer  "station_id"
     t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.time     "start_time"
+    t.integer  "energy_usage", default: 100
   end
 
   add_index "ships_stations", ["ship_id"], name: "index_ships_stations_on_ship_id", using: :btree

@@ -62,14 +62,21 @@
 							</p>
 					</td>
 					<td>
-					    <div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
-        				<% if current_user.activeShip!=nil%>
-				  			<p id="val-energy" class="val-resources">
-				  				<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
-				  				<%= Ship.find_by(id: current_user.activeShip).energy %>
-				  			</p>
+						<div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
+							<% if current_user.activeShip!=nil%>
+							<% if (Ship.find_by(id: current_user.activeShip).used_energy > Ship.find_by(id: current_user.activeShip).energy) %>
+								<p id="val-energy" style="color:red" class="val-resources">
+								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
+								<%= Ship.find_by(id: current_user.activeShip).energy %>
+								</p>
+							<% else %>
+							<p id="val-energy" class="val-resources">
+								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
+								<%= Ship.find_by(id: current_user.activeShip).energy %>
+							</p>
+							<% end %>
 						<% else %>
-				  			<p>0</p>
+							<p>0</p>
 						<% end %>
 					</td>
 					<td>
@@ -105,7 +112,7 @@
 		<div id="menu-wrapper">
 			<div id="menu" class="content">
 				<ul>
-					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Home", newsfeeds_path %></li>
 					<% if user_signed_in? %>
 						<li><%= link_to "Schiffe", ships_path %></li>
 						<% if current_user.activeShip!=nil %>
