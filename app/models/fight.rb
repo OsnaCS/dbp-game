@@ -55,9 +55,7 @@ class Fight< ActiveRecord::Base
       @defender_origin_facility = safe_origin_facility_amount (@defender_facilities)
       @fight_shield = 0
       @allready_done = true 
-      byebug
-
-   end    
+    end    
   end
   
   def find_ship_by_ship_id (ship_id)
@@ -159,7 +157,7 @@ class Fight< ActiveRecord::Base
   # Testet ob Spionage geklappt hat und leitet Bericht ein
   # MUSS NOCH ERWEITERT WERDEN!!!!!!!
   def spy_phase
-    if amount_of_ships(self.attacker, @spy_ship_id) > 0
+    if amount_of_ships(@attacker, @spy_ship_id) > 0
       # SPY_EVENT wird gestartet
       if threshold_spy > random_to_one
         #Spyprobes leave battle!!
@@ -426,7 +424,9 @@ class Fight< ActiveRecord::Base
         total_tp = total_tp + a[-2]
       end
       fleet_array.each do |a|
-        a[-1] = (a[-2].to_f/total_tp.to_f)
+        if a[1] > 0
+          a[-1] = (a[-2].to_f/total_tp.to_f)
+        end  
       end
     end
   end
@@ -527,11 +527,13 @@ class Fight< ActiveRecord::Base
       lost = 0
       unit_report = []
       fleet_array.each do |a|
-        if o.unit_id == a[0]
-          lost = o.number - a[1]
-          found = true
+      
+        if a[1] > 0
+          if o.unit_id == a[0]
+            lost = o.number - a[1]
+            found = true
+          end
         end
-
       end
       unit_report << o.unit.name
       unit_report << o.number
@@ -615,7 +617,7 @@ class Fight< ActiveRecord::Base
       turn_fleet.each do |fleet|
         # Nur Einheiten mit Anzahl > 0 und Schaden > 0 können kämpfen
         if fleet[1] > 0 && fleet[2] > 0   
-          round_report << "Die Gruppe #{a[5]} trifft... "
+          round_report << "Die Gruppe #{fleet[5]} trifft... "
           # Bestimme Ziel anhand von id.
           # -2 ist Miss
           # -1 ist Schild
@@ -629,7 +631,7 @@ class Fight< ActiveRecord::Base
             mult = 1
             # Falls Ionenwaffe, wird Schaden an Schild erhöht
             if fleet[3] == 2
-              mult = DamageType.find(a[3]).shield_mult
+              mult = DamageType.find(fleet[3]).shield_mult
             end
 
             damage = fleet[2] * mult
@@ -641,14 +643,14 @@ class Fight< ActiveRecord::Base
               mult = 1
               # Falls Laserwaffe, wird Schaden an Hülle erhöht
               # TABELLE DAMAGETYPE EINFÜGEN
-              if(a[3] == 1)
-                mult = DamageType.find(a[3]).shell_mult
+              if (fleet[3] == 1)
+                mult = DamageType.find(fleet[3]).shell_mult
               end 
                if fleet[3] == 3 and !fleet[6]
-              mult = DamageType.find(a[3]).station_mult
+              mult = DamageType.find(fleet[3]).station_mult
               end
               if fleet[3] == 4 and fleet[0] == @plattform_id
-              mult = DamageType.find(a[3]).plattform_mult
+              mult = DamageType.find(fleet[3]).plattform_mult
               end  
             # Bestimme welche Einheit getroffen wurde
             victim = target_fleet[target]
@@ -842,10 +844,7 @@ class Fight< ActiveRecord::Base
     init_vars(attacker_fleet_id, defender_ship_id)
     report_start
     spy_phase
-    
-    battle_with_points(attacker_fleet_id, defender_ship_id)
-
-    # Verlustrechnung in Datenbank übernehmen
+        # Verlustrechnung in Datenbank übernehmen
     return battle_with_points(attacker_fleet_id, defender_ship_id)
   end
 
@@ -859,12 +858,10 @@ class Fight< ActiveRecord::Base
     points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
     points_for_attacker_after += get_total_points_fleet(@defender_fleet)
     points_for_defender = points_for_defender_before-points_for_defender_after
-    @testout << points_for_attacker_after
-    @testout << points_for_attacker_before
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
     update_points(@defender, points_for_defender) 
     update_points(@attacker, points_for_attacker) 
-    return battle
+    return report
   end
 
   def update_points(user, points)

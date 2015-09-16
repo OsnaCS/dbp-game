@@ -1009,4 +1009,9 @@ Facility.create([
 		damage_type: damage5
 	}])
 
+
+
+user = User.create({"email" => "dummy@dummy.dummy", "username" => "dummy", "password" => "dummdumm"})
+user.create_ship({"name" => "Dummy-Schiff"})
+
 Newsfeed.create({"title" => "Lunancy Release nahe", "body" => "Demnächst wird Lunancy die Beta verlassen und für alle spielbar sein. Weitere Infos werden folgen."})
