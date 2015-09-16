@@ -612,9 +612,9 @@ class Fight< ActiveRecord::Base
         round_report << "Angriffe werden nicht abgewehrt!"
         round_report << " "
       end
-      turn_fleet.each do |a|
+      turn_fleet.each do |fleet|
         # Nur Einheiten mit Anzahl > 0 und Schaden > 0 können kämpfen
-        if a[1] > 0 && a[2] > 0   
+        if fleet[1] > 0 && fleet[2] > 0   
           round_report << "Die Gruppe #{a[5]} trifft... "
           # Bestimme Ziel anhand von id.
           # -2 ist Miss
@@ -628,10 +628,11 @@ class Fight< ActiveRecord::Base
             round_report << "das Schild. Der Schaden beträgt:  "
             mult = 1
             # Falls Ionenwaffe, wird Schaden an Schild erhöht
-            if a[3] == 2
-              mult = 1.5
+            if fleet[3] == 2
+              mult = DamageType.find(a[3]).shield_mult
             end
-            damage = a[2] * mult
+
+            damage = fleet[2] * mult
             round_report << "#{damage} "
             round_report << " "
             # Abzug des Schilds. Übernahme erst bei nächster Runde
@@ -641,13 +642,19 @@ class Fight< ActiveRecord::Base
               # Falls Laserwaffe, wird Schaden an Hülle erhöht
               # TABELLE DAMAGETYPE EINFÜGEN
               if(a[3] == 1)
-                mult = 1.5
+                mult = DamageType.find(a[3]).shell_mult
               end 
+               if fleet[3] == 3 and !fleet[6]
+              mult = DamageType.find(a[3]).station_mult
+              end
+              if fleet[3] == 4 and fleet[0] == @plattform_id
+              mult = DamageType.find(a[3]).plattform_mult
+              end  
             # Bestimme welche Einheit getroffen wurde
             victim = target_fleet[target]
             round_report << "#{victim[5]}. Der Schaden beträgt:  "
             # Schadensberechnung
-            damage = a[2]*mult
+            damage =fleet[2]*mult
             round_report << "#{damage} "
             # Berechne neue HP
             hit_points = victim[-2]
@@ -698,25 +705,25 @@ class Fight< ActiveRecord::Base
     # Generiere Verlustrechnung
 
     attacker_fleet_ary = []
-    deffender_fleet_ary = []
+    defender_fleet_ary = []
 
 
     if turn_user == @attacker
       lost_report(turn_fleet, @attacker) 
       lost_report(target_fleet, @defender) 
       attacker_fleet_ary = turn_fleet
-      deffender_fleet_ary = target_fleet
+      defender_fleet_ary = target_fleet
 
     else
       lost_report(target_fleet, @attacker) 
       lost_report(turn_fleet, @defender) 
 
       attacker_fleet_ary = target_fleet
-      deffender_fleet_ary = turn_fleet
+      defender_fleet_ary = turn_fleet
     end
 
     update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
-    update_fighting_fleet(@defender_fleet, deffender_fleet_ary)
+    update_fighting_fleet(@defender_fleet, defender_fleet_ary)
     # ANLAGEN NOCH EINFÜGEN:
     ary = [@attacker_fleet, @defender_fleet]   
 
@@ -796,10 +803,10 @@ class Fight< ActiveRecord::Base
   # Schluss den Report zurück
   
 
-  def get_fleet_by_ship(ship_id_deffender)
-    fleet = FightingFleet.create(user: get_user_by_ship_id(ship_id_deffender))
+  def get_fleet_by_ship(ship_id_defender)
+    fleet = FightingFleet.create(user: get_user_by_ship_id(ship_id_defender))
     fleet.ship_groups.each do |group|
-      instance = Ship.find_by(:id => ship_id_deffender).get_unit_instance(group.unit)
+      instance = Ship.find_by(:id => ship_id_defender).get_unit_instance(group.unit)
       group.number = instance.amount
       group.save
     end
@@ -845,18 +852,18 @@ class Fight< ActiveRecord::Base
   def battle_with_points(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
     points_for_defender_before = get_total_points_fleet(@attacker_fleet)
-    points_for_attaker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
     battle_id(attacker_fleet_id, defender_ship_id)
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
-    points_for_attaker_after = get_total_points_facilities_by_ship(@defender_ship)
-    points_for_attaker_after += get_total_points_fleet(@defender_fleet)
+    points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_after += get_total_points_fleet(@defender_fleet)
     points_for_defender = points_for_defender_before-points_for_defender_after
-    @testout << points_for_attaker_after
-    @testout << points_for_attaker_before
-    points_for_attaker = points_for_attaker_before-points_for_attaker_after
+    @testout << points_for_attacker_after
+    @testout << points_for_attacker_before
+    points_for_attacker = points_for_attacker_before-points_for_attacker_after
     update_points(@defender, points_for_defender) 
-    update_points(@attacker, points_for_attaker) 
+    update_points(@attacker, points_for_attacker) 
   end
 
   def update_points(user, points)
