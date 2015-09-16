@@ -145,6 +145,7 @@ class Ship < ActiveRecord::Base
     if(id==2010)
       start = 5000.0
     end
+
     lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
     value = start * 2**lvl
     return value    
