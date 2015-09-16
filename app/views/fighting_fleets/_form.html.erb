@@ -1,54 +1,82 @@
 
 <% if user_signed_in? %>
 	<% if current_user.is_user %>
-<%= form_for(@fighting_fleet) do |f| %>
-  <% if @fighting_fleet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:</h2>
+    <%= form_for(@fighting_fleet) do |f| %>
+      <% if @fighting_fleet.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@fighting_fleet.errors.count, "error") %> prohibited this fighting_fleet from being saved:
+          </h2>
 
-      <ul>
-      <% @fighting_fleet.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+            <% @fighting_fleet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
+      
+      <%= "Ziel: " + @target.username %>
+      <br>
+      <% distance = current_user.distance_to(@target) %>
+      <%= "Distanz: " + distance.to_s %>
+      <%= f.fields_for :user do |ff| %>
+        <div class="field">
+          <%= ff.label :Schiff %><br>
+          <%= ff.collection_select  :Schiff,  UserShip.where(:user_id => @target.id).to_a, :id, :name %>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :mission %><br>
+        <%= f.collection_select  :mission, FightingFleet.mission,:first ,:last %>
+      </div>
+
+      <div class="field">
+        <table id="table_fighting_fleet">
+          <thead>
+            <tr>
+              <td>Metall</td>
+              <td>Kristall</td>
+              <td>Treibstoff</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= number_field_tag(:metal_cargo, 0, min:0, max: @max_metal) %></td>
+              <td><%= number_field_tag(:crystal_cargo, 0, min:0, max: @max_crystal) %></td>
+              <td><%= number_field_tag(:fuel_cargo, 0, min:0, max: @max_fuel) %></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table id="table_content_fighting_fleet">
+          <thead>
+            <tr>
+             <th>Einheit</th>
+             <th>stationierte Menge</th>
+             <th>zu schickende Anzahl</th>
+             <th>Treibstoffverbrauch</th>
+             <th>Geschwindigkeit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Unit.all.each do |unit| %>
+              <tr>
+                <td><%= unit.name %></td>       
+                <% amount = current_user.active_ship.get_unit_instance(unit).amount %>
+                <td><%=  amount %></td>
+                <td><%= number_field_tag(unit.id, 0, min:0, max: amount) %></td>
+                <td><%= @fuelcost[unit.id]%> pro Einheit</td>
+                <td><%= unit.speed.to_s + " Unit" + (unit.speed == 1 ? "" : "s").to_s%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+     </div>
+     <div class="actions">
+        <%= f.submit %>
+     </div>
+    <% end %>
   <% end %>
-
-  <%= f.fields_for :fight do |ff| %>
-        <%= ff.hidden_field :defender_id, :value => @defend_user  %>
-        <%= ff.hidden_field :ship_attack_id, :value => current_user.active_ship.id  %>
-
-    <div class="field">
-      <a><%= ff.label :ship_defend_id %><br></a>
-      <%= ff.collection_select  :ship_defend_id, User.find(@defend_user).ships, :id, :name %>
-    </div>
 <% end %>
-  <div class="field">
-    <table>
-      <tr>
-        <th><a>Bild</a></th>
-        <th><a>Einheit</a></th>
-        <th><a>Besitzt</a></th>
-        <th><a>Verschicken</a></th>
-      </tr>
-      <%= f.fields_for :ship_groups do |fs| %>
-        <%if !(fs.object.unit.message == nil) %><tr>
-          <td><a><img src= "<%= image_url(fs.object.unit.icon)%>", width="50", height="50", id="icon"><span><%= fs.object.unit.message.mes %></span></a> </td>
-          <td><a><%= fs.object.unit.name%><span><%= fs.object.unit.message.mes %></span></a> </td>
-          <td><a><%= current_user.active_ship.get_unit_instance(fs.object.unit).amount %></a></td>
-          <td><a><%=fs.number_field :number, min:0, max: current_user.active_ship.get_unit_instance(fs.object.unit).amount %></a></td>
-        </tr>
-        
-        <%= fs.hidden_field :unit_id %>
-      <% end %>
-      <% end %>
-    </table>
-    </div>
-  <div class="actions">
-    
-    <%= f.submit %>
-  </div>
-<% end %>
-
-  <% end %>
-  <% end %>

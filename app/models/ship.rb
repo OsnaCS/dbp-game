@@ -19,7 +19,7 @@ class Ship < ActiveRecord::Base
     sum=0
     ShipsStation.where(:ship_id => self.id).each do |station|
       sum+=station.level
-    end  
+    end
     return sum - ShipsStation.find_by(ship_id: self.id, station_id: 2007).level
   end
 
@@ -93,7 +93,11 @@ class Ship < ActiveRecord::Base
 
   def get_energy
     generator = 2 ** (self.ships_stations.find_by(station_id: '2014').level + 1)
-    burn_generator = ((self.ships_stations.find_by(station_id: '2015').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
+    if (self.fuel > 0)
+      burn_generator = ((self.ships_stations.find_by(station_id: '2015').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
+    else
+      burn_generator = 0
+    end
     solarpanel = 4 * self.facility_instances.find_by(facility_id: 3013).count
     self.energy = generator + burn_generator + solarpanel
     self.save
@@ -118,7 +122,13 @@ class Ship < ActiveRecord::Base
           #self.fuel=0
         end
         if station.station_id == 2015 #burn_generator
-          self.fuel-= get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
+          current_fuel = self.fuel - get_collect_difference(station.level, station.station_id, last_checked, station.energy_usage)
+          if (current_fuel > 0)
+            self.fuel = current_fuel
+          else
+            self.fuel = 0
+            self.energy -= ((self.ships_stations.find_by(station_id: '2015').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
+          end
         end
 	  end
     self.lastChecked = Time.now.getutc
@@ -163,6 +173,7 @@ class Ship < ActiveRecord::Base
     if(id==2010)
       start = 5000.0
     end
+
     lvl = ShipsStation.find_by(ship_id: self, station_id: id).level
     value = start * 2**lvl
     return value
@@ -212,6 +223,12 @@ class Ship < ActiveRecord::Base
 		time = Time.now.getutc
 		start = start.to_f
 		elapsed_seconds = time - last_update
+    #if (self.used_energy > self.energy)
+      #diff = 1/(self.used_energy - self.energy)
+     # produktion = diff * (start* (1.5 ** level))*(elapsed_seconds)
+      #return produktion
+    #else
+		  produktion = (start* (1.5 ** level))*(elapsed_seconds)
     if (self.used_energy > self.energy)
       diff = 1/(self.used_energy - self.energy).to_f
       produktion = (energy_usage / 100)  * diff * (start* (1.5 ** level))*(elapsed_seconds)

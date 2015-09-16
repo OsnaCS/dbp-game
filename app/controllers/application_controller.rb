@@ -4,8 +4,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user! , :except => [:new]
   before_action :check_if_user_own_ship
+  before_action :update_app
   
+
   protected
+
+  def update_app
+    FightingFleet.all.each do |fleet|
+      fleet.update_time(false)
+    end
+  end
 
   def check_if_user_own_ship
     if user_signed_in? 

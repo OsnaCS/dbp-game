@@ -1,42 +1,46 @@
 <p id="notice"><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
-           
-<h1 class="userlabel">Listing Fighting Fleets</h1>
-  <% @fighting_fleets.each do |fighting_fleet| %>
-    <% if fighting_fleet.amount_of_groups > 0 %>
-      <table>
+<h1>Flottenbewegungen</h1>
+
+<% if not(@fighting_fleets.empty?) %>
+  <h2>Aktive Flottenbewegungen</h2>
+
+  <table id="table_fighting_fleet">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Aktion</th>
+        <th>Mission</th>
+        <th>Ziel</th>
+        <th>Schiff</th>
+        <th>Dauer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @fighting_fleets.each do |fighting_fleet| %>
         <tr>
-          <th><a>Angreifer:</a> </th>
-          <th><a><%=fighting_fleet.fight.attacker.username%></a></th>
-          <th><a>Verteidiger:</a> </th>
-          <th><a><%=fighting_fleet.fight.defender.username%></a></th>
-          <th><a>Mutterschiff:</a> </th>
-          <th><a><%=%></a></th>
-        </tr>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th><a>Schiffe</a></th>
-            <th ><a>Anzahl</a></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% fighting_fleet.ship_groups.each do |s|  %>
-            <% if s.number > 0%>
-            <tr>
-          <td><a><img src= "<%= image_url(s.unit.icon)%>", width="50", height="50", id="icon"><span><%= s.unit.message.mes %></span></a> </td>
-      <td><a><%= s.unit.name%><span><%= s.unit.message.mes %></span></a> </td>
-              <td><a><%= s.number%></a> </td>
-            </tr>
-          <% end %>
-          <% end %>
-          <tr>
+          <% if(fighting_fleet.user_id == current_user.id) %>
+            <td>
+              <a>
+                <img src= "<%= image_url("facility_icons/shield_big.png")%>", width="50", height="50", id="icon">
+                <span><%= fighting_fleet.info %></span>
+              </a>
+            </td>
+            <td><%= fighting_fleet.get_state %></td>
+            <td><%= fighting_fleet.get_mission %></td>
+            <td><%= fighting_fleet.fight.defender.username %></td>
+            <td><%= fighting_fleet.get_target_ship.name %></td>
+
+            <td class="running"
+              data-id="<%= fighting_fleet.id %>"
+              data-time="<%= fighting_fleet.update_time(false) %>">
+            </td>
             <td colspan="2"><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-          <tr>
-          </tr>
-        </tbody>
-      </table>
-  <% end %>
-<%end%>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    <%= javascript_tag "start_timer()" -%>
+  </table>
+<% end %>
