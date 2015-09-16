@@ -86,18 +86,39 @@ class Expedition < ActiveRecord::Base
          end
       end
 
-      gegner_flotte = FightingFleet.create(:user => User.find_by_username("dummy"))
-      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Kreuzer").id).number += kreuzer_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Jäger").id).number += jaeger_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "Fregatte").id).number += fregatte_amount
-      gegner_flotte.ship_groups.find_by(:unit_id => Unit.find_by(:name => "mobiler Schild").id).number += schild_amount
-      gegner_flotte.save
+      #TODO: Dummy User mit Dummy-Ship in Seeds schreiben
+      #gegner_ship = Ship.build("Dummy-Schiff")
+      #UserShip.build(user: User.find_by_username("dummy"), ship: gegner_ship)
+
+      gegner_ship = Ship.find_by(:name => "Dummy-Schiff", :user => "dummy")
+      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Kreuzer"))
+      unit_ins.amount = kreuzer_amount
+      unit_ins.save
+
+      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Fregatte"))
+      unit_ins.amount = fregatte_amount
+      unit_ins.save
+
+      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Jäger"))
+      unit_ins.amount = jaeger_amount
+      unit_ins.save
+
+      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "mobiler Schild"))
+      unit_ins.amount = schild_amount
+      unit_ins.save
 
       fight_id = rand(5101..5106)
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(fight_id), info: "")
-      #TODO Kampf starten
 
-      gegner_flotte.destroy
+      gegner_ship.metal = 0
+      gegner_ship.cristal = 0
+      gegner_ship.fuel = 0
+      gegner_ship.save
+      ergebnis = battle_id(fighting_fleet.id, gegner_ship.id)
+
+      fighting_fleet = ergebnis[0]
+      fighting_fleet.save
+
       welcome_home
    end
 
@@ -129,9 +150,9 @@ class Expedition < ActiveRecord::Base
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
 
       ship = self.expedition_instance.user.active_ship
-      ship.metal += metal_got
-      ship.cristal += crystal_got
-      ship.fuel += fuel_got
+      ship.update_metal(metal_got)
+      ship.update_cristal(crystal_got)
+      ship.update_fuel(fuel_got)
       ship.save
       welcome_home
    end

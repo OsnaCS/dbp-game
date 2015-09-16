@@ -110,3 +110,38 @@ function getJsonData() {
     $("#val-fuel").html(data.fuel);
   });
 }
+
+$(function(){
+
+  var metalValue = $('#metalValue');
+  $('#metalSlider').change(function(){
+      metalValue.html(this.value);
+  });
+  // Trigger the event on load, so
+  // the value field is populated:
+  $('#metalSlider').change();
+
+  var crystalValue = $('#crystalValue');
+  $('#crystalSlider').change(function(){
+      crystalValue.html(this.value);
+  });
+  // Trigger the event on load, so
+  // the value field is populated:
+  $('#crystalSlider').change();
+
+  var fuelValue = $('#fuelValue');
+  $('#fuelSlider').change(function(){
+      fuelValue.html(this.value);
+  });
+  // Trigger the event on load, so
+  // the value field is populated:
+  $('#fuelSlider').change();
+
+  var generatorValue = $('#generatorValue');
+  $('#generatorSlider').change(function(){
+      generatorValue.html(this.value);
+  });
+  // Trigger the event on load, so
+  // the value field is populated:
+  $('#generatorSlider').change();
+});
