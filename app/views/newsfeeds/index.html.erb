@@ -23,7 +23,16 @@
         </tr>
         <tr>
           <br>
-          <p class="userlabel">vom <%= newsfeed.created_at.day %>.<%= newsfeed.created_at.mon %>.<%= newsfeed.created_at.year %> um <%= newsfeed.created_at.hour %>:<%= newsfeed.created_at.min %> Uhr</p>
+          <p class="userlabel">
+            vom <%= newsfeed.created_at.day %>.<%= newsfeed.created_at.mon %>.<%= newsfeed.created_at.year %> 
+            um <%= newsfeed.created_at.hour %>&nbsp;:
+            <% if newsfeed.created_at.min < 10 %>
+              0<%= newsfeed.created_at.min %>
+            <% else %>
+              <%= newsfeed.created_at.min %>
+            <% end %>
+            Uhr
+          </p>
         </tr>
         </table>
     <% end %>
