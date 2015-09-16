@@ -167,12 +167,32 @@ ul li {
 	margin-bottom: 5px;
 }
 
+.tooltip_selected {
+	position: relative;
+	float: center;
+	background-size: contain;
+}
+
+.tooltip_selected:hover:after {
+	position: absolute;
+	background: #333;
+	border-radius: 5px;
+	width: 220px;
+	bottom: 25px;
+	left: 20%;
+	padding: 5px 15px;
+	z-index: 1;
+	content: attr(data-tooltip);
+}
+
 .tooltip {
 	position: relative;
 	float: left;
 	width: 40px;
 	height: 40px;
 	background-size: contain;
+	font-family: 'space';
+	font-size: 14px;
 }
 
 .tooltip:hover:after {
