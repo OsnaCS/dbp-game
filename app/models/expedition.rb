@@ -142,9 +142,9 @@ class Expedition < ActiveRecord::Base
       relative_amount = rand(30..200)
       absolute_amount = @exp_storeroom * relative_amount/10000.0
       final_amount = [absolute_amount, @fleet_storeroom].min
-      metal_got = final_amount * metal
-      crystal_got = final_amount * crystal
-      fuel_got = final_amount * fuel
+      metal_got = final_amount * metal * 500
+      crystal_got = final_amount * crystal * 500
+      fuel_got = final_amount * fuel * 500
 
       resi_id = rand(5401..5406)
       resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
