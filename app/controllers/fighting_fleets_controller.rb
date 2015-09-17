@@ -33,7 +33,6 @@ class FightingFleetsController < ApplicationController
 
   def callback
     @fighting_fleet.state = 2
-
     one_way_duration = @fighting_fleet.flight_duration(@fighting_fleet.get_start_ship, @fighting_fleet.get_target_ship)
     travel_time = @fighting_fleet.get_time_since_start - one_way_duration
     @fighting_fleet.start_time = Time.now + (travel_time)
@@ -55,12 +54,10 @@ class FightingFleetsController < ApplicationController
     @target = @target_ship.user
     mission = params[:fighting_fleet][:mission]
     ac_ship = current_user.active_ship
-
     if not(current_user.has_enough_resources(@metal_cargo, @crystal_cargo, @fuel_cargo))
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Nicht genug Ressourcen!'
       return
     end
-
     total_cargo = 0
     total_amount = 0
     min_speed = -1
@@ -69,53 +66,44 @@ class FightingFleetsController < ApplicationController
       total_amount += check_amount
       unit_amount = ac_ship.get_unit_instance(unit).amount
       total_cargo += unit.cargo * check_amount * 500
-
       if((unit.speed < min_speed && check_amount != 0) || min_speed < 0)
         min_speed = unit.speed
       end
-
       if(check_amount > unit_amount)
         redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Zu wenig Einheiten am Mutterschiff vorhanden.'
         return
       end
     end
     duration = FightingFleet.static_flight_duration(ac_ship, @target_ship, min_speed)
-
     if(total_cargo < @metal_cargo + @crystal_cargo + @fuel_cargo)
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Zu wenig Laderaum der Einheiten für die Ressourcen.'
       return
     end
-    
     if(total_amount == 0)
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Es muss mindestens ein Schiff versendet werden!'
       return
     end
-
     fuelcost = 0
     userFuelFactor = 1 + (0.1 * current_user.get_science_instance(Science.find_by(:name => "Triebwerke")).level)
-
     Unit.all.each do |unit|
        fuelcost += (unit.shell + unit.cargo) * params[unit.id.to_s].to_i
     end
     total_fuelcost = ((fuelcost * duration) / 200) / userFuelFactor
-
     if not(current_user.has_enough_fuel(@fuel_cargo + total_fuelcost))
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Du besitzt nicht genügend Treibstoff!'
       return
     end
-
     if(current_user.id == @target.id && mission.to_i == 1)
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Du darfst dich nicht selbst angreifen!'
       return
     end
-
     if(current_user.active_ship.id == @target_ship.id)
       redirect_to new_fighting_fleet_url(:user_id => @target.id), alert: 'Dieses Schiff ist aktuell ausgewaehlt!'
       return
     end
     current_user.remove_resources(@metal_cargo, @crystal_cargo, @fuel_cargo + total_fuelcost, current_user.active_ship)
-
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
+    @fighting_fleet.build_fight
     @fighting_fleet.target_ship = @target_ship.id
     @fighting_fleet.fight.defender_id = @target.id
     @fighting_fleet.fight.save
@@ -124,24 +112,22 @@ class FightingFleetsController < ApplicationController
     @fighting_fleet.state = 1
     @fighting_fleet.mission = mission
     @fighting_fleet.start_time = Time.now
+    @fighting_fleet.fight.time = Time.now
     @fighting_fleet.start_ship = ac_ship.id
     data = @metal_cargo.to_s + ":" + @crystal_cargo.to_s + ":" + @fuel_cargo.to_s + "," + @target_ship.id.to_s
     @fighting_fleet.data = data
     @fighting_fleet.save
-
     userShip = Ship.find(current_user.activeShip)
     unit_instance = nil
     number = 
     Unit.all.each do |unit|
       number = params[unit.id.to_s].to_i
       ship_group = @fighting_fleet.ship_groups.find_by(:unit_id => unit.id)
-
       if(number != 0)
           unit_instance = ac_ship.get_unit_instance(unit)
           unit_instance.amount = unit_instance.amount - number
           unit_instance.save
       end
-
       if(ship_group.nil?)
         ship_group = ShipGroup.new
         ship_group.unit_id = unit.id
@@ -153,10 +139,8 @@ class FightingFleetsController < ApplicationController
         ship_group.save
       end
     end
-    
     userShip.fuel -= fuelcost
     userShip.save
-
     respond_to do |format|
       if @fighting_fleet.save
         format.html { redirect_to fighting_fleets_url notice: 'Fighting fleet was successfully created.' }

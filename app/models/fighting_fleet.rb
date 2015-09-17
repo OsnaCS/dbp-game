@@ -1,25 +1,21 @@
 class FightingFleet < ActiveRecord::Base
   @@missions = {1 => "Angriff", 2 => "Transport", 3 => "Stationieren"}
   @@state = {1 => "Hinflug", 2 => "Rückflug"}
-
   belongs_to :user
   belongs_to :expedition
   belongs_to :fight 
   has_many :ship_groups, dependent: :destroy
-
   validates :id, uniqueness: true
- 
 #  validates :number, :numericality => { :greater_than_or_equal_to =>0 }
   accepts_nested_attributes_for :fight
   accepts_nested_attributes_for :ship_groups
-
   after_initialize :initialize_units, if: :new_record?
 #  before_create :create_units
 
   def initialize_units
-    if self.new_record? 
-      self.build_fight
-    end  
+   # if self.new_record? 
+    #  self.build_fight
+   # end  
     if self.ship_groups.empty?
       Unit.all.each do|u| 
         self.ship_groups.build  unit: u, number: 0
@@ -33,14 +29,12 @@ class FightingFleet < ActiveRecord::Base
 
   def self.static_flight_duration(start_ship, end_ship, total_speed)
     distance = start_ship.user.distance_to(end_ship.user)
-
     time = 20 + (distance / (total_speed * 10))
     return time.to_i
   end
 
   def flight_duration(start_ship, end_ship)
     distance = start_ship.user.distance_to(end_ship.user)
-
     time = 20 + (distance / (self.get_total_speed * 10))
     return time.to_i
   end
@@ -85,7 +79,6 @@ class FightingFleet < ActiveRecord::Base
     old_data = self.get_data
     old_data[index] = data
     newData = ""
-
     first = true
     old_data.each do |d|
       if(first)
@@ -147,29 +140,22 @@ class FightingFleet < ActiveRecord::Base
     end
     back = back + "<br>"
     res_data = self.get_data[0].split(":")
-
     if(res_data.length == 3)
       back = back + "- Verladenes Metall: " + res_data[0] + "<br>"
       back = back + "- Verladene Kristalle: " + res_data[1] + "<br>"
       back = back + "- Verladener Treibstoff: " + res_data[2] + "<br>"
     end
-
     return back.html_safe
-  end
-
-  def create_units
   end
 
   def update_time(format)
     if(self.start_time) 
       one_way_duration = self.flight_duration(self.get_start_ship, self.get_target_ship)
       rest_time = one_way_duration - self.get_time_since_start
-
       if(rest_time <= 0)
         if(self.state == 1)
           case self.mission
             when 1
-              self.fight.update(ship_attack: fight.attacker.active_ship)
               self.fight.fight(self.id, self.get_target_ship.id)
             when 2
               #Wenn Resourcenlimit erreicht, dann kein Transfer => Bug
@@ -177,21 +163,18 @@ class FightingFleet < ActiveRecord::Base
               metal = self.get_metal_cargo
               crystal = self.get_crystal_cargo
               fuel = self.get_fuel_cargo
-
               dm = (target_ship.max_storage(2008) - target_ship.metal) - metal
               if(dm < 0)
                 dm = -1 * dm
               else
                 dm = 0
               end
-
               dc = (target_ship.max_storage(2009)- target_ship.cristal) - crystal
               if(dc < 0)
                 dc = -1 * dc
               else
                 dc = 0
               end
-
               df = (target_ship.max_storage(2010)- target_ship.fuel) - fuel
               if(df < 0)
                 df = -1 * df
@@ -202,7 +185,6 @@ class FightingFleet < ActiveRecord::Base
               target_ship.user.add_resources(metal - dm, crystal - dc, fuel - df, target_ship)
             when 3
               target_ship = self.get_target_ship;
-
               self.ship_groups.each do |group|
                 instance = target_ship.get_unit_instance(group.unit)
                 instance.amount += group.number
@@ -210,7 +192,6 @@ class FightingFleet < ActiveRecord::Base
               end
               self.clear_fleet
           end
-
           if(self.empty)
             self.destroy
             self.save
@@ -228,7 +209,6 @@ class FightingFleet < ActiveRecord::Base
             unit_instance.save
           end
           home_ship.user.add_resources(self.get_metal_cargo, self.get_crystal_cargo, self.get_fuel_cargo, home_ship)
-
           self.destroy
           self.save
         end
