@@ -39,7 +39,19 @@
       </div>
     <%else%>
       <p class="ship_t1"> Nicht genug Rohstoffe für ein neues Schiff! </p>
-      <p class="ship_t1">Dir fehlen: <%= 200000-current_user.active_ship.metal.to_i%> Metall und <%=100000-current_user.active_ship.cristal.to_i %> Kristall</p>
+      <p class="ship_t1">Dir fehlen: 
+        <%if current_user.active_ship.metal<200000%>
+          <%= 200000-current_user.active_ship.metal.to_i%>
+        <%else%> 
+          0
+        <%end%>
+        Metall und 
+        <%if current_user.active_ship.cristal<100000%>
+          <%= 100000-current_user.active_ship.cristal.to_i%>
+        <%else%> 
+          0
+        <%end%>
+        Kristall</p>
     <%end%>
   <% else %>
     <p class="ship_t1"> Forsche Pioniersausbildung für ein zusätzliches Schiff </p>

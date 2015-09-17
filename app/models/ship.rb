@@ -124,6 +124,7 @@ class Ship < ActiveRecord::Base
             self.fuel = current_fuel
           else
             self.fuel = 0
+            self.energy -= ((self.ships_stations.find_by(station_id: '2015').energy_usage.to_f / 100) * 2 ** (self.ships_stations.find_by(station_id: '2015').level + 1)).to_i
           end
         end
 	  end
