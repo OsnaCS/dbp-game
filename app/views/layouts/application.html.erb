@@ -63,17 +63,17 @@
 					</td>
 					<td>
 						<div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
-							<% if current_user.active_ship.present? %>
-							<% if (current_user.active_ship.used_energy > current_user.active_ship.energy) %>
-								<p id="val-energy" style="color:red" class="val-resources">
-								<%= current_user.active_ship.used_energy %> /
-								<%= current_user.active_ship.energy %>
+						<% if current_user.active_ship.present? %>
+							<% if (true || current_user.active_ship.used_energy > current_user.active_ship.energy) %>
+								<p id="val-energy" class="val-resources">
+									<%= current_user.active_ship.used_energy %> /
+									<%= current_user.active_ship.energy %>
 								</p>
 							<% else %>
-							<p id="val-energy" class="val-resources">
-								<%= current_user.active_ship.used_energy %> /
-								<%= current_user.active_ship.energy %>
-							</p>
+								<p id="val-energy" style="color:white" class="val-resources">
+									<%= current_user.active_ship.used_energy %> /
+									<%= current_user.active_ship.energy %>
+								</p>
 							<% end %>
 						<% else %>
 							<p>0</p>

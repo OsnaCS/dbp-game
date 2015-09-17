@@ -69,14 +69,14 @@
     <tr>
       <td>
         <%= form_for metal_scan do |f| %>
-          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: metal_scan.energy_usage, min: 0, max: 100) %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
           <br>
           <%= f.submit 'Aktualisieren', class: 'button_formater' %>
         <% end %>
       </td>
       <td>
         <%= form_for crystal_scan do |f| %>
-          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: crystal_scan.energy_usage, min: 0, max: 100) %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
           <br>
           <%= f.submit 'Aktualisieren', class: 'button_formater' %>
         <% end %>
@@ -84,7 +84,7 @@
 
       <td>
         <%= form_for fuel_scan do |f| %>
-          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: fuel_scan.energy_usage, min: 0, max: 100) %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
           <br>
           <%= f.submit 'Aktualisieren', class: 'button_formater' %>
         <% end %>
@@ -92,7 +92,7 @@
 
       <td>
         <%= form_for burner do |f| %>
-          <%= f.number_field(:energy_usage, class: 'numfieldslider', placeholder: burner.energy_usage, min: 0, max: 100) %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
           <br>
           <%= f.submit 'Aktualisieren', class: 'button_formater' %>
         <% end %>

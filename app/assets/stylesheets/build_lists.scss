@@ -24,7 +24,7 @@
 .slider_format {
 	margin: auto;
 	position: relative;
-	width: 1600%;
+	width: 100%;
 }
 
 .slider_value {
@@ -64,7 +64,7 @@ $line-c: #fff;
 $line-w: .125em;
 
 $track-u: 1.5em;
-$track-w: 110%;
+$track-w: 150px;
 $track-h: .375em;
 $track-s: 100%;
 $track-l: 45%;
@@ -123,7 +123,7 @@ input[type='range'] {
   border: none;
   width: $thumb-d; height: $thumb-d;
   border-radius: 50% 50% 0 50%;
-  transform: scaleX(.9) rotate(45deg);
+  transform: scaleX(1) rotate(45deg);
   box-shadow: .25em .25em .5em #888;
   background:
   radial-gradient(#777 .5*$ruler-dot-d, transparent .625*$ruler-dot-d) 1px 1px,

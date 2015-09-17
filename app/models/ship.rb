@@ -188,6 +188,9 @@ class Ship < ActiveRecord::Base
     end
     if(id==2015)
       start = -500.0
+      if(self.fuel <= 500 * (1.5 ** instance.level || 0))
+        return 0.0
+      end
     end
     start /= 3600.0
     time = Time.now.getutc
