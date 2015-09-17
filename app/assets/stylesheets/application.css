@@ -390,6 +390,15 @@ ul li {
 	background-image: url('resources/crystal.png');
 }
 
+#attacked {
+	border: 0;
+	background-image: url('ui/Attack.png');
+}
+
+#not_attacked {
+	border: 0;
+}
+
 #res-fuel {
 	border: 0;
 	background-image: url('resources/fuel.png');
