@@ -168,7 +168,7 @@ class Fight< ActiveRecord::Base
   def spy_phase
     if amount_of_ships(@attacker, @spy_ship_id) > 0
       # SPY_EVENT wird gestartet
-      if threshold_spy > random_to_one
+      if random_to_one >  threshold_spy
         #Spyprobes leave battle!!
         spy_report_make(true, true)
         #STARTE EVENT
@@ -200,15 +200,16 @@ class Fight< ActiveRecord::Base
   def spy_event
     spy_level = user_science_level(@attacker, @spy_science_id)
     if spy_level >= 2
-     @spy_report << spy_report_level_two
       if spy_level >= 8
-        @spy_report << spy_report_level_eight
         if spy_level >= 16
           @spy_report << spy_report_level_sixteen
+        else  
+          @spy_report << spy_report_level_eight
         end
+      else   
+      @spy_report << spy_report_level_two
       end
-      else
-      #Spionagelevel zu niedrig.
+    else  
       @spy_report << []
     end
   end

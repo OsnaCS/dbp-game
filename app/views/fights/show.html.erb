@@ -55,14 +55,14 @@
   <a><p><%= (@spy_report[0])[1 .. -2]%></p></a><br>
   <%@spy_report.shift%>
 <%end %>
-<table id="rank_table">
+<table id="rank_table" >
 <tr>
 <%@spy_report.each do |report| %>
-  <td>
+  <td valign=top>
   <%elements = report.split(',')%>
   <%length = elements.length%>
   <% if length != 1 %>
-    <table id="rank_table">
+    <table id="rank_table" >
       <tr>
         <th colspan='2'><%=elements[1]%> </th>
       </tr>
