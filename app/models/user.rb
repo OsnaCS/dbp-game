@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
 
   def is_being_attacked
     FightingFleet.all.each do |fleet|
-      if(fleet.get_target_ship.user.id == self.id && fleet.mission.to_i == 1)
+      if(fleet.mission && fleet.get_target_ship.user.id == self.id && fleet.mission.to_i == 1)
         return true
       end
     end
