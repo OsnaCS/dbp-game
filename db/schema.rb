@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150917094153) do
-=======
-ActiveRecord::Schema.define(version: 20150917070420) do
->>>>>>> bc68b8829173a93fd568a883ad30d079d582a2d5
+ActiveRecord::Schema.define(version: 20150917131349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,9 +92,6 @@ ActiveRecord::Schema.define(version: 20150917070420) do
     t.text     "data"
     t.integer  "target_ship"
     t.integer  "start_ship"
-    t.integer  "metal"
-    t.integer  "crystal"
-    t.integer  "fuel"
   end
 
   add_index "fighting_fleets", ["expedition_id"], name: "index_fighting_fleets_on_expedition_id", using: :btree
@@ -199,9 +192,9 @@ ActiveRecord::Schema.define(version: 20150917070420) do
     t.float    "cristal"
     t.float    "fuel"
     t.datetime "lastChecked"
+    t.integer  "user_id"
     t.integer  "energy",           default: 0
     t.integer  "used_energy",      default: 0
-    t.integer  "user_id"
     t.integer  "fight_defends_id"
     t.integer  "fight_attacks_id"
   end
@@ -266,12 +259,12 @@ ActiveRecord::Schema.define(version: 20150917070420) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "message_id"
-    t.string   "icon"
-    t.string   "conditions"
-    t.integer  "condition_id"
     t.integer  "science_one_id"
     t.integer  "science_two_id"
     t.integer  "damage_type_id"
+    t.string   "icon"
+    t.string   "conditions"
+    t.integer  "condition_id"
   end
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
