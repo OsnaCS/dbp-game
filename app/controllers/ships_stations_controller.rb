@@ -100,8 +100,10 @@ class ShipsStationsController < ApplicationController
 
 
   def instant_upgrade
-    @ships_station.level = @ships_station.level + 1
-    @ships_station.save
+    if @ships_station.start_time != nil
+      @ships_station.level = @ships_station.level + 1
+      @ships_station.save
+    end
     @ships_station.reset_build
     redirect_to :back
   end
