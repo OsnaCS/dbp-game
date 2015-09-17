@@ -28,7 +28,7 @@ class UnitInstance < ActiveRecord::Base
       amounts << s.fuel/u.get_fuel_cost
     end
     
-    return amounts.min
+    return amounts.min.to_i
   end
 
    def get_ratio

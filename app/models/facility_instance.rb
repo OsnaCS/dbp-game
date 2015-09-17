@@ -32,7 +32,7 @@ class FacilityInstance < ActiveRecord::Base
       amounts << s.fuel/f.get_fuel_cost
     end
     
-    return amounts.min
+    return amounts.min.to_i
   end
 
   def get_ratio
