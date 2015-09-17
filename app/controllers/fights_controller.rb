@@ -2,18 +2,16 @@ class FightsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_fight, only: [:show, :edit, :update, :destroy]
   
-def index
+  def index
     @target = User.find_by(:id => params[:user_id])
     @fights = Fight.all
-    @fights_attacks = Fight.where(attacker: current_user).last(25)
-    @fights_defends = Fight.where(defender: current_user).last(25)
+    @fights_attacks = (Fight.where(attacker: current_user)).where.not(report: nil).last(25)
+    @fights_defends = (Fight.where(defender: current_user)).where.not(report: nil).last(25)
   end
-
 
   # GET /fights/1
   # GET /fights/1.json
   def show
-    
     @defender=@fight.defender.username
     @attacker=@fight.attacker.username
     @report = @fight.report.tr('"', '').tr(']', '').split("[").reject {|r| r.empty?} 
@@ -40,7 +38,6 @@ def index
   # POST /fights.json
   def create
     @fight = Fight.new(fight_params)
-
     respond_to do |format|
       if @fight.save
         format.html { redirect_to @fight, notice: 'Fight was successfully created.' }
@@ -81,7 +78,7 @@ def index
     def set_fight
       @fight = Fight.find(params[:id])
     end
-
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def fight_params
       params.require(:fight).permit(:report, :time, :attacker_id, :defender_id)
