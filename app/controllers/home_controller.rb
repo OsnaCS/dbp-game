@@ -6,8 +6,6 @@ class HomeController < ApplicationController
   		@ship = current_user.active_ship
   		@notification_count = Notification.all.where(user_id: current_user.id).count
   		@ship.update_resources
-      @ship.get_used_energy
-      @ship.get_energy
 
   		@metal_count = @ship.metal.to_i
   		@crystal_count = @ship.cristal.to_i
