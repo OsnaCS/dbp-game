@@ -67,7 +67,7 @@ class ExpeditionsController < ApplicationController
 
       if(userShip.fuel < fuelcost)
          string = "Nicht genügend Treibstoff um diese
-      FLotte loszuschicken. Benötigt wird: " + fuelcost.to_s + " Treibstoff"
+      Flotte loszuschicken. Benötigt wird: " + fuelcost.to_i.to_s + " Treibstoff"
          redirect_to expeditions_url, alert: string
          return
       end

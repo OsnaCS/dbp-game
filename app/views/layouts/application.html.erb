@@ -52,7 +52,7 @@
 		<div id="resources" class="content">
 			<% if current_user.present? %>
 				<table id="res-table"><tr>
-					<td>				
+					<td>
 							<p class="tooltip_selected" data-tooltip="Ausgewaehltes Schiff">Selected:
 								<% if current_user.activeShip.present?%>
 				  					<%=current_user.active_ship.name%>
@@ -63,16 +63,16 @@
 					</td>
 					<td>
 						<div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
-							<% if current_user.activeShip!=nil%>
-							<% if (Ship.find_by(id: current_user.activeShip).used_energy > Ship.find_by(id: current_user.activeShip).energy) %>
+							<% if current_user.activeShip.present? %>
+							<% if (current_user.active_ship.used_energy > current_user.active_ship.energy) %>
 								<p id="val-energy" style="color:red" class="val-resources">
-								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
-								<%= Ship.find_by(id: current_user.activeShip).energy %>
+								<%= current_user.active_ship.used_energy %> /
+								<%= current_user.active_ship.energy %>
 								</p>
 							<% else %>
 							<p id="val-energy" class="val-resources">
-								<%= Ship.find_by(id: current_user.activeShip).used_energy %> /
-								<%= Ship.find_by(id: current_user.activeShip).energy %>
+								<%= current_user.active_ship.used_energy %> /
+								<%= current_user.active_ship.energy %>
 							</p>
 							<% end %>
 						<% else %>
@@ -126,7 +126,7 @@
 							<li><%= link_to "Einheiten", units_path %></li>
 							<li><%= link_to "Handel", trades_path %></li>
 							<li><%= link_to "Expeditionen", expeditions_path %></li>
-							<li><%= link_to "Kampf",fighting_fleets_path %></li>
+							<li><%= link_to "Flotte",fighting_fleets_path %></li>
 							<li><%= link_to "Rangliste", ranks_path %></li>
 						<% end %>
 						<li><%= link_to "Einstellungen", edit_user_registration_path %></li>

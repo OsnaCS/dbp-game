@@ -1,46 +1,52 @@
-<%= form_for(@station) do |f| %>
-  <% if @station.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@station.errors.count, "error") %> prohibited this station from being saved:</h2>
+<%if current_user.is_admin %>
+  <%= form_for(@station) do |f| %>
+    <% if @station.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@station.errors.count, "error") %> prohibited this station from being saved:</h2>
 
-      <ul>
-      <% @station.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @station.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class= "field">
+      <%= f.label :icon %><br>
+      <%= f.text_area :icon %>
+    </div>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_area :name %>
+    </div>
+    <div class="field">
+      <%= f.label :costMineral %><br>
+      <%= f.number_field :costMineral %>
+    </div>
+    <div class="field">
+      <%= f.label :costCristal %><br>
+      <%= f.number_field :costCristal %>
+    </div>
+    <div class="field">
+      <%= f.label :costFuel %><br>
+      <%= f.number_field :costFuel %>
+    </div>
+    <div class="field">
+      <%= f.label :initial_level %><br>
+      <%= f.number_field :initial_level %>
+    </div>
+    <div class="field">
+      <%= f.label :tier %><br>
+      <%= f.number_field :tier %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class= "field">
-    <%= f.label :icon %><br>
-    <%= f.text_area :icon %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_area :name %>
-  </div>
-  <div class="field">
-    <%= f.label :costMineral %><br>
-    <%= f.number_field :costMineral %>
-  </div>
-  <div class="field">
-    <%= f.label :costCristal %><br>
-    <%= f.number_field :costCristal %>
-  </div>
-  <div class="field">
-    <%= f.label :costFuel %><br>
-    <%= f.number_field :costFuel %>
-  </div>
-  <div class="field">
-    <%= f.label :initial_level %><br>
-    <%= f.number_field :initial_level %>
-  </div>
-  <div class="field">
-    <%= f.label :tier %><br>
-    <%= f.number_field :tier %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%else%>
+  <script type="text/javascript">
+    window.location.href="/ships"
+  </script>
+<%end%>

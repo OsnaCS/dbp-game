@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915132347) do
+ActiveRecord::Schema.define(version: 20150916102932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,12 @@ ActiveRecord::Schema.define(version: 20150915132347) do
     t.datetime "updated_at",    null: false
     t.integer  "fight_id"
     t.integer  "expedition_id"
+    t.datetime "start_time"
+    t.integer  "state"
+    t.integer  "mission"
+    t.text     "data"
+    t.integer  "target_ship"
+    t.integer  "start_ship"
   end
 
   add_index "fighting_fleets", ["expedition_id"], name: "index_fighting_fleets_on_expedition_id", using: :btree

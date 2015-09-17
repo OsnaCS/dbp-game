@@ -1,29 +1,36 @@
-<%= form_for(@ships_station) do |f| %>
-  <% if @ships_station.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ships_station.errors.count, "error") %> prohibited this ships_station from being saved:</h2>
+<%if current_user.is_admin %>
+  <%= form_for(@ships_station) do |f| %>
 
-      <ul>
-      <% @ships_station.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @ships_station.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@ships_station.errors.count, "error") %> prohibited this ships_station from being saved:</h2>
+
+        <ul>
+        <% @ships_station.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :ship_id %><br>
+      <%= f.label :Station_costMineral %>
+    </div>
+    <div class="field">
+      <%= f.label :station_id %><br>
+      <%= f.number_field :station_id %>
+    </div>
+    <div class="field">
+      <%= f.label :level %><br>
+      <%= f.number_field :level %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :ship_id %><br>
-    <%= f.label :Station_costMineral %>
-  </div>
-  <div class="field">
-    <%= f.label :station_id %><br>
-    <%= f.number_field :station_id %>
-  </div>
-  <div class="field">
-    <%= f.label :level %><br>
-    <%= f.number_field :level %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%else%>
+  <script type="text/javascript">
+    window.location.href="/ships"
+  </script>
+<%end%>

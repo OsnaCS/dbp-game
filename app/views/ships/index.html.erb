@@ -19,6 +19,9 @@
         <td><p class="userbutton"><%= link_to 'Auswählen', ship_path(usership.ship) %></p></td>
         <td><p class="userbutton"><%= link_to 'Name ändern', edit_ship_path(usership.ship) %></p></td>
         <td><p class="userbutton"><%= link_to 'Stationen', ship_ships_stations_path(usership) %></p></td>
+        <% if not(current_user.active_ship.id == usership.ship.id) %>
+          <td><p class="userbutton"><%= link_to 'Flotte Verschicken', new_fighting_fleet_path(:user_id => current_user.id) %></p></td>
+        <% end %>
         <td><%= button_to "CheatRes", cheat_ship_path(usership), method: :get %></td>
         <% usership.ship.update_resources %>
       </tr>
@@ -36,7 +39,19 @@
       </div>
     <%else%>
       <p class="ship_t1"> Nicht genug Rohstoffe für ein neues Schiff! </p>
-      <p class="ship_t1">Dir fehlen: <%= 200000-current_user.active_ship.metal.to_i%> Metall und <%=100000-current_user.active_ship.cristal.to_i %> Kristall</p>
+      <p class="ship_t1">Dir fehlen: 
+        <%if current_user.active_ship.metal<200000%>
+          <%= 200000-current_user.active_ship.metal.to_i%>
+        <%else%> 
+          0
+        <%end%>
+        Metall und 
+        <%if current_user.active_ship.cristal<100000%>
+          <%= 100000-current_user.active_ship.cristal.to_i%>
+        <%else%> 
+          0
+        <%end%>
+        Kristall</p>
     <%end%>
   <% else %>
     <p class="ship_t1"> Forsche Pioniersausbildung für ein zusätzliches Schiff </p>
