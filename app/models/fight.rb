@@ -5,13 +5,6 @@ class Fight< ActiveRecord::Base
   belongs_to :ship_attack, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_attacks'
   belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
-  validate :validation_no_self_attack 
-
-  def validation_no_self_attack
-  	 unless(self.attacker != self.defender)
-       self.errors.add(:attack_self, "You are about to attack yourself beware!")
-     end
-  end
 
   def init_vars (attacker_fleet_id, defender_ship_id)
     if(!@allready_done)
@@ -64,11 +57,8 @@ class Fight< ActiveRecord::Base
       @allready_done = true  
     end    
   end
-  
-  def find_ship_by_ship_id (ship_id)
-    return Ship.find(ship_id)
-  end  
 
+  # Baut ein Array von Anlagen anhand des Schiffes (Des Verteidigers)
   def build_defend_facilities(ship)
     array = []
     ship.facility_instances.each do |f|
@@ -77,18 +67,22 @@ class Fight< ActiveRecord::Base
     return array
   end
 
+  # Findet Einheit anhand von Namen
   def find_id_unit (name)
     return Unit.find_by(name: name)
   end
 
+  # Findet Station anhand von Namen
   def find_id_station (name)
     return Station.find_by(name: name)
   end 
- 
+
+  # Findet Forschung anhand von Namen
   def find_id_science (name)
     return Science.find_by(name: name)
   end
 
+  # Findet Anlagen anhand von Namen
   def find_id_facility (name)
     return Facility.find_by(name: name)
   end
@@ -109,6 +103,7 @@ class Fight< ActiveRecord::Base
       return @attacker_fleet.ship_groups.find_by(unit_id: unit_id).number
   end
 
+  # Speichert die Anzahl einer Anlage
   def amount_of_facilities(facility_id)
     amount = 0
     if  (@defender_facilities.nil?)
@@ -206,10 +201,12 @@ class Fight< ActiveRecord::Base
     end
   end
 
+  # Gibt den Spionagebericht ab Spionagelevel 2 wieder
   def spy_report_level_two
     return ["|", [" #{@defender.username} besitzt im Schiff #{@defender_ship.name}: #{get_sum_defender_ressources} Ressourcen, #{get_sum_defender_units} Einheiten und #{get_sum_defender_facilities} Anlagen." ]] 
   end
-  
+
+  # Gibt den Spionagebericht ab Spionagelevel 8 wieder  
   def spy_report_level_eight
     return ["|", get_list_defender_ressources,"|", get_list_defender_units,"|", get_list_defender_facilities]
   end
@@ -218,6 +215,7 @@ class Fight< ActiveRecord::Base
     return ["|",get_list_defender_ressources,"|", get_list_defender_units,"|", get_list_defender_facilities,"|", get_list_defender_sciences]
   end
 
+  # Gibt den Spionagebericht ab Spionagelevel 16 wieder
   def get_list_defender_ressources
     ressource_report = []
     metal = @defender_ship.metal
@@ -227,6 +225,7 @@ class Fight< ActiveRecord::Base
     return ressource_report
   end
 
+  # Bildet Liste aller Defender-Einheiten
   def get_list_defender_units
     unit_report = []
     unit_report << "Auflistung der Flotte: "
@@ -235,8 +234,9 @@ class Fight< ActiveRecord::Base
       unit_report << group.number
     end
     return unit_report
-  end 
+  end
 
+  # Bildet Liste aller Defender-Anlagen
   def get_list_defender_facilities
     unit_report = []
     unit_report << "Auflistung der Anlagen: "
@@ -247,6 +247,7 @@ class Fight< ActiveRecord::Base
     return unit_report
   end 
 
+  # Bildet Liste aller Defender-Forschungen
   def get_list_defender_sciences
     unit_report = []
     unit_report << "Auflistung der Forschung: "
@@ -257,10 +258,12 @@ class Fight< ActiveRecord::Base
     return unit_report
   end
   
+  # Bildet die Summer aller Verteidiger-Ressourcen
   def get_sum_defender_ressources
     return @defender_ship.metal + @defender_ship.cristal + @defender_ship.fuel
   end
 
+  # Bildet die Summer aller Verteider-Einheiten
   def get_sum_defender_units
     all_units = 0
     @defender_fleet.ship_groups.each do |group|
@@ -269,6 +272,7 @@ class Fight< ActiveRecord::Base
     return all_units
   end
 
+  # Bildet die Summer aller Verteider-Anlagen
   def get_sum_defender_facilities
     all_facilities = 0
     @defender_facilities.each do |instance|
@@ -330,6 +334,7 @@ class Fight< ActiveRecord::Base
         amount = sg.get_number
         id = sg.get_id
         if id != @spy_ship_id 
+          # Berechne Schaden der Gruppe
           damage_sum = sg.get_damage * amount * @damage_mult
           damage_type = sg.get_damage_type
           hp_sum = (sg.get_hp * amount * (1 + (0.1 * array[0])).to_i) * @shell_mult
@@ -356,7 +361,7 @@ class Fight< ActiveRecord::Base
         name = f.facility.name
         cargo = 0 
         # Speichert alle Werte in Array
-          fleet_array << [id, amount, damage_sum, damage_type, lost_facilities, name, false, cargo, hp_sum, hitchance]
+        fleet_array << [id, amount, damage_sum, damage_type, lost_facilities, name, false, cargo, hp_sum, hitchance]
       end
     end
     # Sortiere Array und Berechne Trefferwahrscheinlichkeiten
@@ -434,9 +439,11 @@ class Fight< ActiveRecord::Base
     if group_array[-2] < 0
       group_array[-2] = 0
     end
+    #Falls Einheit
     if (group_array[6])
       hp_one = Unit.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
-      damage_one = Unit.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))    
+      damage_one = Unit.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))   
+      # Falls Anlage 
     else
       hp_one = Facility.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
       damage_one = Facility.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))
@@ -456,14 +463,11 @@ class Fight< ActiveRecord::Base
   end
 
   # Berechnet das Schild von user
-  # MUSS NOCH ANGEPASST WERDEN!!!!!!!!!!!!!!!!
   def shield_cal(user)
     shield_mobile = amount_of_ships(user, @shield_ship_id) * 5
     level_shield = user_science_level(user, @shield_science_id) 
     shield_defend = 0
     if (user == @defender)
-      #add shield
-      # ANLAGEN NOCH EINBINDEN!!!!!!
       shield_big = amount_of_facilities(@big_shield_id ) * 500
       shield_small = amount_of_facilities(@smal_shield_id ) * 100
       shield_defend = shield_big + shield_small
@@ -483,6 +487,7 @@ class Fight< ActiveRecord::Base
     return [shell, shield, laser, ionen, bomb, pilot, spy]
   end
 
+  # Baut ein Array mit allen Stations-Vorteilen
   def  build_station_level
     ship = Ship.find(@defender_ship)
     metal_save = 2000 * (2 ** ship.ships_stations.find_by(station_id: @metal_vault_id).level)
@@ -494,7 +499,6 @@ class Fight< ActiveRecord::Base
 
   # Für den Verlust-Report nach der Schlacht
   def lost_report (fleet_array, user)
-
     if (user == @attacker)
       origin = @attacker_fleet
       lost_array = @attacker_lost
@@ -522,7 +526,6 @@ class Fight< ActiveRecord::Base
         lost_array << [o.unit, lost, true]
         unit_report << lost
         unit_report << (o.number - lost)
-
       else 
         unit_report << o.number
         unit_report << 0
@@ -556,6 +559,7 @@ class Fight< ActiveRecord::Base
     @report << lost_report
   end
 
+  # Schnittstelle für Expedition
   def battle_id(fleet_id, ship_id_defender)
       init_vars(fleet_id ,ship_id_defender)
       return battle
@@ -678,7 +682,6 @@ class Fight< ActiveRecord::Base
     end
     update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
     update_fighting_fleet(@defender_fleet, defender_fleet_ary)
-    # ANLAGEN NOCH EINFÜGEN:
     ary = [@attacker_fleet, @defender_fleet]   
     if victory
       calc_raid(attacker_fleet_ary)
@@ -686,6 +689,7 @@ class Fight< ActiveRecord::Base
     return [@report, @spy_report]
   end
   
+  # Berechnet den Raub bei Sieg des Angreifers
   def calc_raid(attacker_fleet_array)
     max_raid = []
     max_raid << @defender_ship.metal - @defender_station_level[0]
@@ -704,7 +708,11 @@ class Fight< ActiveRecord::Base
     attacker_fleet_array.each do |a|
       cargo_sum = cargo_sum + a[7]
     end
-    faktor = cargo_sum / sum_max_raid
+    if sum_max_raid == 0
+      faktor = 0
+    else  
+      faktor = cargo_sum / sum_max_raid
+    end
     if faktor > 1
       faktor = 1
     end
@@ -714,6 +722,7 @@ class Fight< ActiveRecord::Base
     @attacker_fleet.save
   end
 
+  # Schreibt nach Kampf Verluste zurück
   def update_fighting_fleet(exsisting_fleet, array_of_fleet)
     max = array_of_fleet.length
     array_of_fleet.each do |a|  
@@ -741,6 +750,7 @@ class Fight< ActiveRecord::Base
     return exsisting_fleet     
   end
 
+  # Speichert die Ursprünglichen Anlagen
   def safe_origin_facility_amount (facilities)
     array = []
     facilities.each do |f|
@@ -749,14 +759,17 @@ class Fight< ActiveRecord::Base
     return array
   end
  
+  # Suche Schiff anhand seiner id
   def get_ship_by_ship_id(ship_id_user)
     return UserShip.find_by(:ship_id => ship_id_user).ship
   end
 
+  # Suche Benutzer anhand von Schiff
   def get_user_by_ship_id(ship_id_user)
     return UserShip.find_by(:ship_id => ship_id_user).user
   end
 
+  # Berechne Totale Kosten einer Anlagenart
   def get_total_cost_by_facility (facility)
     metal = facility.cost1 
     crystal = facility.cost2 * 2
@@ -764,6 +777,7 @@ class Fight< ActiveRecord::Base
     return metal + crystal + fuel
   end  
 
+  # Bilde Flotte aus Stationierten Einheiten anhand von Schiff
   def get_fleet_by_ship(ship_id_defender)
     fleet = FightingFleet.create(user: get_user_by_ship_id(ship_id_defender))
     fleet.ship_groups.each do |group|
@@ -774,19 +788,8 @@ class Fight< ActiveRecord::Base
     fleet.save
     return fleet
   end
-
-  def get_total_points(array)
-    points = 0
-    array.each do |a|
-      if a[2]
-        points = points + (a[0].get_total_cost * a[1])
-      else
-        points = points + (get_total_cost_by_facility(a[0]) * a[1])
-      end   
-    end  
-    return points/500
-  end
   
+  # Berechnet die Punkte anhand einer Flotte
   def get_total_points_fleet(fleet)
     points = 0
     fleet.ship_groups.each do |group|
@@ -798,6 +801,7 @@ class Fight< ActiveRecord::Base
     return points/500
   end  
 
+  # Berechnet die Punkte anhand von Anlagen
   def get_total_points_facilities_by_ship(ship)
     points = 0
     ship.facility_instances.each do |facility_instance|
@@ -808,41 +812,28 @@ class Fight< ActiveRecord::Base
     return points/500
   end
 
+  # Schnittstelle für Expeditionen mit Punkten
   def battle_with_points(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
-   
     points_for_defender_before = get_total_points_fleet(@attacker_fleet)
-
-    points_for_attacker_before = get_total_points_fleet(@defender_fleet)#+ get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
     report = battle_id(attacker_fleet_id, defender_ship_id)
-
-
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
     points_for_defender = points_for_defender_before-points_for_defender_after
-
-    #points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship)
     points_for_attacker_after = get_total_points_fleet(@defender_fleet)
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
-
     update_points(@defender, points_for_defender) 
-
     @defender_fleet.destroy
-
     update_points(@attacker, points_for_attacker) 
     return report
   end
 
+  # Update der Punkte 
   def update_points(user, points)
     points_of_user = user.rank.score 
     user.rank.update(:score => points_of_user+points)
-    #user.incr_user_rank(points)
-  end
-
-  def update_points(user, points)
-    id = user.id 
-    user = User.find(id)
-    user.incr_user_rank(points)
   end
 
   # Hauptmethode. Navigiert durch den Kampf und gibt zum 
