@@ -18,7 +18,7 @@ class ExpeditionsController < ApplicationController
       @current_progress = Hash.new
       @expeditions.each do |exp|
          @current_progress[exp.id] = ((Time.now + 2.hours) - exp.arrival_time + exp.explore_time.hours)
-         @expi_home[exp.id] = Ship.find_by(:id => exp.ship_id)
+         @expi_home[exp.id] = Ship.find_by_id(exp.ship_id)
       end
    end
 
