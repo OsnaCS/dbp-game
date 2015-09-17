@@ -146,7 +146,7 @@ class Expedition < ActiveRecord::Base
       resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
 
-      ship = Ship.find_by(id: self.ship_id)
+      ship = Ship.find_by_id(self.ship_id)
       ship.update_metal(metal_got)
       ship.update_cristal(crystal_got)
       ship.update_fuel(fuel_got)
