@@ -6,7 +6,6 @@ class ExpeditionsController < ApplicationController
    def index
       @expeditions = current_user.expedition_instances.map(&:expedition)
       @userFuelFactor = 1 + (0.1 * current_user.science_instances.find_by(:science_id => Science.find_by(:name => "Triebwerke").id).level)
-
       @expeditions.each do |expi|
          if(expi.arrival_time < (Time.now + 2.hours ))
             expi.explore
@@ -14,10 +13,12 @@ class ExpeditionsController < ApplicationController
             expi.destroy
          end
       end
+      @expi_home = Hash.new
       @expeditions = current_user.expedition_instances.map(&:expedition)
       @current_progress = Hash.new
       @expeditions.each do |exp|
          @current_progress[exp.id] = ((Time.now + 2.hours) - exp.arrival_time + exp.explore_time.hours)
+         @expi_home[exp.id] = Ship.find_by(:id => exp.ship_id)
       end
    end
 
@@ -72,6 +73,7 @@ class ExpeditionsController < ApplicationController
          return
       end
 
+      @expedition.ship_id = userShip.id
       @expedition.explore_time = params[:exp_time].to_i
       @expedition.arrival_time = Time.now + 3600 * (2 + @expedition.explore_time) 
 

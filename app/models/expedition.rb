@@ -20,13 +20,13 @@ class Expedition < ActiveRecord::Base
       happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
       happen = happen * 100
       if(happen > event)
-         return occurance
+         return occurrence
       else
          return nothing
       end
    end
 
-   def occurance
+   def occurrence
       occ = rand(100)
       case occ
       when 0..10
@@ -42,7 +42,7 @@ class Expedition < ActiveRecord::Base
 
    def welcome_home
       fighting_fleet.ship_groups.all.each do |group|
-         unit_group = UnitInstance.find_by(:unit_id => group.unit_id, :ship_id => self.expedition_instance.user.active_ship)
+         unit_group = UnitInstance.find_by(:unit_id => group.unit_id, :ship_id => self.ship_id)
          unit_group.amount += group.number
          unit_group.save
       end
@@ -146,7 +146,7 @@ class Expedition < ActiveRecord::Base
       resi_string = "Erhaltene Ressourcen: Metall: " + metal_got.round.to_s + " Kristall: " + crystal_got.round.to_s + " Treibstoff: " + fuel_got.round.to_s
       self.expedition_instance.user.notifications.create(message: Message.find_by_code(resi_id), info: resi_string)
 
-      ship = self.expedition_instance.user.active_ship
+      ship = Ship.find_by(id: self.ship_id)
       ship.update_metal(metal_got)
       ship.update_cristal(crystal_got)
       ship.update_fuel(fuel_got)
