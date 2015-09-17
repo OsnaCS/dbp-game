@@ -17,8 +17,6 @@
 			  	<br>
 				<%= f.text_field :login, placeholder: "Username", :class => 'userlogintextfield' %>
 			    <%= f.password_field :password , placeholder: "Passwort", :class => 'userlogintextfield' %>
-			    <%= f.check_box :remember_me %>
-			    <%= f.label :remember_me %>
 			    <%= f.submit 'Sign in', :class => 'submitbutton' %>
 			  <% end %>
 			<% else %>
