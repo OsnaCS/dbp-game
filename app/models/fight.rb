@@ -689,38 +689,7 @@ class Fight< ActiveRecord::Base
     return [@report, @spy_report]
   end
   
-  # Berechnet den Raub bei Sieg des Angreifers
-  def calc_raid(attacker_fleet_array)
-    max_raid = []
-    max_raid << @defender_ship.metal - @defender_station_level[0]
-    max_raid << @defender_ship.cristal - @defender_station_level[1]
-    max_raid << @defender_ship.fuel - @defender_station_level[2]
-    i = 0
-    sum_max_raid = 0
-    while i < 2 do
-      if max_raid[i] < 0
-        max_raid[i] = 0
-      end
-      sum_max_raid = sum_max_raid + max_raid[i]
-      i = i + 1
-    end
-    cargo_sum = 0
-    attacker_fleet_array.each do |a|
-      cargo_sum = cargo_sum + a[7]
-    end
-    if sum_max_raid == 0
-      faktor = 0
-    else  
-      faktor = cargo_sum / sum_max_raid
-    end
-    if faktor > 1
-      faktor = 1
-    end
-    @attacker_fleet.metal = max_raid[0] *  faktor
-    @attacker_fleet.crystal = max_raid[1] *  faktor
-    @attacker_fleet.fuel = max_raid[2] *  faktor
-    @attacker_fleet.save
-  end
+
 
   # Schreibt nach Kampf Verluste zurück
   def update_fighting_fleet(exsisting_fleet, array_of_fleet)
