@@ -20,7 +20,7 @@
     <tbody>
       <% @fighting_fleets.each do |fighting_fleet| %>
         <tr>
-          <% if(fighting_fleet.user_id == current_user.id) %>
+          <% if(fighting_fleet.mission && fighting_fleet.user_id == current_user.id) %>
             <td>
               <a>
                 <img src= "<%= image_url("facility_icons/shield_big.png")%>", width="50", height="50", id="icon">

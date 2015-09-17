@@ -104,8 +104,10 @@ class ScienceInstancesController < ApplicationController
 
 
   def instant_research
-    @science_instance.level = @science_instance.level + 1
-    @science_instance.save
+    if @science_instance.start_time != nil
+      @science_instance.level = @science_instance.level + 1
+      @science_instance.save
+    end
     @science_instance.reset_build
     redirect_to :back
   end

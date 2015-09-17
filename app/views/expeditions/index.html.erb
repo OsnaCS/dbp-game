@@ -6,15 +6,18 @@
 <table id="table_expedition">
   <thead>
     <tr id="table">
+      <th>Heimatschiff</th>
       <th>Dauer</th>
       <th>Ankunft</th>
-      <th colspan="3"></th>
+      <th>Fortschritt</th>
+      <th width = "200"></th>
     </tr>
   </thead>
   
   <tbody>
     <% @expeditions.sort_by(&:arrival_time).each do |exp| %>
       <tr>
+        <td><%= @expi_home[exp.id].name%></td>
         <td><%= exp.explore_time %> Stunde(n)</td>
         <td><%= exp.arrival_time.strftime("%A %H:%M:%S") %></td>
         <td class="bar"

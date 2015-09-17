@@ -29,7 +29,7 @@ p {
 a, a:visited {
 	color: #FFFF00;
 	font-family: 'space';
-	font-size: 14px;
+	font-size: 13px;
 }
 
 ul {
@@ -128,14 +128,19 @@ ul li {
 #menu {
 	position: relative;
 	width: 100%;
-	height: 90%;
+	height: 93%;
 	top: 0%;
+}
+
+#menu-table {
+	position: relative;
+	top: -10px;
 }
 
 #notification {
 	position: relative;
 	width: 100%;
-	height: 10%;
+	height: 7%;
 	top: 0%;
 }
 
@@ -338,10 +343,10 @@ ul li {
 
 #notification-image {
 	position: absolute;
-	width: 50px;
-	height: 50px;
-	left: calc(50% - 25px);
-	top: 5px;
+	width: 32px;
+	height: 32px;
+	left: calc(50% - 16px);
+	top: 8px;
 	background-image: url('ui/message.png');
 	background-size: 100% 100%;
 }
@@ -349,9 +354,10 @@ ul li {
 #notification-text {
 	position: absolute;
 	color: #FFF;
-	left: calc(50% - 5px);
-	top: 2px;
+	left: 55%;
+	top: -5px;
 	background-color: red;
+	font-size: 10px;
 	font-weight: bold;
 	border: 2px solid red;
 	border-radius: 5px;
