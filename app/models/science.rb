@@ -7,10 +7,6 @@ class Science < ActiveRecord::Base
   has_many :users, :through => :science_instances
   validates_presence_of :cost1, :cost2, :cost3, :factor, :duration, :name, :tier, :science_condition_id, :icon
 
-  def has_level_cap
-    return self.level_cap > -1
-  end
-
   def get_metal_cost(level)
     return (self.cost1 * 500 * self.factor ** (level)).to_i
   end
@@ -35,8 +31,38 @@ class Science < ActiveRecord::Base
     return get_fuel_cost(level).to_f * ratio
   end
 
-  def get_duration(level, ship)
-    research_station_level = ShipsStation.find_by(:ship_id => ship.id, :station_id => 2004).level
-    return (self.duration * self.factor ** (level + 1)) / (1 + 0.1 * research_station_level)
+  def self.update_time(instance, format)
+    science = instance.science
+    durationInSeconds = instance.get_duration(instance.level)
+
+    if(instance.start_time != nil)
+      timeSinceResearch = (Time.now - instance.start_time).to_i
+      restTime = durationInSeconds - timeSinceResearch
+
+      if(restTime <= 0)
+        instance.level = instance.level + 1
+        instance.save
+        instance.reset_build
+
+        if not(format)
+          return durationInSeconds;
+        else
+          return format_count_time(durationInSeconds)
+        end
+      else
+        if not(format)
+          return restTime;
+        else
+          return format_count_time(restTime)
+        end
+      end
+    else
+      if not(format)
+        return durationInSeconds;
+      else
+        return format_count_time(durationInSeconds)
+      end
+    end
   end
+
 end

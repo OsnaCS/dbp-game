@@ -1,6 +1,6 @@
 class FightingFleetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_fighting_fleet, only: [:show, :edit, :update, :destroy]
+  before_action :set_fighting_fleet, only: [:callback, :show, :edit, :update, :destroy]
   # GET /fighting_fleets
   # GET /fighting_fleets.json
 
@@ -29,6 +29,16 @@ class FightingFleetsController < ApplicationController
     Unit.all.each do |unit|
       @fuelcost[unit.id] = ((unit.shell + unit.cargo)/userFuelFactor).to_i
     end
+  end
+
+  def callback
+    @fighting_fleet.state = 2
+
+    one_way_duration = @fighting_fleet.flight_duration(@fighting_fleet.get_start_ship, @fighting_fleet.get_target_ship)
+    travel_time = @fighting_fleet.get_time_since_start - one_way_duration
+    @fighting_fleet.start_time = Time.now + (travel_time)
+    @fighting_fleet.save
+    redirect_to fighting_fleets_url
   end
 
   # GET /fighting_fleets/1/edit

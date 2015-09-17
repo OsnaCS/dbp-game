@@ -30,9 +30,9 @@
 </table>
 <br>
 
-<% if current_user.ship_count < 9%>
-  <% if current_user.next_ship_allowed  == true %>
-    <%if current_user.has_enough_resources(200000, 100000, 0)%>
+<% if current_user.ship_counter < 9%>
+  <% if current_user.next_ship_allowed %>
+    <%if current_user.has_enough_resources(200000, 100000, 0) || current_user.ship_counter == 0%>
       <div id="coord_button"> 
         <p class="userbutton"><%= link_to 'New Ship', new_ship_path %>   </p>
         <p class="ship_t1"> Kosten für ein Schiff: 200.000 Metall, 100.000 Kristall </p>      

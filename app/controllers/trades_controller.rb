@@ -86,7 +86,7 @@ class TradesController < ApplicationController
     buy = 0
     if(@trade.ressource == 1)
       if(s.metal < params[:amount].to_i)
-        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        redirect_to trades_url, alert: 'Handel abgebrochen! Nicht genug Ressourcen.'
         return
       else
         buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
@@ -96,7 +96,7 @@ class TradesController < ApplicationController
     end
     if(@trade.ressource == 2)
       if(s.cristal < params[:amount].to_i)
-        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        redirect_to trades_url, alert: 'Handel abgebrochen! Nicht genug Ressourcen.'
         return
       else
         buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
@@ -106,7 +106,7 @@ class TradesController < ApplicationController
     end
     if(@trade.ressource == 4)
       if(s.fuel < params[:amount].to_i)
-        redirect_to trades_url, alert: 'Trade was cancelled! Not enough resources.'
+        redirect_to trades_url, alert: 'Handel abgebrochen! Nicht genug Ressourcen.'
         return
       else
         buy = (params[:amount].to_i * @trade.value / params[:to].to_i)
@@ -127,7 +127,7 @@ class TradesController < ApplicationController
       # add buy to treibstoff
     end
     s.save
-    redirect_to trades_url, notice: 'Trade was successful'
+    redirect_to trades_url, notice: 'Handel erfolgreich!'
   end
 
   private

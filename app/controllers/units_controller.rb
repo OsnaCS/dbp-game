@@ -4,6 +4,10 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
+    if current_user.activeShip == nil 
+      redirect_to :controller => 'ships', :action => 'new'
+      return
+    end
     @units = Unit.all
   end
 
@@ -21,30 +25,30 @@ class UnitsController < ApplicationController
   def edit
   end
 
-  def build
-    ship = Ship.find_by(:id => params[:ship_id])
-    instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
-    unit = instance.unit
-
-    if not (params[:amount].nil? || params[:amount] == 0)
-      amount = params[:amount].to_i
-
-      metal = unit.get_metal_cost()* amount
-      crystal = unit.get_crystal_cost() * amount
-      fuel = unit.get_fuel_cost() * amount
-      current_user.remove_resources_from_current_ship(metal, crystal, fuel)
-
-      if(instance.start_time.nil?)
-        instance.start_time = Time.now
-        instance.build_amount = params[:amount].to_i
-      else
-        instance.build_amount = params[:amount].to_i + instance.build_amount
-      end
-
-      instance.save
-    end
-    redirect_to units_url
-  end
+#  def build
+#    ship = Ship.find_by(:id => params[:ship_id])
+#    instance = ship.get_unit_instance(Unit.find_by(:id => params[:unit_id]))
+#    unit = instance.unit
+#
+#    if not (params[:amount].nil? || params[:amount] == 0)
+#      amount = params[:amount].to_i
+#
+#      metal = unit.get_metal_cost()* amount
+#      crystal = unit.get_crystal_cost() * amount
+#      fuel = unit.get_fuel_cost() * amount
+#      current_user.remove_resources_from_current_ship(metal, crystal, fuel)
+#
+#      if(instance.start_time.nil?)
+#        instance.start_time = Time.now
+#        instance.build_amount = params[:amount].to_i
+#      else
+#        instance.build_amount = params[:amount].to_i + instance.build_amount
+#      end
+#
+#      instance.save
+#    end
+#    redirect_to units_url
+#  end
 
   # POST /units
   # POST /units.json

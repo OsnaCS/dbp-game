@@ -6,6 +6,8 @@ class Fight< ActiveRecord::Base
   belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
 
+
+
   
 
   def init_vars (attacker_fleet_id, defender_ship_id)

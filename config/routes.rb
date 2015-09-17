@@ -5,15 +5,11 @@ Rails.application.routes.draw do
     member do
       get 'cancel_build'
       get 'instant_build'
-    end
-  end
-
-  resources :units do
-    member do
       get 'build'
     end
   end
 
+  resources :units
   resources :build_lists
 
   resources :facility_instances do
@@ -31,6 +27,9 @@ Rails.application.routes.draw do
   resources :fighting_fleets do
     resources :ship_groups
     resources :fights
+    member do
+      get 'callback'
+    end
   end
 
   resources :fights
