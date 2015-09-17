@@ -5,8 +5,8 @@ class FightsController < ApplicationController
 def index
     @target = User.find_by(:id => params[:user_id])
     @fights = Fight.all
-    @fights_attacks = Fight.where(attacker: User.last)
-    @fights_defends = Fight.where(defender: User.last)
+    @fights_attacks = Fight.where(attacker: current_user).last(25)
+    @fights_defends = Fight.where(defender: current_user).last(25)
   end
 
 

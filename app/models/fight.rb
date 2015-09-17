@@ -230,7 +230,7 @@ class Fight< ActiveRecord::Base
     metal = @defender_ship.metal
     crystal = @defender_ship.cristal
     fuel = @defender_ship.fuel
-    ressource_report << "#{@defender.username} besitzt im Schiff #{@defender_ship.name}: #{metal} Metall, #{crystal}Kristall #{fuel}und Treibstoff"
+    ressource_report << "#{@defender.username} besitzt im Schiff #{@defender_ship.name}: #{metal} Metall, #{crystal}Kristall und #{fuel} Treibstoff."
     return ressource_report
   end
 
