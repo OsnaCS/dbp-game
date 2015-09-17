@@ -36,7 +36,11 @@
               data-id="<%= fighting_fleet.id %>"
               data-time="<%= fighting_fleet.update_time(false) %>">
             </td>
-            <td colspan="2"><%= link_to 'Destroy', fighting_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if fighting_fleet.state == 1 %>
+              <td><%= button_to 'Rueckruf', callback_fighting_fleet_path(fighting_fleet), method: :get%></td>
+            <% else %>
+              <td></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>

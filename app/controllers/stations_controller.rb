@@ -1,5 +1,6 @@
 class StationsController < ApplicationController
   before_action :set_station, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /stations
   # GET /stations.json

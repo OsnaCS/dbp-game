@@ -34,12 +34,17 @@
 			<% end %>
 			<div>
 				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
+			
 			</div>
+       
 		<% end %>
 	<% else %>
 		<br>
 		<h1 class="userlabel">Benutzerprofil konne nicht gefunden werden!</h1>
 		<div>
+			<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
+		</div>
+		
 				<p class="userbutton"><%= link_to "Zurück", ranks_path %></p>
 			</div>
 	<% end %>

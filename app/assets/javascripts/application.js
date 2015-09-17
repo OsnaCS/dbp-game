@@ -105,6 +105,13 @@ function getJsonData() {
       $('#notification-text').css({visibility: 'hidden'});
     }
 
+
+    if(data.energy_color) {
+      $("#val-energy").css({color: 'red'});
+    }
+    else {
+      $("#val-energy").css({color: 'white'});
+    }
     $("#val-energy").html(data.energy);
     $("#val-metal").html(data.metal);
     $("#val-crystal").html(data.crystal);

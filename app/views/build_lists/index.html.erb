@@ -1,73 +1,295 @@
 <p id="notice"><%= notice %></p>
+<p id="alert" style='color:red'><%= alert %></p>
 
 <h1 class="userlabel">Management</h1>
 
-<table  id="table_builds">
+<table id="table_energy">
   <thead>
     <tr>
+      <th>Metall Scanner</th>
+      <th>Kristall Scanner</th>
+      <th>Treibstoff Scanner</th>
+      <th>Verbrennungsgenerator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_user.active_ship.get_energy%>
+    <% current_user.active_ship.get_used_energy%>
+    <% metal_scan = current_user.active_ship.ships_stations.find_by(station_id: 2001) %>
+    <% crystal_scan = current_user.active_ship.ships_stations.find_by(station_id: 2002) %>
+    <% fuel_scan = current_user.active_ship.ships_stations.find_by(station_id: 2003) %>
+    <% burner = current_user.active_ship.ships_stations.find_by(station_id: 2015) %>
+
+    <tr>
+      <% station = metal_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + metal_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = crystal_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + crystal_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = fuel_scan.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + fuel_scan.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+      <% station = burner.station %>
+      <td>
+        <a>
+            <img src= "<%= image_url("stations/" + burner.station.icon)%>", width="50", height="50", id="icon">
+            <span><%= Message.find_by_code(station.id).mes %></span>
+        </a>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p class="note"><%= metal_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= crystal_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= fuel_scan.energy_usage %>%</p>
+      </td>
+      <td>
+        <p class="note"><%= burner.energy_usage %>%</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= form_for metal_scan do |f| %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+      <td>
+        <%= form_for crystal_scan do |f| %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+
+      <td>
+        <%= form_for fuel_scan do |f| %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+
+      <td>
+        <%= form_for burner do |f| %>
+          <%= f.range_field :energy_usage, class:'slider_format' %>
+          <br>
+          <%= f.submit 'Aktualisieren', class: 'button_formater' %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table  id="table_builds">
+  <thead>
+    <% if @build_lists.count != 0 %>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Dauer</th>
+      <th>Abbruch</th>
+      <th>Premium Funktion</th>
+      <th>Auftragsschiff</th>
+      <th>Aktueller Status</th>
+      <th>In Auftrag</th>
       <th colspan="3"></th>
     </tr>
+    <% end %>
   </thead>
 
   <tbody>
-    <% @build_lists.each do |build_list| %>
-      <% found = false %>
+    <% @build_lists.sort_by{|instance| (instance.getDuration)}.each do |build_list| %>
+      <% if(build_list.ship.user_ship.user == current_user) %>
+        <% found = false %>
+        <% ship = current_user.ships.find(current_user.activeShip) %>
 
-
-      <% if build_list.typeSign == 'f' %>
-        <% facility_instance = FacilityInstance.find_by(id: build_list.instance_id) %>
-        <% if facility_instance != nil %>
-          <% facility = facility_instance.facility %>
-          <% mesId = facility.facility_condition_id+3000 %>
-          <% iconPath = "facility_icons/" + facility.icon %>
-          <% found = true %>
-          <% inactive = nil %>
-          <% if(!current_user.ships.find(current_user.activeShip).is_building(facility_instance)) %>
-            <tr id="inactive">
-            <% inactive = true %>
-          <% else %>
-            <tr id="active">
-            <% inactive = false %>
+        <% if build_list.typeSign == 'f' %>
+          <% instance = FacilityInstance.find_by(id: build_list.instance_id) %>
+          <% if instance != nil %>
+            <% main = instance.facility %>
+            <% mesId = main.facility_condition_id+3000 %>
+            <% iconPath = "facility_icons/" + main.icon %>
+            <% class_main = Facility %>
+            <% found = true %>
+            <% inactive = nil %>
+            <% if(!ship.is_building(instance)) %>
+              <tr id="inactive">
+              <% inactive = true %>
+            <% else %>
+              <tr id="active">
+              <% inactive = false %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
 
 
-      <% if found %>
-        <% mes = Message.find_by_code(mesId).mes %>
-        <td>
-          <a>
-            <img src= "<%= image_url(iconPath)%>", width="50", height="50", id="icon">
-            <span><%= mes %></span>
-          </a>
-        </td>
-        <td>
-            <%= facility.name %>
-        </td>
-        <% if(inactive) %>
-          <td id = "not_running"><%= Facility.update_time(facility_instance, true).to_s %></td>
-        <% else %>
-          <td class="running"
-            data-id="<%= facility_instance.facility_id %>"
-            data-time="<%= build_list.getDurationF.to_s %>">
+        <% if build_list.typeSign == 'u' %>
+          <% instance = UnitInstance.find_by(id: build_list.instance_id) %>
+          <% if instance != nil %>
+            <% main = instance.unit %>
+            <% mesId = main.message.code %>
+            <% iconPath = main.icon %>
+            <% class_main = Unit %>
+            <% found = true %>
+            <% inactive = nil %>
+            <% if(!ship.is_building(instance)) %>
+              <tr id="inactive">
+              <% inactive = true %>
+            <% else %>
+              <tr id="active">
+              <% inactive = false %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if build_list.typeSign == 'r' %>
+          <% instance = ScienceInstance.find_by(id: build_list.instance_id) %>
+          <% if instance != nil %>
+            <% main = instance.science %>
+            <% mesId = main.id %>
+            <% iconPath = "science_icons/" + main.icon %>
+            <% class_main = Science %>
+            <% found = true %>
+            <% inactive = nil %>
+            <% if(!current_user.is_elsewhere_researching(instance)) %>
+              <tr id="inactive">
+              <% inactive = true %>
+            <% else %>
+              <tr id="active">
+              <% inactive = false %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if build_list.typeSign == 's' %>
+          <% instance = ShipsStation.find_by(id: build_list.instance_id) %>
+          <% if instance != nil %>
+            <% main = instance.station %>
+            <% mesId = main.id %>
+            <% iconPath = "stations/" + main.icon %>
+            <% class_main = Station %>
+            <% found = true %>
+            <% inactive = nil %>
+            <% if(!ship.is_upgrading(instance)) %>
+              <tr id="inactive">
+              <% inactive = true %>
+            <% else %>
+              <tr id="active">
+              <% inactive = false %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+
+        <% if found %>
+
+
+
+          <% mes = Message.find_by_code(mesId).mes %>
+          <td>
+            <a>
+              <img src= "<%= image_url(iconPath)%>", width="50", height="50", id="icon">
+              <span><%= mes %></span>
+            </a>
           </td>
-        <%end %>
-        <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(facility_instance), method: :get %>
-        <td><%= button_to 'Sofort', instant_build_facility_instance_path(facility_instance), method: :get %></td>
-        <td><%= link_to 'Show', build_list %></td>
-        <td><%= link_to 'Edit', edit_build_list_path(build_list) %></td>
-        <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% else %>
-        <td>Damaged Build:&nbsp; </td>
-        <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+              <%= main.name %>
+          </td>
+          <% if(inactive) %>
+            <td id = "not_running"><%= class_main.update_time(instance, true).to_s %></td>
+          <% else %>
+            <td class="running"
+              data-id="<%= main.id %>"
+              data-time="<%= build_list.getDuration.to_s %>">
+            </td>
+          <%end %>
+
+
+          <% if build_list.typeSign == 'f' %>
+            <td><%= button_to 'Abbrechen', cancel_build_facility_instance_path(instance), method: :get %>
+            <td><%= button_to 'Sofort', instant_build_facility_instance_path(instance), method: :get %></td>
+            <td><%= instance.ship.name %></td>
+            <td><%= instance.count %></td>
+            <td><%= instance.create_count || 0 %></td>
+          <% end %>
+
+          <% if build_list.typeSign == 'u' %>
+            <td><%= button_to 'Abbrechen', cancel_build_unit_instance_path(instance), method: :get %>
+            <td><%= button_to 'Sofort', instant_build_unit_instance_path(instance), method: :get %></td>
+            <td><%= instance.ship.name %></td>
+            <td><%= instance.amount %></td>
+            <td><%= instance.build_amount || 0 %></td>
+          <% end %>
+
+          <% if build_list.typeSign == 'r' %>
+            <td>
+              <a>
+                <%= button_to 'Abbrechen', cancel_research_science_instance_path(instance), method: :get %>
+                <span><%= instance.get_refund %></span>
+              </a>
+            </td>
+            <td>
+              <%= button_to 'Sofort', instant_research_science_instance_path(instance), method: :get %>
+            </td>
+            <td><%= Ship.find_by(id: instance.research_ship).name %></td>
+            <td><%= instance.level %></td>
+            <td><%= instance.level + 1 %></td>
+          <% end %>
+
+          <% if build_list.typeSign == 's' %>
+            <td>
+              <a>
+                <%= button_to 'Abbrechen', cancel_upgrade_ships_station_path(instance), method: :get %>
+                <span><%= instance.get_refund %></span>
+              </a>
+            </td>
+            <td>
+              <%= button_to 'Sofort', instant_upgrade_ships_station_path(instance), method: :get %>
+            </td>
+            <td><%= instance.ship.name %></td>
+            <td><%= instance.level %></td>
+            <td><%= instance.level + 1 %></td>
+          <% end %>
+
+          <% if current_user.is_admin %>
+            <td><%= link_to 'Show', build_list %></td>
+            <td><%= link_to 'Edit', edit_build_list_path(build_list) %></td>
+            <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% else %>
+          <% if current_user.is_admin %>
+            <td>Damaged Build:&nbsp; </td>
+            <td><%= link_to 'Destroy', build_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% end %>
+        </tr>
       <% end %>
-      </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Build list', new_build_list_path %>
 
 <%= javascript_tag "start_timer()" -%>

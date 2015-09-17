@@ -1,0 +1,91 @@
+<p id="notice"><%= notice %></p>
+<h1> Kampfbericht: </h1>
+
+
+ 
+<a><h3><%= @report_start[0]  %></h3></a><br>
+<a><h3><%= @report_start[1]  %></h3></a><br>
+
+<div class="field">
+<% index = 0  %>
+<% while index <= 13 %>
+<% go_on =true %>
+  <table id="rank_table">
+    <%if index == 0 %>
+      <tr>
+        <th colspan = '4'>Angreifer: <%=@attacker %> </th>
+      </tr>
+    <% else %>
+      <tr>
+        <th colspan = '4'>Verteidiger: <%=@defender %> </th>
+      </tr>
+    <% end %>
+    <tr>
+      <th>Name </th>
+      <th>Vor Dem Kampf </th>
+      <th>Verluste </th>
+      <th>Nach Dem Kampf </th>
+    </tr>
+    <%while go_on %>
+      <%if @report[index].present?  %>
+        <%unit_report = @report[index].split(",")  %>
+        <%if unit_report[1].to_i > 0  %>
+          <tr>
+            <td><%= unit_report[0] %> </td>
+            <td><%= unit_report[1] %> </td>
+            <td><%= unit_report[2] %> </td>
+            <td><%= unit_report[3] %> </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <%if index == @first || index == @second  %>
+        <%  go_on = false %>
+      <% end %>
+      <% index += 1 %>
+    <% end %>
+  <% end %>
+</table>
+</div>
+
+
+<a><h1>Spionagebericht: </h1></a><br>
+<a><h3><%= @spy_start %></h3></a><br>
+
+<%if @spy_report[0].present? %>
+  <a><p><%= (@spy_report[0])[1 .. -2]%></p></a><br>
+  <%@spy_report.shift%>
+<%end %>
+<table id="rank_table" >
+<tr>
+<%@spy_report.each do |report| %>
+  <td valign=top>
+  <%elements = report.split(',')%>
+  <%length = elements.length%>
+  <% if length != 1 %>
+    <table id="rank_table" >
+      <tr>
+        <th colspan='2'><%=elements[1]%> </th>
+      </tr>
+      <tr>
+        <th>Name: </th>
+        <th>Anzahl/Level: </th>
+      </tr>
+      <% index = 0 %>
+      <% while index < length %>
+        <tr>
+          <td><%=elements[index + 2] %> </td>
+          <td><%=elements[index + 3] %> </td>
+        </tr>
+        <% index += 2 %>
+      <% end %>
+    </table>
+  <%end %>
+  </td>
+<%end %>
+</tr>
+</table>
+
+
+
+
+

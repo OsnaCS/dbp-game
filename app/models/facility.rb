@@ -4,28 +4,38 @@ class Facility < ActiveRecord::Base
   has_many :facility_instances, dependent: :destroy
   has_many :ships, :through => :facility_instances
   validates_presence_of :cost1, :cost2, :cost3, :duration, :name, :facility_condition_id, :icon
+  belongs_to :damage_type
 
-  # return -1 if user nil // -2 if id wrong
-  def self.get_facility_count(user, id)
-    if(user.nil?)
-      return -1
-    end
-    instance = FacilityInstance.find_by(:user_id => user.id, :facility_id => id)
-
-    if(instance.nil?)
-      return -2
-    end
-
-    return instance.count
+  def get_total_cost
+    return self.get_fuel_cost * 4 + self.get_crystal_cost * 2 + self.get_metal_cost
   end
 
-  def self.get_duration(instance)
-    facility = Facility.find_by(id: instance.facility_id)
-    return facility.duration / (1 + 0.1 * ShipsStation.find_by(:ship_id => instance.ship_id, :station_id => 2006).level)
+    def get_metal_cost
+    return self.cost1 * 500
+  end
+
+  def get_crystal_cost
+    return self.cost2 * 500
+  end
+
+  def get_fuel_cost
+    return self.cost3 * 500
+  end
+
+  def get_metal_cost_ratio(ratio)
+    return self.get_metal_cost * ratio
+  end
+
+  def get_crystal_cost_ratio(ratio)
+    return self.get_crystal_cost * ratio
+  end
+
+  def get_fuel_cost_ratio(ratio)
+    return self.get_fuel_cost * ratio
   end
 
   def self.update_time(instance, format)
-    durationInSeconds = self.get_duration(instance)
+    durationInSeconds = instance.get_duration()
     if(instance.start_time != nil)
       timeSinceResearch = (Time.now - instance.start_time).to_i
       restTime = durationInSeconds - timeSinceResearch
