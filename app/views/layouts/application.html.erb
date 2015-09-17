@@ -60,7 +60,7 @@
 							<div id="not_attacked"></div>
 						<% end %>
 					</td>
-					<td>				
+					<td>
 						<p class="tooltip_selected" data-tooltip="Ausgewaehltes Schiff">Selected:
 								<% if current_user.active_ship.present?%>
 				  					<%=current_user.active_ship.name%>
@@ -72,15 +72,13 @@
 					<td>
 						<div id="res-energy" class="tooltip" data-tooltip="Verfügbare Energie"></div>
 						<% if current_user.active_ship.present? %>
-							<% if (true || current_user.active_ship.used_energy > current_user.active_ship.energy) %>
-								<p id="val-energy" class="val-resources">
-									<%= current_user.active_ship.used_energy %> /
-									<%= current_user.active_ship.energy %>
+							<% if (current_user.active_ship.used_energy > current_user.active_ship.energy) %>
+								<p id="val-energy" style="color:red" class="val-resources">
+									<%= current_user.active_ship.used_energy %>/<%= current_user.active_ship.energy %>
 								</p>
 							<% else %>
 								<p id="val-energy" style="color:white" class="val-resources">
-									<%= current_user.active_ship.used_energy %> /
-									<%= current_user.active_ship.energy %>
+									<%= current_user.active_ship.used_energy %>/<%= current_user.active_ship.energy %>
 								</p>
 							<% end %>
 						<% else %>
