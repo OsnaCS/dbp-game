@@ -6,128 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Facility.create([
-	{
-		id: 3013,
-		cost1: 0,
-		cost2: 2,
-		cost3: 1,
-		duration: 120 * 8,
-		condition: 'g:6:2,f:1:2',
-		name: 'Solarpanel',
-		facility_condition_id: 13,
-		icon: 'solar.png'
-	},
-	{
-		id: 3014,
-		cost1: 2,
-		cost2: 0,
-		cost3: 0,
-		duration: 120 * 2,
-		condition: 'g:6:2',
-		name: 'Raketenturm',
-		facility_condition_id: 14,
-		icon: 'rocket.png'
-	},
-	{
-		id: 3015,
-		cost1: 3,
-		cost2: 1,
-		cost3: 0,
-		duration: 120 * 5,
-		condition: 'g:6:4,f:2:4',
-		name: 'Kleines Lasergeschütz',
-		facility_condition_id: 15,
-		icon: 'laser_small.png'
-	},
-	{
-		id: 3016,
-		cost1: 12,
-		cost2: 4,
-		cost3: 0,
-		duration: 120 * 20,
-		condition: 'g:6:8,f:2:8',
-		name: 'Großes Lasergeschütz',
-		facility_condition_id: 16,
-		icon: 'laser_big.png'
-	},
-	{
-		id: 3017,
-		cost1: 2,
-		cost2: 3,
-		cost3: 0,
-		duration: 120 * 8,
-		condition: 'g:6:6,f:5:4',
-		name: 'Kleiner Ionenbeschleuniger',
-		facility_condition_id: 17,
-		icon: 'ion_small.png'
-	},
-	{
-		id: 3018,
-		cost1: 8,
-		cost2: 12,
-		cost3: 0,
-		duration: 120 * 32,
-		condition: 'g:6:8,f:5:8',
-		name: 'Großer Ionenbeschleuniger',
-		facility_condition_id: 18,
-		icon: 'ion_big.png'
-	},
-	{
-		id: 3019,
-		cost1: 80,
-		cost2: 20,
-		cost3: 0,
-		duration: 120 * 120,
-		condition: 'g:6:10,f:8:4',
-		name: 'Massenbeschleuniger',
-		facility_condition_id: 19,
-		icon: 'mac.png'
-	},
-	{
-		id: 3020,
-		cost1: 1000,
-		cost2: 0,
-		cost3: 200,
-		duration: 120 * 1800,
-		condition: 'g:6:12,f:8:10',
-		name: 'Orbitale Waffenplattform',
-		facility_condition_id: 20,
-		icon: 'orbital.png'
-	},
-	{
-		id: 3021,
-		cost1: 0,
-		cost2: 500,
-		cost3: 1000,
-		duration: 120 * 5000,
-		condition: 'g:6:16,f:9:6,f:10:8',
-		name: 'Kuhtapult',
-		facility_condition_id: 21,
-		icon: 'udder.png'
-	},
-	{
-		id: 3022,
-		cost1: 50,
-		cost2: 100,
-		cost3: 0,
-		duration: 120 * 250,
-		condition: 'g:6:6,f:6:2',
-		name: 'Kleiner Schild',
-		facility_condition_id: 22,
-		icon: 'shield_small.png'
-	},
-	{
-		id: 3023,
-		cost1: 200,
-		cost2: 400,
-		cost3: 0,
-		duration: 120 * 1000,
-		condition: 'g:6:8,f:6:6',
-		name: 'Großer Schild',
-		facility_condition_id: 23,
-		icon: 'shield_big.png'
-	}])
+
 
 Science.create([
 	{
@@ -500,6 +379,12 @@ Station.create([
 
 # Creator for Messages
 Message.create([
+	# Battle Messages
+	{
+		mes: 'Es gab eine verheerende Schlacht',
+		fullmes: 'Es hat eine verheerende Schlacht stattgefunden',
+		code: 1000
+	},
 	# Messages for Science
 	{
 	  mes: 'Verstärkt Strukturierungen, verbessert die Hülle jeder Einheit um 10% pro Level',
@@ -940,10 +825,12 @@ Message.create([
 ])
 
 #Create DamageType and Units
-DamageType.create({"name"=>"Laser", "shell_mult"=>1.5,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1})
-DamageType.create({"name"=>"Ionen", "shell_mult"=>1,"shield_mult"=>1.5,"station_mult"=>1,"plattform_mult"=>1})
-DamageType.create({"name"=>"Bomben", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>10,"plattform_mult"=>1})
-DamageType.create({"name"=>"Teleporter", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1000})
+damage1 = DamageType.create({"name"=>"Laser", "shell_mult"=>1.5,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1})
+damage2 =DamageType.create({"name"=>"Ionen", "shell_mult"=>1,"shield_mult"=>1.5,"station_mult"=>1,"plattform_mult"=>1})
+damage3 =DamageType.create({"name"=>"Bomben", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>10,"plattform_mult"=>1})
+damage4 =DamageType.create({"name"=>"Teleporter", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1000})
+damage5 =DamageType.create({"name"=>"Kein Schaden", "shell_mult"=>0,"shield_mult"=>0,"station_mult"=>0,"plattform_mult"=>0})
+damage6 =DamageType.create({"name"=>"Normal", "shell_mult"=>1,"shield_mult"=>1,"station_mult"=>1,"plattform_mult"=>1})
 
 message1=Message.find_by code: 3007
 message2=Message.find_by code: 3005
@@ -958,18 +845,176 @@ message10=Message.find_by code: 3004
 message11=Message.find_by code: 3002
 message12=Message.find_by code: 3003
 
-Unit.create({"icon" => "entities/resource-ship.png", "name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "shell"=>50, "damage"=>2, "damage_type_id"=>1, "cargo"=>400, "speed"=>8, "conditions"=>"f:4:4,f:2:4,g:6:6", "message"=> message1, "condition_id" => 1})
-Unit.create({"icon" => "entities/transporter-small.png", "name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "shell"=>2, "damage"=>0, "damage_type_id"=>nil, "cargo"=>80, "speed"=>4, "conditions"=>"f:4:2,g:6:4","message"=>message2, "condition_id" => 2})
-Unit.create({"icon" => "entities/transporter-big.png", "name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "shell"=>8, "damage"=>0, "damage_type_id"=>nil, "cargo"=>400, "speed"=>8, "conditions"=>"f:1:8,f:4:8,g:6:8", "message"=>message3, "condition_id" => 3})
-Unit.create({"icon" => "entities/spy-drone.png", "name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "shell"=>1, "damage"=>0, "damage_type_id"=>nil, "cargo"=>1, "speed"=>128, "conditions"=>"f:3:2,f:1:2,g:6:4","message"=>message4, "condition_id" => 4})
-Unit.create({"icon" => "entities/hunter.png", "name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "shell"=>1, "damage"=>1, "damage_type_id"=>1, "cargo"=>2, "speed"=>8, "conditions"=>"f:1:2,f:2:2,g:6:2", "message"=>message5, "condition_id" => 5})
-Unit.create({"icon" => "entities/fregatte.png", "name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "shell"=>10, "damage"=>12, "damage_type_id"=>2, "cargo"=>5, "speed"=>8, "conditions"=>"f:4:4,f:2:12,g:6:4", "message"=>message6, "condition_id" => 6})
-Unit.create({"icon" => "entities/cruiser.png", "name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "shell"=>10, "damage"=>50, "damage_type_id"=>2, "cargo"=>8, "speed"=>4, "conditions"=>"f:5:6,f:4:6,g:6:6", "message"=>message7, "condition_id" => 7})
-Unit.create({"icon" => "entities/bomber.png", "name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "shell"=>20, "damage"=>10, "damage_type_id"=>3, "cargo"=>5, "speed"=>8, "conditions"=>"f:8:6,f:4:8,g:6:8", "message"=>message8, "condition_id" => 8})
-Unit.create({"icon" => "entities/destroyer.png", "name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "shell"=>200, "damage"=>500, "damage_type_id"=>3, "cargo"=>20, "speed"=>4, "conditions"=>"f:8:8,f:4:10,g:6:10", "message"=>message9, "condition_id" => 9})
-Unit.create({"icon" => "entities/bomb-teleporter.png", "name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "shell"=>100, "damage"=>50, "damage_type_id"=>4, "cargo"=>100, "speed"=>1, "conditions"=>"f:8:12,f:4:10,g:6:12","message"=>message10, "condition_id" => 10})
-Unit.create({"icon" => "entities/emp-ship.png", "name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "shell"=>100, "damage"=>20, "damage_type_id"=>2, "cargo"=>120, "speed"=>1, "conditions"=>"f:5:12,f:4:10,g:6:10","message"=>message11, "condition_id" => 11})
-Unit.create({"icon" => "entities/mobile-shield-generator.png", "name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "shell"=>5, "damage"=>0, "damage_type_id"=>nil, "cargo"=>2, "speed"=>4, "conditions"=>"f:6:10,f:4:10,g:6:10", "message"=>message12, "condition_id" => 12})
+Unit.create({"icon" => "entities/resource-ship.png", "name"=>"Expeditionsschiff", "metal_price"=>40, "crystal_price"=>0, "fuel_price"=>10, "shell"=>50, "damage"=>2, "damage_type"=>damage1, "cargo"=>400, "speed"=>8, "conditions"=>"f:4:4,f:2:4,g:6:6", "message"=> message1, "condition_id" => 1})
+Unit.create({"icon" => "entities/transporter-small.png", "name"=>"Kleiner Transporter", "metal_price"=>5, "crystal_price"=>2, "fuel_price"=>0, "shell"=>2, "damage"=>0, "damage_type"=>damage5, "cargo"=>80, "speed"=>4, "conditions"=>"f:4:2,g:6:4","message"=>message2, "condition_id" => 2})
+Unit.create({"icon" => "entities/transporter-big.png", "name"=>"Großer Transporter", "metal_price"=>20, "crystal_price"=>8, "fuel_price"=>0, "shell"=>8, "damage"=>0, "damage_type"=>damage5, "cargo"=>400, "speed"=>8, "conditions"=>"f:1:8,f:4:8,g:6:8", "message"=>message3, "condition_id" => 3})
+Unit.create({"icon" => "entities/spy-drone.png", "name"=>"Spionagedrohne", "metal_price"=>2, "crystal_price"=>0, "fuel_price"=>2, "shell"=>1, "damage"=>0, "damage_type"=>damage5, "cargo"=>1, "speed"=>128, "conditions"=>"f:3:2,f:1:2,g:6:4","message"=>message4, "condition_id" => 4})
+Unit.create({"icon" => "entities/hunter.png", "name"=>"Jäger", "metal_price"=>2, "crystal_price"=>1, "fuel_price"=>0, "shell"=>1, "damage"=>1, "damage_type"=>damage1, "cargo"=>2, "speed"=>8, "conditions"=>"f:1:2,f:2:2,g:6:2", "message"=>message5, "condition_id" => 5})
+Unit.create({"icon" => "entities/fregatte.png", "name"=>"Fregatte", "metal_price"=>20, "crystal_price"=>10, "fuel_price"=>0, "shell"=>10, "damage"=>12, "damage_type"=>damage2, "cargo"=>5, "speed"=>8, "conditions"=>"f:4:4,f:2:12,g:6:4", "message"=>message6, "condition_id" => 6})
+Unit.create({"icon" => "entities/cruiser.png", "name"=>"Kreuzer", "metal_price"=>20, "crystal_price"=>40, "fuel_price"=>0, "shell"=>10, "damage"=>50, "damage_type"=>damage2, "cargo"=>8, "speed"=>4, "conditions"=>"f:5:6,f:4:6,g:6:6", "message"=>message7, "condition_id" => 7})
+Unit.create({"icon" => "entities/bomber.png", "name"=>"Bomber", "metal_price"=>20, "crystal_price"=>0, "fuel_price"=>10, "shell"=>20, "damage"=>10, "damage_type"=>damage3, "cargo"=>5, "speed"=>8, "conditions"=>"f:8:6,f:4:8,g:6:8", "message"=>message8, "condition_id" => 8})
+Unit.create({"icon" => "entities/destroyer.png", "name"=>"Zerstörer", "metal_price"=>200, "crystal_price"=>100, "fuel_price"=>0, "shell"=>200, "damage"=>500, "damage_type"=>damage3, "cargo"=>20, "speed"=>4, "conditions"=>"f:8:8,f:4:10,g:6:10", "message"=>message9, "condition_id" => 9})
+Unit.create({"icon" => "entities/bomb-teleporter.png", "name"=>"Bombenteleporter", "metal_price"=>0, "crystal_price"=>250, "fuel_price"=>100, "shell"=>100, "damage"=>50, "damage_type"=>damage4, "cargo"=>100, "speed"=>1, "conditions"=>"f:8:12,f:4:10,g:6:12","message"=>message10, "condition_id" => 10})
+Unit.create({"icon" => "entities/emp-ship.png", "name"=>"EMP-Schiff", "metal_price"=>0, "crystal_price"=>400, "fuel_price"=>100, "shell"=>100, "damage"=>20, "damage_type"=>damage2, "cargo"=>120, "speed"=>1, "conditions"=>"f:5:12,f:4:10,g:6:10","message"=>message11, "condition_id" => 11})
+Unit.create({"icon" => "entities/mobile-shield-generator.png", "name"=>"Mobiler Schild", "metal_price"=>0, "crystal_price"=>4, "fuel_price"=>1, "shell"=>5, "damage"=>0, "damage_type"=>damage5, "cargo"=>2, "speed"=>4, "conditions"=>"f:6:10,f:4:10,g:6:10", "message"=>message12, "condition_id" => 12})
+
+
+Facility.create([
+	{
+		id: 3013,
+		cost1: 0,
+		cost2: 2,
+		cost3: 1,
+		duration: 120 * 8,
+		condition: 'g:6:2,f:1:2',
+		name: 'Solarpanel',
+		facility_condition_id: 13,
+		icon: 'solar.png',
+		damage: 0,
+		shell: 1,
+		damage_type: damage5
+	},
+	{
+		id: 3014,
+		cost1: 2,
+		cost2: 0,
+		cost3: 0,
+		duration: 120 * 2,
+		condition: 'g:6:2',
+		name: 'Raketenturm',
+		facility_condition_id: 14,
+		icon: 'rocket.png',
+		damage: 1,
+		shell: 2,
+		damage_type: damage6
+	},
+	{
+		id: 3015,
+		cost1: 3,
+		cost2: 1,
+		cost3: 0,
+		duration: 120 * 5,
+		condition: 'g:6:4,f:2:4',
+		name: 'Kleines Lasergeschütz',
+		facility_condition_id: 15,
+		icon: 'laser_small.png',
+		damage: 2,
+		shell: 2,
+		damage_type: damage1
+	},
+	{
+		id: 3016,
+		cost1: 12,
+		cost2: 4,
+		cost3: 0,
+		duration: 120 * 20,
+		condition: 'g:6:8,f:2:8',
+		name: 'Großes Lasergeschütz',
+		facility_condition_id: 16,
+		icon: 'laser_big.png',
+		damage: 10,
+		shell: 10,
+		damage_type: damage1
+	},
+	{
+		id: 3017,
+		cost1: 2,
+		cost2: 3,
+		cost3: 0,
+		duration: 120 * 8,
+		condition: 'g:6:6,f:5:4',
+		name: 'Kleiner Ionenbeschleuniger',
+		facility_condition_id: 17,
+		icon: 'ion_small.png',
+		damage: 4,
+		shell: 4,
+		damage_type: damage2
+	},
+	{
+		id: 3018,
+		cost1: 8,
+		cost2: 12,
+		cost3: 0,
+		duration: 120 * 32,
+		condition: 'g:6:8,f:5:8',
+		name: 'Großer Ionenbeschleuniger',
+		facility_condition_id: 18,
+		icon: 'ion_big.png',
+		damage: 20,
+		shell: 20,
+		damage_type: damage2
+	},
+	{
+		id: 3019,
+		cost1: 80,
+		cost2: 20,
+		cost3: 0,
+		duration: 120 * 120,
+		condition: 'g:6:10,f:8:4',
+		name: 'Massenbeschleuniger',
+		facility_condition_id: 19,
+		icon: 'mac.png',
+		damage: 80,
+		shell: 80,
+		damage_type: damage3
+	},
+	{
+		id: 3020,
+		cost1: 1000,
+		cost2: 0,
+		cost3: 200,
+		duration: 120 * 1800,
+		condition: 'g:6:12,f:8:10',
+		name: 'Orbitale Waffenplattform',
+		facility_condition_id: 20,
+		icon: 'orbital.png',
+		damage: 1000,
+		shell: 1000,
+		damage_type: damage3
+	},
+	{
+		id: 3021,
+		cost1: 0,
+		cost2: 500,
+		cost3: 1000,
+		duration: 120 * 5000,
+		condition: 'g:6:16,f:9:6,f:10:8',
+		name: 'Kuhtapult',
+		facility_condition_id: 21,
+		icon: 'udder.png',
+		damage: 1,
+		shell: 2000,
+		damage_type: damage3
+	},
+	{
+		id: 3022,
+		cost1: 50,
+		cost2: 100,
+		cost3: 0,
+		duration: 120 * 250,
+		condition: 'g:6:6,f:6:2',
+		name: 'Kleiner Schild',
+		facility_condition_id: 22,
+		icon: 'shield_small.png',
+		damage: 0,
+		shell: 100,
+		damage_type: damage5
+	},
+	{
+		id: 3023,
+		cost1: 200,
+		cost2: 400,
+		cost3: 0,
+		duration: 120 * 1000,
+		condition: 'g:6:8,f:6:6',
+		name: 'Großer Schild',
+		facility_condition_id: 23,
+		icon: 'shield_big.png',
+		damage: 0,
+		shell: 500,
+		damage_type: damage5
+	}])
+
 
 
 user = User.create({"email" => "dummy@dummy.dummy", "username" => "dummy", "password" => "dummdumm"})

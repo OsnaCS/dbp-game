@@ -4,6 +4,7 @@ class Facility < ActiveRecord::Base
   has_many :facility_instances, dependent: :destroy
   has_many :ships, :through => :facility_instances
   validates_presence_of :cost1, :cost2, :cost3, :duration, :name, :facility_condition_id, :icon
+  belongs_to :damage_type
 
   def get_total_cost
     return self.get_fuel_cost * 4 + self.get_crystal_cost * 2 + self.get_metal_cost

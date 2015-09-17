@@ -64,6 +64,9 @@
         <% else %>
             <% if(inactive) %>
               <td><a>Nicht verfügbar<span><%= station_instance.get_conditions() %></span></a></td>
+              <% if station_instance.level>0 %>
+              <td><%= button_to 'Downgrade', downgrade_ships_station_path(station_instance), data: { confirm: 'Are you sure?' }, method: :get %></td>
+              <% end %>
             <% else %>
 
               <td>
