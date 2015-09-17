@@ -19,7 +19,7 @@ class Expedition < ActiveRecord::Base
       event = rand(100)
       happen = 1.0-(1.0/(1.0 + (explore_time * 0.2)))
       happen = happen * 100
-      if(happen>event)
+      if(happen > event)
          return occurance
       else
          return nothing
@@ -69,7 +69,7 @@ class Expedition < ActiveRecord::Base
       fregatte_amount = 0
       schild_amount = 0
       enemy_strength = 0
-      until(limit<enemy_strength)
+      until(limit < enemy_strength)
          ship_got = rand(100)
          case ship_got
          when 0..10
@@ -86,10 +86,6 @@ class Expedition < ActiveRecord::Base
             jaeger_amount += 1
          end
       end
-
-      #TODO: Dummy User mit Dummy-Ship in Seeds schreiben
-      #gegner_ship = Ship.build("Dummy-Schiff")
-      #UserShip.build(user: User.find_by_username("dummy"), ship: gegner_ship)
 
       gegner_ship = Ship.find_by(:name => "Dummy-Schiff", :user => "dummy")
       unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Kreuzer"))
@@ -115,7 +111,7 @@ class Expedition < ActiveRecord::Base
       gegner_ship.cristal = 0
       gegner_ship.fuel = 0
       gegner_ship.save
-      ergebnis = battle_id(fighting_fleet.id, gegner_ship.id)
+      ergebnis = Fight.battle_with_points(fighting_fleet.id, gegner_ship.id)
 
       fighting_fleet = ergebnis[0]
       fighting_fleet.save
@@ -126,11 +122,11 @@ class Expedition < ActiveRecord::Base
    def ressource
       first = rand(100)
       second = rand(100)
-      if(first>second)
+      if(first > second)
          crystal = first - second
          metal = second
          fuel = 100 - first
-      elsif (second>first)
+      elsif (second > first)
          crystal = second - first
          metal = first
          fuel = 100 - second

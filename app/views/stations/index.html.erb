@@ -1,3 +1,4 @@
+<%if current_user.is_admin %>
 <p id="notice"><%= notice %></p>
 
 <h1 class="userlabel">Listing Stations</h1>
@@ -44,3 +45,8 @@
 <br>
 
 <%= link_to 'New Station', new_station_path %>
+<%else%>
+  <script type="text/javascript">
+    window.location.href="/ships"
+  </script>
+<%end%>
