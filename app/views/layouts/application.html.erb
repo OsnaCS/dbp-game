@@ -9,6 +9,7 @@
 <body>
 
 <div id="wrapper">
+
 	<div id="top" >
 		<div id="login" class="content">
 			<% if !user_signed_in? %>
@@ -51,7 +52,14 @@
 
 		<div id="resources" class="content">
 			<% if current_user.present? %>
-				<table id="res-table"><tr>
+				<table id="res-table" ><tr>
+					<td>
+						<% if current_user.is_being_attacked %>
+							<div id="attacked" class="tooltip" data-tooltip="Eingehender Angriff !"></div>
+						<% else %>
+							<div id="not_attacked"></div>
+						<% end %>
+					</td>
 					<td>				
 							<p class="tooltip_selected" data-tooltip="Ausgewaehltes Schiff">Selected:
 								<% if current_user.activeShip.present?%>

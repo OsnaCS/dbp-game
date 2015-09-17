@@ -73,6 +73,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_being_attacked
+    FightingFleet.all.each do |fleet|
+      if(fleet.get_target_ship.user.id == self.id && fleet.mission.to_i == 1)
+        return true
+      end
+    end
+    return false
+  end
+
   def active_ship
     return Ship.find_by(id: self.activeShip)
   end
