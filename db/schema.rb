@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916125415) do
+ActiveRecord::Schema.define(version: 20150916215427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,12 @@ ActiveRecord::Schema.define(version: 20150916125415) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "condition"
+    t.integer  "damage"
+    t.integer  "shell"
+    t.integer  "damage_type_id"
   end
+
+  add_index "facilities", ["damage_type_id"], name: "index_facilities_on_damage_type_id", using: :btree
 
   create_table "facility_instances", force: :cascade do |t|
     t.integer  "facility_id"
@@ -85,6 +90,9 @@ ActiveRecord::Schema.define(version: 20150916125415) do
     t.integer  "mission"
     t.text     "data"
     t.integer  "target_ship"
+    t.integer  "metal"
+    t.integer  "crystal"
+    t.integer  "fuel"
     t.integer  "start_ship"
   end
 
@@ -93,14 +101,21 @@ ActiveRecord::Schema.define(version: 20150916125415) do
   add_index "fighting_fleets", ["user_id"], name: "index_fighting_fleets_on_user_id", using: :btree
 
   create_table "fights", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "attacker_id"
     t.integer  "defender_id"
+    t.text     "report"
+    t.integer  "ship_attack_id"
+    t.integer  "ship_defend_id"
+    t.text     "spy_report"
+    t.datetime "time"
   end
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
+  add_index "fights", ["ship_attack_id"], name: "index_fights_on_ship_attack_id", using: :btree
+  add_index "fights", ["ship_defend_id"], name: "index_fights_on_ship_defend_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.text     "mes"
@@ -175,15 +190,20 @@ ActiveRecord::Schema.define(version: 20150916125415) do
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.float    "metal"
     t.float    "cristal"
     t.float    "fuel"
     t.datetime "lastChecked"
-    t.integer  "energy",      default: 0
-    t.integer  "used_energy", default: 0
+    t.integer  "user_id"
+    t.integer  "energy",           default: 0
+    t.integer  "used_energy",      default: 0
+    t.integer  "fight_defends_id"
+    t.integer  "fight_attacks_id"
   end
+
+  add_index "ships", ["user_id"], name: "index_ships_on_user_id", using: :btree
 
   create_table "ships_stations", force: :cascade do |t|
     t.integer  "ship_id"
@@ -238,12 +258,14 @@ ActiveRecord::Schema.define(version: 20150916125415) do
     t.integer  "fuel_price"
     t.integer  "shell"
     t.integer  "damage"
-    t.integer  "damage_type_id"
     t.integer  "cargo"
     t.integer  "speed"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "message_id"
+    t.integer  "science_one_id"
+    t.integer  "science_two_id"
+    t.integer  "damage_type_id"
     t.string   "icon"
     t.string   "conditions"
     t.integer  "condition_id"
@@ -251,6 +273,8 @@ ActiveRecord::Schema.define(version: 20150916125415) do
 
   add_index "units", ["damage_type_id"], name: "index_units_on_damage_type_id", using: :btree
   add_index "units", ["message_id"], name: "index_units_on_message_id", using: :btree
+  add_index "units", ["science_one_id"], name: "index_units_on_science_one_id", using: :btree
+  add_index "units", ["science_two_id"], name: "index_units_on_science_two_id", using: :btree
 
   create_table "user_icons", force: :cascade do |t|
     t.integer  "user_id"
@@ -299,6 +323,7 @@ ActiveRecord::Schema.define(version: 20150916125415) do
   add_foreign_key "notifications", "users"
   add_foreign_key "ship_groups", "fighting_fleets"
   add_foreign_key "ship_groups", "units"
+  add_foreign_key "ships", "users"
   add_foreign_key "units", "damage_types"
   add_foreign_key "units", "messages"
 end

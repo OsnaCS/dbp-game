@@ -1,6 +1,8 @@
 class Unit < ActiveRecord::Base
   belongs_to :damage_type
   belongs_to :message
+  belongs_to :science_one, :class_name => 'Science', :foreign_key => 'science_one_id'
+  belongs_to :science_two, :class_name => 'Science', :foreign_key => 'science_two_id'
   has_many :unit_instances, dependent: :destroy
   has_many :ships, :through => :unit_instances
   validates_presence_of :metal_price, :crystal_price, :fuel_price, :name, :condition_id, :icon, :shell, :damage, :damage_type_id, :cargo, :speed

@@ -9,7 +9,7 @@ class FightingFleetsController < ApplicationController
   end
 
   def user
-  	@user = User.find_by_username(params[:user])
+    @user = User.find_by_username(params[:user])
   end
 
   # GET /fighting_fleets/1
