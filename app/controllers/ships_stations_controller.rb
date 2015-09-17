@@ -48,16 +48,16 @@ class ShipsStationsController < ApplicationController
     station = @ships_station.station
     lvl = @ships_station.level
     if @ships_station.level_cap_reached
-      redirect_to :back, alert: 'Building was cancelled! Cap reached.'
+      redirect_to :back, alert: 'Bauauftrag abgebrochen! Limit erreicht.'
       return
     end
     
     if BuildList.find_by(typeSign: 's', instance_id: @ships_station.id) != nil
-      redirect_to :back, alert: 'Building was cancelled! Already building.'
+      redirect_to :back, alert: 'Bauauftrag abgebrochen! Schon am Bauen.'
       return
     else
       if(ship.metal < station.get_metal_cost(lvl) || ship.cristal < station.get_crystal_cost(lvl) || ship.fuel < station.get_fuel_cost(lvl))
-        redirect_to :back, alert: 'Building was cancelled! Not enough resources.'
+        redirect_to :back, alert: 'Bauauftrag abgebrochen! Nicht genug Ressourcen.'
         return
       else
         ship.metal -= station.get_metal_cost(lvl)
@@ -76,7 +76,7 @@ class ShipsStationsController < ApplicationController
       @ships_station.level = @ships_station.level - 1
       @ships_station.save
     else
-      redirect_to :back, alert: 'Downgrade was cancelled! Already Level 0.'
+      redirect_to :back, alert: 'Downgrade abgebrochen! Mindeststufe vorhanden.'
       return
     end
     redirect_to :back

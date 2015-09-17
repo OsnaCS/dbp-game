@@ -47,7 +47,7 @@ class ScienceInstancesController < ApplicationController
     science = @science_instance.science
     lvl = @science_instance.level
     if @science_instance.level_cap_reached
-      redirect_to :back, alert: 'Research was cancelled! Cap reached.'
+      redirect_to :back, alert: 'Forschung abgebrochen! Limit erreicht.'
       return
     end
     
@@ -59,7 +59,7 @@ class ScienceInstancesController < ApplicationController
         dummycount = dummylists.count
       end
       if(dummycount >= @science_instance.user.science_instances.find_by(:science_id => 4008).level)
-        redirect_to :back, alert: 'Research was cancelled! Already researching.'
+        redirect_to :back, alert: 'Forschung abgebrochen! Schon am Forschen.'
         return
       else
         @science_instance.research_amount += ship.ships_stations.find_by(:station_id => 2004).level
@@ -68,7 +68,7 @@ class ScienceInstancesController < ApplicationController
       end
     else
       if(ship.metal < science.get_metal_cost(lvl) || ship.cristal < science.get_crystal_cost(lvl) || ship.fuel < science.get_fuel_cost(lvl))
-        redirect_to :back, alert: 'Research was cancelled! Not enough resources.'
+        redirect_to :back, alert: 'Forschung abgebrochen! Nicht genug Ressourcen.'
         return
       else
         ship.metal -= science.get_metal_cost(lvl)

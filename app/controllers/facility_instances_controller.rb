@@ -54,7 +54,7 @@ class FacilityInstancesController < ApplicationController
     end
     f = @facility_instance.facility
     if(s.metal < f.get_metal_cost_ratio(p) || s.cristal < f.get_crystal_cost_ratio(p) || s.fuel < f.get_fuel_cost_ratio(p))
-      redirect_to :back, alert: 'Build was cancelled! Not enough resources.'
+      redirect_to :back, alert: 'Bauauftrag abgebrochen! Nicht genug Ressourcen.'
       return
     else
     s.metal -= f.get_metal_cost_ratio(p)

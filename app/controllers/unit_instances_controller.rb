@@ -39,7 +39,7 @@ class UnitInstancesController < ApplicationController
 
     unit = @unit_instance.unit
     if(s.metal < unit.get_metal_cost_ratio(p) || s.cristal < unit.get_crystal_cost_ratio(p) || s.fuel < unit.get_fuel_cost_ratio(p))
-      redirect_to :back, alert: 'Build was cancelled! Not enough resources.'
+      redirect_to :back, alert: 'Bauauftrag abgebrochen! Nicht genug Ressourcen.'
       return
     else
     s.metal -= unit.get_metal_cost_ratio(p)
