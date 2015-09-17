@@ -72,7 +72,9 @@ class FightingFleet < ActiveRecord::Base
   end
 
   def get_data
-    return self.data.split(",")
+    if (self.data)
+      return self.data.split(",")
+    end
   end
 
   def get_target_ship
