@@ -1022,3 +1022,16 @@ ship = user.create_ship({"name" => "Dummy-Schiff"})
 ship.save
 
 Newsfeed.create({"title" => "Lunancy Release nahe", "body" => "Demnächst wird Lunancy die Beta verlassen und für alle spielbar sein. Weitere Infos werden folgen."})
+
+Newsfeed.create({"title" => "Lanancy Game Guide", "body" => "
+
+Nach der Erstellung eines neuen Schiffes werden die drei verbrauchbaren Ressourcen Metall, Kristall und Treibstoff kontinuierlich von den Kollektoren des Schiffes gesammelt. Die Effizienz der automatischen Gewinnung kann durch das Upgraden dieser Kollektoren erhöht werden. Die maximale Lagerkapazität entsprechend durch den jeweiligen Ausbau der Ressourcenlager. Jede Ausbaustufe in den Stationen erhöht den Platzbedarf auf dem Schiff. Durch den Bau einer Erweiterungsplattform kann die limitierte Grundfläche des Schiffes aufgestockt und somit Platz für zusätzliche Ausbaustufen geboten werden.
+
+Energie stellt die letzte Ressourcen dar, diese kann durch das Upgraden des Energiegenerators oder durch den Bau von Solarpanelen gesteigert werden. Energie wird nicht gesammelt. Die momentane Erzeugung ist der Maximalwert für den Energieverbrauch. Wenn der Verbraucht die Erzeugung überschreitet, wird die Ressourcenproduktion von allen Kollektoren gemindert.
+
+Der Verbrennungsgenerator bietet eine zusätzliche Möglichkeit zur Energiegeneration. Jedoch verbraucht dieser bei Aktivierung stetig Treibstoff, der Verbrauch kann ebenfalls angepasst werden.
+
+Durch geführte Kämpfe gewinnt man Punkte für die Rangliste und steigt in dieser auf. Ein Kampf mit einem anderen Spieler kann über die Rangliste gestartet werden.
+
+Weitere Funktionen, Möglichkeiten, Strategien und Geheimnisse im Spiel müssen jedoch selbst vom Spieler herausgefunden werden.
+"})
