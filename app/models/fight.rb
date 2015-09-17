@@ -861,6 +861,9 @@ class Fight< ActiveRecord::Base
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
 
     update_points(@defender, points_for_defender) 
+
+    @defender_fleet.destroy
+
     update_points(@attacker, points_for_attacker) 
     return report
   end
