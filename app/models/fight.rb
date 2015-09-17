@@ -816,7 +816,7 @@ class Fight< ActiveRecord::Base
   def battle_with_points(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
     points_for_defender_before = get_total_points_fleet(@attacker_fleet)
-    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ #get_total_points_facilities_by_ship(@defender_ship)
+    points_for_attacker_before = get_total_points_fleet(@defender_fleet)+ get_total_points_facilities_by_ship(@defender_ship)
     # Starte Kampf
     report = battle_id(attacker_fleet_id, defender_ship_id)
     points_for_defender_after = get_total_points_fleet(@attacker_fleet)
