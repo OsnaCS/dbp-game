@@ -683,9 +683,6 @@ class Fight< ActiveRecord::Base
     update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
     update_fighting_fleet(@defender_fleet, defender_fleet_ary)
     ary = [@attacker_fleet, @defender_fleet]   
-    if victory
-      calc_raid(attacker_fleet_ary)
-    end
     return [@report, @spy_report]
   end
   
