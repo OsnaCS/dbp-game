@@ -5,17 +5,19 @@ class Fight< ActiveRecord::Base
   belongs_to :ship_attack, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_attacks'
   belongs_to :ship_defend, :class_name => 'Ship', :foreign_key => 'ship_attack_id', inverse_of: 'fight_defends'
   has_one :fighting_fleet 
+  validate :validation_no_self_attack 
 
-
-
-  
+  def validation_no_self_attack
+  	 unless(self.attacker != self.defender)
+       self.errors.add(:attack_self, "You are about to attack yourself beware!")
+     end
+  end
 
   def init_vars (attacker_fleet_id, defender_ship_id)
     if(!@allready_done)
-      # Array in dem alle Ausgeben gespeichert werden
+      # Array in denen alle Ausgeben gespeichert werden
       @report = []
       @spy_report = []
-      # Array für die einzelnden Runden
       # IDs
       @spy_science_id = find_id_science ("Spionage")
       @pilot_science_id = find_id_science ("Pilotentraining")
@@ -41,7 +43,6 @@ class Fight< ActiveRecord::Base
       #Defender:
       @defender_ship = Ship.find(defender_ship_id)
       @defender = @defender_ship.user
-
       @attacker_fleet = FightingFleet.find(attacker_fleet_id)
       @attacker = @attacker_fleet.user
       @defender_fleet = get_fleet_by_ship(@defender_ship)
@@ -51,10 +52,6 @@ class Fight< ActiveRecord::Base
       @defender_facilities = build_defend_facilities(@defender_ship)
       @defender_origin_facility = safe_origin_facility_amount(@defender_facilities)
       @defender_lost = []
-      self.defender = User.first
-      self.defender_id = @defender.id
-      self.ship_defend = @ship_defend
-      self.ship_defend_id = defender_ship_id
       # Attacker:
       @attacker_fleet = FightingFleet.find(attacker_fleet_id)
       @attacker = @attacker_fleet.user
@@ -62,21 +59,15 @@ class Fight< ActiveRecord::Base
       @attacker_level = build_level(@attacker)
       @attacker_shield = shield_cal( @attacker)
       @attacker_lost = []
-      self.attacker = @attacker
-      self.attacker_id = @attacker.id
       @fight_shield = 0
-      @allready_done = true
-      self.save!     
-       
+      # Damit nur einmal initialisiert wird
+      @allready_done = true  
     end    
   end
   
   def find_ship_by_ship_id (ship_id)
     return Ship.find(ship_id)
   end  
-
-  
-
 
   def build_defend_facilities(ship)
     array = []
@@ -102,7 +93,6 @@ class Fight< ActiveRecord::Base
     return Facility.find_by(name: name)
   end
 
-  
   # Fragt Forschungslevel des Spielers ab
   def user_science_level(user, id)
     return user.science_instances.find_by(science_id: id).level
@@ -287,7 +277,6 @@ class Fight< ActiveRecord::Base
     return all_facilities
   end
 
-
   # Testet, ob emp_phase von user klappt
   def emp_phase(user)
     # Hat der Nutzer EMP-Schiffe geschickt?
@@ -321,7 +310,6 @@ class Fight< ActiveRecord::Base
     get_hitchances(sort_by_damage(fleet))
     return count_all_ships == 0
   end
-
 
   # Baut ein Array mit allen Schiffsgruppen des Spielers user aus der
   # Flotte fleet
@@ -393,8 +381,7 @@ class Fight< ActiveRecord::Base
     end
     return mult
   end
-
-   
+ 
   # Sortiert das fleet_array nach Stärken der einzelnden Schiffsgruppen 
   def sort_by_damage(fleet_array)
     fleet_array.sort {|a,b| b[2]<=>a[2]}
@@ -449,8 +436,7 @@ class Fight< ActiveRecord::Base
     end
     if (group_array[6])
       hp_one = Unit.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
-      damage_one = Unit.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))
-      
+      damage_one = Unit.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))    
     else
       hp_one = Facility.find(group_array[0]).shell * @shell_mult * (1 + (0.1 * array[0])).to_i
       damage_one = Facility.find(group_array[0]).damage * @damage_mult * (1 + (0.1 * mult_weapon_level(group_array[3], user)))
@@ -458,7 +444,6 @@ class Fight< ActiveRecord::Base
       if group_array[1] > 0  
         amount_before = group_array[1]
         group_array[1] = (group_array[-2] / hp_one).ceil
-      
         group_array[2] = group_array[1] * damage_one
         group_array[4] = amount_before - group_array[1]
       end  
@@ -469,7 +454,6 @@ class Fight< ActiveRecord::Base
       group_array[-2] = 0
     end
   end
-
 
   # Berechnet das Schild von user
   # MUSS NOCH ANGEPASST WERDEN!!!!!!!!!!!!!!!!
@@ -524,8 +508,7 @@ class Fight< ActiveRecord::Base
       found = false
       lost = 0
       unit_report = []
-      fleet_array.each do |a|
-      
+      fleet_array.each do |a|     
         if a[1] > 0
           if o.unit_id == a[0]
             lost = o.number - a[1]
@@ -555,8 +538,7 @@ class Fight< ActiveRecord::Base
           if o.facility_id == a[0]
             lost = o.count - a[1]
             found = true
-          end
-          
+          end          
         end
         lost_array << [o.facility, lost, false]
         unit_report << o.facility.name
@@ -603,13 +585,9 @@ class Fight< ActiveRecord::Base
       # Damit alle Gruppen in einer Runde nur auf das Schild feuern können
       shield = @fight_shield
       # Für die Ausgabe der Runden-Berichte
-      
-      
-      
       turn_fleet.each do |fleet|
         # Nur Einheiten mit Anzahl > 0 und Schaden > 0 können kämpfen
-        if fleet[1] > 0 && fleet[2] > 0   
-          
+        if fleet[1] > 0 && fleet[2] > 0    
           # Bestimme Ziel anhand von id.
           # -2 ist Miss
           # -1 ist Schild
@@ -675,7 +653,6 @@ class Fight< ActiveRecord::Base
           target_user = tmp_user
       end
       # Füge alle Runden-Berichte hinzu
-
     end
     if continue
       @report << "Unentschieden! "
@@ -685,17 +662,13 @@ class Fight< ActiveRecord::Base
       @report << " #{turn_user.username} war siegreich! "
     end
     # Generiere Verlustrechnung
-
     attacker_fleet_ary = []
     defender_fleet_ary = []
-
-
     if turn_user == @attacker
       lost_report(turn_fleet, @attacker) 
       lost_report(target_fleet, @defender) 
       attacker_fleet_ary = turn_fleet
       defender_fleet_ary = target_fleet
-
     else
       lost_report(target_fleet, @attacker) 
       lost_report(turn_fleet, @defender) 
@@ -703,16 +676,13 @@ class Fight< ActiveRecord::Base
       attacker_fleet_ary = target_fleet
       defender_fleet_ary = turn_fleet
     end
-
     update_fighting_fleet(@attacker_fleet, attacker_fleet_ary)
     update_fighting_fleet(@defender_fleet, defender_fleet_ary)
     # ANLAGEN NOCH EINFÜGEN:
     ary = [@attacker_fleet, @defender_fleet]   
-
     if victory
       calc_raid(attacker_fleet_ary)
     end
-
     return [@report, @spy_report]
   end
   
@@ -767,7 +737,6 @@ class Fight< ActiveRecord::Base
         end    
       end
     end
-
     exsisting_fleet.save
     return exsisting_fleet     
   end
@@ -795,8 +764,6 @@ class Fight< ActiveRecord::Base
     return metal + crystal + fuel
   end  
 
-
-
   def get_fleet_by_ship(ship_id_defender)
     fleet = FightingFleet.create(user: get_user_by_ship_id(ship_id_defender))
     fleet.ship_groups.each do |group|
@@ -820,7 +787,6 @@ class Fight< ActiveRecord::Base
     return points/500
   end
   
-
   def get_total_points_fleet(fleet)
     points = 0
     fleet.ship_groups.each do |group|
@@ -841,7 +807,6 @@ class Fight< ActiveRecord::Base
     end
     return points/500
   end
-
 
   def battle_with_points(attacker_fleet_id, defender_ship_id)
     init_vars(attacker_fleet_id, defender_ship_id)
@@ -888,7 +853,8 @@ class Fight< ActiveRecord::Base
         battle_with_points(attacker_fleet_id, defender_ship_id)
         Fight.find(self.id).update(report: @report.to_s)        
         Fight.find(self.id).update(spy_report: @spy_report.to_s)        
-        Fight.find(self.id).update(time: DateTime.now)        
+        Fight.find(self.id).update(time: DateTime.now)  
+        @defender_fleet.destroy      
         self.save        
     return @report
   end

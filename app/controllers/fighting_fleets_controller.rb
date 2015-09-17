@@ -115,7 +115,10 @@ class FightingFleetsController < ApplicationController
     end
     current_user.remove_resources(@metal_cargo, @crystal_cargo, @fuel_cargo + total_fuelcost, current_user.active_ship)
 
+
+    
     @fighting_fleet = FightingFleet.new(fighting_fleet_params)
+    @fighting_fleet.build_fight
     @fighting_fleet.target_ship = @target_ship.id
     @fighting_fleet.fight.defender_id = @target.id
     @fighting_fleet.fight.save
@@ -124,6 +127,7 @@ class FightingFleetsController < ApplicationController
     @fighting_fleet.state = 1
     @fighting_fleet.mission = mission
     @fighting_fleet.start_time = Time.now
+    @fighting_fleet.fight.time = Time.now
     @fighting_fleet.start_ship = ac_ship.id
     data = @metal_cargo.to_s + ":" + @crystal_cargo.to_s + ":" + @fuel_cargo.to_s + "," + @target_ship.id.to_s
     @fighting_fleet.data = data

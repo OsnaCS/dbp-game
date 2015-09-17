@@ -17,9 +17,9 @@ class FightingFleet < ActiveRecord::Base
 #  before_create :create_units
 
   def initialize_units
-    if self.new_record? 
-      self.build_fight
-    end  
+   # if self.new_record? 
+    #  self.build_fight
+   # end  
     if self.ship_groups.empty?
       Unit.all.each do|u| 
         self.ship_groups.build  unit: u, number: 0
@@ -167,7 +167,6 @@ class FightingFleet < ActiveRecord::Base
         if(self.state == 1)
           case self.mission
             when 1
-              self.fight.update(ship_attack: fight.attacker.active_ship)
               self.fight.fight(self.id, self.get_target_ship.id)
             when 2
               #Wenn Resourcenlimit erreicht, dann kein Transfer => Bug

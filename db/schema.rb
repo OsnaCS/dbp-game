@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916215427) do
+ActiveRecord::Schema.define(version: 20150917094153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(version: 20150916215427) do
     t.integer  "attacker_id"
     t.integer  "defender_id"
     t.text     "report"
-    t.integer  "ship_attack_id"
     t.integer  "ship_defend_id"
     t.text     "spy_report"
     t.datetime "time"
@@ -114,7 +113,6 @@ ActiveRecord::Schema.define(version: 20150916215427) do
 
   add_index "fights", ["attacker_id"], name: "index_fights_on_attacker_id", using: :btree
   add_index "fights", ["defender_id"], name: "index_fights_on_defender_id", using: :btree
-  add_index "fights", ["ship_attack_id"], name: "index_fights_on_ship_attack_id", using: :btree
   add_index "fights", ["ship_defend_id"], name: "index_fights_on_ship_defend_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
