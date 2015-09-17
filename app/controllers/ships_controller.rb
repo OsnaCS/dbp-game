@@ -9,7 +9,7 @@ class ShipsController < ApplicationController
 
     @ship.save
 
-    redirect_to ships_url
+    redirect_to :back
   end
   
   # GET /ships
