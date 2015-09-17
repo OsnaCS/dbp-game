@@ -87,7 +87,9 @@ class Expedition < ActiveRecord::Base
          end
       end
 
-      gegner_ship = Ship.find_by(:name => "Dummy-Schiff", :user => "dummy")
+      user = User.find_by(:username => "dummy")
+      user_ins = UserShip.find_by(:user => user.id)
+      gegner_ship = Ship.find_by(:name => "Dummy-Schiff", :id => user_ins.ship_id)
       unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Kreuzer"))
       unit_ins.amount = kreuzer_amount
       unit_ins.save
@@ -100,7 +102,7 @@ class Expedition < ActiveRecord::Base
       unit_ins.amount = jaeger_amount
       unit_ins.save
 
-      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "mobiler Schild"))
+      unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Mobiler Schild"))
       unit_ins.amount = schild_amount
       unit_ins.save
 
@@ -111,10 +113,8 @@ class Expedition < ActiveRecord::Base
       gegner_ship.cristal = 0
       gegner_ship.fuel = 0
       gegner_ship.save
-      ergebnis = Fight.battle_with_points(fighting_fleet.id, gegner_ship.id)
-
-      fighting_fleet = ergebnis[0]
-      fighting_fleet.save
+      fight = Fight.new
+      fight.battle_with_points(fighting_fleet.id, gegner_ship.id)
 
       welcome_home
    end
@@ -190,7 +190,7 @@ class Expedition < ActiveRecord::Base
             g.number += kreuzer_amount
          when "Fregatte"
             g.number += fregatte_amount
-         when "mobiler Schild"
+         when "Mobiler Schild"
             g.number += schild_amount
          when "Jäger"
             g.number += jaeger_amount
