@@ -87,9 +87,9 @@ class Expedition < ActiveRecord::Base
          end
       end
 
-      user = User.find_by(:username => "dummy")
+      user = User.find_by(:username => "Piraten")
       user_ins = UserShip.find_by(:user => user.id)
-      gegner_ship = Ship.find_by(:name => "Dummy-Schiff", :id => user_ins.ship_id)
+      gegner_ship = Ship.find_by(:name => "Piratenschiff", :id => user_ins.ship_id)
       unit_ins = UnitInstance.find_by(:ship => gegner_ship, :unit => Unit.find_by(:name => "Kreuzer"))
       unit_ins.amount = kreuzer_amount
       unit_ins.save

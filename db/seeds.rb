@@ -1017,13 +1017,13 @@ Facility.create([
 
 
 
-user = User.create({"email" => "dummy@dummy.dummy", "username" => "dummy", "password" => "dummdumm"})
-ship = user.create_ship({"name" => "Dummy-Schiff"})
+user = User.create({"email" => "dummy@dummy.dummy", "username" => "Piraten", "password" => "dummdumm"})
+ship = user.create_ship({"name" => "Piratenschiff"})
 ship.save
 
 Newsfeed.create({"title" => "Lunancy Release nahe", "body" => "Demnächst wird Lunancy die Beta verlassen und für alle spielbar sein. Weitere Infos werden folgen."})
 
-Newsfeed.create({"title" => "Lanancy Game Guide", "body" => "
+Newsfeed.create({"title" => "Lunancy Game Guide", "body" => "
 
 Nach der Erstellung eines neuen Schiffes werden die drei verbrauchbaren Ressourcen Metall, Kristall und Treibstoff kontinuierlich von den Kollektoren des Schiffes gesammelt. Die Effizienz der automatischen Gewinnung kann durch das Upgraden dieser Kollektoren erhöht werden. Die maximale Lagerkapazität entsprechend durch den jeweiligen Ausbau der Ressourcenlager. Jede Ausbaustufe in den Stationen erhöht den Platzbedarf auf dem Schiff. Durch den Bau einer Erweiterungsplattform kann die limitierte Grundfläche des Schiffes aufgestockt und somit Platz für zusätzliche Ausbaustufen geboten werden.
 
