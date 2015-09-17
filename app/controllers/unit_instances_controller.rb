@@ -5,7 +5,7 @@ class UnitInstancesController < ApplicationController
   # GET /unit_instances
   # GET /unit_instances.json
   def index
-    if current_user.activeShip == nil 
+    if current_user.activeShip == nil
       redirect_to :controller => 'ships', :action => 'new'
       return
     end
@@ -32,7 +32,7 @@ class UnitInstancesController < ApplicationController
       p = 1
     end
     s = current_user.active_ship
-    if s == nil 
+    if s == nil
       redirect_to :controller => 'ships', :action => 'new'
       return
     end
@@ -64,7 +64,7 @@ class UnitInstancesController < ApplicationController
 
     ratio = @unit_instance.get_ratio
     reMetal = unit.get_metal_cost_ratio(ratio + amount - 1)
-    reCrystal = unit.get_crystal_cost_ratio(ratio + amount - 1) 
+    reCrystal = unit.get_crystal_cost_ratio(ratio + amount - 1)
     reFuel = unit.get_fuel_cost_ratio(ratio + amount - 1)
 
     current_user.add_resources(reMetal, reCrystal, reFuel, @unit_instance.ship)
@@ -74,7 +74,7 @@ class UnitInstancesController < ApplicationController
   end
 
   def instant_build
-    @unit_instance.count = @unit_instance.count + (@unit_instance.build_amount || 0)
+    @unit_instance.amount += (@unit_instance.build_amount || 0)
     @unit_instance.save
     @unit_instance.reset_build
     redirect_to :back
