@@ -789,7 +789,9 @@ class Fight< ActiveRecord::Base
     points_for_defender = points_for_defender_before-points_for_defender_after
     points_for_attacker_after = get_total_points_facilities_by_ship(@defender_ship) +get_total_points_fleet(@defender_fleet)
     points_for_attacker = points_for_attacker_before-points_for_attacker_after
+    if @defender != User.find_by(username: "Piraten")
     update_points(@defender, points_for_defender) 
+    end
     @defender_fleet.destroy
     update_points(@attacker, points_for_attacker) 
     return report
